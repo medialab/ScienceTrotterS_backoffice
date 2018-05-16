@@ -9,6 +9,37 @@
 
 	define("API_URL", 'https://api-sts.actu.com');
 
+
+	
+	// Fonction de chargement dynamique des classes
+		function fAutoLoader( $sClassName ){
+			$aDirectoryClass			=	explode( '\\', $sClassName );
+			$aDirectoryClass[0]			=	strtolower( $aDirectoryClass[0] );
+			$sDirectoryClassName		=	implode( $aDirectoryClass, '/' );
+
+
+			if ( count( $aDirectoryClass ) == 1 ) {
+				$sDirectoryClassName		.=	'/'. $sClassName;
+			}
+
+			$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.class.php' );
+
+			// var_dump($sPathClassName);
+			if ( file_exists( $sPathClassName ) ) {
+				require( realpath( $sPathClassName ) );
+
+			} 
+			else {
+
+				$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.php' );
+				// var_dump($sPathClassName);
+				if ( file_exists( $sPathClassName ) ) {
+					require( realpath( $sPathClassName ) );
+				}
+			}
+		} spl_autoload_register( 'fAutoLoader' );
+	//---
+
 // On appel la bonne page
 	require_once('./bootstrap.php');
 
