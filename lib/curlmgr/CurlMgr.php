@@ -39,8 +39,7 @@ class CurlMgr {
             $this->headers = array_merge($this->headers, $heads);
         }
         elseif($heads){
-            $heads = explode(': ', $heads);
-            $this->headers[$heads[0]] = $heads[1];
+            $this->headers[] = $heads;
         }
         else{
             $this->headers = false;
@@ -74,16 +73,16 @@ class CurlMgr {
         if(is_array($data)){
             if ($asJson) {
                 $data = json_encode($data);
-                $this->headers["Content-Type"] = "application/json";
+                $this->headers[] = "Content-Type: application/json";
             }
             else{
                 $data = http_build_query($data);
-                $this->headers["Content-Type"] = "application/x-www-form-urlencoded";
+                $this->headers[] = "Content-Type: application/x-www-form-urlencoded";
             }
         }
 
-        $this->headers["Content-Length"] = strlen($data);
-        //curl_setopt($this->c, CURLOPT_POSTFIELDS, $data);
+        $this->headers[] = "Content-Length: ".strlen($data);
+        curl_setopt($this->c, CURLOPT_POSTFIELDS, $data);
 
         return $this;
     }
