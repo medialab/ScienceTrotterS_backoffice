@@ -32,7 +32,9 @@ class ApiMgr {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
 
-		return json_decode(Self::$curl->exec());
+		$r = Self::$curl->exec();
+		var_dump("API RAW RESPONSE", $r);
+		return json_decode($r);
 	}
 
 	public static function login($mail, $pass) {
