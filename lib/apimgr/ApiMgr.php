@@ -38,9 +38,9 @@ class ApiMgr {
 		$c->isPost();
 
 		var_dump("CALLING API");
+		$res = $c->exec();
 		var_dump($c->getInfos());
 		var_dump($c->getError());
 
-		$res = $c->exec();
 	}
 }
