@@ -23,6 +23,7 @@
 		{include file="include/html/header.tpl"}
  -->
 		<div id="content">
+			{include file="include/html/navBar.tpl"}
 			{$sPageContent|default:'noCONTENT'}
 			{include file="include/html/footer.tpl"}
 		</div>
