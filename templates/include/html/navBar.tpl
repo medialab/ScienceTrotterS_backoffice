@@ -38,9 +38,11 @@
         <li class="item">
           <a href="#" class="itemClick">
             <div class="itemIcon lb-icon-logout"></div>
-            <a href="/logout.html">
-              <label class="itemLabel">Déconnexion</label>
-            </a>
+            <label class="itemLabel">
+              <a href="/logout.html">
+                Déconnexion
+              </a>
+            </label>
           </a>
         </li>
         <li class="item itemBySTS">
