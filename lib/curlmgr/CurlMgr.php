@@ -69,10 +69,12 @@ class CurlMgr {
         return $this;
     }
 
-    public function setData($data){
+    public function setData($data, $setHeader=true){
         if(is_array($data)){
             $data = json_encode($data);
-            $this->headers[] = "Content-Type: application/json";
+            if ($setHeader) {
+                $this->headers[] = "Content-Type: application/json";
+            }
         }
 
         $this->headers[] = "Content-Length: ".strlen($data);
