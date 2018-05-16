@@ -33,6 +33,8 @@ $sContent = '';
 //---
 
 session_start();
+ApiMgr::init();
+
 // On vérifie que l'utilisateur aie le droit d'accéder à  cette page
     require( "./access.php" );
     if ( in_array($sExt, $aRestrictExtension) ){

@@ -99,6 +99,7 @@ class CurlMgr {
         $this->res = NULL;
         $this->errCode = 0;
         $this->headers = [];
+
         return $this;
     }
 
@@ -143,19 +144,23 @@ class CurlMgr {
 
     public function isPost($p=true){
         curl_setopt($this->c, CURLOPT_POST, $p);
+        return $this;
     }
 
     public function verifySSL($s=true){
         curl_setopt($this->c, CURLOPT_SSL_VERIFYHOST, $s);
         curl_setopt($this->c, CURLOPT_SSL_VERIFYPEER, $s);
+        return $this;
     }
 
     public function verbose($v=true){
         curl_setopt($this->c, CURLOPT_VERBOSE, $v);
+        return $this;
     }
 
     public function responseHeader($v=true){
         curl_setopt($this->c, CURLOPT_HEADER, $v);
+        return $this;
     }
 
     public function setMethod($m){
@@ -165,10 +170,12 @@ class CurlMgr {
         }
 
         curl_setopt($this->c, CURLOPT_CUSTOMREQUEST, $m);
+        return $this;
     }
 
     public function setOpt($opt, $data){
         curl_setopt($this->c, $opt, $data);
+        return $this;
     }
 
     public function close(){

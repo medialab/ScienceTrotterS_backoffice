@@ -6,6 +6,7 @@
 class ApiMgr {
 	private static $url;
 	private static $curl;
+	private static $token = false;
 	private static $bInit = false;
 
 	private static function init() {
@@ -15,48 +16,65 @@ class ApiMgr {
 
 		Self::$url = API_URL.'/';
 		Self::$curl = new CurlMgr();
+
+		if (!empty($_SESSION['user']['token'])) {
+			Self::$token = $_SESSION['user']['token'];
+		}
+
+		Self::$bInit = true;
+	}
+
+	private static function exec() {
+		if (Self::$token) {
+			Self::$curl->setHeader('Authorization: '.Self::$token);
+		}
+
+		return json_decode(Self::$curl->exec());
 	}
 
 	public static function login($mail, $pass) {
-		Self::init();
-
 		if (!preg_match('/[a-z0-9.-_]+@[a-z0-9-_]+\.[a-z]{2,6}/i', $mail) || strlen($pass) < 2) {
-			var_dump("Verify Mail: ", !preg_match('/[a-z0-9.-_]+@[a-z0-9-_]\.[a-z]{2, 6}/i', $mail));
-			var_dump("Verify pass: ", strlen($pass) < 2);
 			return false;
 		}
 
-		$c = &Self::$curl;
-		$c->verbose();
-		
-		$c->setUrl(Self::$url.'login');
-		$c->setData([
-			'email' => $mail,
-			'password' => $pass
-		], false);
+		$c = &Self::$curl->reset();
+		$c->setUrl(Self::$url.'login')
+			->isPost()
+			->verbose()		
+			->setData([
+				'email' => $mail,
+				'password' => $pass
+			], false)
+		;
 
-		$c->isPost();
+		$res = Self::exec();
 
-		var_dump("CALLING API");
-		
-		$res = $c->exec();
-		var_dump("RESPONSE", $res);
-
-		$res = json_decode($res);
-		var_dump($res);
-		
 		if (empty($res) || !$res->status || empty($res->token)) {
 			return false;
 		}
 
+		Self::$token = $token;
+
 		$_SESSION['user'] = [
+			'pass' => $pass,
 			'email' => $mail,
 			'token' => $res->token,
 			'aut_access' => 'ADMIN'
 		];
 
-		var_dump($_SESSION['user']);
 
 		return true;
+	}
+
+	public static function logout() {
+		if (Self::$token) {
+			return;
+		}
+
+		$c = &Self::$curl->reset();
+		$c->setUrl(Self::$url.'logout');
+
+		$res = Self::exec();
+		var_dump("LOGOUT RESULT", $res);
 	}
 }
