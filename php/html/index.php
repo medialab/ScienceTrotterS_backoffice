@@ -1,5 +1,5 @@
 <?php
 
-$aCities = ApiMgr::list('private/users');
+$aCities = ApiMgr::list('users', false);
 var_dump("END");
 exit;
