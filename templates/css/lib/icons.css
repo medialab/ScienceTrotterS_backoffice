@@ -1,0 +1,55 @@
+/**
+  * ICONS
+  */
+
+.icon-pre {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.lb-icon-home {
+  background-image: url('/media/image/interface/leftbar/icons/icon_home.svg');
+}
+.lb-icon-city {
+  background-image: url('/media/image/interface/leftbar/icons/icon_city.svg');
+}
+.lb-icon-road {
+  background-image: url('/media/image/interface/leftbar/icons/icon_road.svg');
+}
+.lb-icon-roadMap {
+  background-image: url('/media/image/interface/leftbar/icons/icon_roadMap.svg');
+}
+.lb-icon-logout {
+  background-image: url('/media/image/interface/leftbar/icons/icon_logout.svg');
+}
+.icon-create-city {
+  background-image: url('/media/image/interface/icons/icon_create_city.svg');
+}
+.icon-create-road {
+  background-image: url('/media/image/interface/icons/icon_create_road.svg');
+}
+.icon-create-roadMap {
+  background-image: url('/media/image/interface/icons/icon_create_roadMap.svg');
+}
+.icon-list-remove {
+  background-image: url('/media/image/interface/icons/icon_list_remove.svg');
+}
+.icon-list-edit {
+  background-image: url('/media/image/interface/icons/icon_list_edit.svg');
+}
+.icon-list-remove-active {
+  background-image: url('/media/image/interface/icons/icon_list_remove_active.svg');
+}
+.icon-list-edit-active {
+  background-image: url('/media/image/interface/icons/icon_list_edit_active.svg');
+}
+.icon-list-preview {
+  background-image: url('/media/image/interface/icons/icon_list_preview.svg');
+}
+.icon-list-preview-active {
+  background-image: url('/media/image/interface/icons/icon_list_preview_active.svg');
+}
+.icon-list-arrow-right {
+  background-image: url('/media/image/interface/icons/icon_list_arrow_right.svg');
+}

@@ -1,0 +1,33 @@
+# Ajout d'options
+	Options +FollowSymlinks
+	AddDefaultCharset UTF-8
+	AddCharset UTF-8 .atom .css .js .json .rss .vtt .webapp .xml .woff2
+##
+# Suppression d'options
+	Options -Indexes
+	Options -MultiViews
+	Options -Includes
+	Options -ExecCGI
+##
+# Configuration des modules
+	RewriteEngine on
+##
+# Réécriture des URLs
+	# Blocage de consultation de fichier
+		RewriteCond %{REQUEST_URI} ^media/
+		RewriteCond %{REQUEST_URI} index.php$
+		RewriteRule	(.*)	$1	[L]
+		RewriteCond %{REQUEST_URI} ^/templates
+		RewriteRule	(.*)	$1	[L]
+	##
+	# Réécritures JS / CSS
+		RewriteRule	^lib/([a-zA-Z0-9._/-]+)\.(js|css)$	/templates/$2/lib/$1.$2	[L]
+		RewriteRule	^([a-zA-Z0-9._/-]+)\.(js|css)$	/index.php?name=$1&extension=$2	[L]
+	##
+	# Réécritures admin
+	##
+	# Réécritures génériques
+		RewriteCond %{QUERY_STRING} (.*)
+		RewriteRule	^([a-zA-Z0-9._/-]+)\.(admin|ajax|html|popup|pro|mail|api)$	/index.php?name=$1&extension=$2&%1	[L]
+	##
+##	

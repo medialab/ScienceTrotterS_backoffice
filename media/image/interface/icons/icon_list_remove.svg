@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.969 18">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #bcbccb;
+      }
+    </style>
+  </defs>
+  <path id="Tracé_1243" data-name="Tracé 1243" class="cls-1" d="M6.984-20.016V-18H-6.984v-2.016h3.469L-2.484-21H2.484l1.031.984ZM-6-5.016v-12H6v12a1.932,1.932,0,0,1-.609,1.406A1.932,1.932,0,0,1,3.984-3H-3.984a1.932,1.932,0,0,1-1.406-.609A1.932,1.932,0,0,1-6-5.016Z" transform="translate(6.984 21)"/>
+</svg>
