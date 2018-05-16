@@ -6,7 +6,7 @@
 class ApiMgr {
 	private static $url;
 	private static $curl;
-	private static $bInit = false;;
+	private static $bInit = false;
 
 	private static function init() {
 		if (Self::$bInit) {
