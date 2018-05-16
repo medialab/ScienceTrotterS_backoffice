@@ -8,6 +8,9 @@ class ApiMgr {
 	private static $curl;
 	private static $token = false;
 	private static $bInit = false;
+	
+	private static $curPage = 0;
+	private static $sqlLimit = 25;
 
 	public static function init() {
 		if (Self::$bInit) {
@@ -32,9 +35,8 @@ class ApiMgr {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
 
-		$r = Self::$curl->exec();
-		var_dump("API RAW RESPONSE", $r);
-		return json_decode($r);
+		Self::$curl->setData(Self::$tmpData);
+		return json_decode(Self::$curl->exec());
 	}
 
 	public static function login($mail, $pass) {
@@ -45,12 +47,13 @@ class ApiMgr {
 		$c = Self::$curl->reset();
 		$c->setUrl(Self::$url.'login')
 			->isPost()
-			->verbose()		
-			->setData([
-				'email' => $mail,
-				'password' => $pass
-			], false)
+			->verbose()
 		;
+
+		Self::setData([
+			'email' => $mail,
+			'password' => $pass
+		]);
 
 		$res = Self::exec();
 
@@ -76,14 +79,14 @@ class ApiMgr {
 			return;
 		}
 
-		$c = Self::$curl->reset();
+		$c = Self::reset();
 		$c->setUrl(Self::$url.'logout');
 
 		$res = Self::exec();
 	}
 
 	public static function list($model, $public=true) {
-		$c = Self::$curl->reset();
+		$c = Self::reset();
 
 		$base = $public ? 'public/' : 'private/';
 		
@@ -95,14 +98,42 @@ class ApiMgr {
 	}
 
 	public static function get($model, $id, $public=true) {
-		$c = Self::$curl->reset();
+		$c = Self::reset();
 
 		$base = $public ? 'public/' : 'private/';
 		
 		$url = Self::$url.$base.$model.'/'.$id;
 
 		$c->setUrl($url);
+
+		Self::setData([
+			'limit' => Self::$sqlLimit,
+			'offset' => Self::$sqlLimit * Self::$curPage,
+		]);
+
 		$res = Self::exec();
 		return $res;
 	}
+
+	private static function reset() {
+		Self::$curPage = 0;
+		Self::$tmpData = [];
+		return Self::$curl->reset();
+	} 
+
+	private static function setData($data) {
+		Self::$tmpData = $data;
+	}
+
+	public static function nextPage() {
+		/*if (empty(Self::$tmpData)) {
+			return false;
+		}
+		*/
+		Self::$curPage++;
+		Self::$tmpData['limit'] = Self::$sqlLimit;
+		Self::$tmpData['offet'] = Self::$sqlLimit * Self::$curPage;
+
+		return Self::exec():
+	} 
 }
