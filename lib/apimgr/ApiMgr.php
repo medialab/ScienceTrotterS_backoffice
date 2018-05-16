@@ -21,7 +21,7 @@ class ApiMgr {
 		if (!empty($_SESSION['user']['token'])) {
 			Self::$token = $_SESSION['user']['token'];
 		}
-		
+
 		var_dump("TOKEN: ", Self::$token);
 
 		Self::$bInit = true;
@@ -70,7 +70,7 @@ class ApiMgr {
 	}
 
 	public static function logout() {
-		if (Self::$token) {
+		if (!Self::$token) {
 			return;
 		}
 
