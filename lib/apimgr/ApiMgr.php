@@ -33,7 +33,7 @@ class ApiMgr {
 		$c->setData([
 			'email' => $mail,
 			'password' => $pass
-		]);
+		], false);
 
 		$c->isPost();
 		$c->setHeader('Content-Type: application/x-www-form-urlencoded');
