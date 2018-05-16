@@ -38,11 +38,20 @@ class ApiMgr {
 		$c->isPost();
 
 		var_dump("CALLING API");
-		$res = $c->exec();
-		var_dump($c->getInfos());
-		var_dump($c->getError());
-		//var_dump($c);
+		
+		$response = json_decode($c->exec());
+		if (empty($res) || !$res->status || empty($res->token)) {
+			return false;
+		}
 
-		return $res;
+		$_SESSION['user'] = [
+			'email' => $mail,
+			'token' => $res->token,
+			'aut_access' => 'ADMIN'
+		];
+
+		var_dump($_SESSION['user']);
+
+		return true;
 	}
 }
