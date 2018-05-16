@@ -39,7 +39,7 @@ class ApiMgr {
 
 		var_dump("CALLING API");
 		
-		$response = json_decode($c->exec());
+		$res = json_decode($c->exec());
 		if (empty($res) || !$res->status || empty($res->token)) {
 			return false;
 		}
