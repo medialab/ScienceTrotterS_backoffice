@@ -18,7 +18,7 @@ class ApiMgr {
 	}
 
 	public static function login($mail, $pass) {
-		if (!preg_match('/[a-z0-9.-_]+@[a-z0-9-_]\.[a-z]{2, 6}/i', $mail) || strlen($pass) < 2) {
+		if (!preg_match('/[a-z0-9.-_]+@[a-z0-9-_]+\.[a-z]{2,6}/i', $mail) || strlen($pass) < 2) {
 			var_dump("Verify Mail: ", !preg_match('/[a-z0-9.-_]+@[a-z0-9-_]\.[a-z]{2, 6}/i', $mail));
 			var_dump("Verify pass: ", strlen($pass) < 2);
 			return false;
