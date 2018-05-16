@@ -22,7 +22,7 @@ class ApiMgr {
 
 		Self::$url = API_URL.'/';
 		Self::$curl = new CurlMgr();
-
+		Self::$curl->setTimeout(3);
 		//var_dump("INIT API", $_SESSION);
 		if (!empty($_SESSION['user']['token'])) {
 			Self::$token = $_SESSION['user']['token'];

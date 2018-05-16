@@ -99,7 +99,7 @@ class CurlMgr {
         $this->res = NULL;
         $this->errCode = 0;
         $this->headers = [];
-        
+
         return $this;
     }
 
@@ -180,6 +180,10 @@ class CurlMgr {
 
     public function close(){
         curl_close($this->c);
+    }
+
+    public function setTimeout($sec) {
+        curl_setopt($this->c, CURLOPT_TIMEOUT, $sec);
     }
 }
 
