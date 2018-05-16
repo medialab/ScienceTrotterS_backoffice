@@ -33,8 +33,8 @@ class ApiMgr {
 		Self::$bInit = true;
 	}
 
-	private static function exec($method='get', $addAutHead=true) {
-		if (Self::$token && $addAutHead) {
+	private static function exec($method='get') {
+		if (Self::$token) {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
 
@@ -42,11 +42,7 @@ class ApiMgr {
 		Self::$tmpData['offet'] = Self::$sqlLimit * Self::$curPage;
 
 		var_dump("Request DATA", Self::$tmpData);
-		Self::$curl->setData(Self::$tmpData);
-
-		if ($method) {
-			Self::$curl->setMethod($method);
-		}
+		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
 		var_dump("API RESPONSE", $r);
@@ -60,7 +56,7 @@ class ApiMgr {
 
 		$c = Self::reset();
 		$c->setUrl(Self::$url.'login')
-			/*->isPost()*/
+			->isPost()
 			->verbose()
 		;
 
@@ -69,9 +65,7 @@ class ApiMgr {
 			'password' => $pass
 		]);
 
-		$res = Self::exec('post');
-		var_dump("TEST");
-		exit;
+		$res = Self::exec();
 
 		if (empty($res) || !$res->status || empty($res->token)) {
 			return false;
@@ -143,24 +137,6 @@ class ApiMgr {
 
 	public static function nextPage() {
 		Self::$curPage++;
-		$r = Self::exec(false, false);
-
-		var_dump(Self::$curl->getInfos());
-		var_dump(Self::$curl->getError());
-
-		return $r;
-	}
-
-	public function setLimit($limit) {
-		$limit = (int)$limit;
-		
-		if ($limit < 0) {
-			$limit = 1;
-		}
-		elseif ($limit > Self::$sqlMaxLimit) {
-			$limit = Self::$sqlMaxLimit;
-		}
-
-		Self::$sqlLimit = $limit;
+		return Self::exec();
 	}
 }
