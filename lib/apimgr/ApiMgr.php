@@ -17,12 +17,12 @@ class ApiMgr {
 		Self::$url = API_URL.'/';
 		Self::$curl = new CurlMgr();
 
-		var_dump("INIT API", $_SESSION);
+		//var_dump("INIT API", $_SESSION);
 		if (!empty($_SESSION['user']['token'])) {
 			Self::$token = $_SESSION['user']['token'];
 		}
 
-		var_dump("TOKEN: ", Self::$token);
+		//var_dump("TOKEN: ", Self::$token);
 
 		Self::$bInit = true;
 	}
@@ -78,6 +78,5 @@ class ApiMgr {
 		$c->setUrl(Self::$url.'logout');
 
 		$res = Self::exec();
-		var_dump("LOGOUT RESULT", $res);
 	}
 }

@@ -1,14 +1,15 @@
 <?php 
 
+$aErrors = [];
 if (fMethodIs('post')) {
-	var_dump($_POST);
-
 	$res = ApiMgr::login('ouio@oui.com', $_POST['user_password']);
-	var_dump("API RESULT", $res);
+
 	if ($res) {
 		header('location: /');
 		exit;
 	}
-	
-	exit;
+
+	$aErrors[] = 'Identifiant / Mot de passe invalides.'	
 }
+
+$smarty->assign('aErrors', $aErrors);
