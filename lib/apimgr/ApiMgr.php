@@ -72,7 +72,7 @@ class ApiMgr {
 			return;
 		}
 
-		$c = &Self::$curl->reset();
+		$c = Self::$curl->reset();
 		$c->setUrl(Self::$url.'logout');
 
 		$res = Self::exec();
