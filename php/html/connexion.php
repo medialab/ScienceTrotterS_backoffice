@@ -6,8 +6,8 @@ if (fMethodIs('post')) {
 	$res = ApiMgr::login('ouio@oui.com', $_POST['user_password']);
 	var_dump("API RESULT", $res);
 	if ($res) {
-		exit;
 		header('location: /');
+		exit;
 	}
 	
 	exit;
