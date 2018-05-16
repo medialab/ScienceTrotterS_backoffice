@@ -82,9 +82,11 @@ class ApiMgr {
 
 	public static function list($model) {
 		$c = Self::$curl->reset();
-		$c->setUrl(Self::$url.'cities/list');
+		$url = Self::$url.$model.'/list';
 
+		$c->setUrl($url);
 		$res = Self::exec();
+		
 		var_dump("Listing: ".$model);
 		var_dump($res);
 	}
