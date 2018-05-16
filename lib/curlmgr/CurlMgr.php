@@ -69,11 +69,15 @@ class CurlMgr {
         return $this;
     }
 
-    public function setData($data, $setHeader=true){
+    public function setData($data, $asJson=true){
         if(is_array($data)){
-            $data = json_encode($data);
-            if ($setHeader) {
+            if ($asJson) {
+                $data = json_encode($data);
                 $this->headers[] = "Content-Type: application/json";
+            }
+            else{
+                $data = http_build_query($data);
+                $this->headers[] = "Content-Type: application/x-www-form-urlencoded";
             }
         }
 

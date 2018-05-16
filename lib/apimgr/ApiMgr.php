@@ -36,7 +36,6 @@ class ApiMgr {
 		], false);
 
 		$c->isPost();
-		$c->setHeader('Content-Type: application/x-www-form-urlencoded');
 
 		var_dump("CALLING API");
 		$res = $c->exec();
