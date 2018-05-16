@@ -86,12 +86,9 @@ class ApiMgr {
 		$base = $public ? 'public/' : 'private/';
 		
 		$url = Self::$url.$base.$model.'/list';
-		var_dump("API=> ".$url);
 
 		$c->setUrl($url);
 		$res = Self::exec();
-
-		var_dump("Listing: ".$model);
-		var_dump($res);
+		return $res;
 	}
 }
