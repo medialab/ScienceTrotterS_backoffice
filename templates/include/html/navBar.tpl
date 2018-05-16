@@ -1,4 +1,3 @@
-<div class="app">
   <div class="leftBar">
     <!-- HEADER -->
     <div class="header">
@@ -77,6 +76,3 @@
 
 
       </div>
-    </div>
-  </div>
-</div>

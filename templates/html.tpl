@@ -23,11 +23,14 @@
 		{include file="include/html/header.tpl"}
  -->
 		<div id="content">
-			{if $showNavBar|default: true !== false}
-				{include file="include/html/navBar.tpl"}
-			{/if}
+			<div class="app">
+				{if $showNavBar|default: true !== false}
+					{include file="include/html/navBar.tpl"}
+				{/if}
 
-			{$sPageContent|default:'noCONTENT'}
+				{$sPageContent|default:'noCONTENT'}
+			</div>
+
 			{include file="include/html/footer.tpl"}
 		</div>
 		<script src="/html.js"></script>
