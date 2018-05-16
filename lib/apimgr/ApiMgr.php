@@ -140,7 +140,7 @@ class ApiMgr {
 		$r = Self::exec();
 
 		var_dump(Self::$curl->getInfos());
-		var_dump(Self::$curl->getErrors());
+		var_dump(Self::$curl->getError());
 
 		return $r;
 	}
