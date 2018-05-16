@@ -138,11 +138,15 @@ class ApiMgr {
 
 	public static function nextPage() {
 		Self::$curPage++;
+		
+		Self::$tmpData['limit'] = Self::$sqlLimit;
+		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
+
 		$r = Self::exec('get', false);
 
 		var_dump(Self::$curl->getInfos());
 		var_dump(Self::$curl->getError());
-		
+
 		return $r;
 	}
 
