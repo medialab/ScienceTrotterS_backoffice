@@ -60,7 +60,7 @@ class ApiMgr {
 
 		$c = Self::reset();
 		$c->setUrl(Self::$url.'login')
-			->isPost()
+			/*->isPost()*/
 			->verbose()
 		;
 
@@ -69,7 +69,7 @@ class ApiMgr {
 			'password' => $pass
 		]);
 
-		$res = Self::exec();
+		$res = Self::exec('post');
 		var_dump("TEST");
 		exit;
 
