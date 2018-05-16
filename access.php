@@ -11,6 +11,7 @@ $aRestrictExtension	= [
 // Les pages autorisées
 	// aux VISITEURS 
 		$aAccess["VISITOR"]	=	[
+			'logout.html',
 			'connexion.html'
 		];
 	
