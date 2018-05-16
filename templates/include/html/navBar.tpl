@@ -36,12 +36,10 @@
           </a>
         </li>
         <li class="item">
-          <a href="#" class="itemClick">
+          <a href="/logout.html" class="itemClick">
             <div class="itemIcon lb-icon-logout"></div>
             <label class="itemLabel">
-              <a href="/logout.html">
-                Déconnexion
-              </a>
+              Déconnexion
             </label>
           </a>
         </li>
