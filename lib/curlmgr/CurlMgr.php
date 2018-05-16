@@ -34,6 +34,10 @@ class CurlMgr {
         if (is_string($heads) && strpos($heads, ': ')) {
             $h = explode($heads, ': ');
             $heads = [];
+            if (!isset($h[1])) {
+                var_dump($h);
+                exit;
+            }
             $heads[$h[0]] = $h[1];
         }
 
