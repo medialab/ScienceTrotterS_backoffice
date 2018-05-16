@@ -39,7 +39,7 @@ class ApiMgr {
 		}
 
 		Self::$tmpData['limit'] = Self::$sqlLimit;
-		Self::$tmpData['offet'] = Self::$sqlLimit * Self::$curPage;
+		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
 
 		var_dump("Request DATA", Self::$tmpData);
 		
