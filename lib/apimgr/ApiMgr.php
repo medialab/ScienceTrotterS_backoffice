@@ -41,7 +41,8 @@ class ApiMgr {
 		$res = $c->exec();
 		var_dump($c->getInfos());
 		var_dump($c->getError());
-		var_dump($c);
+		//var_dump($c);
 
+		return $res;
 	}
 }
