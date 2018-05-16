@@ -33,8 +33,8 @@ class ApiMgr {
 		Self::$bInit = true;
 	}
 
-	private static function exec($method='get') {
-		if (Self::$token) {
+	private static function exec($method='get', $applyHeaders=true) {
+		if (Self::$token && $applyHeaders) {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
 
@@ -138,6 +138,19 @@ class ApiMgr {
 
 	public static function nextPage() {
 		Self::$curPage++;
-		return Self::exec();
+		return Self::exec('get', false);
+	}
+
+	public function setLimit($limit) {
+		$limit = (int)$limit;
+		
+		if ($limit < 0) {
+			$limit = 1;
+		}
+		elseif ($limit > Self::$sqlMaxLimit) {
+			$limit = Self::$sqlMaxLimit;
+		}
+
+		Self::$sqlLimit = $limit;
 	}
 }
