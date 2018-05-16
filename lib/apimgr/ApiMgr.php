@@ -69,6 +69,8 @@ class ApiMgr {
 			'password' => $pass
 		]);
 
+		var_dump("TEST");
+		exit;
 		$res = Self::exec();
 
 		if (empty($res) || !$res->status || empty($res->token)) {
