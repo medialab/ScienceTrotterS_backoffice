@@ -42,7 +42,8 @@ class ApiMgr {
 		Self::$tmpData['offet'] = Self::$sqlLimit * Self::$curPage;
 
 		var_dump("Request DATA", Self::$tmpData);
-		Self::$curl->setData(Self::$tmpData);//->setMethod($method);
+		
+		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
 		var_dump("API RESPONSE", $r);
@@ -65,7 +66,7 @@ class ApiMgr {
 			'password' => $pass
 		]);
 
-		$res = Self::exec();
+		$res = Self::exec('post');
 
 		if (empty($res) || !$res->status || empty($res->token)) {
 			return false;
