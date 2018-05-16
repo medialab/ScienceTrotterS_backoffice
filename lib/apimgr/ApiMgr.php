@@ -21,6 +21,8 @@ class ApiMgr {
 		if (!empty($_SESSION['user']['token'])) {
 			Self::$token = $_SESSION['user']['token'];
 		}
+		
+		var_dump("TOKEN: ", Self::$token);
 
 		Self::$bInit = true;
 	}
