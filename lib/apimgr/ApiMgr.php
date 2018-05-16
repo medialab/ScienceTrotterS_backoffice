@@ -91,4 +91,16 @@ class ApiMgr {
 		$res = Self::exec();
 		return $res;
 	}
+
+	public static function get($model, $id, $public=true) {
+		$c = Self::$curl->reset();
+
+		$base = $public ? 'public/' : 'private/';
+		
+		$url = Self::$url.$base.$model.'/'.$id;
+
+		$c->setUrl($url);
+		$res = Self::exec();
+		return $res;
+	}
 }
