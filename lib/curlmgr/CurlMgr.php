@@ -82,7 +82,7 @@ class CurlMgr {
         }
 
         $this->headers[] = "Content-Length: ".strlen($data);
-        //curl_setopt($this->c, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($this->c, CURLOPT_POSTFIELDS, $data);
 
         return $this;
     }
@@ -99,7 +99,7 @@ class CurlMgr {
         $this->res = NULL;
         $this->errCode = 0;
         $this->headers = [];
-
+        
         return $this;
     }
 
