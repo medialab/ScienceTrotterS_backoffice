@@ -11,6 +11,8 @@ class ApiMgr {
 	
 	private static $curPage = 0;
 	private static $sqlLimit = 25;
+	
+	private static $tmpData = [];
 
 	public static function init() {
 		if (Self::$bInit) {
