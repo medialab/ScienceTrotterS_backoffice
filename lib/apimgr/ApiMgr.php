@@ -38,7 +38,7 @@ class ApiMgr {
 			return false;
 		}
 
-		$c = &Self::$curl->reset();
+		$c = Self::$curl->reset();
 		$c->setUrl(Self::$url.'login')
 			->isPost()
 			->verbose()		
