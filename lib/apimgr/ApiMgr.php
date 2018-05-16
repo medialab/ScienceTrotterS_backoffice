@@ -37,10 +37,15 @@ class ApiMgr {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
 
-		Self::$curl->setData(Self::$tmpData);
-		var_dump("Request DATA", Self::$tmpData);
+		Self::$tmpData['limit'] = Self::$sqlLimit;
+		Self::$tmpData['offet'] = Self::$sqlLimit * Self::$curPage;
 
-		return json_decode(Self::$curl->exec());
+		var_dump("Request DATA", Self::$tmpData);
+		Self::$curl->setData(Self::$tmpData);
+
+		$r = Self::$curl->exec();
+		var_dump("API RESPONSE", $r);
+		return json_decode($r);
 	}
 
 	public static function login($mail, $pass) {
@@ -135,9 +140,6 @@ class ApiMgr {
 		}
 		*/
 		Self::$curPage++;
-		Self::$tmpData['limit'] = Self::$sqlLimit;
-		Self::$tmpData['offet'] = Self::$sqlLimit * Self::$curPage;
-
 		return Self::exec();
 	} 
 }
