@@ -134,6 +134,6 @@ class ApiMgr {
 		Self::$tmpData['limit'] = Self::$sqlLimit;
 		Self::$tmpData['offet'] = Self::$sqlLimit * Self::$curPage;
 
-		return Self::exec():
+		return Self::exec();
 	} 
 }
