@@ -13,3 +13,4 @@ if (fMethodIs('post')) {
 }
 
 $smarty->assign('aErrors', $aErrors);
+$smarty->assign('showNavBar', false);
