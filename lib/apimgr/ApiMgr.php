@@ -9,7 +9,7 @@ class ApiMgr {
 	private static $token = false;
 	private static $bInit = false;
 
-	private static function init() {
+	public static function init() {
 		if (Self::$bInit) {
 			return;
 		}
