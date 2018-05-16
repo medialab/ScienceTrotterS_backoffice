@@ -137,7 +137,12 @@ class ApiMgr {
 
 	public static function nextPage() {
 		Self::$curPage++;
-		return Self::exec();
+		$r = Self::exec();
+
+		var_dump(Self::$curl->getInfos());
+		var_dump(Self::$curl->getErrors());
+
+		return $r;
 	}
 
 	public function setLimit($limit) {
