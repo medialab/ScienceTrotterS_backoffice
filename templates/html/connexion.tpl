@@ -1,11 +1,12 @@
 <link rel="stylesheet" href="formulaire.css">
-{include file="include/html/form-error.tpl"}
 
 <div id="global">
 	<div class="logo">
 		<img src="/media/image/interface/logo-science-trotters.png" width="517px" height="535" alt="Logo Science Trotters format Desktop" id="imgDesktop">
 		<img src="/media/image/interface/sts-full.svg" width="250px" height="14px" alt="Logo Science Trotters format Mobile" id="imgMobile">
 	</div>
+
+	{include file="include/html/form-error.tpl"}
 
 	<div class="all">
 		<div class="form">	

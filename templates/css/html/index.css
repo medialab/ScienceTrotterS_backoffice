@@ -85,7 +85,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   transition: 0.3s;
 }
 
