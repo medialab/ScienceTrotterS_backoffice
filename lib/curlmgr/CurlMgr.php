@@ -79,15 +79,15 @@ class CurlMgr {
         if(is_array($data)){
             if ($asJson) {
                 $data = json_encode($data);
-                $this->headers[] = "Content-Type: application/json";
+                $this->setHeader("Content-Type: application/json");
             }
             else{
                 $data = http_build_query($data);
-                $this->headers[] = "Content-Type: application/x-www-form-urlencoded";
+                $this->setHeader("Content-Type: application/x-www-form-urlencoded");
             }
         }
 
-        $this->headers[] = "Content-Length: ".strlen($data);
+        $this->setHeader("Content-Length: ".strlen($data));
         curl_setopt($this->c, CURLOPT_POSTFIELDS, $data);
 
         return $this;
