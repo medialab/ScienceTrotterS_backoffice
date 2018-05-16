@@ -9,7 +9,7 @@ if (fMethodIs('post')) {
 		exit;
 	}
 
-	$aErrors[] = 'Identifiant / Mot de passe invalides.'	
+	$aErrors[] = 'Identifiant / Mot de passe invalides.';
 }
 
 $smarty->assign('aErrors', $aErrors);
