@@ -27,7 +27,9 @@
 				{include file="include/html/navBar.tpl"}
 			{/if}
 
-			{$sPageContent|default:'noCONTENT'}
+			<div class="content">
+				{$sPageContent|default:'noCONTENT'}
+			</div>
 
 			{include file="include/html/footer.tpl"}
 		</div>
