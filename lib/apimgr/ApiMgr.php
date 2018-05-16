@@ -33,8 +33,8 @@ class ApiMgr {
 		Self::$bInit = true;
 	}
 
-	private static function exec($method='get') {
-		if (Self::$token) {
+	private static function exec($method='get', $addAutHead=true) {
+		if (Self::$token && $addAutHead) {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
 
