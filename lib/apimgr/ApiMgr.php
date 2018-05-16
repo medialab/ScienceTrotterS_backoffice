@@ -17,6 +17,7 @@ class ApiMgr {
 		Self::$url = API_URL.'/';
 		Self::$curl = new CurlMgr();
 
+		var_dump("INIT API", $_SESSION);
 		if (!empty($_SESSION['user']['token'])) {
 			Self::$token = $_SESSION['user']['token'];
 		}
