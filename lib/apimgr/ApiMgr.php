@@ -38,6 +38,8 @@ class ApiMgr {
 		}
 
 		Self::$curl->setData(Self::$tmpData);
+		var_dump("Request DATA", Self::$tmpData);
+
 		return json_decode(Self::$curl->exec());
 	}
 
