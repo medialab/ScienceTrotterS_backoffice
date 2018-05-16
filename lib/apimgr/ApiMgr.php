@@ -23,6 +23,8 @@ class ApiMgr {
 		}
 
 		$c = &Self::$curl;
+		$c->verbose();
+		
 		$c->setUrl(Self::$url.'login');
 		$c->setData([
 			'email' => $mail,
@@ -32,6 +34,9 @@ class ApiMgr {
 		$c->isPost();
 
 		var_dump("CALLING API");
+		var_dump($c->getInfos());
+		var_dump($c->getError());
+
 		$res = $c->exec();
 	}
 }
