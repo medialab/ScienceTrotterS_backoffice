@@ -42,7 +42,11 @@ class ApiMgr {
 		Self::$tmpData['offet'] = Self::$sqlLimit * Self::$curPage;
 
 		var_dump("Request DATA", Self::$tmpData);
-		Self::$curl->setData(Self::$tmpData)->setMethod($method);
+		Self::$curl->setData(Self::$tmpData);
+
+		if ($method) {
+			Self::$curl->setMethod($method);
+		}
 
 		$r = Self::$curl->exec();
 		var_dump("API RESPONSE", $r);
@@ -137,7 +141,7 @@ class ApiMgr {
 
 	public static function nextPage() {
 		Self::$curPage++;
-		$r = Self::exec();
+		$r = Self::exec(false, false);
 
 		var_dump(Self::$curl->getInfos());
 		var_dump(Self::$curl->getError());
