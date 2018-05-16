@@ -40,23 +40,24 @@
 				<div class="columnData">
 
 					<ul class="itemList">
-
-						<!-- ITEM -->
-						<li class="item">
-							<div class="itemAction">
-								<a href="#">
-									<i class="icon-pre icon-list-remove"></i>
-								</a>
-								<a href="#">
-									<i class="icon-pre icon-list-edit"></i>
-								</a>
-								<a href="#">
-									<i class="icon-pre icon-list-preview"></i>
-								</a>
-							</div>
-							<label class="itemLabel">label</label>
-						</li>
-						<!-- .\ ITEM -->
+						{foreach $aCities as $city}
+							<!-- ITEM -->
+							<li class="item">
+								<div class="itemAction">
+									<a href="#">
+										<i class="icon-pre icon-list-remove"></i>
+									</a>
+									<a href="#">
+										<i class="icon-pre icon-list-edit"></i>
+									</a>
+									<a href="#">
+										<i class="icon-pre icon-list-preview"></i>
+									</a>
+								</div>
+								<label class="itemLabel">{$city.label}</label>
+							</li>
+							<!-- .\ ITEM -->
+						{/foreach}
 						<!-- ITEM ACTIVE-->
 						<li class="item selected">
 							<div class="itemAction">
