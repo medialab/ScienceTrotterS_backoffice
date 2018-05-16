@@ -1,7 +1,5 @@
 <?php
 
-define( 'TEMPLATE_PATH',        './templates/' );
-
 $sPage = empty($_GET['name']) ? 'index' : $_GET['name'];
 $sExt = empty($_GET['extension']) ? 'html' : $_GET['extension'];
 $sExtFile = ( $sExt == 'html' ) ? 'tpl' : $sExt;
