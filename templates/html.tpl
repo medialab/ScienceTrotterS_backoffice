@@ -23,11 +23,11 @@
 		{include file="include/html/header.tpl"}
  -->
 		<div id="content">
-			<div class="app">
-				{if $showNavBar|default: true !== false}
-					{include file="include/html/navBar.tpl"}
-				{/if}
+			{if $showNavBar|default: true !== false}
+				{include file="include/html/navBar.tpl"}
+			{/if}
 
+			<div style="width: calc(100% - 301px)">
 				{$sPageContent|default:'noCONTENT'}
 			</div>
 
