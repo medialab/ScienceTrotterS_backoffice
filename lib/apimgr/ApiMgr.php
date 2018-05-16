@@ -80,9 +80,12 @@ class ApiMgr {
 		$res = Self::exec();
 	}
 
-	public static function list($model) {
+	public static function list($model, $public=true) {
 		$c = Self::$curl->reset();
-		$url = Self::$url.$model.'/list';
+
+		$base = $public ? 'public/' : 'private/';
+		
+		$url = Self::$url.$base.$model.'/list';
 		var_dump("API=> ".$url);
 
 		$c->setUrl($url);
