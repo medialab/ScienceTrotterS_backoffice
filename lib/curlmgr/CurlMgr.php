@@ -39,7 +39,7 @@ class CurlMgr {
             $this->headers = array_merge($this->headers, $heads);
         }
         elseif($heads){
-            $heads = explode(':', $heads);
+            $heads = explode(': ', $heads);
             $this->headers[$heads[0]] = $heads[1];
         }
         else{
