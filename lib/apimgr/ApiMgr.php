@@ -83,7 +83,7 @@ class ApiMgr {
 	public static function list($model) {
 		$c = Self::$curl->reset();
 		$url = Self::$url.$model.'/list';
-		var_dump("API=> ".$url)
+		var_dump("API=> ".$url);
 
 		$c->setUrl($url);
 		$res = Self::exec();
