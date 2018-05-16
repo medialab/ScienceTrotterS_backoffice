@@ -153,7 +153,7 @@ class ApiMgr {
 		return $r;
 	}
 
-	public function setLimit($limit) {
+	public static function setLimit($limit) {
 		$limit = (int)$limit;
 		
 		if ($limit < 0) {
@@ -166,7 +166,7 @@ class ApiMgr {
 		Self::$sqlLimit = $limit;
 	}
 
-	public function setPage($page) {
+	public static function setPage($page) {
 		$page = (int)$page;
 		
 		if ($page < 0) {
