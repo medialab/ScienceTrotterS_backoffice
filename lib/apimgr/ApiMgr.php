@@ -11,6 +11,7 @@ class ApiMgr {
 	
 	private static $curPage = 0;
 	private static $sqlLimit = 2;
+	private static $sqlMaxLimit = 200;
 	
 	private static $tmpData = [];
 
@@ -53,7 +54,7 @@ class ApiMgr {
 			return false;
 		}
 
-		$c = Self::$curl->reset();
+		$c = Self::reset();
 		$c->setUrl(Self::$url.'login')
 			->isPost()
 			->verbose()
@@ -135,11 +136,20 @@ class ApiMgr {
 	}
 
 	public static function nextPage() {
-		/*if (empty(Self::$tmpData)) {
-			return false;
-		}
-		*/
 		Self::$curPage++;
 		return Self::exec();
-	} 
+	}
+
+	public function setLimit($limit) {
+		$limit = (int)$limit;
+		
+		if ($limit < 0) {
+			$limit = 1;
+		}
+		elseif ($limit > Self::$sqlMaxLimit) {
+			$limit = Self::$sqlMaxLimit;
+		}
+
+		Self::$sqlLimit = $limit;
+	}
 }
