@@ -22,7 +22,7 @@
 <!-- 
 		{include file="include/html/header.tpl"}
  -->
-		<div id="content">
+		<div id="content" class="app">
 			{if $showNavBar|default: true !== false}
 				{include file="include/html/navBar.tpl"}
 			{/if}
