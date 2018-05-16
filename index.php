@@ -7,10 +7,13 @@
 	ini_set('xdebug.var_display_max_depth', -1);
 	ini_set('xdebug.var_display_max_children', -1);
 
+	define( 'LIBRARY_PATH',        './lib/' );
+	define( 'TEMPLATE_PATH',        './templates/' );
+
 	define("API_URL", 'https://api-sts.actu.com');
 
 
-	
+
 	// Fonction de chargement dynamique des classes
 		function fAutoLoader( $sClassName ){
 			$aDirectoryClass			=	explode( '\\', $sClassName );
@@ -38,7 +41,7 @@
 				}
 			}
 		} spl_autoload_register( 'fAutoLoader' );
-	//---
+	//---nano .gitignore
 
 // On appel la bonne page
 	require_once('./bootstrap.php');
