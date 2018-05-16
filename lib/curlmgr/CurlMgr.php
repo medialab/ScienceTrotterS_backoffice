@@ -31,6 +31,12 @@ class CurlMgr {
     }
 
     public function setHeader($heads){
+        if (is_string($heads) && strpos($heads, ': ')) {
+            $h = explode($heads, ': ');
+            $heads = [];
+            $heads[$h[0]] = $h[1];
+        }
+
         if (is_array($heads)) {
             if (!$this->headers) {
                 $this->headers = [];
@@ -69,7 +75,7 @@ class CurlMgr {
         return $this;
     }
 
-    public function setData($data, $asJson=true){
+    public function setData($data, $asJson=true, $addHeaders=true){
         if(is_array($data)){
             if ($asJson) {
                 $data = json_encode($data);
