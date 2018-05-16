@@ -32,13 +32,14 @@ $sContent = '';
         // }
 //---
 
+session_start();
 // On vérifie que l'utilisateur aie le droit d'accéder à  cette page
     require( "./access.php" );
     if ( in_array($sExt, $aRestrictExtension) ){
         // On est dans une extension controlée
             if( empty($_SESSION['user']['token']) || !in_array( "{$sPage}.{$sExt}", $aAccessUtilisateur ) ){
-                var_dump(empty($_SESSION['user']));
-                exit;
+                /*var_dump($_SESSION['user']);
+                exit;*/
                 $ext = strtoupper($sExt);
                 if (!empty($aAccess[$ext]['redirection'])) {
                     $redir = $aAccess[$ext]['redirection'];
