@@ -10,7 +10,7 @@ class ApiMgr {
 	private static $bInit = false;
 	
 	private static $curPage = 0;
-	private static $sqlLimit = 25;
+	private static $sqlLimit = 2;
 	
 	private static $tmpData = [];
 
