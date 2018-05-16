@@ -54,7 +54,7 @@
 										<i class="icon-pre icon-list-preview"></i>
 									</a>
 								</div>
-								<label class="itemLabel">{$city.label}</label>
+								<label class="itemLabel">{$city->label}</label>
 							</li>
 							<!-- .\ ITEM -->
 						{/foreach}
