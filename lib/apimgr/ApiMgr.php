@@ -32,7 +32,7 @@ class ApiMgr {
 		Self::$bInit = true;
 	}
 
-	private static function exec() {
+	private static function exec($method='get') {
 		if (Self::$token) {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
@@ -41,7 +41,7 @@ class ApiMgr {
 		Self::$tmpData['offet'] = Self::$sqlLimit * Self::$curPage;
 
 		var_dump("Request DATA", Self::$tmpData);
-		Self::$curl->setData(Self::$tmpData);
+		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
 		var_dump("API RESPONSE", $r);
