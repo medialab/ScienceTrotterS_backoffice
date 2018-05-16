@@ -10,7 +10,7 @@ class ApiMgr {
 	private static $bInit = false;
 	
 	private static $curPage = 0;
-	private static $sqlLimit = 2;
+	private static $sqlLimit = 25;
 	private static $sqlMaxLimit = 200;
 	
 	private static $tmpData = [];
@@ -127,8 +127,11 @@ class ApiMgr {
 	}
 
 	private static function reset() {
-		Self::$curPage = 0;
 		Self::$tmpData = [];
+
+		Self::$curPage = 0;
+		Self::$sqlLimit = 25;
+
 		return Self::$curl->reset();
 	} 
 
@@ -161,5 +164,15 @@ class ApiMgr {
 		}
 
 		Self::$sqlLimit = $limit;
+	}
+
+	public function setPage($page) {
+		$page = (int)$page;
+		
+		if ($page < 0) {
+			$page = 0;
+		}
+
+		Self::$sqlpage = $limit;
 	}
 }
