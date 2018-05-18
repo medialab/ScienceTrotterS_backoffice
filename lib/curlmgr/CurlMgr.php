@@ -84,6 +84,7 @@ class CurlMgr {
             }
             else{
                 $data = http_build_query($data);
+                
                 $this->setHeader("Content-Type: application/x-www-form-urlencoded");
             }
         }

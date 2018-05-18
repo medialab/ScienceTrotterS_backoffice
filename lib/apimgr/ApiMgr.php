@@ -48,12 +48,12 @@ class ApiMgr {
 		Self::$tmpData['limit'] = Self::$sqlLimit;
 		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
 
-		var_dump("Request DATA", Self::$tmpData);
+		//var_dump("Request DATA", Self::$tmpData);
 		
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
-		var_dump("API RESPONSE", $r);
+		//var_dump("API RESPONSE", $r);
 		return json_decode($r);
 	}
 
