@@ -80,7 +80,29 @@ else {
     header('Content-Type: text/html');
 }
 
-var_dump($sExt.'/'.$sPage);
+
+$tplPath = ;
+
+$libPath = './php/';
+$viewPath = './templates/';
+$tplFiles = explode('/', $sExt.'/'.$sPage);
+
+$f = '';
+$sContent = '';
+foreach ($tplFiles as $file) {
+    $f .= $file;
+
+    var_dump($libPath.$f.'.php');
+    if (file_exists($libPath.$f.'.php')) {
+        require_once($libPath.$f.'.php');
+    }
+
+    var_dump($viewPath.$f.'.tpl');
+    if (file_exists($viewPath.$f.'.tpl')) {
+        $sContent .= $smarty->fetch($libPath.$f.'.tpl');
+        require_once($libPath.$f.'.tpl');
+    }
+}
 exit;
 
 if ( file_exists('./php/'.$sExt.'.php') ) {
