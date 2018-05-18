@@ -99,6 +99,7 @@ var ApiMgr = {
 			url: this.apiUrl+url,
 			method: method,
 			data: data,
+			dataType: 'jsonp',
 
 			beforeSend: function(xhr) {
 		        xhr.setRequestHeader('Authorization', this.apiToken);
