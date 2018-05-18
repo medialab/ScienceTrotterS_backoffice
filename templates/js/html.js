@@ -72,7 +72,7 @@ var ApiMgr = {
 	
 	addRequest: function(req) {
 		console.log("Adding Request: ", req);
-		this.queue.push(this.queue);
+		this.queue.push(req);
 		console.log("Queue Len: ", this.queue.length);
 
 		if (!this.active) {
@@ -82,7 +82,7 @@ var ApiMgr = {
 
 	execute: function() {
 		this.active = true;
-		
+
 		console.log(this.queue);
 		this.curRequest = this.queue.shift();
 		console.log("Executing Request: ", this.curRequest);
