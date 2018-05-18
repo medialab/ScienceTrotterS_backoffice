@@ -95,7 +95,7 @@ var ApiMgr = {
 
 		console.log("PREPARING REQUEST");
 		var request = {
-			url: this.apiUrl+url,
+			//url: this.apiUrl+url,
 			method: method,
 			data: data,
 			headers: {
