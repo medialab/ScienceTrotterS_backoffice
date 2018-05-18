@@ -13,6 +13,6 @@ $(document).ready(function() {
 
 		timers[id] = setTimeout(function() {
 			console.log("scrolled");
-		}, 150);
+		}, 75);
 	})
 })
