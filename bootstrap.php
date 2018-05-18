@@ -94,19 +94,18 @@ foreach ($tplFiles as $file) {
     $f .= $file;
 
     if (file_exists($libPath.$f.'.php')) {
-        var_dump($libPath.$f.'.php');
+        //var_dump($libPath.$f.'.php');
         require_once($libPath.$f.'.php');
     }
 
     
-    var_dump($viewPath.$f.'.tpl');
+    //var_dump($viewPath.$f.'.tpl');
     if (file_exists('./templates/'.$viewPath.$f.'.tpl')) {
         $sContent .= $smarty->fetch($viewPath.$f.'.tpl');
     }
 }
-exit;
 
-if ( file_exists('./php/'.$sExt.'.php') ) {
+/*if ( file_exists('./php/'.$sExt.'.php') ) {
         require_once('./php/'.$sExt.'.php');
 }
 
@@ -116,7 +115,7 @@ if ( file_exists('./php/'.$sExt.'/'.$sPage.'.php') ) {
 
 if ( file_exists('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile) ) {
     $sContent = $smarty->fetch('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile);
-}
+}*/
 
 $smarty->assign('sPageContent', $sContent);
 if ( file_exists('./templates/'.$sExt.'.'.$sExtFile) ) {
