@@ -3,10 +3,12 @@ $.scrollElementVisible = function (el) {
 	var listFound = false;
 
 	while(true) {
+		console.log(list);
 		if (!list.length) {
 			return false;
 		}
 		else if (list.css('overflow') === 'scroll') {
+			console.log("LIST FOUND");
 			break;
 		}
 
