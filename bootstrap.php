@@ -87,7 +87,7 @@ $tplFiles = explode('/', $sExt.'/'.$sPage);
 $f = '';
 $sContent = '';
 foreach ($tplFiles as $file) {
-    $f .= $file;
+    $f .= '/'.$file;
 
     var_dump($libPath.$f.'.php');
     if (file_exists($libPath.$f.'.php')) {
