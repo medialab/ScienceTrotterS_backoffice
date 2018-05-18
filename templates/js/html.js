@@ -4,7 +4,7 @@ $.scrollElementVisible = function (el) {
 
 	while(true) {
 		console.log(list);
-		if (!list.length) {
+		if (!list.attr('id') == 'content') {
 			return false;
 		}
 		else if (list.css('overflow') === 'scroll') {
