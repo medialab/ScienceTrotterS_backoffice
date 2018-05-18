@@ -100,7 +100,8 @@ var ApiMgr = {
 			method: method,
 			data: data,
 			headers: {
-				Authorization: this.apiToken
+				Authorization: this.apiToken,
+				'Access-Control-Allow-Origin': '*'
 			},
 
 			success: function(result) {
