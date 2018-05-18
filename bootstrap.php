@@ -65,9 +65,6 @@ ApiMgr::init();
     }
 // ---
 
-
-var_dump('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile);
-exit;
 if (in_array($sExt, ['js', 'css'])) {
     if (file_exists('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile)) {
         header('Content-Type: text/'.$sExt);
