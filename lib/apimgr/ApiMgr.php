@@ -173,7 +173,7 @@ class ApiMgr {
 	public static function setLimit($limit) {
 		$limit = (int)$limit;
 		
-		if ($limit < 0) {
+		if ($limit <= 0) {
 			$limit = 1;
 		}
 		elseif ($limit > Self::$sqlMaxLimit) {
