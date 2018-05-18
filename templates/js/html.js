@@ -19,6 +19,8 @@ $.scrollElementVisible = function (el) {
     var elemTop = el.offset().top;
     var elemBottom = elemTop + el.height();
 
+    console.log((elemTop +">="+ docViewTop), (elemTop >= docViewTop));
+    console.log((elemBottom +"<="+ docViewBottom), (elemBottom <= docViewBottom));
 
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
