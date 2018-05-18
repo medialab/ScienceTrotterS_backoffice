@@ -3,12 +3,10 @@ $.scrollElementVisible = function (el) {
 	var listFound = false;
 
 	while(true) {
-		console.log(list, list.attr('id'));
 		if (!list.attr('id') === 'content') {
 			return false;
 		}
 		else if (list.hasClass('columnData')) {
-			console.log("LIST FOUND");
 			break;
 		}
 
@@ -21,9 +19,6 @@ $.scrollElementVisible = function (el) {
     var elemTop = el.offset().top;
     var elemBottom = elemTop + el.height();
 
-    console.log(elemTop + '>=' + docViewTop, (elemTop >= docViewTop));
-    console.log(elemBottom + '<=' + docViewBottom, (elemBottom <= docViewBottom));
-    console.log(((elemBottom <= docViewBottom) && (elemTop >= docViewTop)));
 
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
@@ -35,7 +30,6 @@ let currentItem = '';
 
 
 const fCloseMenuBtn = function fCloseMenuBtn (event) {
-  console.log(event);
   document.querySelector('.leftBar').classList.toggle('close');
 }
 
@@ -66,3 +60,10 @@ const itemClick = document.querySelectorAll('.itemClick.withSubItem');
 itemClick.forEach(handlerItemClick);
 
 
+
+
+var ApiMgr = {
+	apiToken: _API_TOKEN_,
+	
+	list: function(table, page)
+}

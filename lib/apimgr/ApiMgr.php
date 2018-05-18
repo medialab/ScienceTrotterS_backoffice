@@ -25,7 +25,7 @@ class ApiMgr {
 		Self::$curl->setTimeout(3);
 		//var_dump("INIT API", $_SESSION);
 		if (!empty($_SESSION['user']['token'])) {
-			Self::$token = $_SESSION['user']['token'];
+			Self::setToken($_SESSION['user']['token']);
 		}
 
 		//var_dump("TOKEN: ", Self::$token);
@@ -72,7 +72,7 @@ class ApiMgr {
 			return false;
 		}
 
-		Self::$token = $token;
+		Self::setToken($token);
 
 		$_SESSION['user'] = [
 			'pass' => $pass,
@@ -83,6 +83,12 @@ class ApiMgr {
 
 
 		return true;
+	}
+
+	private static function setToken($token) {
+		global $smarty;
+		Self::$token = $token;
+		$smarty->assign("_API_TOKEN_", Self::$token);
 	}
 
 	public static function logout() {

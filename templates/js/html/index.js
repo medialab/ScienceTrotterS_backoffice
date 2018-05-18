@@ -1,28 +1,38 @@
+function fetchNext(list) {
+	$.ajax({
+
+	});
+}
+
 $(document).ready(function() {
-	var lists = $('div.columnData');
+	var lists = {};
 	var timers = {};
 	var spinners = {};
 	console.log("LISTS: ", lists);
 
-	lists.scroll(function() {
+	$('div.columnData').scroll(function() {
 		var list = $(this);
 		var id = list.attr('id');
 
-		if (typeof timers[id] !== 'undefined') {
-			clearTimeout(timers[id]);
+		if (typeof lists[id] === 'undefined') {
+			lists[id] = {
+				el: list
+			}
+		}
+		else if(lists[id].timer){
+			clearTimeout(lists[id].timer);
 		}
 
-		timers[id] = setTimeout(function() {
-			if (typeof spinners[id] === 'undefined') {
-				spinners[id] = list.find('.spinner');
+		lists[id].timer = setTimeout(function() {
+			if (typeof lists[id].spin === 'undefined') {
+				lists[id].spin = list.find('.spinner');
 			}
 
-			var spin = spinners[id];
+			var spin = lists[id].spin;
 			if (spin.is(':visible') && $.scrollElementVisible(spin)) {
 				console.log("SPINNER VISIBLE");
 			}
-			
-			console.log("scrolled");
+
 		}, 75);
 	})
 })

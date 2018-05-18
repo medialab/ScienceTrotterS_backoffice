@@ -35,6 +35,11 @@
 
 			{include file="include/html/footer.tpl"}
 		</div>
+
+		<script>
+			var _API_TOKEN_ = {$_API_TOKEN}
+		</script>
+
 		<script src="/html.js"></script>
 		{if file_exists( "./templates/js/html/"|cat:$smarty.get.name:".js" )}
 			<script src="/html/{$smarty.get.name}.js"></script>
