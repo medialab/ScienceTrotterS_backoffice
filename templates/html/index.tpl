@@ -91,7 +91,7 @@
 				<!-- DATA -->
 				<div class="columnData">
 					<ul class="itemList">
-						{foreach $aParcours as $interrest}
+						{foreach $aParcours as $parcours}
 							<li class="item">
 								<div class="itemAction">
 									<a href="#">
@@ -104,7 +104,7 @@
 										<i class="icon-pre icon-list-preview"></i>
 									</a>
 								</div>
-								<label class="itemLabel">{$interrest->title}</label>
+								<label class="itemLabel">{$parcours->title}</label>
 							</li>
 						{/foreach}
 					</ul>
@@ -131,7 +131,7 @@
 				<!-- DATA -->
 				<div class="columnData">
 					<ul class="itemList">
-						{foreach $aInterrests as $parcours}
+						{foreach $aInterrests as $interrest}
 							<li class="item">
 								<div class="itemAction">
 									<a href="#">
@@ -144,7 +144,7 @@
 										<i class="icon-pre icon-list-preview"></i>
 									</a>
 								</div>
-								<label class="itemLabel">{$parcours->title}</label>
+								<label class="itemLabel">{$interrest->title}</label>
 							</li>
 						{/foreach}
 					</ul>
