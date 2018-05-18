@@ -109,12 +109,14 @@ var ApiMgr = {
 		    },
 
 			success: function(result) {
+				console.log("API SUCCESS", result);
 				if (success) {
 					success(result);
 				}
 			},
 
 			error: function(result) {
+				console.log("API FAILD", result);
 				if (error) {
 					error(result);
 				}
