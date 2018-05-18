@@ -40,7 +40,7 @@ $(document).ready(function() {
 
 							if (!result.data.length) {
 								console.log("Spinng Spinner");
-								remove(lists[id].spin.hide());
+								lists[id].spin.hide();
 							}
 							else{
 								$.each(result.data, function(i,e) {
