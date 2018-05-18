@@ -171,7 +171,7 @@ var ApiMgr = {
 
 
 function ApiResponse(result) {
-	if (ApiMgr.curRequest.success) {
+	/*if (ApiMgr.curRequest.success) {
 		ApiMgr.curRequest.success(result);
-	}
+	}*/
 }
