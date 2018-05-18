@@ -31,25 +31,37 @@ $(document).ready(function() {
 			if (spin.is(':visible') && $.scrollElementVisible(spin)) {
 				console.log("SPINNER VISIBLE");
 
-				var req = ApiMgr.list(
-					'cities', 0, 5, 
-					function(result){
-						var ul = list.find('ul');
-						var base = list.find('li.item').first();
+				if (typeof lists[id].req === 'undefined') {
+					lists[id].req = ApiMgr.list(
+						'cities', 0, 5, 
+						function(result){
+							var ul = list.find('ul');
+							var base = list.find('li.item').first();
 
-						$.each(result.data, function(i,e) {
-							console.log("=== "+i+" ===", e);
+							if (!result.data.length) {
+								console.log("Spinng Spinner");
+								remove(lists[id].spin.hide());
+							}
+							else{
+								$.each(result.data, function(i,e) {
+									console.log("=== "+i+" ===", e);
 
-							var row = base.clone();
-							row.find('.itemLabel').text(e.label);
-							ul.append(row);
-							ul.append(spin.parents('.item'));
-						})
-					}, 
-					function(result){
-						console.log("ERROR: ", result)
-					}
-				);
+									var row = base.clone();
+									row.find('.itemLabel').text(e.label);
+									ul.append(row);
+									ul.append(spin.parents('.item'));
+								});
+							}
+						}, 
+						function(result){
+							console.log("ERROR: ", result)
+						}
+					);
+				}
+				else{
+					console.log("CallingNextPage");
+					lists[id].req.nextPage();
+				}
 			}
 
 		}, 75);
