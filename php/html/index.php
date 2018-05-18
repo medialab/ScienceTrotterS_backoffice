@@ -10,4 +10,4 @@ $smarty->assign('aParcours', $aParcours->data);
 
 
 $aInterrests = ApiMgr::list('interrests', true, 5);
-$smarty->assign('ainterrests', $aInterrests->data);
+$smarty->assign('aInterrests', $aInterrests->data);
