@@ -43,7 +43,7 @@ $(document).ready(function() {
 							var row = base.clone();
 							row.find('.itemLabel').text(e.label);
 							ul.append(row);
-							ul.append(spin);
+							ul.append(spin.parents('.item'));
 						})
 					}, 
 					function(result){
