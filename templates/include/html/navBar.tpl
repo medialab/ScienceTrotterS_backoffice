@@ -17,7 +17,7 @@
         </li>
 
         <li class="item">
-          <a href="#" class="itemClick">
+          <a href="/edit/city.html" class="itemClick">
             <div class="itemIcon lb-icon-city"></div>
             <label class="itemLabel">Créer ville</label>
           </a>
