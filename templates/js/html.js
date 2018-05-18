@@ -95,6 +95,7 @@ var ApiMgr = {
 
 		console.log("PREPARING REQUEST");
 		var request = {
+			crossDomain: true,
 			url: this.apiUrl+url,
 			method: method,
 			data: data,
