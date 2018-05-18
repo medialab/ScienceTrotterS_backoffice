@@ -87,6 +87,8 @@ var ApiMgr = {
 		this.curRequest = this.queue.shift();
 		console.log("Executing Request: ", this.curRequest);
 		console.log(this.curRequest.data);
+
+		delete this.curRequest.data.callback;
 		$.ajax(this.curRequest);
 	},
 
@@ -153,7 +155,7 @@ var ApiMgr = {
 
 		return this.call(
 			'get',
-			table,
+			table+'/list',
 			{
 				limit: limit, 
 				offset: page*limit
