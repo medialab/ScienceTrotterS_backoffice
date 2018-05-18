@@ -63,13 +63,96 @@ itemClick.forEach(handlerItemClick);
 
 
 var ApiMgr = {
+	curRequest: null,
+	apiUrl: _API_TOKEN_,
 	apiToken: _API_TOKEN_,
-	
-	call: function(url, method, data, callback) {
 
+	queue: [],
+	active: false,
+	
+	addRequest: function(req) {
+		console.log("Adding Request: ", req);
+		this.queue.push(this.queue);
+		console.log("Queue Len: ", this.queue.length);
+
+		if (!this.active) {
+			this.execute();
+		}
 	},
 
-	list: function(table, page) {
+	execute: function() {
+		console.log("Executing Request: ", req);
+		this.active = true;
+		this.curRequest = this.queue.shift();
+		
+		$.ajax(this.curRequest);
+	},
+
+	call: function(method, url, data, success, error) {
+		var self = this;
+
+		console.log("PREPARING REQUEST");
+		var request = {
+			url: this.apiUrl+url,
+			method: method,
+			data: data,
+			headers: {
+				Authorization: this.apiToken
+			},
+
+			success: function(result) {
+				if (success) {
+					success(result);
+				}
+			},
+
+			error: function(result) {
+				if (error) {
+					error(result);
+				}
+			},
+
+			complete: function() {
+				if (self.queue.length) {
+					self.execute();
+				}
+				else{
+					self.active = false;
+				}
+			},
+
+			nextPage: function(success, error) {
+				this.data.offset += this.data.limit;
+				
+				if (success) {
+					this.success = success;
+				}
+
+				if (error) {
+					this.error = error;
+				}
+
+				self.addRequest(this);
+			}
+		};
+
+		this.addRequest(request);
+
+		return request;
+	},
+
+	list: function(table, page, limit, success, error) {
 		page = page || 0;
+
+		return this.call(
+			'get',
+			table,
+			{
+				limit: limit, 
+				offset: page*limit
+			},
+			success,
+			error
+		)
 	}
 }

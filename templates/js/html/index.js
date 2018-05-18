@@ -30,6 +30,16 @@ $(document).ready(function() {
 			var spin = lists[id].spin;
 			if (spin.is(':visible') && $.scrollElementVisible(spin)) {
 				console.log("SPINNER VISIBLE");
+
+				var req = ApiMgr.list(
+					'cities', 0, 5, 
+					function(result){
+						console.log("SUCCESS: ", result)
+					}, 
+					function(result){
+						console.log("ERROR: ", result)
+					}
+				);
 			}
 
 		}, 75);
