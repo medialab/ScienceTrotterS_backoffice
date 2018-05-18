@@ -100,8 +100,8 @@ var ApiMgr = {
 			data: data,
 
 			beforeSend: function(xhr) {
-		        //xhr.setRequestHeader('Authorization', this.apiToken);
-		        //xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+		        xhr.setRequestHeader('Authorization', this.apiToken);
+		        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 		    },
 
 			success: function(result) {
