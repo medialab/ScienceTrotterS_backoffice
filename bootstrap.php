@@ -96,6 +96,7 @@ foreach ($tplFiles as $file) {
 
     $f .= $file;
 
+        var_dump($libPath.$f.'.php');
     if (file_exists($libPath.$f.'.php')) {
         var_dump($libPath.$f.'.php');
         require_once($libPath.$f.'.php');
@@ -109,6 +110,7 @@ foreach ($tplFiles as $file) {
     $i++;
 }
 
+var_dump("TEST");
 foreach ($tplFiles as $f) {
     var_dump($f);
     $sContent .= $smarty->fetch($f);
