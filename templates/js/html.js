@@ -3,7 +3,7 @@ $.scrollElementVisible = function (el) {
 	var listFound = false;
 
 	while(true) {
-		console.log(list);
+		console.log(list, list.css('overflow'));
 		if (!list.attr('id') == 'content') {
 			return false;
 		}
