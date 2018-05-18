@@ -86,8 +86,8 @@ var ApiMgr = {
 		console.log(this.queue);
 		this.curRequest = this.queue.shift();
 		console.log("Executing Request: ", this.curRequest);
-
-		$.ajax(this.curRequest.data);
+		console.log(this.curRequest.data);
+		$.ajax(this.curRequest);
 	},
 
 	call: function(method, url, data, success, error) {
