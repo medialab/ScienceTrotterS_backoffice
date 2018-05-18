@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var lists = $('ul.itemList');
+	var lists = $('div.columnData');
 	console.log("LISTS: ", lists);
 
 	lists.scroll(function() {
