@@ -82,14 +82,13 @@ else {
 
 $libPath = './php/';
 $viewPath = '';
-$tplFiles = explode('/', $sExt.'/'.$sPage);
+$files = explode('/', $sExt.'/'.$sPage);
 
 $i = 0;
 $f = '';
 $sContent = '';
-
 $tplFiles = [];
-foreach ($tplFiles as $file) {
+foreach ($files as $file) {
     if (strlen($f)) {
         $f .= '/';
     }
