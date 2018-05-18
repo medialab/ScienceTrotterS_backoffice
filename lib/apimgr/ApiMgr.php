@@ -20,9 +20,8 @@ class ApiMgr {
 			return;
 		}
 
-		Self::$url = API_URL.'/';
-		$smarty->assign("_API_URL_", Self::$url);
-		
+		Self::setUrl();
+
 		Self::$curl = new CurlMgr();
 		Self::$curl->setTimeout(3);
 		//var_dump("INIT API", $_SESSION);
@@ -33,6 +32,12 @@ class ApiMgr {
 		//var_dump("TOKEN: ", Self::$token);
 
 		Self::$bInit = true;
+	}
+
+	private static function setUrl() {
+		global $smarty;
+		Self::$url = API_URL.'/';
+		$smarty->assign("_API_URL_", Self::$url);
 	}
 
 	private static function exec($method='get', $applyHeaders=true) {
