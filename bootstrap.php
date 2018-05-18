@@ -80,9 +80,6 @@ else {
     header('Content-Type: text/html');
 }
 
-
-$tplPath = ;
-
 $libPath = './php/';
 $viewPath = './templates/';
 $tplFiles = explode('/', $sExt.'/'.$sPage);
