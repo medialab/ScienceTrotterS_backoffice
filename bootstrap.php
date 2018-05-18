@@ -100,7 +100,7 @@ foreach ($tplFiles as $file) {
 
         var_dump($viewPath.$f.'.tpl');
     if (file_exists('./templates/'.$viewPath.$f.'.tpl')) {
-        $sContent .= $smarty->fetch($libPath.$f.'.tpl');
+        $sContent .= $smarty->fetch($viewPath.$f.'.tpl');
         require_once($libPath.$f.'.tpl');
     }
 }
