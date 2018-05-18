@@ -114,7 +114,6 @@ foreach ($tplFiles as $f) {
     /*var_dump($f);*/
     $sContent .= $smarty->fetch($f);
 }
-exit;
 
 /*if ( file_exists('./php/'.$sExt.'.php') ) {
         require_once('./php/'.$sExt.'.php');
