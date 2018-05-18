@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	var lists = $('div.columnData');
 	var timers = {};
+	var spinners = {};
 	console.log("LISTS: ", lists);
 
 	lists.scroll(function() {
@@ -12,6 +13,15 @@ $(document).ready(function() {
 		}
 
 		timers[id] = setTimeout(function() {
+			if (typeof spinners[id] === 'undefined') {
+				spinners[id] = list.find('.spinner');
+			}
+
+			var spin = spinners[id];
+			if (spin.is(':visible') && $.scrollElementVisible(spin)) {
+				console.log("SPINNER VISIBLE");
+			}
+			
 			console.log("scrolled");
 		}, 75);
 	})
