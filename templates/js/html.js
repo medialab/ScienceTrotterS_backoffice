@@ -88,7 +88,6 @@ var ApiMgr = {
 		console.log("Executing Request: ", this.curRequest);
 		console.log(this.curRequest.data);
 
-		delete this.curRequest.data.callback;
 		$.ajax(this.curRequest);
 	},
 
@@ -102,6 +101,8 @@ var ApiMgr = {
 			method: method,
 			data: data,
 			dataType: 'jsonp',
+
+			jsonpCallback: 'ApiResponse',
 
 			beforeSend: function(xhr) {
 		        xhr.setRequestHeader('Authorization', this.apiToken);
@@ -165,5 +166,12 @@ var ApiMgr = {
 			success,
 			error
 		)
+	}
+}
+
+
+function ApiResponse(result) {
+	if (ApiMgr.curRequest.success) {
+		ApiMgr.curRequest.success(result);
 	}
 }
