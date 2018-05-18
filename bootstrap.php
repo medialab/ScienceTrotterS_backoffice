@@ -88,6 +88,7 @@ $i = 0;
 $f = '';
 $sContent = '';
 
+$tplFiles = [];
 foreach ($tplFiles as $file) {
     if (strlen($f)) {
         $f .= '/';
@@ -102,11 +103,15 @@ foreach ($tplFiles as $file) {
 
     
     if ($i > 0 && file_exists('./templates/'.$viewPath.$f.'.tpl')) {
-        var_dump($viewPath.$f.'.tpl');
-        $sContent .= $smarty->fetch($viewPath.$f.'.tpl');
+        $tplFiles[] = $viewPath.$f.'.tpl';
     }
 
     $i++;
+}
+
+foreach ($tplFiles as $f) {
+    var_dump($viewPath.$f.'.tpl');
+    $sContent .= $smarty->fetch($viewPath.$f.'.tpl');
 }
 
 /*if ( file_exists('./php/'.$sExt.'.php') ) {
