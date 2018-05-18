@@ -1,9 +1,3 @@
-function fetchNext(list) {
-	$.ajax({
-
-	});
-}
-
 $(document).ready(function() {
 	var lists = {};
 	var timers = {};
@@ -33,7 +27,7 @@ $(document).ready(function() {
 
 				if (typeof lists[id].req === 'undefined') {
 					lists[id].req = ApiMgr.list(
-						'cities', 0, 5, 
+						'cities', 1, 5, 
 						function(result){
 							var ul = list.find('ul');
 							var base = list.find('li.item').first();
