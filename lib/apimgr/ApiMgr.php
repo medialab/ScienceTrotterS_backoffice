@@ -53,7 +53,7 @@ class ApiMgr {
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
-		//var_dump("API RESPONSE", $r);
+		var_dump("API RESPONSE", $r);
 		return json_decode($r);
 	}
 
