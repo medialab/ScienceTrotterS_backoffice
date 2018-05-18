@@ -84,6 +84,7 @@ $libPath = './php/';
 $viewPath = '';
 $tplFiles = explode('/', $sExt.'/'.$sPage);
 
+$i = 0;
 $f = '';
 $sContent = '';
 foreach ($tplFiles as $file) {
@@ -94,15 +95,17 @@ foreach ($tplFiles as $file) {
     $f .= $file;
 
     if (file_exists($libPath.$f.'.php')) {
-        //var_dump($libPath.$f.'.php');
+        var_dump($libPath.$f.'.php');
         require_once($libPath.$f.'.php');
     }
 
     
-    //var_dump($viewPath.$f.'.tpl');
-    if (file_exists('./templates/'.$viewPath.$f.'.tpl')) {
+    if ($i > 0 && file_exists('./templates/'.$viewPath.$f.'.tpl')) {
+        var_dump($viewPath.$f.'.tpl');
         $sContent .= $smarty->fetch($viewPath.$f.'.tpl');
     }
+
+    $i++;
 }
 
 /*if ( file_exists('./php/'.$sExt.'.php') ) {
