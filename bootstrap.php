@@ -94,7 +94,7 @@ foreach ($tplFiles as $file) {
         require_once($libPath.$f.'.php');
     }
 
-    if (file_exists('./'.$viewPath.$f.'.tpl')) {
+    if (file_exists('./templates/'.$viewPath.$f.'.tpl')) {
         var_dump($viewPath.$f.'.tpl');
         $sContent .= $smarty->fetch($libPath.$f.'.tpl');
         require_once($libPath.$f.'.tpl');
