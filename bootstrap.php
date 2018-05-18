@@ -110,9 +110,10 @@ foreach ($tplFiles as $file) {
 }
 
 foreach ($tplFiles as $f) {
-    var_dump($viewPath.$f.'.tpl');
+    var_dump($viewath.$f.'.tpl');
     $sContent .= $smarty->fetch($viewPath.$f.'.tpl');
 }
+exit;
 
 /*if ( file_exists('./php/'.$sExt.'.php') ) {
         require_once('./php/'.$sExt.'.php');
