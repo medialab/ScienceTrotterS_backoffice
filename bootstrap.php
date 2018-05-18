@@ -81,7 +81,7 @@ else {
 }
 
 $libPath = './php/';
-$viewPath = './templates/';
+$viewPath = '/';
 $tplFiles = explode('/', $sExt.'/'.$sPage);
 
 $f = '';
