@@ -48,6 +48,8 @@ class ApiMgr {
 		Self::$tmpData['limit'] = Self::$sqlLimit;
 		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
 
+		var_dump(Self::$tmpData);
+		exit;
 		//var_dump("Request DATA", Self::$tmpData);
 		
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
