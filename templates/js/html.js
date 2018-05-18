@@ -3,11 +3,11 @@ $.scrollElementVisible = function (el) {
 	var listFound = false;
 
 	while(true) {
-		console.log(list, list.css('overflow'));
-		if (!list.attr('id') == 'content') {
+		console.log(list, list.attr('id'));
+		if (!list.attr('id') === 'content') {
 			return false;
 		}
-		else if (list.css('overflow') === 'scroll') {
+		else if (list.hasClass('columnData')) {
 			console.log("LIST FOUND");
 			break;
 		}
