@@ -36,7 +36,6 @@
 					<label>villes</label> 
 				</div>
 
-				{$aCities|var_dump}
 				<!-- DATA -->
 				<div class="columnData">
 
