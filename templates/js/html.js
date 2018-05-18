@@ -65,5 +65,7 @@ itemClick.forEach(handlerItemClick);
 var ApiMgr = {
 	apiToken: _API_TOKEN_,
 	
-	list: function(table, page)
+	list: function(table, page) {
+		
+	}
 }

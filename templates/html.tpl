@@ -37,7 +37,7 @@
 		</div>
 
 		<script>
-			var _API_TOKEN_ = {$_API_TOKEN}
+			var _API_TOKEN_ = {$_API_TOKEN_}
 		</script>
 
 		<script src="/html.js"></script>
