@@ -23,6 +23,7 @@ $.scrollElementVisible = function (el) {
 
     console.log(elemBottom + '<=' + docViewBottom);
     console.log(elemTop + '>=' + docViewTop);
+    console.log(((elemBottom <= docViewBottom) && (elemTop >= docViewTop)));
 
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
