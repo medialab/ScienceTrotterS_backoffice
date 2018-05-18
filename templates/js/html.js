@@ -81,10 +81,10 @@ var ApiMgr = {
 	},
 
 	execute: function() {
-		console.log("Executing Request: ", req);
 		this.active = true;
 		this.curRequest = this.queue.shift();
-		
+		console.log("Executing Request: ", this.curRequest);
+
 		$.ajax(this.curRequest);
 	},
 
@@ -118,6 +118,7 @@ var ApiMgr = {
 				}
 				else{
 					self.active = false;
+					self.curRequest = null;
 				}
 			},
 
