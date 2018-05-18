@@ -1,5 +1,5 @@
 <div>
-	<h2>Creéation d{$sCreation}</h2>
+	<h2>Création d{$sCreation}</h2>
 </div>
 
 <div>
@@ -11,6 +11,12 @@
 			<label>
 				Active
 				<input name="state" type="checkbox" checked="{if $smarty.post.state|default: $city.state:false}true{else}false{/if}">
+			</label>
+		</div>
+		<div>
+			<label>
+				Image
+				<input name="img" type="file">
 			</label>
 		</div>
 	</form>
