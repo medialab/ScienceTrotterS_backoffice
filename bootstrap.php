@@ -95,7 +95,7 @@ foreach ($tplFiles as $file) {
     $f .= $file;
 
     if (file_exists($libPath.$f.'.php')) {
-        var_dump($libPath.$f.'.php');
+        //var_dump($libPath.$f.'.php');
         require_once($libPath.$f.'.php');
     }
 
