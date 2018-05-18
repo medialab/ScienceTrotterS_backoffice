@@ -17,6 +17,8 @@
 			{if file_exists( "./templates/css/html/"|cat:$smarty.get.name:".css" )}
 				<link rel="stylesheet" href="/html/{$smarty.get.name}.css" type="text/css" />
 			{/if}
+
+			<script type="text/javascript" src="/view/js/lib/jquery-3.3.1.min.js"></script>
 	</head>
 	<body>
 <!-- 
