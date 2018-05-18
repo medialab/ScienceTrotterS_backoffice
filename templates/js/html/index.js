@@ -37,10 +37,11 @@ $(document).ready(function() {
 						var base = list.find('li.item').first();
 						$.each(result.data, function(i,e) {
 							console.log("=== "+i+" ===", e);
-							
+
 							var row = base.clone();
 							row.find('.itemLabel').text(e.label);
-							
+							list.append(row);
+							list.append(spin);
 						})
 					}, 
 					function(result){
