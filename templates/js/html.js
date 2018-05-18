@@ -10,7 +10,7 @@ $.scrollElementVisible = function (el) {
 			break;
 		}
 
-		list = list.parent():
+		list = list.parent();
 	}
 
 	var docViewTop = list.scrollTop();
