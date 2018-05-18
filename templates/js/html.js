@@ -64,7 +64,7 @@ itemClick.forEach(handlerItemClick);
 
 var ApiMgr = {
 	curRequest: null,
-	apiUrl: _API_TOKEN_,
+	apiUrl: _API_URL_,
 	apiToken: _API_TOKEN_,
 
 	queue: [],
@@ -82,6 +82,8 @@ var ApiMgr = {
 
 	execute: function() {
 		this.active = true;
+		
+		console.log(this.queue);
 		this.curRequest = this.queue.shift();
 		console.log("Executing Request: ", this.curRequest);
 
