@@ -98,10 +98,11 @@ var ApiMgr = {
 			//url: this.apiUrl+url,
 			method: method,
 			data: data,
-			headers: {
-				'Authorization': this.apiToken,
-				'Access-Control-Allow-Origin': '*'
-			},
+
+			beforeSend: function(xhr) {
+		        xhr.setRequestHeader('Authorization', this.apiToken);
+		        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+		    }
 
 			success: function(result) {
 				if (success) {
