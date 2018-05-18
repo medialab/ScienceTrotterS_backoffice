@@ -80,7 +80,7 @@ else {
     header('Content-Type: text/html');
 }
 
-$libPath = './php';
+$libPath = './php/';
 $viewPath = '';
 $tplFiles = explode('/', $sExt.'/'.$sPage);
 
@@ -90,7 +90,7 @@ foreach ($tplFiles as $file) {
     if (strlen($f)) {
         $f .= '/';
     }
-    
+
     $f .= $file;
 
     if (file_exists($libPath.$f.'.php')) {
