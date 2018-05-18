@@ -151,3 +151,13 @@
     -webkit-transform: scale(1.0);
   }
 }
+
+.spinner-xs {
+  width: 20px;
+  height: 20px;
+}
+
+.spinner-lg {
+  width: 60px;
+  height: 60px;
+}

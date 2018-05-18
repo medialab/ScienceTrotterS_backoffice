@@ -63,7 +63,7 @@
 						<li class="item">
 							<div class="itemAction">
 							</div>
-							<label class="itemLabel">{include file="include/spinner.tpl"}</label>
+							<label class="itemLabel">{include file="include/spinner.tpl" size='lg'}</label>
 						</li>
 						<!-- .\ LOAD ITEM -->
 					</ul>
