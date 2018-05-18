@@ -1,6 +1,6 @@
 <?php
 
-ApiMgr::setLimit(1);
-$aCities = ApiMgr::list('cities');
+var_dump("TEST");
+$aCities = ApiMgr::list('cities', 5);
 $smarty->assign('aCities', $aCities->data);
 exit;

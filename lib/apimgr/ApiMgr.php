@@ -110,8 +110,11 @@ class ApiMgr {
 		$res = Self::exec();
 	}
 
-	public static function list($model, $public=true) {
+	public static function list($model, $public=true, $limit=0, $page=0) {
 		$c = Self::reset();
+
+		Self::setLimit($limit);
+		Self::setPage($page);
 
 		$base = $public ? 'public/' : 'private/';
 		
@@ -187,6 +190,6 @@ class ApiMgr {
 			$page = 0;
 		}
 
-		Self::$sqlpage = $limit;
+		Self::$curPage = $page;
 	}
 }
