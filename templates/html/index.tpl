@@ -37,7 +37,7 @@
 				</div>
 
 				<!-- DATA -->
-				<div class="columnData">
+				<div id="cities" class="columnData">
 
 					<ul class="itemList">
 						{foreach $aCities as $city}
