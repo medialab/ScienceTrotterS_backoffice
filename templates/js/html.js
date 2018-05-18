@@ -13,7 +13,7 @@ $.scrollElementVisible = function (el) {
 		list = list.parent();
 	}
 
-	var docViewTop = list.offset().top + list.height();
+	var docViewTop = list.offset().top;
     var docViewBottom = docViewTop + list.height();
 
     var elemTop = el.offset().top;
