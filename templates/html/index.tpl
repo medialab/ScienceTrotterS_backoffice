@@ -58,22 +58,14 @@
 							</li>
 							<!-- .\ ITEM -->
 						{/foreach}
-						<!-- ITEM ACTIVE-->
-						<li class="item selected">
+
+						<!-- LOAD ITEM -->
+						<li class="item">
 							<div class="itemAction">
-								<a href="#">
-									<i class="icon-pre icon-list-remove"></i>
-								</a>
-								<a href="#">
-									<i class="icon-pre icon-list-edit"></i>
-								</a>
-								<a href="#">
-									<i class="icon-pre icon-list-preview"></i>
-								</a>
 							</div>
-							<label class="itemLabel">label</label>
+							<label class="itemLabel">{include file="include/spinner.tpl"}</label>
 						</li>
-						<!-- .\ ITEM -->
+						<!-- .\ LOAD ITEM -->
 					</ul>
 
 				</div>
