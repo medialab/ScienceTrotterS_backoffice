@@ -34,7 +34,14 @@ $(document).ready(function() {
 				var req = ApiMgr.list(
 					'cities', 0, 5, 
 					function(result){
-						console.log("SUCCESS: ", result)
+						var base = list.find('li.item').first();
+						$.each(result.data, function(i,e) {
+							console.log("=== "+i+" ===", e);
+							
+							var row = base.clone();
+							row.find('.itemLabel').text(e.label);
+							
+						})
 					}, 
 					function(result){
 						console.log("ERROR: ", result)
