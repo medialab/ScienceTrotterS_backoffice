@@ -21,6 +21,8 @@ class ApiMgr {
 		}
 
 		Self::$url = API_URL.'/';
+		$smarty->assign("_API_URL_", Self::$url);
+		
 		Self::$curl = new CurlMgr();
 		Self::$curl->setTimeout(3);
 		//var_dump("INIT API", $_SESSION);

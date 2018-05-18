@@ -8,7 +8,6 @@ $(document).ready(function() {
 	var lists = {};
 	var timers = {};
 	var spinners = {};
-	console.log("LISTS: ", lists);
 
 	$('div.columnData').scroll(function() {
 		var list = $(this);

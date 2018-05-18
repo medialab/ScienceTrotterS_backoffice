@@ -37,6 +37,7 @@
 		</div>
 
 		<script>
+			var _API_URL_ = '{$_API_URL_}';
 			var _API_TOKEN_ = '{$_API_TOKEN_}';
 		</script>
 
