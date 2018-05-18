@@ -15,14 +15,14 @@ $.scrollElementVisible = function (el) {
 		list = list.parent();
 	}
 
-	var docViewTop = list.scrollTop();
+	var docViewTop = list.offset().top + list.scrollTop();
     var docViewBottom = docViewTop + list.height();
 
     var elemTop = el.offset().top;
     var elemBottom = elemTop + el.height();
 
-    console.log(elemBottom + '<=' + docViewBottom, (elemBottom <= docViewBottom));
     console.log(elemTop + '>=' + docViewTop, (elemTop >= docViewTop));
+    console.log(elemBottom + '<=' + docViewBottom, (elemBottom <= docViewBottom));
     console.log(((elemBottom <= docViewBottom) && (elemTop >= docViewTop)));
 
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
