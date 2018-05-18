@@ -110,8 +110,8 @@ foreach ($tplFiles as $file) {
 }
 
 foreach ($tplFiles as $f) {
-    var_dump($viewath.$f.'.tpl');
-    $sContent .= $smarty->fetch($viewPath.$f.'.tpl');
+    var_dump($f);
+    $sContent .= $smarty->fetch($f);
 }
 exit;
 
