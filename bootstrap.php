@@ -80,6 +80,9 @@ else {
     header('Content-Type: text/html');
 }
 
+var_dump($sExt.'/'.$sPage);
+exit;
+
 if ( file_exists('./php/'.$sExt.'.php') ) {
         require_once('./php/'.$sExt.'.php');
 }
