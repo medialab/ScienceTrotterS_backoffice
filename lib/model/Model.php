@@ -11,7 +11,7 @@ abstract class Model
 	private $bSync = false;
 	private $bLoded = false;
 
-	function __construct($id=false, Array $data=[]) {
+	function __construct($id=false, Array $aData=[]) {
 		if ($id) {
 			$this->loadById($id);
 		}
