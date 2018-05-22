@@ -57,6 +57,9 @@ abstract class Model
 	}
 
 	public function set($sVar, $var) {
+	}
+
+	function __set($sVar, $var) {
 		var_dump("Update: $sVar");
 		if ($this->$sVar !== $var) {
 			var_dump("New");
@@ -64,11 +67,6 @@ abstract class Model
 		}
 
 		$this->$sVar = $var;
-	}
-
-	function __set($sVar, $var) {
-		var_dump("Model Update: $sVar");
-		$this->et($sVar, $var);
 	}
 
 	function __get($sVar) {
@@ -80,7 +78,7 @@ abstract class Model
 			return null;
 		} 
 		elseif(property_exists($this, $sVar)) {
-			return $this->$var;
+			return $this->$sVar;
 		}
 
 		trigger_error('Property  '.$sVar.' does not exists in Class: '.get_class().'');
