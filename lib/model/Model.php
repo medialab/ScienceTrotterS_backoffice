@@ -45,7 +45,7 @@ abstract class Model
 		$this->bSync = false;
 		foreach ($aData as $sProp => $sData) {
 			if (property_exists($this, $sProp)) {
-				$this->$sProp = $sData;
+				$this->set($sProp, $sData);
 			}
 			else {
 				return false;
