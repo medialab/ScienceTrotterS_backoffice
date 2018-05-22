@@ -58,9 +58,6 @@ if (fMethodIs('post')) {
 	}
 
 	if (empty($aErrors)) {
-		if () {
-			# code...
-		}
 		$oCity = new Model\City();
 	}
 }
