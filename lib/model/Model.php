@@ -110,7 +110,7 @@ abstract class Model
 		var_dump("To Array", get_object_vars($this));
 		$aResult = [];
 		foreach (get_object_vars($this) as $key => $value) {
-			if (in_array($key, $this->sqlVars) || !property_exists('Model') && !in_array($key, $this->sqlIgnore)) {
+			if (!in_array($key, $this->sqlIgnore) && (in_array($key, $this->sqlVars) || !property_exists('Model', $key))) {
 				$aResult[$key] = $value;
 			}
 		}
