@@ -30,7 +30,7 @@ abstract class Model
 		}
 
 		$this->load($aData);
-		Self::$bSync = true;
+		$this->$bSync = true;
 		return true;
 	}
 
