@@ -11,7 +11,6 @@ class City extends Model
 	public $geoE;
 	public $geoloc;
 	public $label;
-	public $geoloc;
 	public $state;
 	public $image;
 
