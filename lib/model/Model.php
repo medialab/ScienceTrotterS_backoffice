@@ -120,6 +120,7 @@ abstract class Model
 
 			var_dump("Sql Vars", in_array($key, $this->sqlVars));
 			var_dump("belong Model: ", property_exists('Model', $key));
+			var_dump("belong Model: ", property_exists('Model\Model', $key));
 
 
 			var_dump("Do Add", !$bIgnore && !$bModel);
