@@ -113,10 +113,10 @@ abstract class Model
 			var_dump("===== $key =====");
 
 			var_dump("Is Ignore: ", in_array($key, $this->sqlIgnore));
-			var_dump("Sql Vars: ", in_array($key, $this->sqlVars));
+			// var_dump("Sql Vars: ", in_array($key, $this->sqlVars));
 			var_dump("belong Model: ", !property_exists('Model', $key));
 
-			if (!in_array($key, $this->sqlIgnore) && in_array($key, $this->sqlVars) && !property_exists('Model', $key)) {
+			if (!in_array($key, $this->sqlIgnore) && !property_exists('Model', $key)) {
 				$aResult[$key] = $value;
 			}
 		}

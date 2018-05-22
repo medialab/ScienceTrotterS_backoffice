@@ -16,7 +16,7 @@ class City extends Model
 
 	function __construct($id=false, Array $aData=[]) {
 		$this->sTable = 'cities';
-		$this->sqlIgnore = $this->sqlIgnore + ['geoE','geoN'];
+		$this->sqlIgnore = ['geoE','geoN'];
 		Parent::__construct($id, $aData);
 	}
 
