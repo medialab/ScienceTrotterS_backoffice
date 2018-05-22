@@ -7,12 +7,12 @@ namespace Model;
 class City extends Model
 {
 
-	public $geoN;
-	public $geoE;
-	public $geoloc;
-	public $label;
-	public $state;
-	public $image;
+	private $geoN;
+	private $geoE;
+	private $geoloc;
+	private $label;
+	private $state;
+	private $image;
 
 	function __construct($id=false, Array $aData=[]) {
 		$this->sTable = 'cities';
