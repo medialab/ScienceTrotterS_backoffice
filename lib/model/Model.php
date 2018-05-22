@@ -21,7 +21,7 @@ abstract class Model
 	}
 
 	public function loadById($id) {
-		$aData = ApiMgr::get($this->sTable, $id);	
+		$aData = \ApiMgr::get($this->sTable, $id);	
 		
 		$this->load($aData);
 		Self::$bSync = true;
