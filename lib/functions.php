@@ -75,7 +75,7 @@ function fMethodIs($type='get') {
 		}
 	}
 
-	function fFileZieValidator($sName, $size) {
+	function fFileZieValidator($sName, $sSize) {
 		/* Si aucun Fichier */
 		if (empty($_FILES) || empty($_FILES[$sName]) || !$_FILES[$sName]['size']) {
 			return true;
@@ -83,8 +83,6 @@ function fMethodIs($type='get') {
 
 		/* Vérification du filtre */
 		$aMatches = [];
-		$sSize = $aParams['aApplyedFilters']['file-size'];
-		
 		$aSizeFactors = [
 			'o' => 1,
 			'ko' => 1024,
