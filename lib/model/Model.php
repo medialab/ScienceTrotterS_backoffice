@@ -45,7 +45,7 @@ abstract class Model
 		var_dump($aData);
 		foreach ($aData as $sProp => $sData) {
 			if (property_exists($this, $sProp)) {
-				$this->set($sProp, $sData);
+				$this->$sProp = $sData;
 			}
 			else {
 				return false;
