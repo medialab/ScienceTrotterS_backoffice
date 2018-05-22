@@ -1,4 +1,3 @@
-{$aErrors|var_dump}
 <div>
 	<form method="post">
 		<input type="hidden" name="id" value="{$cityID|default: ''}">

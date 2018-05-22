@@ -3,7 +3,6 @@
 $smarty->assign('sCreation', '\'une ville');
 
 if (fMethodIs('post')) {
-	var_dump("Validating Form");
 	if(!fRequiredValidator('label', $_POST)) {
 		$aErrors['Nom'] = 'Ce champs est obligatoire';
 	}
@@ -58,8 +57,6 @@ if (fMethodIs('post')) {
 		var_dump("Success");
 		exit;
 	}
-
-	var_dump($aErrors);
 }
 
 $smarty->assign("aErrors", $aErrors);

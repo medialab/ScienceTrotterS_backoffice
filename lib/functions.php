@@ -13,7 +13,7 @@ function fMethodIs($type='get') {
 			$res = !empty($aFormData[$sName]);
 		}
 
-		var_dump("REQUIERD: $sName", $aFormData[$sName], $res);
+		//var_dump("REQUIERD: $sName", $aFormData[$sName], $res);
 		return $res;
 	}
 
