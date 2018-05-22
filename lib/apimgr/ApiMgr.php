@@ -61,7 +61,7 @@ class ApiMgr {
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
-		var_dump(Self::$curl->getInos());
+		var_dump(Self::$curl->getInfos());
 		var_dump(Self::$curl->getError());
 		var_dump($r);
 		return json_decode($r);
