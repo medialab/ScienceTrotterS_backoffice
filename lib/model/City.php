@@ -11,7 +11,7 @@ class City extends Model
 	public $geoE;
 	public $label;
 	public $active;
-	public $imgPath;
+	public $image;
 
 	function __construct($id=false, Array $aData=[]) {
 		$this->sTable = 'cities';
