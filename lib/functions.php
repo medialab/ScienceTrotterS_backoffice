@@ -184,13 +184,14 @@ function fMethodIs($type='get') {
 							var_dump($aMimes);
 							var_dump(in_array($sType, $aMimes));
 							if (in_array($sType, $aMimes)) {
+								var_dump("FOUND !!!!");
 								$aAuthorizedMimes[$sType] = $key.'/'.$sType;
 								break;
 							}
 							
 						}
 
-						if (empty($aAuthorizedExtensions[$sType])) {
+						if (empty($aAuthorizedMimes[$sType])) {
 							trigger_error("Filter File does not have {$sType} MimeType");
 						}
 					}
