@@ -11,7 +11,7 @@
 	define( 'TEMPLATE_PATH',        './templates/' );
 
 	define("API_SSL", false);
-	define("API_URL", 'https://api-sts-stable.actu.com');
+	define("API_URL", 'http://api-sts-stable.actu.com');
 
 
 
