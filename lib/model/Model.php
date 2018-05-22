@@ -44,10 +44,8 @@ abstract class Model
 
 		$this->bSync = false;
 		foreach ($aData as $sProp => $sData) {
-			var_dump($sProp);
-			//$sProp = str_replace($this->prefix, '', $sProp);
 			if (property_exists($this, $sProp)) {
-				$this->$sProp = $sData;
+				$this->__set($sProp, $sData);
 			}
 			else {
 				return false;
@@ -61,7 +59,7 @@ abstract class Model
 	function __set($sVar, $var) {
 		var_dump("Update: $sVar");
 		if ($this->$sVar !== $var) {
-			var_dump("New Value");
+			var_dump("New");
 			$this->bSync = false;
 		}
 
