@@ -11,11 +11,11 @@ abstract class Model
 	protected $updated_at;
 
 
-	private $sqlVars = ['id', 'created_at', 'updated_at'];
+	protected $sqlVars = ['id', 'created_at', 'updated_at'];
 
 	protected $sTable;
-	private $bSync = false;
-	private $bLoaded = false;
+	protected $bSync = false;
+	protected $bLoaded = false;
 
 	protected $sqlIgnore = ['sqlIgnore'];
 
