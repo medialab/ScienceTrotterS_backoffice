@@ -257,7 +257,6 @@ class ApiMgr {
 		$url = Self::$url.'private/'.$oModel->sTable.'/update';
 		$c->setUrl($url);
 
-		$aData["TEST"] = "loool";
 		$aData = $oModel->toArray();
 		Self::setData(['id' => $oModel->id, 'data' => $aData]);
 
