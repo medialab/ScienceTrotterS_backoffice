@@ -1,4 +1,5 @@
 <div>
+	{$oCity|var_dump}
 	<form method="post" enctype="multipart/form-data">
 		<input type="hidden" name="id" value="{$oCity->id|default: 0}">
 		<div class="inline">
