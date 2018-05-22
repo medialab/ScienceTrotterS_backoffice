@@ -30,7 +30,7 @@
 
 			// var_dump($sPathClassName);
 			if ( file_exists( $sPathClassName ) ) {
-				require( realpath( $sPathClassName ) );
+				require_once( realpath( $sPathClassName ) );
 
 			} 
 			else {
@@ -38,7 +38,7 @@
 				$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.php' );
 				// var_dump($sPathClassName);
 				if ( file_exists( $sPathClassName ) ) {
-					require( realpath( $sPathClassName ) );
+					require_once( realpath( $sPathClassName ) );
 				}
 			}
 		} spl_autoload_register( 'fAutoLoader' );
