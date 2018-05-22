@@ -6,7 +6,11 @@ namespace Model;
  */
 abstract class Model
 {
-	private $id;
+	protected $id;
+	protected $created_at;
+	protected $updated_at;
+
+
 	protected $sTable;
 	private $bSync = false;
 	private $bLoded = false;
@@ -67,8 +71,8 @@ abstract class Model
 	}
 
 	function __get($sVar) {
-		if ($sVar === 'id') {
-			return $this->id;
+		if (in_array($sVar ['id', 'created_at', 'updated_at'])) {
+			return $this->$sVar;
 		}
 		elseif (property_exists('Model', $sVar)) {
 			trigger_error('Can\'t access Model Properties due to Protection Level.');
