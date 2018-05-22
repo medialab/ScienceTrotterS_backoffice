@@ -103,9 +103,10 @@ abstract class Model
 	}
 
 	public function toArray() {
+		var_dump("To Array", get_object_vars($this));
+		exit;
 		foreach (get_object_vars($this) as $key => $value) {
 			var_dump("$key => ", $value);
 		}
-		exit;
 	}
 }
