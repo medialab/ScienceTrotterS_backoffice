@@ -8,6 +8,7 @@ if ($id && !fIdValidator($id)) {
 }
 
 $oCity = new \model\City($id);
+$oCity->geoloc = "-43.1:120.32";
 var_dump($oCity);
 exit;
 
