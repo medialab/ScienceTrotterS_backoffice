@@ -9,13 +9,20 @@
 		</div>
 		<div>
 			<label>
-				Active
+				Active:
 				<input name="state" type="checkbox" checked="{if $smarty.post.state|default: $city.state:false}true{else}false{/if}">
 			</label>
 		</div>
 		<div>
 			<label>
-				Image
+				Geolocation:
+				<input name="geo-n" type="text"> °N
+				<input name="geo-e" type="text"> °E
+			</label>
+		</div>
+		<div>
+			<label>
+				Image:
 				<input name="img" type="file">
 			</label>
 		</div>
