@@ -108,7 +108,6 @@ abstract class Model
 
 	public function toArray() {
 		var_dump("To Array", get_object_vars($this));
-		exit;
 		$aResult = [];
 		foreach (get_object_vars($this) as $key => $value) {
 			if (in_array($key, $this->sqlVars) || !property_exists('Model') && !in_array($key, $this->sqlIgnore)) {
