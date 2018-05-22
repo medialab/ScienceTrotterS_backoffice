@@ -110,7 +110,7 @@ class ApiMgr {
 			return false;
 		}
 
-		Self::setToken($token);
+		Self::setToken($res->token);
 
 		$_SESSION['user'] = [
 			'pass' => $pass,
