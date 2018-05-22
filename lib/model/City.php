@@ -14,8 +14,6 @@ class City extends Model
 	protected $state;
 	protected $image;
 
-	protected $sqlIgnore;
-
 	function __construct($id=false, Array $aData=[]) {
 		$this->sTable = 'cities';
 		$this->sqlIgnore = $this->sqlIgnore + ['geoE','geoN'];
