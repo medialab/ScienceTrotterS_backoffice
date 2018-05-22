@@ -12,7 +12,7 @@ abstract class Model
 	private $bLoded = false;
 
 	function __construct($id=false, Array $aData=[]) {
-		if ($id && fIsIdValidator($id)) {
+		if ($id) {
 			$this->loadById($id);
 		}
 		elseif(!empty($aData)) {
@@ -21,6 +21,10 @@ abstract class Model
 	}
 
 	public function loadById($id) {
+		if (!fIdValidator($id)) {
+			return false;
+		}
+
 		$oData = \ApiMgr::get($this->sTable, $id);	
 
 		if (empty($oData) || !$oData->success) {

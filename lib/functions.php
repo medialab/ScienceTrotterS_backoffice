@@ -5,7 +5,7 @@ function fMethodIs($type='get') {
 }
 
 /* INPUT FILTERS */
-	function fIsIdValidator($id) {
+	function fIdValidator($id) {
 		return preg_match('/^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$/', $id);
 	}
 
