@@ -1,11 +1,17 @@
 <?php 
 
+/**
+ * Gestionnaire Curl
+ */
 class CurlMgr {
-    private $c;
-    private $res;
-    private $err;
-    private $errCode;
+    private $c;             // var Curl
+    private $res;           // Request Result
+    private $err;           // Error Msg
+    private $errCode;       // Error Code
 
+    public $headers = [];   // Headers to Apply
+
+    // Authorized Methods
     private $methods = [
         "GET",
         "HEAD",
@@ -18,8 +24,11 @@ class CurlMgr {
         "PATCH"
     ];
 
-    public $headers = [];
-
+    /**
+     * Construct
+     * @param (String|boolean)     $url  Url
+     * @param Array $data Request Data
+     */
     function __construct($url=false, Array $data=[]){
         $this->c = curl_init('');
         curl_setopt($this->c, CURLOPT_RETURNTRANSFER, true);
@@ -30,6 +39,10 @@ class CurlMgr {
         }
     }
 
+    /**
+     * Adda Header to Apply
+     * @param (String|Array) $heads ex: 'Content-Type: text/html' || ['Content-Type' => 'text/html']
+     */
     public function setHeader($heads){
         if (is_string($heads) && strpos($heads, ': ')) {
             $h = explode(': ', $heads);
@@ -51,10 +64,15 @@ class CurlMgr {
         else{
             $this->headers = false;
         }
-        // curl_setopt($this->c, CURLOPT_HTTPHEADER, $heads);
+
         return $this;
     }
 
+    /**
+     * Set Request Url
+     * @param String      $url Request Url
+     * @param Array $data Request Data
+     */
     public function setUrl($url, Array $data=[]){
         if (count($data)) {
             $d = http_build_query($data);
@@ -76,6 +94,12 @@ class CurlMgr {
         return $this;
     }
 
+    /**
+     * Set Request data
+     * @param (String|Array)  $data       Request Data
+     * @param boolean $asJson     Data to Json
+     * @param boolean $addHeaders add Content-Type
+     */
     public function setData($data, $asJson=true, $addHeaders=true){
         if(is_array($data)){
             if ($asJson) {
@@ -95,6 +119,11 @@ class CurlMgr {
         return $this;
     }
 
+    /**
+     * Reset Curl
+     * @param  string $url New Request Url
+     * @return CurlMgr      $this
+     */
     public function reset($url=""){
         curl_reset($this->c);
         curl_close($this->c);
@@ -111,13 +140,22 @@ class CurlMgr {
         return $this;
     }
 
+    /**
+     * Athentication
+     * @param String $user Athentication User
+     */
     public function setUser($user){
         curl_setopt($this->c, CURLOPT_USERPWD, $user);
         return $this;
     }
 
+    /**
+     * Apply Header To Request
+     * @return [type] [description]
+     */
     private function applyHeaders(){
         $heads = [];
+        
         foreach ($this->headers as $k => $v) {
             if (is_string($k)) {
                 $heads[] = "{$k}: {$v}";
@@ -126,9 +164,14 @@ class CurlMgr {
                 $heads[] = $v;
             }
         }
+
         $t = curl_setopt($this->c, CURLOPT_HTTPHEADER, $heads);
     }
 
+    /**
+     * Execute Request
+     * @return String Response
+     */
     public function exec(){
         $this->applyHeaders();
         $this->res = curl_exec($this->c);
@@ -138,10 +181,19 @@ class CurlMgr {
         return $this->res;
     }
 
+    /**
+     * Return Curl Error
+     * @return Array ['code' => $code, 'err' => $msg]
+     */
     public function getError(){
         return ["code" => $this->errCode, "err" => $this->err];
     }
 
+    /**
+     * Get Curl Infos
+     * @param  integer $opt Option (0 for All)
+     * @return Array|OptionType       Option(s) Value(s)
+     */
     public function getInfos($opt=0){
         if ($opt) {
             return curl_getinfo($this->c, $opt);
@@ -150,27 +202,47 @@ class CurlMgr {
         return curl_getinfo($this->c);
     }
 
+    /**
+     * Set Request to POST METHOD
+     * @param  boolean $p [description]
+     * @return boolean    [description]
+     */
     public function isPost($p=true){
         curl_setopt($this->c, CURLOPT_POST, $p);
         return $this;
     }
 
+    /**
+     * Enable Verify SSL
+     * @param  boolean $s [description]
+     * @return [type]     [description]
+     */
     public function verifySSL($s=true){
         curl_setopt($this->c, CURLOPT_SSL_VERIFYHOST, $s);
         curl_setopt($this->c, CURLOPT_SSL_VERIFYPEER, $s);
         return $this;
     }
 
+    /**
+     * Enable Verbose Get Info
+     * @param  boolean $v [description]
+     * @return [type]     [description]
+     */
     public function verbose($v=true){
         curl_setopt($this->c, CURLOPT_VERBOSE, $v);
         return $this;
     }
 
+    // Enable Response Header Parsing
     public function responseHeader($v=true){
         curl_setopt($this->c, CURLOPT_HEADER, $v);
         return $this;
     }
 
+    /**
+     * Set Request Method
+     * @param [type] $m [description]
+     */
     public function setMethod($m){
         $m = strtoupper($m);
         if (!in_array($m, $this->methods)) {
@@ -181,15 +253,28 @@ class CurlMgr {
         return $this;
     }
 
+    /**
+     * sET Curl Option
+     * @param [type] $opt  [description]
+     * @param [type] $data [description]
+     */
     public function setOpt($opt, $data){
         curl_setopt($this->c, $opt, $data);
         return $this;
     }
 
+    /**
+     * Close Curl
+     * @return [type] [description]
+     */
     public function close(){
         curl_close($this->c);
     }
 
+    /**
+     * Set Curl TimeO-ut
+     * @param [type] $sec [description]
+     */
     public function setTimeout($sec) {
         curl_setopt($this->c, CURLOPT_TIMEOUT, $sec);
     }

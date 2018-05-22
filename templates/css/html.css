@@ -2,6 +2,10 @@
   padding: 15px;
 }
 
+.inline {
+  margin-bottom: 15px; 
+}
+
 .mainContent {
   flex-grow: 1;
   display: flex;

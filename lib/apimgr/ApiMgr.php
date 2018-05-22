@@ -4,16 +4,16 @@
  * 
  */
 class ApiMgr {
-	private static $url;
-	private static $curl;
-	private static $token = false;
-	private static $bInit = false;
+	private static $url;				// Base API URL
+	private static $curl;				// CurlMgr
+	private static $token = false;		// Api Token
+	private static $bInit = false;		// Is Init
 	
-	private static $curPage = 0;
-	private static $sqlLimit = 25;
-	private static $sqlMaxLimit = 200;
+	private static $curPage = 0;		// Current Page
+	private static $sqlLimit = 25;		// Request Return Limit
+	private static $sqlMaxLimit = 200;	// Max Reuest Return Limit
 	
-	private static $tmpData = [];
+	private static $tmpData = [];		// Temporary Request
 
 	public static function init() {
 		if (Self::$bInit) {
@@ -24,22 +24,30 @@ class ApiMgr {
 
 		Self::$curl = new CurlMgr();
 		Self::$curl->setTimeout(3);
-		//var_dump("INIT API", $_SESSION);
+
 		if (!empty($_SESSION['user']['token'])) {
 			Self::setToken($_SESSION['user']['token']);
 		}
 
-		//var_dump("TOKEN: ", Self::$token);
-
 		Self::$bInit = true;
 	}
 
+	/**
+	 * Defini L'url et L'ajoute à Smarty pour le ApiMgr js
+	 */
 	private static function setUrl() {
 		global $smarty;
+
 		Self::$url = API_URL.'/';
 		$smarty->assign("_API_URL_", Self::$url);
 	}
 
+	/**
+	 * Execute Une REquete
+	 * @param  string  $method       (get, postn put...)
+	 * @param  boolean $applyHeaders Ajoute ou non le header Authorization
+	 * @return Array                Résultats
+	 */
 	private static function exec($method='get', $applyHeaders=true) {
 		if (Self::$token && $applyHeaders) {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
@@ -53,10 +61,29 @@ class ApiMgr {
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
-		//var_dump("API RESPONSE", $r);
 		return json_decode($r);
 	}
 
+	/**
+	 * Logout
+	 */
+	public static function logout() {
+		if (!Self::$token) {
+			return;
+		}
+
+		$c = Self::reset();
+		$c->setUrl(Self::$url.'logout');
+
+		$res = Self::exec();
+	}
+
+	/**
+	 * Execute un login
+	 * @param  String $mail Email
+	 * @param  String $pass Password
+	 * @return bool       Succès
+	 */
 	public static function login($mail, $pass) {
 		if (!preg_match('/[a-z0-9.-_]+@[a-z0-9-_]+\.[a-z]{2,6}/i', $mail) || strlen($pass) < 2) {
 			return false;
@@ -92,23 +119,24 @@ class ApiMgr {
 		return true;
 	}
 
+	/**
+	 * Defini le Token Et l'ajoute à Smarty pour ApiMgr Js
+	 * @param [type] $token [description]
+	 */
 	private static function setToken($token) {
 		global $smarty;
 		Self::$token = $token;
 		$smarty->assign("_API_TOKEN_", Self::$token);
 	}
 
-	public static function logout() {
-		if (!Self::$token) {
-			return;
-		}
-
-		$c = Self::reset();
-		$c->setUrl(Self::$url.'logout');
-
-		$res = Self::exec();
-	}
-
+	/**
+	 * Récupère Un Array d'une Table
+	 * @param  String  $model  Table
+	 * @param  boolean $public Public ou Private Url
+	 * @param  integer $limit  Limit
+	 * @param  integer $page   Page
+	 * @return Array          List d'elements
+	 */
 	public static function list($model, $public=true, $limit=0, $page=0) {
 		$c = Self::reset();
 
@@ -124,6 +152,13 @@ class ApiMgr {
 		return $res;
 	}
 
+	/**
+	 * Récupère Un Element par ID
+	 * @param  String  $model  Table
+	 * @param  [type]  $id     ID
+	 * @param  boolean $public Public ou Private Url
+	 * @return Array          Data
+	 */
 	public static function get($model, $id, $public=true) {
 		$c = Self::reset();
 
@@ -142,6 +177,10 @@ class ApiMgr {
 		return $res;
 	}
 
+	/**
+	 * Reset La Requete
+	 * @return CurlMgr
+	 */
 	private static function reset() {
 		Self::$tmpData = [];
 
@@ -149,12 +188,16 @@ class ApiMgr {
 		Self::$sqlLimit = 25;
 
 		return Self::$curl->reset();
-	} 
+	}
 
 	private static function setData($data) {
 		Self::$tmpData = $data;
 	}
 
+	/**
+	 * Page Suivante De la Requete
+	 * @return Array Liste des Elements
+	 */
 	public static function nextPage() {
 		Self::$curPage++;
 		
@@ -169,6 +212,10 @@ class ApiMgr {
 		return $r;
 	}
 
+	/**
+	 * definis la limite
+	 * @param int $limit
+	 */
 	public static function setLimit($limit) {
 		$limit = (int)$limit;
 		
@@ -182,6 +229,10 @@ class ApiMgr {
 		Self::$sqlLimit = $limit;
 	}
 
+	/**
+	 * Défini la Page
+	 * @param int $page page
+	 */
 	public static function setPage($page) {
 		$page = (int)$page;
 		

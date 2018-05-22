@@ -5,8 +5,8 @@
  */
 class CityMdl
 {
-	
-	function __construct($id) {
+	private $bLoded = false;
+	function __construct($id=0, Array $data=[]) {
 		
 	}
 }
