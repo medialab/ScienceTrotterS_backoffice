@@ -118,7 +118,7 @@ abstract class Model
 			$bModel = !property_exists('Model', $key);
 			var_dump("belong Model: ", $bModel);
 
-			var_dump("Do Add", $bIgnore && $bModel);
+			var_dump("Do Add", !$bIgnore && !$bModel);
 
 			if (!in_array($key, $this->sqlIgnore) && !property_exists('Model', $key)) {
 				$aResult[$key] = $value;
