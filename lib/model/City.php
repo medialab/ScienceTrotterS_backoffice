@@ -26,6 +26,7 @@ class City extends Model
 
 	public function setGeoloc($geoloc) {
 		if (empty($geoloc)) {
+			$this->geoloc = $geoloc;
 			$this->geoN = $geoloc;
 			$this->geoE = $geoloc;
 			return;
@@ -37,6 +38,7 @@ class City extends Model
 			return;
 		}
 
+		$this->geoloc = $geoloc;
 		$this->geoN = $aMatches[1];
 		$this->geoE = $aMatches[2];
 	}
@@ -45,6 +47,7 @@ class City extends Model
 		var_dump("City Update: $sVar", $var);
 		if ($sVar === 'geoloc') {
 			$this->setGeoloc($var);
+			return;
 		}
 
 		Parent::__set($sVar, $var);
