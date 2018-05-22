@@ -31,6 +31,7 @@ abstract class Model
 
 		$oData = \ApiMgr::get($this->sTable, $id);	
 
+		var_dump($oData);
 		if (empty($oData) || !$oData->success) {
 			return false;
 		}
@@ -41,7 +42,6 @@ abstract class Model
 	}
 
 	public function load($aData) {
-
 		$this->bSync = false;
 		foreach ($aData as $sProp => $sData) {
 			if (property_exists($this, $sProp)) {
