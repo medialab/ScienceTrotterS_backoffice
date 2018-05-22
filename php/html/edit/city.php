@@ -2,7 +2,12 @@
 
 $smarty->assign('sCreation', '\'une ville');
 
-$oCity = new \model\City($_GET['id']);
+$id = !empty($_GET['id']) ? false : $_GET['id'];
+if ($id && !fFileExtensionValidator($id)) {
+	header('location: /cities.html');
+}
+
+$oCity = new \model\City($id);
 var_dump($oCity);
 exit;
 
