@@ -59,9 +59,7 @@ abstract class Model
 	}
 
 	function __set($sVar, $var) {
-		var_dump("Update: $sVar");
 		if ($this->$sVar !== $var) {
-			var_dump("New");
 			$this->bSync = false;
 		}
 

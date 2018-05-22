@@ -251,7 +251,7 @@ class ApiMgr {
 		Self::$curPage = $page;
 	}
 
-	public static function update(Model $oModel) {
+	public static function update(Model\Model $oModel) {
 		$c = Self::reset();
 		
 		$url = Self::$url.'private/'.$oModel->sTable.'/update';
