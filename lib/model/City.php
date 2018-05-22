@@ -10,7 +10,7 @@ class City extends Model
 	public $geoN;
 	public $geoE;
 	public $label;
-	public $active;
+	public $state;
 	public $image;
 
 	function __construct($id=false, Array $aData=[]) {
