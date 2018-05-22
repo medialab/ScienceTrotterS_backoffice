@@ -74,6 +74,3 @@ if (fMethodIs('post')) {
 
 $smarty->assign('oCity', $oCity);
 $smarty->assign("aErrors", $aErrors);
-
-$oCity = new Model\City('ca3e834d-c717-4832-ab8b-c50ebd1bd3d6');
-exit;
