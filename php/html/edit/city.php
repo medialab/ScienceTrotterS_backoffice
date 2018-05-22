@@ -54,7 +54,7 @@ if (fMethodIs('post')) {
 		$aErrors['Image'] = 'L\'image ne peut dépasser 500 Mo';
 	}
 
-	if (!empty($aErrors)) {
+	if (empty($aErrors)) {
 		var_dump("Success");
 		exit;
 	}
