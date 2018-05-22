@@ -7,6 +7,7 @@ namespace Model;
 abstract class Model
 {
 	private $id;
+	protected $sTable;
 	private $bSync = false;
 	private $bLoded = false;
 
@@ -50,11 +51,11 @@ abstract class Model
 	}
 
 	function __set($sVar, $var) {
-		if ($this->$sVar !== $va) {
+		if ($this->$sVar !== $var) {
 			$this->bSync = false;
 		}
 
-		Parent::__set($sVar);
+		$this->$sVar = $var;
 	}
 
 	function __get($sVar) {
