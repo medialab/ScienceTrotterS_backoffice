@@ -1,5 +1,5 @@
 <div>
-	<form method="post">
+	<form method="post" enctype="multipart/formdata">
 		<input type="hidden" name="id" value="{$cityID|default: ''}">
 		<div class="inline">
 			<label>
