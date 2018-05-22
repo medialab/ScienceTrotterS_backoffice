@@ -1,5 +1,5 @@
 <?php
 
 $aErrors = [];
-$pErrors = &$aErrors,
+$pErrors = &$aErrors;
 $smarty->assign("aErrors", $pErrors);
