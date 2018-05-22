@@ -71,7 +71,7 @@ abstract class Model
 	}
 
 	function __get($sVar) {
-		if (in_array($sVar ['id', 'created_at', 'updated_at'])) {
+		if (in_array($sVar, ['id', 'created_at', 'updated_at'])) {
 			return $this->$sVar;
 		}
 		elseif (property_exists('Model', $sVar)) {
