@@ -47,6 +47,6 @@ class City extends Model
 			$this->setGeoloc($var);
 		}
 
-		Parent::_set($sVar, $var);
+		Parent::__set($sVar, $var);
 	}
 }
