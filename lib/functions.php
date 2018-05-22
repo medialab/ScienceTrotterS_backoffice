@@ -102,7 +102,6 @@ function fMethodIs($type='get') {
 	}
 
 	function fFileExtensionValidator($sName, $aFileTypes) {
-		var_dump("File Ext: $sName", $_FILES, $aFileTypes);
 
 		/* Si aucun Fichier */
 		if (empty($_FILES) || empty($_FILES[$sName]) || empty($_FILES[$sName]['tmp_name'])) {
@@ -177,12 +176,8 @@ function fMethodIs($type='get') {
 					}
 					else {
 						/* on cherche le MimeType dans les Valeur  */
-						var_dump($sType);
 						foreach ($aMimeMap['mimes'] as $key => $aMimes) {
-							var_dump($aMimes);
-							var_dump(in_array($sType, $aMimes));
 							if (in_array($sType, $aMimes)) {
-								var_dump("FOUND !!!!");
 								$aAuthorizedMimes[$sType] = $key.'/'.$sType;
 								break;
 							}

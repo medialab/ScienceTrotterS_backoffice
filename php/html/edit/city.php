@@ -48,7 +48,7 @@ if (fMethodIs('post')) {
 		
 	}
 
-	$maxSize = '500Mo';
+	$maxSize = '500ko';
 	if (!fFileZieValidator('img', $maxSize)) {
 		$aErrors['Image'] = 'L\'image ne peut dépasser 500 Mo';
 	}
