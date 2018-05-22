@@ -72,7 +72,7 @@
 
 				<!-- BTN LINK -->
 				<div class="columnBtnLink">
-					<a href="/city/edit.html">
+					<a href="/edit/city.html">
 						<i class="icon icon-create-city"></i>
 						Créer une ville
 					</a>

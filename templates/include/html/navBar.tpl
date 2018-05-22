@@ -9,7 +9,7 @@
       <ul class="itemList">
         <li class="item selected">
 
-          <a href="#" class="itemClick">
+          <a href="/" class="itemClick">
             <div class="itemIcon lb-icon-home"></div>
             <label class="itemLabel">Arborescence</label>
           </a>

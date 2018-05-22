@@ -1,10 +1,11 @@
 <div>
 	<form method="post">
+		<input type="hidden" name="id" value="{$cityID|default: ''}">
 		<div class="inline">
 			<label>
 				Nom:
 				<br>
-				<input name="label" placeholder="Ex: Paris" type="text" value="{$smarty.post.label|default: $city.label: ''}">
+				<input name="label" required placeholder="Ex: Paris" type="text" value="{$smarty.post.label|default: $city.label: ''}">
 			</label>
 		</div>
 		<div>
