@@ -30,5 +30,7 @@
 				<input name="img" type="file">
 			</label>
 		</div>
+
+		<button class="btn" type="submit">Envoyer</div>
 	</form>
 </div>
