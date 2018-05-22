@@ -61,3 +61,5 @@ if (fMethodIs('post')) {
 
 	var_dump($aErrors);
 }
+
+$smarty->assign("aErrors", $aErrors);
