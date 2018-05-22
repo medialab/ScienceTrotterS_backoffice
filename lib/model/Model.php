@@ -107,7 +107,6 @@ abstract class Model
 	}
 
 	public function toArray() {
-		var_dump("To Array", get_object_vars($this));
 		$aResult = [];
 		foreach (get_object_vars($this) as $key => $value) {
 			var_dump("===== $key =====");
@@ -115,18 +114,11 @@ abstract class Model
 			$bIgnore = in_array($key, $this->sqlIgnore);
 			$bModel = !in_array($key, $this->sqlVars) && property_exists('Model\Model', $key);
 
-			var_dump("Is Ignore: ", $bIgnore);
-			var_dump("belong Model: ", $bModel);
-
-
-			var_dump("Do Add", !$bIgnore && !$bModel);
-
 			if (!$bIgnore && (!$bModel || in_array($key, $this->sqlVars))) {
 				$aResult[$key] = $value;
 			}
 		}
 
-		var_dump("Done", $aResult);
-		exit;
+		return $aResult;
 	}
 }
