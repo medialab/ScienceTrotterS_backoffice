@@ -60,6 +60,6 @@ if (fMethodIs('post')) {
 
 $smarty->assign("aErrors", $aErrors);
 
-$oCity = new Model\city(1);
+$oCity = new Model\City(1);
 var_dump($oCity);
 exit;
