@@ -5,7 +5,7 @@ $smarty->assign('sCreation', '\'une ville');
 $aErrors = [];
 if (fMethodIs('post')) {
 	if(!fRequiredValidator('label', $_POST)) {
-		$aErrors['Nom'] => 'Ce champs est obligatoire';
+		$aErrors['Nom'] = 'Ce champs est obligatoire';
 	}
 
 	$_POST['state'] = (bool) (empty($_POST['state']) ? 0 : $_POST['state']);
