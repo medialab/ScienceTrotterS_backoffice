@@ -13,7 +13,6 @@ function fMethodIs($type='get') {
 			$res = !empty($aFormData[$sName]);
 		}
 
-		//var_dump("REQUIERD: $sName", $aFormData[$sName], $res);
 		return $res;
 	}
 
@@ -105,6 +104,7 @@ function fMethodIs($type='get') {
 	}
 
 	function fFileExtensionValidator($sName, $aFileTypes) {
+		var_dump("File Ext: $sName", $_Files, $aFileTypes);
 
 		/* Si aucun Fichier */
 		if (empty($_FILES) || empty($_FILES[$sName]) || empty($_FILES[$sName]['tmp_name'])) {
