@@ -48,15 +48,18 @@ if (fMethodIs('post')) {
 		
 	}
 
-	$maxSize = '500ko';
+	$maxSize = '500Mo';
 	if (!fFileZieValidator('img', $maxSize)) {
 		$aErrors['Image'] = 'L\'image ne peut dépasser 500 Mo';
 	}
 
 	if (empty($aErrors)) {
-		var_dump("Success");
-		exit;
+		//$oCity = new Model\City();
 	}
 }
 
 $smarty->assign("aErrors", $aErrors);
+
+$oCity = new Model\city(1);
+var_dump($oCity);
+exit;
