@@ -2,7 +2,7 @@
 
 $smarty->assign('sCreation', '\'une ville');
 
-$id = !empty($_GET['id']) ? false : $_GET['id'];
+$id = !empty($_GET['id']) ? $_GET['id'] : false;
 if ($id && !fFileExtensionValidator($id)) {
 	header('location: /cities.html');
 }
