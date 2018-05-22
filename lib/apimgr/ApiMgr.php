@@ -45,7 +45,7 @@ class ApiMgr {
 	/**
 	 * Execute Une REquete
 	 * @param  string  $method       (get, postn put...)
-	 * @param  boolean $applyHeaders Ajoute ou non le header Authorization
+	 * @param  boolean $applyHeaders Ajoute ou non le header Authorization 
 	 * @return Array                Résultats
 	 */
 	private static function exec($method='get', $applyHeaders=true) {
