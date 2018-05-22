@@ -115,7 +115,7 @@ abstract class Model
 			$bIgnore = in_array($key, $this->sqlIgnore);
 			var_dump("Is Ignore: ", $bIgnore);
 			
-			$bModel = !property_exists('\Model\Model', $key);
+			$bModel = property_exists('\Model\Model', $key);
 			var_dump("belong Model: ", $bModel);
 
 			var_dump("Do Add", !$bIgnore && !$bModel);
