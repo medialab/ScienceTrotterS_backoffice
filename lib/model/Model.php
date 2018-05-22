@@ -120,7 +120,7 @@ abstract class Model
 
 			var_dump("Do Add", !$bIgnore && !$bModel);
 
-			if (!in_array($key, $this->sqlIgnore) && !property_exists('Model', $key)) {
+			if (!$bIgnore && !$bModel) {
 				$aResult[$key] = $value;
 			}
 		}
