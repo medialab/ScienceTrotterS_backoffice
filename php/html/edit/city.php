@@ -2,6 +2,8 @@
 
 $smarty->assign('sCreation', '\'une ville');
 
+
+$oCity = new \model\City();
 if (fMethodIs('post')) {
 	if(!fRequiredValidator('label', $_POST)) {
 		$aErrors['Nom'] = 'Ce champs est obligatoire';
@@ -54,12 +56,14 @@ if (fMethodIs('post')) {
 	}
 
 	if (empty($aErrors)) {
-		//$oCity = new Model\City();
+		if (condition) {
+			# code...
+		}
+		$oCity = new Model\City();
 	}
 }
 
 $smarty->assign("aErrors", $aErrors);
 
 $oCity = new Model\City('ca3e834d-c717-4832-ab8b-c50ebd1bd3d6');
-var_dump($oCity);
 exit;
