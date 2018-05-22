@@ -33,17 +33,14 @@ class City extends Model
 		}
 
 		$aMatches = [];
-		if (!preg_match_all('/^([0-9]{1,2}\.[0-9]{1,4});([0-9]{1,2}\.[0-9]{1,4})$/', $geoloc, $aMatches)) {
+		if (!preg_match_all('/^(-?[0-9]{1,2}\.[0-9]{1,4});(-?[0-9]{1,2}\.[0-9]{1,4})$/', $geoloc, $aMatches)) {
 			trigger_error("Faild to Set City::geoloc propoerty. Value is Invalid");
 			return;
 		}
 
-		var_dump($aMatches);
-		exit;
 		$this->geoloc = $geoloc;
-		$this->geoloc = $geoloc;
-
-		return;
+		$this->geoloc = $aMatches[1];
+		$this->geoloc = $aMatches[2];
 	}
 
 	function __set($sVar, $var) {
