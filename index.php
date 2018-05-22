@@ -10,6 +10,7 @@
 	define( 'LIBRARY_PATH',        './lib/' );
 	define( 'TEMPLATE_PATH',        './templates/' );
 
+	define("API_SSL", false);
 	define("API_URL", 'https://api-sts-stable.actu.com');
 
 

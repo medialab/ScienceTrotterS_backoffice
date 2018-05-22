@@ -189,8 +189,9 @@ class ApiMgr {
 
 		Self::$curPage = 0;
 		Self::$sqlLimit = 25;
+		Self::$curl->reset()->verifySSL(API_SSL);
 
-		return Self::$curl->reset();
+		return Self::$curl;
 	}
 
 	private static function setData($data) {
