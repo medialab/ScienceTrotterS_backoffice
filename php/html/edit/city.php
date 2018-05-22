@@ -40,10 +40,10 @@ if (fMethodIs('post')) {
 		$mimes = fGetAuthorizedMimes($aFileTypes);
 		
 		if (count($mimes) > 1) {
-			$aErrors['Image'] = 'L\'image doit faire parti des types suivants: '.join(', ', $mimes);
+			$aErrors['Image'] = 'L\'image doit faire parti des types suivants: .'.join(', .', $aFileTypes);
 		}
 		else{
-			$aErrors['Image'] = 'L\'image doit être du type suivant: '.join('', $mimes);
+			$aErrors['Image'] = 'L\'image doit être du type suivant: .'.join('', $aFileTypes);
 		}
 		
 	}
