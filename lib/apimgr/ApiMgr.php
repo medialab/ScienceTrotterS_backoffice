@@ -61,9 +61,9 @@ class ApiMgr {
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
-		/*var_dump(Self::$curl->getInfos());
+		var_dump(Self::$curl->getInfos());
 		var_dump(Self::$curl->getError());
-		var_dump($r);*/
+		var_dump($r);
 
 		return json_decode($r);
 	}
@@ -249,5 +249,17 @@ class ApiMgr {
 		}
 
 		Self::$curPage = $page;
+	}
+
+	public static function update(Model $oModel) {
+		$c = Self::reset();
+		
+		$url = Self::$url.'private/'.$oModel->sTable.'/update';
+		$c->setUrl($url);
+
+		$this->setData($oModel->toArray());
+
+		$res = Self::exec('post');
+		return $res;
 	}
 }

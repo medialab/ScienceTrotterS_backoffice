@@ -69,6 +69,7 @@ if (fMethodIs('post')) {
 
 	if (empty($aErrors)) {
 		var_dump("Success", $oCity);
+		var_dump("Update: ", $oCity->save());
 	}
 }
 

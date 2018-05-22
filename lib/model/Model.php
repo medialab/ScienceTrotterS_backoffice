@@ -13,7 +13,7 @@ abstract class Model
 
 	protected $sTable;
 	private $bSync = false;
-	private $bLoded = false;
+	private $bLoaded = false;
 
 	function __construct($id=false, Array $aData=[]) {
 		if ($id) {
@@ -51,7 +51,7 @@ abstract class Model
 			}
 		}
 		
-		$this->bLoded = true;
+		$this->bLoaded = true;
 		return true;
 	}
 
@@ -89,6 +89,25 @@ abstract class Model
 	}
 
 	public function isLoaded() {
-		return $this->bLoded;
+		return $this->bLoaded;
+	}
+
+	public function add() {
+
+	}
+
+	public function save() {
+		if (!$this->bLoaded) {
+			return $this->add();
+		}
+
+		return \ApiMgr::update($this);
+	}
+
+	public function toArray() {
+		foreach (get_object_vars($this) as $key => $value) {
+			var_dump("$key => ", $value);
+		}
+		exit;
 	}
 }
