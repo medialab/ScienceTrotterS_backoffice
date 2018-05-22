@@ -49,6 +49,7 @@ abstract class Model
 				$this->$sProp = $sData;
 			}
 			else {
+				var_dump("FAILD");
 				return false;
 			}
 		}
