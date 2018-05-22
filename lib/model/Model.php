@@ -41,7 +41,7 @@ abstract class Model
 	}
 
 	public function load($aData) {
-		var_dump("LOADING", $aData);
+		var_dump("LOADING Model", $aData);
 
 		$this->bSync = false;
 		foreach ($aData as $sProp => $sData) {

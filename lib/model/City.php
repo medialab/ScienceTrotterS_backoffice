@@ -20,6 +20,7 @@ class City extends Model
 	}
 
 	public function load($aData) {
+		var_dump("LOADING CITY");
 		Parent::load($aData);
 		$this->setGeoloc($this->geoloc);
 	}
