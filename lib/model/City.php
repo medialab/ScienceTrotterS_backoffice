@@ -4,7 +4,7 @@ namespace Model;
 /**
  * 
  */
-class CityMdl
+class City extends Model
 {
 
 	public $geoN;
