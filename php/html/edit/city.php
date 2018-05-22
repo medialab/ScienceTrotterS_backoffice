@@ -58,4 +58,6 @@ if (fMethodIs('post')) {
 		var_dump("Success");
 		exit;
 	}
+
+	var_dump($aErrors);
 }
