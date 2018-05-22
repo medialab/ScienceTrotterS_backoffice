@@ -41,19 +41,15 @@ abstract class Model
 	}
 
 	public function load($aData) {
-		var_dump("LOADING Model", $aData);
 
 		$this->bSync = false;
 		foreach ($aData as $sProp => $sData) {
 			var_dump($sProp);
 			//$sProp = str_replace($this->prefix, '', $sProp);
 			if (property_exists($this, $sProp)) {
-				var_dump("OK");
-				var_dump($sData);
 				$this->$sProp = $sData;
 			}
 			else {
-				var_dump("FAILD");
 				return false;
 			}
 		}
