@@ -17,7 +17,7 @@ abstract class Model
 	private $bSync = false;
 	private $bLoaded = false;
 
-	protected $sqlIgnore = [];
+	protected $sqlIgnore = ['sqlIgnore'];
 
 	function __construct($id=false, Array $aData=[]) {
 		if ($id) {
