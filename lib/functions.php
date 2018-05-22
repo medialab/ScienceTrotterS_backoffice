@@ -5,6 +5,10 @@ function fMethodIs($type='get') {
 }
 
 /* INPUT FILTERS */
+	function fIsIdValidator($id) {
+		return preg_match('/^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$/', $id);
+	}
+
 	function fRequiredValidator($sName, $aFormData, $bFile=false) {
 		if ($bFile) {
 			$bValid = !empty($_FILES) && !empty($_FILES[$sName]) && !empty($_FILES[$sName]['tmp_name']) && $_FILES[$sName]['error'] === UPLOAD_ERR_OK ;

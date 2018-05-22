@@ -2,8 +2,9 @@
 
 $smarty->assign('sCreation', '\'une ville');
 
+$oCity = new \model\City($_GET['id']);
+var_dump($oCity);
 
-$oCity = new \model\City();
 if (fMethodIs('post')) {
 	if(!fRequiredValidator('label', $_POST)) {
 		$aErrors['Nom'] = 'Ce champs est obligatoire';
@@ -56,7 +57,7 @@ if (fMethodIs('post')) {
 	}
 
 	if (empty($aErrors)) {
-		if (condition) {
+		if () {
 			# code...
 		}
 		$oCity = new Model\City();

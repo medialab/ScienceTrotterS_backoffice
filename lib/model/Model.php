@@ -12,7 +12,7 @@ abstract class Model
 	private $bLoded = false;
 
 	function __construct($id=false, Array $aData=[]) {
-		if ($id) {
+		if ($id && fIsIdValidator($id)) {
 			$this->loadById($id);
 		}
 		elseif(!empty($aData)) {
