@@ -4,6 +4,7 @@ $smarty->assign('sCreation', '\'une ville');
 
 $oCity = new \model\City($_GET['id']);
 var_dump($oCity);
+exit;
 
 if (fMethodIs('post')) {
 	if(!fRequiredValidator('label', $_POST)) {
