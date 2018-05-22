@@ -23,8 +23,13 @@ abstract class Model
 	public function loadById($id) {
 		$aData = \ApiMgr::get($this->sTable, $id);	
 		
+		if (empty($aData)) {
+			return false;
+		}
+
 		$this->load($aData);
 		Self::$bSync = true;
+		return true;
 	}
 
 	public function load($aData) {
