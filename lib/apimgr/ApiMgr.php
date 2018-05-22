@@ -61,9 +61,6 @@ class ApiMgr {
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
-		var_dump(Self::$curl->getInfos());
-		var_dump(Self::$curl->getError());
-		var_dump($r);
 		return json_decode($r);
 	}
 
@@ -189,7 +186,10 @@ class ApiMgr {
 
 		Self::$curPage = 0;
 		Self::$sqlLimit = 25;
-		Self::$curl->reset()->verifySSL(API_SSL);
+		Self::$curl
+			->reset()
+			->verifySSL(API_SSL)
+		;
 
 		return Self::$curl;
 	}
