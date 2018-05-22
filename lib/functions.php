@@ -10,7 +10,7 @@ function fMethodIs($type='get') {
 			$bValid = !empty($_FILES) && !empty($_FILES[$sName]) && !empty($_FILES[$sName]['tmp_name']) && $_FILES[$sName]['error'] === UPLOAD_ERR_OK ;
 		}
 		else{
-			$res = empty($aFormData[$sName]);
+			$res = !empty($aFormData[$sName]);
 		}
 
 		var_dump("REQUIERD: $sName", $aFormData[$sName], $res);
