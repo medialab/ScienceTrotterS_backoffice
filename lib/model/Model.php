@@ -84,4 +84,12 @@ abstract class Model
 		trigger_error('Property  '.$sVar.' does not exists in Class: '.get_class().'');
 		return null;
 	}
+
+	public function isSync() {
+		return $this->bSync;
+	}
+
+	public function isLoaded() {
+		return $this->bLoded;
+	}
 }

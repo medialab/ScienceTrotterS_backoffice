@@ -8,15 +8,13 @@ if ($id && !fIdValidator($id)) {
 }
 
 $oCity = new \model\City($id);
-var_dump($oCity);
-var_dump("TEST");
-$oCity->geoloc = "-43.1;120.32";
-var_dump($oCity);
-exit;
 
 if (fMethodIs('post')) {
 	if(!fRequiredValidator('label', $_POST)) {
 		$aErrors['Nom'] = 'Ce champs est obligatoire';
+	}
+	else{
+		$oCity->label = $_POST['label'];
 	}
 
 	$_POST['state'] = (bool) (empty($_POST['state']) ? 0 : $_POST['state']);
@@ -47,6 +45,10 @@ if (fMethodIs('post')) {
 		}
 	}
 
+	if (empty($aErrors['Latitude']) && empty($aErrors['Latitude'])) {		
+		$oCity->geoloc = $_POST['geo-n'].';'.$_POST['geo-e'];
+	}
+
 	$aFileTypes = ['png', 'jpg', 'jpeg'];
 	if (!fFileExtensionValidator('img', $aFileTypes)) {
 		$mimes = fGetAuthorizedMimes($aFileTypes);
@@ -66,10 +68,11 @@ if (fMethodIs('post')) {
 	}
 
 	if (empty($aErrors)) {
-		$oCity = new Model\City();
+		var_dump("Success", $oCity);
 	}
 }
 
+$smarty->assign('oCity', $oCity);
 $smarty->assign("aErrors", $aErrors);
 
 $oCity = new Model\City('ca3e834d-c717-4832-ab8b-c50ebd1bd3d6');
