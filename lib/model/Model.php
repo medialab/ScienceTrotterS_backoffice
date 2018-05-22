@@ -21,7 +21,9 @@ abstract class Model
 	}
 
 	public function loadById($id) {
+		var_dump("LOAD CITY: $id");
 		$aData = \ApiMgr::get($this->sTable, $id);	
+		var_dump("RESULT", $aData);
 		
 		if (empty($aData)) {
 			return false;
