@@ -44,7 +44,6 @@ class City extends Model
 	}
 
 	function __set($sVar, $var) {
-		var_dump("City Update: $sVar", $var);
 		if ($sVar === 'geoloc') {
 			$this->setGeoloc($var);
 		}
