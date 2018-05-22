@@ -180,6 +180,7 @@ function fMethodIs($type='get') {
 					else {
 						/* on cherche le MimeType dans les Valeur  */
 						foreach ($aMimeMap['mimes'] as $key => $aMimes) {
+							var_dump($aMimes);
 							if (in_array($sType, $aMimes)) {
 								$aAuthorizedMimes[$sType] = $aMimes.'/'.$sType;
 								break;
