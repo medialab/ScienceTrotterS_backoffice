@@ -22,14 +22,14 @@ abstract class Model
 
 	public function loadById($id) {
 		var_dump("LOAD CITY: $id");
-		$aData = \ApiMgr::get($this->sTable, $id);	
-		var_dump("RESULT", $aData);
+		$oData = \ApiMgr::get($this->sTable, $id);	
+		var_dump("RESULT", $oData);
 
-		if (empty($aData)) {
+		if (empty($oData) || !$oData->success) {
 			return false;
 		}
 
-		$this->load($aData);
+		$this->load($oData->data);
 		$this->bSync = true;
 		return true;
 	}
