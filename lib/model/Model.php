@@ -67,6 +67,7 @@ abstract class Model
 	}
 
 	function __set($sVar, $var) {
+		var_dump("Model Update: $sVar");
 		$this->et($sVar, $var);
 	}
 
