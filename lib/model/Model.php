@@ -112,7 +112,7 @@ abstract class Model
 		foreach (get_object_vars($this) as $key => $value) {
 			var_dump("===== $key =====");
 
-			$bIgnore = in_array($key, $this->sqlIgnore)
+			$bIgnore = in_array($key, $this->sqlIgnore);
 			var_dump("Is Ignore: ", $bIgnore);
 			
 			$bModel = !property_exists('Model', $key);
