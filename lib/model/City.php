@@ -14,6 +14,11 @@ class City extends Model
 	protected $state;
 	protected $image;
 
+	protected $sqlIgnore = [
+		'geoE',
+		'geoN',
+	];
+
 	function __construct($id=false, Array $aData=[]) {
 		$this->sTable = 'cities';
 		Parent::__construct($id, $aData);

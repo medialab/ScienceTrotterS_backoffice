@@ -11,9 +11,13 @@ abstract class Model
 	protected $updated_at;
 
 
+	private $sqlVars = ['id', 'created_at', 'updated_at'];
+
 	protected $sTable;
 	private $bSync = false;
 	private $bLoaded = false;
+
+	protected $sqlIgnore = [];
 
 	function __construct($id=false, Array $aData=[]) {
 		if ($id) {
@@ -67,7 +71,7 @@ abstract class Model
 	}
 
 	function __get($sVar) {
-		if (in_array($sVar, ['id', 'created_at', 'updated_at'])) {
+		if (in_array($sVar, $this->sqlVars)) {
 			return $this->$sVar;
 		}
 		elseif (property_exists('Model', $sVar)) {
@@ -105,8 +109,14 @@ abstract class Model
 	public function toArray() {
 		var_dump("To Array", get_object_vars($this));
 		exit;
+		$aResult = [];
 		foreach (get_object_vars($this) as $key => $value) {
-			var_dump("$key => ", $value);
+			if (in_array($key, $this->sqlVars) || !property_exists('Model') && !in_array($key, $this->sqlIgnore)) {
+				$aResult[$key] = $value;
+			}
 		}
+
+		var_dump("Done", $aResult);
+		exit;
 	}
 }
