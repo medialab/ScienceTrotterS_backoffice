@@ -39,8 +39,8 @@ class City extends Model
 		}
 
 		$this->geoloc = $geoloc;
-		$this->geoloc = $aMatches[1];
-		$this->geoloc = $aMatches[2];
+		$this->geoN = $aMatches[1];
+		$this->geoE = $aMatches[2];
 	}
 
 	function __set($sVar, $var) {
