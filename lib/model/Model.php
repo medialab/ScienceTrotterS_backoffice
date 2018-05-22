@@ -7,7 +7,6 @@ namespace Model;
 abstract class Model
 {
 	private $id;
-	private $sTable;
 	private $bSync = false;
 	private $bLoded = false;
 
@@ -24,7 +23,7 @@ abstract class Model
 		var_dump("LOAD CITY: $id");
 		$aData = \ApiMgr::get($this->sTable, $id);	
 		var_dump("RESULT", $aData);
-		
+
 		if (empty($aData)) {
 			return false;
 		}

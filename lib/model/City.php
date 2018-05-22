@@ -13,4 +13,8 @@ class City extends Model
 	public $active;
 	public $imgPath;
 
+	function __construct($id=false, Array $data=[]) {
+		$this->sTable = 'cities';
+		Parent::__construct($id, $aData);
+	}
 }
