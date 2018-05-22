@@ -38,7 +38,7 @@ if (fMethodIs('post')) {
 
 	$aFileTypes = ['png', 'jpg', 'jpeg'];
 	if (!fFileExtensionValidator('img', $aFileTypes)) {
-		$mimes = fGetAuthorizedMimes($aFileTypes)
+		$mimes = fGetAuthorizedMimes($aFileTypes);
 		
 		if (count($mimes) > 1) {
 			$aErrors['Image'] = 'L\'image doit faire parti des types suivants: '.join(', ', $mimes);
