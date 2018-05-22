@@ -118,7 +118,7 @@ abstract class Model
 			var_dump("Sql Vars", !in_array($key, $this->sqlVars));
 
 			$bModel = property_exists('Model', $key) && !in_array($key, $this->sqlVars);
-			var_dump("belong Model: ", property_exists('Model', $key), !in_array($key, $this->sqlVars));
+			var_dump("belong Model: ", property_exists('/Model/Model', $key), !in_array($key, $this->sqlVars));
 
 			var_dump("Do Add", !$bIgnore && !$bModel);
 
