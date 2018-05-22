@@ -115,12 +115,12 @@ abstract class Model
 			$bIgnore = in_array($key, $this->sqlIgnore);
 			var_dump("Is Ignore: ", $bIgnore);
 			
-			$bModel = property_exists('\Model\Model', $key);
+			$bModel = property_exists('\Model\Model', $key) || in_array($key, $this->sqlVars);
 			var_dump("belong Model: ", $bModel);
 
 			var_dump("Do Add", !$bIgnore && !$bModel);
 
-			if (!$bIgnore && !$bModel) {
+			if (!$bIgnore && (!$bModel || in_array($key, $this->sqlVars))) {
 				$aResult[$key] = $value;
 			}
 		}
