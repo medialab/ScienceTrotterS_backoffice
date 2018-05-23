@@ -71,9 +71,14 @@ if (fMethodIs('post')) {
 		if (empty($oCity->geoloc) || empty($oCity->image)) {
 			$oCity->state = false;
 		}
-		/*if (!empty($_FILES['img'])) {
-			$oCity->imga = 
-		}*/
+		if (!empty($_FILES['img'])) {
+			mkdir(UPLOAD_PATH.'/cities', 0775, true);
+
+			$imgPath = 'cities/'.$_FILES['img']['name'];
+			move_uploaded_file($_FILES['img']['tmp_name'], UPLOAD_PATH.'/'.$imgPath);
+			
+			$oCity->image = $imgPath;
+		}
 
 		if (!$oCity->save()) {
 			$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
