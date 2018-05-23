@@ -171,11 +171,14 @@ abstract class Model
 			return false;
 		}
 
-		$aData = \ApiMgr::delete($this);
-		var_dump("Delete Result", $aData);
+		$bdeleted = \ApiMgr::delete($this);
+		if (!$bdeleted) {
+			return false;
+		}
 
+		$this->id = 0;
 		$this->bSync = false;
-		return $aData;
+		return true;
 	}
 
 
