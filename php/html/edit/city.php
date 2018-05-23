@@ -77,7 +77,10 @@ if (fMethodIs('post')) {
 			$imgPath = 'cities/'.$_FILES['img']['name'];
 			$dest = UPLOAD_PATH.'/'.$imgPath;
 
-			var_dump("Destination: ", $dest);
+			if (file_exists($dest)) {
+				unlink($dest);
+			}
+			
 			move_uploaded_file($_FILES['img']['tmp_name'], $dest);
 
 			$oCity->image = $imgPath;
