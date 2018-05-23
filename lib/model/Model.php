@@ -136,15 +136,15 @@ abstract class Model
 	 */
 	public function save() {
 		if (!$this->id) {
-			var_dump("Inserting");
+			//var_dump("Inserting");
 			$oData = \ApiMgr::insert($this);
 		}
 		else{
-			var_dump("U^pdating");
+			//var_dump("U^pdating");
 			$oData = \ApiMgr::update($this);
 		}
 
-		var_dump($oData);
+		//var_dump($oData);
 		if ($oData->success) {
 			$this->load($oData->data);
 			$this->bSync = true;
