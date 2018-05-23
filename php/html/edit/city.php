@@ -77,7 +77,7 @@ if (fMethodIs('post')) {
 				mkdir(UPLOAD_PATH.'cities', 0775, true);
 			}
 
-			$imgPath = 'cities/'.$_FILES['img']['name'];
+			$imgPath = 'cities/'.fCreateFriendlyUrl($_FILES['img']['name']);
 			$dest = UPLOAD_PATH.'/'.$imgPath;
 
 			if (file_exists($dest)) {

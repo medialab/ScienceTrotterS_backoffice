@@ -1,4 +1,9 @@
 <?php
+// Création d'une chaine de caractère URL Friendly ( sans accents, ni caractère spécial, en minuscule )
+	function fCreateFriendlyUrl( $sString ) {
+		return strtolower( fRemoveAccents( fRemoveSpecialChar( $sString ) ) );
+	}
+//---
 
 function fMethodIs($type='get') {
 	return $_SERVER['REQUEST_METHOD'] === strtoupper($type);

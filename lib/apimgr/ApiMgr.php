@@ -70,10 +70,10 @@ class ApiMgr {
 		$r = Self::$curl->exec();
 		$oResult =  json_decode($r);
 		
-		
+		/*
 		var_dump(Self::$curl->getInfos());
 		var_dump(Self::$curl->getError());
-		var_dump($r);
+		var_dump($r);*/
 
 		// Si Le token est expiré ou invalide
 		if ($bRelogin && in_array(Self::$curl->getHttpCode(), [401, 440])) {
