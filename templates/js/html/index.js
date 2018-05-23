@@ -59,7 +59,7 @@ $(document).ready(function() {
 							$.each(result.data, function(i,e) {
 								console.log("=== "+i+" ===", e);
 
-								var row = base.clone();
+								var row = base.clone(true);
 								row.find('.itemLabel').text(e.label);
 								row.find('.delete-btn').attr('href', '/delete/city/'+e.id+'.html');
 								row.find('.edit-btn').attr('href', '/edit/city/'+e.id+'.html');
