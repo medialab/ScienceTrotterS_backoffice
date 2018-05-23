@@ -75,9 +75,8 @@ if (fMethodIs('post')) {
 			$oCity->imga = 
 		}*/
 
-		var_dump("Success");
-		var_dump("Update: ", $oCity->save());
-		var_dump($oCity);
+		header('location: /edit/city/'.$oCity->id.'.html');
+		exit;
 	}
 }
 
