@@ -106,10 +106,15 @@ var ApiMgr = {
 
 			jsonpCallback: 'ApiResponse',
 
+			header: {
+				Authorization: self.apiToken,
+				lol: "XD"
+			},
+
 			beforeSend: function(xhr) {
 				console.log("TEST: "+self.apiToken);
-		        xhr.setRequestHeader('Authorization', self.apiToken);
-		        xhr.setRequestHeader('test', self.apiToken);
+		        /*xhr.setRequestHeader('Authorization', self.apiToken);
+		        xhr.setRequestHeader('test', self.apiToken);*/
 		        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 		    },
 
