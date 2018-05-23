@@ -78,7 +78,7 @@ if (fMethodIs('post')) {
 			}
 
 			$imgPath = 'cities/'.fCreateFriendlyUrl($_FILES['img']['name']);
-			$dest = UPLOAD_PATH.'/'.$imgPath;
+			$dest = UPLOAD_PATH.$imgPath;
 
 			var_dump($dest);
 			if (file_exists($dest)) {
@@ -87,7 +87,7 @@ if (fMethodIs('post')) {
 
 			move_uploaded_file($_FILES['img']['tmp_name'], $dest);
 
-			// $oCity->image = $imgPath;
+			$oCity->image = $imgPath;
 		}
 
 		if (!$oCity->save()) {
