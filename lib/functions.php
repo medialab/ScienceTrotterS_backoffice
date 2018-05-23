@@ -24,7 +24,7 @@
 
 // Création d'une chaine de caractère URL Friendly ( sans accents, ni caractère spécial, en minuscule )
 	function fCreateFriendlyUrl( $sString ) {
-		return preg_replace('/([^a-z0-9.-]+)/', '', $sString);
+		return preg_replace('/([^a-z0-9.-]+)/', '-', $sString);
 	}
 //---
 
