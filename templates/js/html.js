@@ -107,7 +107,7 @@ var ApiMgr = {
 			jsonpCallback: 'ApiResponse',
 
 			beforeSend: function(xhr) {
-				console.log("TEST: ".this.apiToken);
+				console.log("TEST: "+this.apiToken);
 		        xhr.setRequestHeader('Authorization', this.apiToken);
 		        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 		    },
