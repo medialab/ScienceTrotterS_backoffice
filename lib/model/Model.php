@@ -184,10 +184,13 @@ abstract class Model
 	}
 
 	public static function get($sClass, $id=0, $aData=[]) {
+		$sClass = 'Model\\'.$sClass;
+		var_dump("Class: $sClass");
 		if (class_exists('Model\$sClass')) {
-			$sClass = 'Model\\'.$sClass;
+			var_dump("YES");
 			return new $sClass($id, $aData);
 		}
+		var_dump("False");
 
 		return null;
 	}
