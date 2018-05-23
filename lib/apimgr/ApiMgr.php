@@ -71,9 +71,12 @@ class ApiMgr {
 		$oResult =  json_decode($r);
 
 		if ($bRelogin && in_array(Self::$curl->getHttpCode(), [401, 440])) {
+			var_dump("Expired Relogin");
+
 			$tmp = Self::$tmpData;
 			$url = Self::$curl->getInfos(CURLOPT_URL);
 
+			var_dump("Calling Login");
 			$bLoginRes = Self::login(Self::$mail, Self::$pass);
 
 			if(!$bLoginRes) {
@@ -114,11 +117,11 @@ class ApiMgr {
 	 * @return bool       Succès
 	 */
 	public static function login($mail, $pass) {
+		var_dump("LOGIN $mail, $pass");
 		if (!preg_match('/[a-z0-9.-_]+@[a-z0-9-_]+\.[a-z]{2,6}/i', $mail) || strlen($pass) < 2) {
 			return false;
 		}
 
-		var_dump("LOGIN $mail, $pass");
 		$c = Self::reset();
 		$c->setUrl(Self::$url.'login')
 			->isPost()
