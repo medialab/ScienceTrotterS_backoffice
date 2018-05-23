@@ -13,6 +13,7 @@ $aRestrictExtension	= [
 		$aAccess["VISITOR"]	=	[
 			'logout.html',
 			'upload.html',
+			'upload/cities.html',
 			'connexion.html',
 		];
 	
