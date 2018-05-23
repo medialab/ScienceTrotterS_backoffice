@@ -25,9 +25,13 @@
 		</div>
 		<div>
 			<label>
-				Image:
+				Image: {($oCity->image|default: '')|basename}
 				<br>
 				<input name="img" type="file">
+
+				{if !empty($oCity->image)}
+					<img src="$oCity->image">
+				{/if}
 			</label>
 		</div>
 

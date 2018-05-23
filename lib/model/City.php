@@ -27,7 +27,6 @@ class City extends Model
 
 	public function setGeoloc($geoloc) {
 		if (empty($geoloc)) {
-			/*$this->geoloc = $geoloc;*/
 			$this->geoN = $geoloc;
 			$this->geoE = $geoloc;
 			return;
@@ -44,9 +43,39 @@ class City extends Model
 		$this->geoE = $aMatches[2][0];
 	}
 
+	public function setGeoN($geoN) {
+		if (!preg_match('/^[0-9]{1,2}\.[0-9]{1,4}$/', $geoN)) {
+			throw new Exception('Error: Invalid Lattitude Value: '.$geoN, 1);
+		}
+
+
+		$this->geoloc = $geoN.';'.$this->geoE;
+	}
+
+	public function setGeoE($geoE) {
+		if (!preg_match('/^[0-9]{1,3}\.[0-9]{1,4}$/', $geoE)) {
+			throw new Exception('Error: Invalid Longitude Value: '.$geoE, 1);
+		}
+
+		$this->geoloc = $this->geoN.';'.$geoE;
+	}
+
 	function __set($sVar, $var) {
-		if ($sVar === 'geoloc') {
-			$this->setGeoloc($var);
+		switch ($sVar) {
+			case 'geoloc':
+				$this->setGeoloc($var);
+				break;
+
+			case 'geoN':
+				$this->setGeoN($var);
+				break;
+
+			case 'geoE':
+				$this->setGeoE($var);
+				break;
+			
+			default:
+				break;
 		}
 
 		Parent::__set($sVar, $var);

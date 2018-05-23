@@ -118,7 +118,6 @@ class ApiMgr {
 	 * @return bool       Succès
 	 */
 	public static function login($mail, $pass) {
-		var_dump("LOGIN $mail, $pass");
 		if (!preg_match('/[a-z0-9.-_]+@[a-z0-9-_]+\.[a-z]{2,6}/i', $mail) || strlen($pass) < 2) {
 			return false;
 		}
