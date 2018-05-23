@@ -15,6 +15,7 @@ if ($id && !fIdValidator($id)) {
 
 $sClass = $aPage[1];
 var_dump("FETCH MODEL $sClass");
+var_dump("ID: $id");
 $mdl = Model\Model::get(ucfirst($sClass), $id);
 var_dump($mdl);
 
