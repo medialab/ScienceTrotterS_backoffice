@@ -30,8 +30,8 @@
 				<input name="img" type="file">
 			</label>
 
-			{!empty($oCity->image)|var_dump}
-			{if !empty($oCity->image)}
+			{$oCity->image|strlen|var_dump}
+			{if $oCity->image|strlen}
 				<img src="{$oCity->image}">
 			{/if}
 		</div>
