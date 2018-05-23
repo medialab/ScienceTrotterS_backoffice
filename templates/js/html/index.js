@@ -1,7 +1,7 @@
 
 // Load Automatique Des Listes
 $(document).ready(function() {
-	$('.icon-list-remove').click(function(e) {
+	$('.delete-btn').click(function(e) {
 		if (!confirm("Êtes vous sûr de vouloir supprimer cette ville ?")) {
 			e.preventDefault();
 			return false;
