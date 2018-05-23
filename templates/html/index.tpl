@@ -45,7 +45,6 @@
 							<li class="item">
 								<div class="itemAction">
 									<a class="delete-btn" href="/delete/city/{$city->id}.html">
-										{$city->id}
 										<i class="icon-pre icon-list-remove"></i>
 									</a>
 									<a class="edit-btn" href="/edit/city/{$city->id}.html">
