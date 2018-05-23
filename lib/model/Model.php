@@ -139,7 +139,7 @@ abstract class Model
 	 * Insère dans la DB
 	 */
 	public function add() {
-		return = \ApiMgr::insert($this);
+		return \ApiMgr::insert($this);
 	}
 
 	/**
