@@ -134,8 +134,8 @@ class ApiMgr {
 		Self::setToken($res->token);
 
 
-		Self::$pass = $pass,
-		Self::$mail = $mail,
+		Self::$pass = $pass;
+		Self::$mail = $mail;
 
 		$_SESSION['user'] = [
 			'pass' => $pass,
