@@ -84,7 +84,8 @@ if (fMethodIs('post')) {
 
 
 		
-		var_dump("Empty image", empty($oCity->image), strlen($oCity->image));
+		var_dump("Empty image", strlen($oCity->image));
+		var_dump("Empty geoloc", strlen($oCity->geoloc));
 
 
 
