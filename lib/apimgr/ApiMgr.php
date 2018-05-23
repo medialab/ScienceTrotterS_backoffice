@@ -73,7 +73,7 @@ class ApiMgr {
 		$oResult =  json_decode($r);
 		
 		if (Self::$debugMode) {
-			var_dump("======= DEBUG REQUEST =======")
+			var_dump("======= DEBUG REQUEST =======");
 			var_dump(Self::$tmpData);
 			var_dump(Self::$curl->getInfos());
 			var_dump(Self::$curl->getError());
