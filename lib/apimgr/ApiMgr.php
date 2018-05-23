@@ -30,6 +30,8 @@ class ApiMgr {
 
 		if (!empty($_SESSION['user']['token'])) {
 			Self::setToken($_SESSION['user']['token']);
+			Self::$pass = $_SESSION['user']['pass'];
+			Self::$mail = $_SESSION['user']['email'];
 		}
 
 		Self::$bInit = true;
@@ -140,7 +142,6 @@ class ApiMgr {
 		}
 
 		Self::setToken($res->token);
-
 
 		Self::$pass = $pass;
 		Self::$mail = $mail;
