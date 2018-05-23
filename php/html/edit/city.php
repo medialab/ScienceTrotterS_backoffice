@@ -24,6 +24,7 @@ if (fMethodIs('post')) {
 
 	/* Validation Du Status */
 		$_POST['state'] = (bool) (empty($_POST['state']) ? 0 : $_POST['state']);
+		var_dump($_POST);
 
 	/* Validation De la Géolocalisation */
 		/* Validation De la Latitude */
