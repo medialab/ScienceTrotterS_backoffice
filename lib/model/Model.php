@@ -163,8 +163,8 @@ abstract class Model
 		foreach (get_object_vars($this) as $key => $value) {
 			$bIgnore = in_array($key, $this->sqlIgnore);
 
-			var_dump("TEST ACCESS: $key");
 			$bModel = $this->canAccessVar($key) !== true;
+			var_dump("TEST ACCESS: $key => ", $bModel, $bIgnore);
 
 			if (!$bIgnore && !$bModel) {
 				$aResult[$key] = $value;
