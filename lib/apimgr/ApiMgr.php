@@ -64,13 +64,13 @@ class ApiMgr {
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
 		$r = Self::$curl->exec();
-		var_dump(Self::$curl->getInfos());
+		/*var_dump(Self::$curl->getInfos());
 		var_dump(Self::$curl->getError());
-		var_dump($r);
+		var_dump($r);*/
 
 		$oResult =  json_decode($r);
 
-		if ($bRelogin && in_array($oResult->code, [401, 440])) {
+		if ($bRelogin && isset($oResult->code) && in_array($oResult->code, [401, 440])) {
 			$tmp = Self::$tmpData;
 			$url = Self::$curl->getInfos(CURLOPT_URL);
 
