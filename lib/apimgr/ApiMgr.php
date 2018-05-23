@@ -290,9 +290,30 @@ class ApiMgr {
 		$c->setUrl($url);
 
 		$aData = $oModel->toArray();
+		unset($aData['created_at']);
+		unset($aData['updated_at']);
+
 		Self::setData(['id' => $oModel->id, 'data' => $aData]);
 
 		$res = Self::exec('post');
+		return $res;
+	}
+
+	public static function insert(Model\Model $oModel) {
+		$c = Self::reset();
+		
+		$url = Self::$url.'private/'.$oModel->sTable.'/insert';
+		$c->setUrl($url);
+
+		$aData = $oModel->toArray();
+		unset($aData['created_at']);
+		unset($aData['updated_at']);
+
+		Self::setData(['data' => $aData]);
+
+		$res = Self::exec('post');
+		var_dump("INSERT RESULT ", $res);
+		exit;
 		return $res;
 	}
 }
