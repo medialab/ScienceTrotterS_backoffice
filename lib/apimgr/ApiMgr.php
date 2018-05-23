@@ -297,7 +297,7 @@ class ApiMgr {
 		Self::setData(['id' => $oModel->id, 'data' => $aData]);
 
 		$res = Self::exec('post');
-		return $res;
+		return $res->data;
 	}
 
 	public static function insert(Model\Model $oModel) {
@@ -318,6 +318,6 @@ class ApiMgr {
 			return false;
 		}
 
-		return $res->data->id;
+		return $res->data;
 	}
 }

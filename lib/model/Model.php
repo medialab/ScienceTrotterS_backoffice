@@ -139,24 +139,29 @@ abstract class Model
 	 * Insère dans la DB
 	 */
 	public function add() {
-		$ID = \ApiMgr::insert($this);
-		if ($ID) {
-			$this->id = $ID;
-		}
-
-		return $ID;
+		return = \ApiMgr::insert($this);
 	}
-
 
 	/**
 	 * Met à jour dans la DB
 	 */
 	public function save() {
 		if (!$this->bLoaded) {
-			return $this->add();
+			$aData = \ApiMgr::insert($this);
+		}
+		else{
+			$aData = \ApiMgr::update($this);
 		}
 
-		return \ApiMgr::update($this);
+		if ($aData) {
+			$this->load($aData);
+			$this->bSync = true;
+		}
+		else{
+			$this->bSync = false;
+		}
+
+		return $aData;
 	}
 
 
