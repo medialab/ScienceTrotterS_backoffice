@@ -33,7 +33,7 @@
 
 		<div class="inline">
 			{if $oCity->image|strlen}
-				<img src="{$oCity->image}" class="inline">
+				<img src="{$oCity->image}" class="inline" style="max-width: 350px;">
 			{/if}
 		</div>
 
