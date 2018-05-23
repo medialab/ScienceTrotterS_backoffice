@@ -97,6 +97,8 @@ abstract class Model
 		$oData = \ApiMgr::get($this->sTable, $id);	
 
 		if (empty($oData) || !$oData->success) {
+			$this->bSync = false;
+			$this->bLoaded = false;
 			return false;
 		}
 

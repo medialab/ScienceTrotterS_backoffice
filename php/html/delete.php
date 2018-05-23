@@ -1,6 +1,5 @@
 <?php
 
-var_dump($sPage);
 $aPage = explode('/', $sPage);
 if (count($aPage) !== 2) {
 	header('location: /');
@@ -14,9 +13,15 @@ if ($id && !fIdValidator($id)) {
 }
 
 $sClass = $aPage[1];
-var_dump("FETCH MODEL $sClass");
-var_dump("ID: $id");
-$mdl = Model\Model::get(ucfirst($sClass), $id);
-var_dump($mdl);
+$oMdl = Model\Model::get(ucfirst($sClass), $id);
+
+if ($oMdl->isLoaded()) {
+	var_dump("DELETING: ".$oMdl->id);
+	$b = $oMdl->delete();
+	var_dump($b);
+}
+else{
+	var_dump("Model Not Found: ".$oMdl->id);
+}
 
 exit;
