@@ -75,8 +75,11 @@ if (fMethodIs('post')) {
 			mkdir(UPLOAD_PATH.'/cities', 0775, true);
 
 			$imgPath = 'cities/'.$_FILES['img']['name'];
-			move_uploaded_file($_FILES['img']['tmp_name'], UPLOAD_PATH.'/'.$imgPath);
-			
+			$dest = UPLOAD_PATH.'/'.$imgPath;
+
+			var_dump("Destination: ", $dest);
+			move_uploaded_file($_FILES['img']['tmp_name'], $dest);
+
 			$oCity->image = $imgPath;
 		}
 
