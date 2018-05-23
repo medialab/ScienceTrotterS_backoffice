@@ -28,11 +28,11 @@
 				Image: {($oCity->image|default: '')|basename}
 				<br>
 				<input name="img" type="file">
-
-				{if !empty($oCity->image)}
-					<img src="$oCity->image">
-				{/if}
 			</label>
+
+			{if !empty($oCity->image)}
+				<img src="$oCity->image">
+			{/if}
 		</div>
 
 		<button class="btn" type="submit">Envoyer</div>
