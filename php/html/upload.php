@@ -4,6 +4,7 @@ $sPath = UPLOAD_PATH.$_GET['hash'];
 
 if (!file_exists($sPath)) {
 	http_response_code(404);
+	exit;
 }
 
 $finfo = finfo_open( FILEINFO_MIME_TYPE );
