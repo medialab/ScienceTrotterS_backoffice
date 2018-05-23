@@ -1,6 +1,13 @@
 
 // Load Automatique Des Listes
 $(document).ready(function() {
+	$('.icon-list-remove').click(function(e) {
+		if (!confirm("Êtes vous sûr de vouloir supprimer cette ville ?")) {
+			e.preventDefault();
+			return false;
+		}
+	});
+
 	var lists = {};		// Taleau ID => [jquery el, timer, requete]
 
 	$('div.columnData').scroll(function() {
