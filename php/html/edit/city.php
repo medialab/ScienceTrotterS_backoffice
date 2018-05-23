@@ -103,10 +103,11 @@ if (fMethodIs('post')) {
 		}
 
 	}
-}
 
 var_dump($aErrors);
 var_dump($id, $oCity);
 exit;
+}
+
 $smarty->assign('oCity', $oCity);
 $smarty->assign("aErrors", $aErrors);
