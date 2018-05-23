@@ -54,46 +54,44 @@ class ApiMgr {
 	 * @return Array                Résultats
 	 */
 	private static function exec($method='get', $applyHeaders=true, $bRelogin=true) {
+		// Application Du Header De Connexion
 		if (Self::$token && $applyHeaders) {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
 
+		// Mise en place des variables communes
 		Self::$tmpData['limit'] = Self::$sqlLimit;
 		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
 
 		//var_dump("Request DATA", Self::$tmpData);
-		
-		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
+		// Création de la requete Curl
+		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 		$r = Self::$curl->exec();
+		$oResult =  json_decode($r);
+
 		/*var_dump(Self::$curl->getInfos());
 		var_dump(Self::$curl->getError());
 		var_dump($r);*/
 
-		$oResult =  json_decode($r);
-
+		// Si Le token est expiré ou invalide
 		if ($bRelogin && in_array(Self::$curl->getHttpCode(), [401, 440])) {
-			var_dump("Expired Relogin");
-
+			// On garde la requete de coté
 			$tmp = Self::$tmpData;
 			$url = Self::$curl->getInfos(CURLINFO_EFFECTIVE_URL);
 
-			var_dump("Tmp Data", $url, $tmp);
-
+			// On se Reconnecte
 			$bLoginRes = Self::login(Self::$mail, Self::$pass);
 
-			if(!$bLoginRes) {
-				var_dump("Relogin Faild", $oResult);
-				exit;
+			if(!$bLoginRes) {	// Connexion échouée, On abandonne
 				return $oResult;
 			}
 
+			// On ré-éxécute la requete et on retourne le résultat
 			Self::reset();
 			Self::$curl->setUrl($url);
 			Self::setData($tmp);
 			$oResult = Self::exec($method, $applyHeaders, false);
-			var_dump("Resend Result", $oResult);
-			exit;
 		}
 
 		return $oResult;
