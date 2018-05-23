@@ -97,20 +97,11 @@ if (fMethodIs('post')) {
 			$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
 		}
 		elseif (!$id) {
-			var_dump($oCity);
-			exit;
 			header('location: /edit/city/'.$oCity->id.'.html');
 			exit;
 		}
-
 	}
-
-	exit;
 }
-
-var_dump(fMethodIs('post'));
-var_dump($aErrors);
-var_dump($id, $oCity);
 
 $smarty->assign('oCity', $oCity);
 $smarty->assign("aErrors", $aErrors);
