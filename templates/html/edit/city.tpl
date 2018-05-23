@@ -12,7 +12,7 @@
 			<label>
 				Active:
 				<br>
-				<input name="state" type="checkbox" checked="{if $smarty.post.state|default: $oCity->state:false}true{else}false{/if}">
+				<input name="state" type="checkbox" {if $smarty.post.state|default: $oCity->state:false}checked{/if}">
 			</label>
 		</div>
 		<div class="inline">
