@@ -166,6 +166,18 @@ abstract class Model
 		return $oData;
 	}
 
+	public function delete() {
+		if ($this->bLoaded) {
+			return false;
+		}
+
+		$aData = \ApiMgr::delete($this);
+		var_dump("Delete Result", $aData);
+
+		$this->bSync = false;
+		return $aData;
+	}
+
 
 	/**
 	 * Transformation en Tableau
