@@ -12,6 +12,7 @@ exit;*/
 	ini_set('xdebug.var_display_max_children', -1);
 
 	define( 'LIBRARY_PATH',        './lib/' );
+	define( 'UPLOAD_PATH',      	'./media/upload/' );
 	define( 'TEMPLATE_PATH',        './templates/' );
 
 	define("API_SSL", false);
