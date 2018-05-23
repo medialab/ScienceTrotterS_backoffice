@@ -1,15 +1,13 @@
 
 // Load Automatique Des Listes
 $(document).ready(function() {
-	console.log("TEEST", $('a.delete-btn'));
-
+	/* On alerte avant de supprimer */
 	$("#cities").on('click', 'a.delete-btn', function(e) {
 		if (!confirm("Êtes vous sûr de vouloir supprimer cette ville ?")) {
 			e.preventDefault();
 			return false;
 		}
-	})
-	//$().click();
+	});
 
 	var lists = {};		// Taleau ID => [jquery el, timer, requete]
 

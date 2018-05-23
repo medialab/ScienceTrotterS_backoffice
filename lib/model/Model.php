@@ -14,10 +14,10 @@ abstract class Model
 	protected $sqlVars = ['id', 'created_at', 'updated_at'];
 
 	protected $sTable;
-	protected $bSync = false;
-	protected $bLoaded = false;
+	protected $bSync = false;	// Est Synchronisé avec la DB
+	protected $bLoaded = false;	// A des Donées Chargées
 
-	protected $sqlIgnore = ['sqlIgnore'];
+	protected $sqlIgnore = ['sqlIgnore'];	// variable à ignorer lors du Toarray
 
 	function __construct($id=false, Array $aData=[]) {
 		if ($id) {
@@ -68,19 +68,6 @@ abstract class Model
 	}
 
 	function __get($sVar) {
-		/*
-			$bAccess = $this->canAccessVar($sVar);
-			if ($bAccess === true) {
-				return $this->$sVar;
-			}
-			elseif ($bAccess === -1) {
-				trigger_error('Can\'t access Model Property "'.$sVar.'" due to Protection Level.');
-			}
-			else{
-				trigger_error('Property "'.$sVar.'" does not exists in Class: '.get_class().'');
-			}
-		*/
-
 		if (property_exists($this, $sVar)) {
 			return $this->$sVar;
 		}

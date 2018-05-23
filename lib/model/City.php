@@ -25,6 +25,7 @@ class City extends Model
 		$this->setGeoloc($this->geoloc);
 	}
 
+	
 	public function setGeoloc($geoloc) {
 		if (empty($geoloc)) {
 			$this->geoN = $geoloc;

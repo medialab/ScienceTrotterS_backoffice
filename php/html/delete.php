@@ -1,5 +1,6 @@
 <?php
 
+/* On récupère le Model à supprimer*/
 $aPage = explode('/', $sPage);
 if (count($aPage) !== 2) {
 	header('location: /');

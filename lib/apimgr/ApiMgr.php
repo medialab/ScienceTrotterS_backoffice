@@ -286,7 +286,7 @@ class ApiMgr {
 		Self::$curPage = $page;
 	}
 
-	private function prepareModel(Model\Model $oModel) {
+	private static function prepareModel(Model\Model $oModel) {
 		$aData = $oModel->toArray();
 		unset($aData['created_at']);
 		unset($aData['updated_at']);
