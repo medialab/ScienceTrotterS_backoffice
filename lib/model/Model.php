@@ -71,7 +71,7 @@ abstract class Model
 	function __get($sVar) {
 		$bAccess = $this->canAccessVar($sVar);
 		if ($bAccess === true) {
-			return $this->$var;
+			return $this->$sVar;
 		}
 		elseif ($bAccess === -1) {
 			trigger_error('Can\'t access Model Properties due to Protection Level.');
