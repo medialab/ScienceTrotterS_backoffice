@@ -10,7 +10,7 @@ $finfo = finfo_open( FILEINFO_MIME_TYPE );
 $mtype = finfo_file( $finfo,  $sPath);
 finfo_close( $finfo );
 
-header('Content-Type: '.)
+header('Content-Type: '.$mtype);
 echo file_get_contents($sPath);
 
 unlink($sPath);
