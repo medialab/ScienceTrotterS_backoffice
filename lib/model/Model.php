@@ -185,15 +185,11 @@ abstract class Model
 
 	public static function get($sClass, $id=0, $aData=[]) {
 		$sClass = 'Model\\'.$sClass;
-		var_dump("Class: $sClass");
 		
 		try {
-			var_dump("YES");
 			return new $sClass($id, $aData);
 
-		} catch (Exception $e) {
-			var_dump("False");
-		}
+		} catch (Exception $e) {}
 
 		return null;
 	}
