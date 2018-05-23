@@ -1,4 +1,3 @@
-{$oCity|var_dump}
 <div>
 	<form method="post" enctype="multipart/form-data">
 		<input type="hidden" name="id" value="{$oCity->id|default: 0}">
