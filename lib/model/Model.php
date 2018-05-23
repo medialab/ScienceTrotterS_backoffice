@@ -28,6 +28,61 @@ abstract class Model
 		}
 	}
 
+	/**
+	 * Bloque l'accès aux variable prope à Model
+	 * @param  String $sVar Nom de la variable
+	 * @param  bool $bsqlVars Authorise ou non les variable id, created_at et updated_at
+	 * @return bool|int       true, -1 Si Accès Interdit, false Si la variable n'existe pas
+	 */
+	private function canAccessVar($sVar, $bSqlVars=true) {
+		if ($bSqlVars && in_array($sVar, $this->sqlVars)) {
+			return true;
+		}
+		elseif (property_exists('Model\Model', $sVar)) {
+			trigger_error('Can\'t access Model Properties due to Protection Level.');
+			return -1;
+		} 
+		elseif(property_exists($this, $sVar)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	function __set($sVar, $var) {
+		$bAccess = $this->canAccessVar($sVar, false);
+		if ($bAccess === -1) {
+			trigger_error('Can\'t access Model Properties due to Protection Level.');
+			return;
+		}
+		elseif($bAccess === false){
+			trigger_error('Property  '.$sVar.' does not exists in Class: '.get_class().'');
+			return;
+		}
+
+		// Si on modifie la variavle on est dé-syncronisé de la DB
+		if ($this->$sVar !== $var) {
+			$this->bSync = false;
+		}
+
+		$this->$sVar = $var;
+	}
+
+	function __get($sVar) {
+		$bAccess = $this->canAccessVar($sVar);
+		if ($bAccess === true) {
+			return $this->$var;
+		}
+		elseif ($bAccess === -1) {
+			trigger_error('Can\'t access Model Properties due to Protection Level.');
+		}
+		else{
+			trigger_error('Property  '.$sVar.' does not exists in Class: '.get_class().'');
+		}
+
+		return null;
+	}
+
 	public function loadById($id) {
 		if (!fIdValidator($id)) {
 			return false;
@@ -59,45 +114,32 @@ abstract class Model
 		return true;
 	}
 
-	public function set($sVar, $var) {
-	}
-
-	function __set($sVar, $var) {
-		if ($this->$sVar !== $var) {
-			$this->bSync = false;
-		}
-
-		$this->$sVar = $var;
-	}
-
-	function __get($sVar) {
-		if (in_array($sVar, $this->sqlVars)) {
-			return $this->$sVar;
-		}
-		elseif (property_exists('Model', $sVar)) {
-			trigger_error('Can\'t access Model Properties due to Protection Level.');
-			return null;
-		} 
-		elseif(property_exists($this, $sVar)) {
-			return $this->$sVar;
-		}
-
-		trigger_error('Property  '.$sVar.' does not exists in Class: '.get_class().'');
-		return null;
-	}
-
+	/**
+	 * Est Syncrhonisé à la DB
+	 */
 	public function isSync() {
 		return $this->bSync;
 	}
 
+
+	/**
+	 * Content des données
+	 */
 	public function isLoaded() {
 		return $this->bLoaded;
 	}
 
+	/**
+	 * Insère dans la DB
+	 */
 	public function add() {
 
 	}
 
+
+	/**
+	 * Met à jour dans la DB
+	 */
 	public function save() {
 		if (!$this->bLoaded) {
 			return $this->add();
@@ -106,15 +148,17 @@ abstract class Model
 		return \ApiMgr::update($this);
 	}
 
+
+	/**
+	 * Transformation en Tableau
+	 */
 	public function toArray() {
 		$aResult = [];
 		foreach (get_object_vars($this) as $key => $value) {
-			var_dump("===== $key =====");
-
 			$bIgnore = in_array($key, $this->sqlIgnore);
-			$bModel = !in_array($key, $this->sqlVars) && property_exists('Model\Model', $key);
+			$bModel = $this->canAccessVar($key) !== true;
 
-			if (!$bIgnore && (!$bModel || in_array($key, $this->sqlVars))) {
+			if (!$bIgnore && !$bModel) {
 				$aResult[$key] = $value;
 			}
 		}
