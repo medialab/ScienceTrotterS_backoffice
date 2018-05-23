@@ -60,6 +60,10 @@ $(document).ready(function() {
 
 								var row = base.clone();
 								row.find('.itemLabel').text(e.label);
+								row.find('.delete-btn').attr('href', '/delete/city/'+e.id+'.html');
+								row.find('.edit-btn').attr('href', '/edit/city/'+e.id+'.html');
+								row.find('.preview-btn').attr('href', '/preview/city/'+e.id+'.html');
+
 								ul.append(row);
 								ul.append(spin.parents('.item'));
 							});

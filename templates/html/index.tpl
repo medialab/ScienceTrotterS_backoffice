@@ -44,14 +44,14 @@
 							<!-- ITEM -->
 							<li class="item">
 								<div class="itemAction">
-									<a href="/delete/city/{$city->id}.html">
+									<a class="delete-btn" href="/delete/city/{$city->id}.html">
 										{$city->id}
 										<i class="icon-pre icon-list-remove"></i>
 									</a>
-									<a href="/edit/city/{$city->id}.html">
+									<a class="edit-btn" href="/edit/city/{$city->id}.html">
 										<i class="icon-pre icon-list-edit"></i>
 									</a>
-									<a href="https://science-trotters.actu.com/#/cities">
+									<a class="preview-btn" href="https://science-trotters.actu.com/#/cities">
 										<i class="icon-pre icon-list-preview"></i>
 									</a>
 								</div>
