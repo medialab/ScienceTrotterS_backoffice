@@ -167,7 +167,7 @@ abstract class Model
 	}
 
 	public function delete() {
-		if ($this->bLoaded) {
+		if (!$this->bLoaded) {
 			return false;
 		}
 
