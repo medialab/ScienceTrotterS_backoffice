@@ -75,6 +75,8 @@ if (fMethodIs('post')) {
 			$oCity->imga = 
 		}*/
 
+		var_dump('/edit/city/'.$oCity->id.'.html');
+		exit;
 		header('location: /edit/city/'.$oCity->id.'.html');
 		exit;
 	}
