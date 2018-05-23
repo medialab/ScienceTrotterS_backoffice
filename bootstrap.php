@@ -8,6 +8,7 @@ $sContent = '';
       require_once('./lib/functions.php');
 //---
 
+
 // Smarty
 
 

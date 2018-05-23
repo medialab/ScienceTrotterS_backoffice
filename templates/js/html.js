@@ -104,10 +104,11 @@ var ApiMgr = {
 			data: data,
 			dataType: 'json',
 
-			jsonpCallback: 'ApiResponse',
+			//jsonpCallback: 'ApiResponse',
 
 			headers: {
-				Authorization: self.apiToken,
+				'Access-Control-Allow-Origin': _API_URL_,
+				Authorization: self.apiToken
 			},
 
 /*			beforeSend: function(xhr) {
