@@ -1,7 +1,7 @@
 <?php
 
 $sPath = UPLOAD_PATH.$_GET['hash'];
-var_dump($hash);
+var_dump($_GET['hash']);
 var_dump($sPath);
 
 
