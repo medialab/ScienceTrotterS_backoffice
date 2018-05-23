@@ -37,7 +37,7 @@
 		</div>
 
 		<script>
-			var _API_URL_ = '{$_API_URL_}public/';
+			var _API_URL_ = '{$_API_URL_}private/';
 			var _API_TOKEN_ = '{$_API_TOKEN_|default: ""}';
 		</script>
 
