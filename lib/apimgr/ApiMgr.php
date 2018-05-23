@@ -305,7 +305,7 @@ class ApiMgr {
 		Self::setData(['id' => $oModel->id, 'data' => $aData]);
 		Self:$debugMode = true;
 		$res = Self::exec('post');
-		Self:$debugMode = false;
+		Self::$debugMode = false;
 		return $res;
 	}
 
