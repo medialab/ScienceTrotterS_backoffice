@@ -157,7 +157,7 @@ abstract class Model
 
 		var_dump($aData);
 		if ($aData) {
-			$this->load($aData);
+			$this->load($aData->data);
 			$this->bSync = true;
 		}
 		else{
