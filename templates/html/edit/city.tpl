@@ -13,9 +13,7 @@
 			<label>
 				Active:
 				<br>
-				{$oCity->state|var_dump}
-				{if $oCity->state|default: false}checked{else}NAIN{/if}
-				<input name="state" type="checkbox" {if $oCity->state|default: false}checked{/if}">
+				<input name="state" type="checkbox" {if $oCity->state|default: false}checked{/if}>
 			</label>
 		</div>
 		<div class="inline">
