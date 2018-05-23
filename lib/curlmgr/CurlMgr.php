@@ -179,7 +179,7 @@ class CurlMgr {
         $this->res = curl_exec($this->c);
         $this->err = curl_error($this->c);
         $this->errCode = curl_errno($this->c);
-        $this->responseCode = $this->getInfos()['http_code']
+        $this->responseCode = $this->getInfos()['http_code'];
 
         return $this->res;
     }
