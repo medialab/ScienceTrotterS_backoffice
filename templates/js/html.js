@@ -102,10 +102,9 @@ var ApiMgr = {
 			url: this.apiUrl+url,
 			method: method,
 			data: data,
-			dataType: 'json',
-			//contentType: 'application/json',
+			dataType: 'jsonp',
 
-			//jsonpCallback: 'ApiResponse',
+			jsonpCallback: 'ApiResponse',
 
 			headers: {
 				Authorization: self.apiToken,
