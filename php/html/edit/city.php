@@ -86,7 +86,7 @@ if (fMethodIs('post')) {
 
 			move_uploaded_file($_FILES['img']['tmp_name'], $dest);
 
-			$oCity->image = $imgPath;
+			// $oCity->image = $imgPath;
 		}
 
 		if (!$oCity->save()) {
