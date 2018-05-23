@@ -156,6 +156,7 @@ class ApiMgr {
 		];
 
 		var_dump("Login Success", $_SESSION['user']);
+		exit;
 		return true;
 	}
 
