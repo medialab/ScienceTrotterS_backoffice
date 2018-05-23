@@ -19,7 +19,7 @@ $aRestrictExtension	= [
 
 	// ADMIN 
 		$aAccess["ADMIN"]	=	[
-			'index.html'
+			'index.html',
 			'edit.html',
 			'edit/city.html'
 		];
