@@ -286,15 +286,21 @@ class ApiMgr {
 		Self::$curPage = $page;
 	}
 
+	private function prepareModel(Model\Model $oModel) {
+		$aData = $oModel->toArray();
+		unset($aData['created_at']);
+		unset($aData['updated_at']);
+
+		return $aData;
+	}
+
 	public static function update(Model\Model $oModel) {
 		$c = Self::reset();
 		
 		$url = Self::$url.'private/'.$oModel->sTable.'/update';
 		$c->setUrl($url);
 
-		$aData = $oModel->toArray();
-		unset($aData['created_at']);
-		unset($aData['updated_at']);
+		$aData = Self::prepareModel($oModel);
 
 		Self::setData(['id' => $oModel->id, 'data' => $aData]);
 
@@ -308,11 +314,25 @@ class ApiMgr {
 		$url = Self::$url.'private/'.$oModel->sTable.'/add';
 		$c->setUrl($url);
 
-		$aData = $oModel->toArray();
-		unset($aData['created_at']);
-		unset($aData['updated_at']);
-
+		$aData = Self::prepareModel($oModel);
 		Self::setData(['data' => $aData]);
+
+		$res = Self::exec('post');
+
+		if (empty($res->success) || !$res->success) {
+			return false;
+		}
+
+		return $res;
+	}
+
+	public static function delete(Model\Model $oModel) {
+		$c = Self::reset();
+		
+		$url = Self::$url.'private/'.$oModel->sTable.'/delete';
+		$c->setUrl($url);
+
+		Self::setData(['id' => $oModel->id]);
 
 		$res = Self::exec('post');
 

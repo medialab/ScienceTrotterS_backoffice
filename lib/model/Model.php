@@ -153,7 +153,7 @@ abstract class Model
 			$oData = \ApiMgr::update($this);
 		}
 
-		if ($oData) {
+		if ($oData->success) {
 			$this->load($oData->data);
 			$this->bSync = true;
 		}
