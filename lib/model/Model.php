@@ -39,7 +39,6 @@ abstract class Model
 			return true;
 		}
 		elseif (property_exists('Model\Model', $sVar)) {
-			trigger_error('Can\'t access Model Property "'.$sVar.'" due to Protection Level.');
 			return -1;
 		} 
 		elseif(property_exists($this, $sVar)) {
@@ -52,11 +51,11 @@ abstract class Model
 	function __set($sVar, $var) {
 		$bAccess = $this->canAccessVar($sVar, false);
 		if ($bAccess === -1) {
-			trigger_error('Can\'t access Model Properties due to Protection Level.');
+			trigger_error('Can\'t access Model Property "'.$sVar.'" due to Protection Level.');
 			return;
 		}
 		elseif($bAccess === false){
-			trigger_error('Property  '.$sVar.' does not exists in Class: '.get_class().'');
+			trigger_error('Property "'.$sVar.'" does not exists in Class: '.get_class().'');
 			return;
 		}
 
