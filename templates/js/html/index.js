@@ -1,6 +1,7 @@
 
 // Load Automatique Des Listes
 $(document).ready(function() {
+	console.log("TEEST", $('.delete-btn a'));
 	$('.delete-btn a').click(function(e) {
 		if (!confirm("Êtes vous sûr de vouloir supprimer cette ville ?")) {
 			e.preventDefault();
