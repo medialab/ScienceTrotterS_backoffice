@@ -153,6 +153,7 @@ abstract class Model
 			$aData = \ApiMgr::update($this);
 		}
 
+		var_dump($aData);
 		if ($aData) {
 			$this->load($aData);
 			$this->bSync = true;
