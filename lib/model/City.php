@@ -26,7 +26,10 @@ class City extends Model
 	}
 
 	
-	public function setGeoloc($geoloc) {
+	public function setGeoloc(&$geoloc) {
+		if ($geoloc === ';') {
+			$geoloc = null;
+		}
 		if (empty($geoloc)) {
 			$this->geoN = $geoloc;
 			$this->geoE = $geoloc;
