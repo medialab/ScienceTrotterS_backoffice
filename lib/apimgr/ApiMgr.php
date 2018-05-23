@@ -295,21 +295,18 @@ class ApiMgr {
 	}
 
 	public static function update(Model\Model $oModel) {
-		var_dump("UPDATE");
 		$c = Self::reset();
 		
 		$url = Self::$url.'private/'.$oModel->sTable.'/update';
 		$c->setUrl($url);
-		var_dump($url);
 
 		$aData = Self::prepareModel($oModel);
-		var_dump($aData);
 
 		Self::setData(['id' => $oModel->id, 'data' => $aData]);
-		Self::$debugMode = true;
+		Self:$debugMode = true;
 		$res = Self::exec('post');
 		Self::$debugMode = false;
-
+		
 		return $res;
 	}
 
@@ -322,9 +319,7 @@ class ApiMgr {
 		$aData = Self::prepareModel($oModel);
 		Self::setData(['data' => $aData]);
 
-		Self::$debugMode = true;
 		$res = Self::exec('post');
-		Self::$debugMode = false;
 
 		if (empty($res->success) || !$res->success) {
 			return false;
