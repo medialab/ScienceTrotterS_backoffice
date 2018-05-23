@@ -70,6 +70,7 @@ class ApiMgr {
 
 		$oResult =  json_decode($r);
 
+		var_dump(Self::$curl->get);
 		if ($bRelogin && isset($oResult->code) && in_array($oResult->code, [401, 440])) {
 			$tmp = Self::$tmpData;
 			$url = Self::$curl->getInfos(CURLOPT_URL);
