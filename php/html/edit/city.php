@@ -59,7 +59,6 @@ if (fMethodIs('post')) {
 		else{
 			$aErrors['Image'] = 'L\'image doit être du type suivant: .'.join('', $aFileTypes);
 		}
-		
 	}
 
 	$maxSize = '500Mo';
@@ -68,6 +67,10 @@ if (fMethodIs('post')) {
 	}
 
 	if (empty($aErrors)) {
+		/*if (!empty($_FILES['img'])) {
+			$oCity->imga = 
+		}*/
+
 		var_dump("Success", $oCity);
 		var_dump("Update: ", $oCity->save());
 	}
