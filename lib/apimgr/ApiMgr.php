@@ -18,6 +18,8 @@ class ApiMgr {
 	
 	private static $tmpData = [];		// Temporary Request
 
+	public static $debugMode = false;
+
 	public static function init() {
 		if (Self::$bInit) {
 			return;
@@ -70,10 +72,11 @@ class ApiMgr {
 		$r = Self::$curl->exec();
 		$oResult =  json_decode($r);
 		
-		
-		var_dump(Self::$curl->getInfos());
-		var_dump(Self::$curl->getError());
-		var_dump($r);
+		if (Self::$debugMode) {
+			var_dump(Self::$curl->getInfos());
+			var_dump(Self::$curl->getError());
+			var_dump($r);
+		}
 
 		// Si Le token est expiré ou invalide
 		if ($bRelogin && in_array(Self::$curl->getHttpCode(), [401, 440])) {
