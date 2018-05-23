@@ -8,7 +8,7 @@ if ($id && !fIdValidator($id)) {
 }
 
 $oCity = new \model\City($id);
-
+var_dump($oCity);
 if (fMethodIs('post')) {
 	if(!fRequiredValidator('label', $_POST)) {
 		$aErrors['Nom'] = 'Ce champs est obligatoire';

@@ -164,14 +164,12 @@ abstract class Model
 			$bIgnore = in_array($key, $this->sqlIgnore);
 
 			$bModel = $this->canAccessVar($key) !== true;
-			var_dump("TEST ACCESS: $key => ", $bModel, $bIgnore);
 
 			if (!$bIgnore && !$bModel) {
 				$aResult[$key] = $value;
 			}
 		}
 
-		var_dump($aResult);
 		return $aResult;
 	}
 }
