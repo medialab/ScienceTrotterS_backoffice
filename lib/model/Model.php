@@ -139,7 +139,12 @@ abstract class Model
 	 * Insère dans la DB
 	 */
 	public function add() {
-		$result =  \ApiMgr::insert($this);
+		$ID = \ApiMgr::insert($this);
+		if ($ID) {
+			$this->id = $ID;
+		}
+
+		return $ID;
 	}
 
 

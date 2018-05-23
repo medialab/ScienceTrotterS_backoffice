@@ -10,7 +10,6 @@ if ($id && !fIdValidator($id)) {
 $oCity = new \model\City($id);
 
 if (fMethodIs('post')) {
-	var_dump($_POST);
 
 	if(!fRequiredValidator('label', $_POST)) {
 		$aErrors['Nom'] = 'Ce champs est obligatoire';
@@ -76,8 +75,9 @@ if (fMethodIs('post')) {
 			$oCity->imga = 
 		}*/
 
-		var_dump("Success", $oCity);
+		var_dump("Success");
 		var_dump("Update: ", $oCity->save());
+		var_dump($oCity);
 	}
 }
 

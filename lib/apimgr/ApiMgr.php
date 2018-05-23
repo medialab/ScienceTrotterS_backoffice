@@ -69,10 +69,11 @@ class ApiMgr {
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 		$r = Self::$curl->exec();
 		$oResult =  json_decode($r);
-
+		
+		/*
 		var_dump(Self::$curl->getInfos());
 		var_dump(Self::$curl->getError());
-		var_dump($r);
+		var_dump($r);*/
 
 		// Si Le token est expiré ou invalide
 		if ($bRelogin && in_array(Self::$curl->getHttpCode(), [401, 440])) {
@@ -312,8 +313,11 @@ class ApiMgr {
 		Self::setData(['data' => $aData]);
 
 		$res = Self::exec('post');
-		var_dump("INSERT RESULT ", $res);
-		exit;
-		return $res;
+
+		if (empty($res->success) || !$res->success) {
+			return false;
+		}
+
+		return $res->data->id;
 	}
 }
