@@ -80,7 +80,18 @@ if (fMethodIs('post')) {
 	/* Si On a pad d'erreur on prepare L'object ville */
 	if (empty($aErrors)) {
 		/* La ville ne peut être active que si tout les champs sont remplis */
+		
+
+
+		
+		var_dump("Empty image", empty($oCity->image), strlen($oCity->image));
+
+
+
+
+		var_dump($oCity);
 		if (!strlen($oCity->geoloc) || !strlen($oCity->image)) {
+			var_dump("SETTING STATE TO FALSE");
 			$oCity->state = false;
 		}
 
