@@ -109,6 +109,7 @@ var ApiMgr = {
 			beforeSend: function(xhr) {
 				console.log("TEST: "+self.apiToken);
 		        xhr.setRequestHeader('Authorization', self.apiToken);
+		        xhr.setRequestHeader('test', self.apiToken);
 		        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
 		    },
 
