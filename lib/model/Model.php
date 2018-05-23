@@ -68,17 +68,24 @@ abstract class Model
 	}
 
 	function __get($sVar) {
-		$bAccess = $this->canAccessVar($sVar);
-		if ($bAccess === true) {
-			return $this->$sVar;
-		}/*
-		elseif ($bAccess === -1) {
-			trigger_error('Can\'t access Model Property "'.$sVar.'" due to Protection Level.');
-		}*/
-		else{
-			trigger_error('Property "'.$sVar.'" does not exists in Class: '.get_class().'');
-		}
+		/*
+			$bAccess = $this->canAccessVar($sVar);
+			if ($bAccess === true) {
+				return $this->$sVar;
+			}
+			elseif ($bAccess === -1) {
+				trigger_error('Can\'t access Model Property "'.$sVar.'" due to Protection Level.');
+			}
+			else{
+				trigger_error('Property "'.$sVar.'" does not exists in Class: '.get_class().'');
+			}
+		*/
 
+		if (property_exists($this, $sVar)) {
+			return $this->$sVar;
+		}
+		
+		trigger_error('Property "'.$sVar.'" does not exists in Class: '.get_class().'');
 		return null;
 	}
 
@@ -155,7 +162,7 @@ abstract class Model
 		$aResult = [];
 		foreach (get_object_vars($this) as $key => $value) {
 			$bIgnore = in_array($key, $this->sqlIgnore);
-			
+
 			var_dump("TEST ACCESS: $key");
 			$bModel = $this->canAccessVar($key) !== true;
 
