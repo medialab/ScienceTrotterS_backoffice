@@ -77,6 +77,8 @@ class ApiMgr {
 			$bLoginRes = Self::login(Self::$mail, Self::$pass);
 
 			if(!$bLoginRes) {
+				var_dump("Relogin Faild", $oResult);
+				exit;
 				return $oResult;
 			}
 
@@ -84,6 +86,8 @@ class ApiMgr {
 			Self::$curl->setUrl($url);
 			Self::setData($tmp);
 			$oResult = Self::exec($method, $applyHeaders, false);
+			var_dump("Resend Result", $oResult);
+			exit;
 		}
 
 		return $oResult;
