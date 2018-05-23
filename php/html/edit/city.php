@@ -71,10 +71,10 @@ if (fMethodIs('post')) {
 		if (empty($oCity->geoloc) || empty($oCity->image)) {
 			$oCity->state = false;
 		}
-		if (!empty($_FILES['img'])) {
+		if (!empty($_FILES['img']) && !empty($_FILES['img']['name'])) {
 
-			if (!is_dir(UPLOAD_PATH.'/cities')) {
-				mkdir(UPLOAD_PATH.'/cities', 0775, true);
+			if (!is_dir(UPLOAD_PATH.'cities')) {
+				mkdir(UPLOAD_PATH.'cities', 0775, true);
 			}
 
 			$imgPath = 'cities/'.$_FILES['img']['name'];
