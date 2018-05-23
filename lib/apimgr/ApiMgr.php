@@ -303,8 +303,9 @@ class ApiMgr {
 		$aData = Self::prepareModel($oModel);
 
 		Self::setData(['id' => $oModel->id, 'data' => $aData]);
-
+		Self:$debugMode = true;
 		$res = Self::exec('post');
+		Self:$debugMode = false;
 		return $res;
 	}
 
