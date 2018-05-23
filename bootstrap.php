@@ -39,7 +39,7 @@ ApiMgr::init();
     require( "./access.php" );
     if ( in_array($sExt, $aRestrictExtension) ){
         // On est dans une extension controlée
-            if( empty($_SESSION['user']['token']) || !in_array( "{$sPage}.{$sExt}", $aAccessUtilisateur ) ){
+            if( empty($_SESSION['user']['token']) && !in_array( "{$sPage}.{$sExt}", $aAccessUtilisateur ) ){
                 $ext = strtoupper($sExt);
                 if (!empty($aAccess[$ext]['redirection'])) {
                     $redir = $aAccess[$ext]['redirection'];
