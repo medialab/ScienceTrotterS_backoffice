@@ -105,12 +105,11 @@ var ApiMgr = {
 			dataType: 'json',
 
 			jsonpCallback: 'ApiResponse',
-/*
+
 			headers: {
 				Authorization: self.apiToken,
-				lol: "XD"
 			},
-*/
+
 /*			beforeSend: function(xhr) {
 				console.log("TEST: "+self.apiToken);
 		        xhr.setRequestHeader('Authorization', self.apiToken);
