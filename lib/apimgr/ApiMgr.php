@@ -4,9 +4,12 @@
  * 
  */
 class ApiMgr {
+	private static $mail;				// API E-MAIL
+	private static $pass;				// API PASSWORD
+	private static $token = false;		// Api Token
+
 	private static $url;				// Base API URL
 	private static $curl;				// CurlMgr
-	private static $token = false;		// Api Token
 	private static $bInit = false;		// Is Init
 	
 	private static $curPage = 0;		// Current Page
@@ -48,7 +51,7 @@ class ApiMgr {
 	 * @param  boolean $applyHeaders Ajoute ou non le header Authorization 
 	 * @return Array                Résultats
 	 */
-	private static function exec($method='get', $applyHeaders=true) {
+	private static function exec($method='get', $applyHeaders=true, $bRelogin=true) {
 		if (Self::$token && $applyHeaders) {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
@@ -65,7 +68,25 @@ class ApiMgr {
 		var_dump(Self::$curl->getError());
 		var_dump($r);
 
-		return json_decode($r);
+		$oResult =  json_decode($r);
+
+		if ($bRelogin && in_array($oResult->code, [401, 440])) {
+			$tmp = Self::$tmpData;
+			$url = Self::$curl->getInfos(CURLOPT_URL);
+
+			$bLoginRes = Self::login(Self::$mail, Self::$pass);
+
+			if(!$bLoginRes) {
+				return $oResult;
+			}
+
+			Self::reset();
+			Self::$curl->setUrl($url);
+			Self::setData($tmp);
+			$oResult = Self::exec($method, $applyHeaders, false);
+		}
+
+		return $oResult;
 	}
 
 	/**
@@ -104,13 +125,17 @@ class ApiMgr {
 			'password' => $pass
 		]);
 
-		$res = Self::exec('post');
+		$res = Self::exec('post', true, false);
 
 		if (empty($res) || !$res->status || empty($res->token)) {
 			return false;
 		}
 
 		Self::setToken($res->token);
+
+
+		Self::$pass = $pass,
+		Self::$mail = $mail,
 
 		$_SESSION['user'] = [
 			'pass' => $pass,

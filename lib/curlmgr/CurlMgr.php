@@ -254,7 +254,7 @@ class CurlMgr {
     }
 
     /**
-     * sET Curl Option
+     * SET Curl Option
      * @param [type] $opt  [description]
      * @param [type] $data [description]
      */
