@@ -171,6 +171,7 @@ abstract class Model
 			}
 		}
 
+		var_dump($aResult);
 		return $aResult;
 	}
 }
