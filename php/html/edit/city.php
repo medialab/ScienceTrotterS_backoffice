@@ -72,7 +72,10 @@ if (fMethodIs('post')) {
 			$oCity->state = false;
 		}
 		if (!empty($_FILES['img'])) {
-			mkdir(UPLOAD_PATH.'/cities', 0775, true);
+
+			if (!is_dir(UPLOAD_PATH.'/cities')) {
+				mkdir(UPLOAD_PATH.'/cities', 0775, true);
+			}
 
 			$imgPath = 'cities/'.$_FILES['img']['name'];
 			$dest = UPLOAD_PATH.'/'.$imgPath;
@@ -80,7 +83,7 @@ if (fMethodIs('post')) {
 			if (file_exists($dest)) {
 				unlink($dest);
 			}
-			
+
 			move_uploaded_file($_FILES['img']['tmp_name'], $dest);
 
 			$oCity->image = $imgPath;
