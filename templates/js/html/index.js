@@ -3,7 +3,7 @@
 $(document).ready(function() {
 	console.log("TEEST", $('a.delete-btn'));
 
-	$("#cities").on('a.delete-btn', 'click', function(e) {
+	$("#cities").on('click', 'a.delete-btn', function(e) {
 		if (!confirm("Êtes vous sûr de vouloir supprimer cette ville ?")) {
 			e.preventDefault();
 			return false;
