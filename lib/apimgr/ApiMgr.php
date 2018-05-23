@@ -76,7 +76,7 @@ class ApiMgr {
 			var_dump("Expired Relogin");
 
 			$tmp = Self::$tmpData;
-			$url = Self::$curl->getInfos(CURLOPT_URL);
+			$url = Self::$curl->getInfos(CURLINFO_EFFECTIVE_URL);
 
 			var_dump("Tmp Data", $url, $tmp);
 
