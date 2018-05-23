@@ -95,6 +95,7 @@ if (fMethodIs('post')) {
 			var_dump("SETTING STATE TO FALSE");
 			$oCity->state = false;
 		}
+		var_dump($oCity);
 
 		/* Sauvegarde Temporaire de l'image */
 		if (!empty($_FILES['img']) && !empty($_FILES['img']['name'])) {
@@ -117,6 +118,7 @@ if (fMethodIs('post')) {
 			$oCity->image = $imgPath;
 		}
 
+		var_dump($oCity);
 		if (!$oCity->save()) {
 			$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
 		}
