@@ -106,7 +106,7 @@ var ApiMgr = {
 
 			jsonpCallback: 'ApiResponse',
 
-			header: {
+			headers: {
 				Authorization: self.apiToken,
 				lol: "XD"
 			},
