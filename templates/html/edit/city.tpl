@@ -29,7 +29,9 @@
 				<br>
 				<input name="img" type="file">
 			</label>
+		</div>
 
+		<div class="inline">
 			{if $oCity->image|strlen}
 				<img src="{$oCity->image}" class="inline">
 			{/if}
