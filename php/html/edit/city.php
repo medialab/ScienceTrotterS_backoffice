@@ -80,6 +80,7 @@ if (fMethodIs('post')) {
 			$imgPath = 'cities/'.fCreateFriendlyUrl($_FILES['img']['name']);
 			$dest = UPLOAD_PATH.'/'.$imgPath;
 
+			var_dump($dest);
 			if (file_exists($dest)) {
 				unlink($dest);
 			}
