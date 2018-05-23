@@ -100,10 +100,10 @@ var ApiMgr = {
 		var request = {
 			crossDomain: true,
 			url: this.apiUrl+url,
-			method: 'post',
+			method: method,
 			data: data,
 			dataType: 'json',
-			contentType: 'application/json',
+			//contentType: 'application/json',
 
 			//jsonpCallback: 'ApiResponse',
 
