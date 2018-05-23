@@ -25,4 +25,5 @@ else{
 	var_dump("Model Not Found: ".$oMdl->id);
 }
 
+header('location: /');
 exit;
