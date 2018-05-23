@@ -118,6 +118,7 @@ class ApiMgr {
 			return false;
 		}
 
+		var_dump("LOGIN $mail, $pass");
 		$c = Self::reset();
 		$c->setUrl(Self::$url.'login')
 			->isPost()
