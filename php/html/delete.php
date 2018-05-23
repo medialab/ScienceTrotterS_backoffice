@@ -17,6 +17,7 @@ $oMdl = Model\Model::get(ucfirst($sClass), $id);
 
 if ($oMdl->isLoaded()) {
 	var_dump("DELETING: ".$oMdl->id);
+	var_dump($oMdl);
 	$b = $oMdl->delete();
 	var_dump($b);
 }
