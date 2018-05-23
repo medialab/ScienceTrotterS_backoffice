@@ -1,7 +1,7 @@
 
 // Load Automatique Des Listes
 $(document).ready(function() {
-	$('.delete-btn').click(function(e) {
+	$('.delete-btn a').click(function(e) {
 		if (!confirm("Êtes vous sûr de vouloir supprimer cette ville ?")) {
 			e.preventDefault();
 			return false;
