@@ -108,9 +108,7 @@ abstract class Model
 	public function load($aData) {
 		$this->bSync = false;
 		foreach ($aData as $sProp => $sData) {
-			var_dump($sProp);
 			if (property_exists($this, $sProp)) {
-				var_dump($sData);
 				$this->$sProp = $sData;
 			}
 			else {
@@ -149,22 +147,21 @@ abstract class Model
 	 */
 	public function save() {
 		if (!$this->bLoaded) {
-			$aData = \ApiMgr::insert($this);
+			$oData = \ApiMgr::insert($this);
 		}
 		else{
-			$aData = \ApiMgr::update($this);
+			$oData = \ApiMgr::update($this);
 		}
 
-		var_dump($aData);
-		if ($aData) {
-			$this->load($aData->data);
+		if ($oData) {
+			$this->load($oData->data);
 			$this->bSync = true;
 		}
 		else{
 			$this->bSync = false;
 		}
 
-		return $aData;
+		return $oData;
 	}
 
 
