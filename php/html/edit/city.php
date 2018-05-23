@@ -9,7 +9,7 @@ if ($id && !fIdValidator($id)) {
 	header('location: /cities.html');
 }
 
-$oCity = new \model\City($id);
+$oCity = new \Model\City($id);
 
 /* Validation du formulaire */
 if (fMethodIs('post')) {
