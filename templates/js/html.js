@@ -102,7 +102,7 @@ var ApiMgr = {
 			url: this.apiUrl+url,
 			method: method,
 			data: data,
-			dataType: 'jsonp',
+			dataType: 'json',
 
 			jsonpCallback: 'ApiResponse',
 
