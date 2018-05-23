@@ -1,7 +1,9 @@
 <?php
 
+/* Titre du formulaire */
 $smarty->assign('sCreation', '\'une ville');
 
+/* Récupération de l'ID de la ville s'il existe */
 $id = !empty($_GET['id']) ? $_GET['id'] : false;
 if ($id && !fIdValidator($id)) {
 	header('location: /cities.html');
@@ -9,8 +11,10 @@ if ($id && !fIdValidator($id)) {
 
 $oCity = new \model\City($id);
 
+/* Validation du formulaire */
 if (fMethodIs('post')) {
 
+	/*  */
 	if(!fRequiredValidator('label', $_POST)) {
 		$aErrors['Nom'] = 'Ce champs est obligatoire';
 	}
