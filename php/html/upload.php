@@ -13,5 +13,5 @@ finfo_close( $finfo );
 header('Content-Type: '.$mtype);
 echo file_get_contents($sPath);
 
-//unlink($sPath);
+unlink($sPath);
 exit;
