@@ -302,7 +302,7 @@ class ApiMgr {
 	public static function insert(Model\Model $oModel) {
 		$c = Self::reset();
 		
-		$url = Self::$url.'private/'.$oModel->sTable.'/insert';
+		$url = Self::$url.'private/'.$oModel->sTable.'/add';
 		$c->setUrl($url);
 
 		$aData = $oModel->toArray();
