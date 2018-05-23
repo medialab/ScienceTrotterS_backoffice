@@ -44,7 +44,7 @@
 							<!-- ITEM -->
 							<li class="item">
 								<div class="itemAction">
-									<a href="/delete/city/{$city->id}">
+									<a href="/delete/city/{$city->id}.html">
 										<i class="icon-pre icon-list-remove"></i>
 									</a>
 									<a href="/edit/city/{$city->id}.html">
