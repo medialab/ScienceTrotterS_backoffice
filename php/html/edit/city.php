@@ -79,8 +79,6 @@ if (fMethodIs('post')) {
 			$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
 		}
 		elseif (!$id) {
-			var_dump('/edit/city/'.$oCity->id.'.html');
-			exit;
 			header('location: /edit/city/'.$oCity->id.'.html');
 			exit;
 		}
