@@ -101,6 +101,9 @@ if (fMethodIs('post')) {
 			header('location: /edit/city/'.$oCity->id.'.html');
 			exit;
 		}
+
+		var_dump($id, $oCity);
+		exit;
 	}
 }
 
