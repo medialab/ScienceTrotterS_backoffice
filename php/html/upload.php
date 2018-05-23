@@ -1,7 +1,8 @@
 <?php
 
 $sPath = UPLOAD_PATH.$_GET['hash'];
-
+var_dump($sPath);
+exit;
 if (!file_exists($sPath)) {
 	http_response_code(404);
 	exit;
