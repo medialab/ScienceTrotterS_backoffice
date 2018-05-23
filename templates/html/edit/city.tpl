@@ -13,6 +13,7 @@
 			<label>
 				Active:
 				<br>
+				{$oCity->state|var_dump}
 				<input name="state" type="checkbox" {if $oCity->state|default: false}checked{/if}">
 			</label>
 		</div>
