@@ -334,7 +334,9 @@ class ApiMgr {
 
 		Self::setData(['id' => $oModel->id]);
 
+		Self::$debugMode = true;
 		$res = Self::exec('post');
+		Self::$debugMode = false;
 
 		if (empty($res->success) || !$res->success) {
 			return false;
