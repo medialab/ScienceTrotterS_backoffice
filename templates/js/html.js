@@ -102,7 +102,7 @@ var ApiMgr = {
 			url: this.apiUrl+url,
 			method: method,
 			data: data,
-			dataType: 'json',
+			dataType: 'jsonp',
 
 			//jsonpCallback: 'ApiResponse',
 
@@ -169,6 +169,7 @@ var ApiMgr = {
 			'get',
 			table+'/list',
 			{
+				token: _API_TOKEN_, 
 				limit: limit, 
 				offset: page*limit
 			},
