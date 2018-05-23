@@ -30,8 +30,8 @@
 				<input name="img" type="file">
 			</label>
 
+			<img src="{$oCity->image}">
 			{if !empty($oCity->image)}
-				<img src="$oCity->image">
 			{/if}
 		</div>
 
