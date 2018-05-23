@@ -108,7 +108,9 @@ abstract class Model
 	public function load($aData) {
 		$this->bSync = false;
 		foreach ($aData as $sProp => $sData) {
+			var_dump($sProp);
 			if (property_exists($this, $sProp)) {
+				var_dump($sData);
 				$this->$sProp = $sData;
 			}
 			else {
