@@ -10,6 +10,7 @@
 		<!-- FONTS -->
 		
 		<!-- CSS -->
+			<link rel="stylesheet" href="/lib/reset.css" type="text/css" />
 			<link href="/html.css" rel="stylesheet" type="text/css" />
 			<link rel="stylesheet" href="/lib/navbar.css" type="text/css" />
 			<link rel="stylesheet" href="/lib/icons.css" type="text/css" />
@@ -29,7 +30,7 @@
 				{include file="include/html/navBar.tpl"}
 			{/if}
 
-			<div class="content">
+			<div class="content"> 
 				{$sPageContent|default:'noCONTENT'}
 			</div>
 

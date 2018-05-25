@@ -173,3 +173,54 @@ function ApiResponse(result) {
 		ApiMgr.curRequest.success(result);
 	}*/
 }
+
+
+
+/* Stylisation du bouton d'importation d'une image */
+
+$( '.inputFile' ).each( function() {
+
+
+	var $this	 = $( this ),
+		$label	 = $this.next( 'label' ),
+		labelVal = $label.html();
+
+	$this.on( 'change', function( e )
+	{
+		var fileName = '';
+
+		if( this.files && this.files.length > 1 )
+			fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+		else if( e.target.value )
+			fileName = e.target.value.split( '\\' ).pop();
+
+		if( fileName ) {
+			$('#btnInputFileName p').html(fileName);
+		}
+
+	});
+
+
+	// Firefox bug fix
+	$this
+	.on( 'focus', function(){ $this.addClass( 'has-focus' ); })
+	.on( 'blur', function(){ $this.removeClass( 'has-focus' ); });
+});
+
+/***/
+
+
+
+/* Switch */
+
+$(document).on( 'click', '.boolean label', function(){
+	var bOn				=	$('input#' + $(this).attr('for') ).val();
+	if( bOn == 1 ){
+		$(this).parents('.boolean').addClass( 'on' );
+	} else {
+		$(this).parents('.boolean').removeClass( 'on' );
+	}
+});
+$(document).on( 'style', '.boolean label', function(){
+	$(this).parents('.boolean').find('input:not-check').click();
+});

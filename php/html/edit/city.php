@@ -1,7 +1,7 @@
 <?php
 
 /* Titre du formulaire */
-$smarty->assign('sCreation', '\'une ville');
+$smarty->assign('sCreation', 'une ville');
 
 /* Récupération de l'ID de la ville s'il existe */
 $id = !empty($_GET['id']) ? $_GET['id'] : false;

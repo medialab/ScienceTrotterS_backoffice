@@ -1,7 +1,7 @@
-#content > .content {
+/*#content > .content {
   padding: 15px;
 }
-
+*/
 .inline {
   margin-bottom: 15px; 
 }
@@ -12,6 +12,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   overflow-y: scroll;
+  padding: 20px;
 }
 
 .mainContent > .contentView {
@@ -423,4 +424,218 @@ body {
 .filDAriane > .pathList > .pathName > .faLink, .faLink:visited {
   color: #BCBCCB;
   text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.contentView > div > h2 {
+text-transform: 				uppercase;
+font-size: 						24px;
+color: 							#3156A6;
+text-align: 					center;
+margin: 						40px 0;
+}
+
+.contentView form {
+max-width: 						70%;
+width: 							1000px;
+margin: 						0 auto;
+display: 						flex;
+flex-wrap: 						wrap;
+flex-direction: 				row;
+justify-content: 				space-between;
+}
+
+.box {
+background-color: 				#fff;
+box-shadow: 					0 3px 6px rgba(105,105,105, 0.16);
+padding: 						20px;
+width: 							100%;
+}
+
+.box + .box {
+margin-top: 					40px;
+width: 							calc( 50% - 20px );
+}
+
+.box label {
+display: 						block;
+text-transform:					uppercase;
+font-size:						16px;
+color:							#3156A6;
+margin-bottom: 					5px;
+}
+
+.box label + p {
+font-size:						12px;
+color:							#A1ABB7;
+margin-bottom: 					15px;
+}
+
+.box input[type=text],
+.box input[type=number] {
+border: 						1px solid #A1ABB7;
+padding: 						5px;
+width: 							100%;
+}
+
+.box input[type=number] + input[type=number] {
+margin-top: 					15px;
+}
+
+.box iframe#map {
+width: 100%;
+margin-top: 20px;
+}
+
+.box .inputFile {
+width: 							0.1px;
+height: 						0.1px;
+opacity: 						0;
+overflow: 						hidden;
+position: 						absolute;
+z-index: 						-1;
+}
+
+.box .inputFile + div label#btnInputFileName {
+cursor: 						pointer;
+background: 					#F0F0F7;
+display: 						flex;
+flex-direction: 				column;
+justify-content: 				center;
+align-items: 					center;
+position: 						relative;
+min-height: 					150px;
+}
+
+label#btnInputFileName img {
+background-size: 				cover;
+}
+
+.box .inputFile + label#btnInputFileName p {
+font-size: 						12px;
+text-transform: 				none;
+position: 						absolute;
+bottom: 						25px;
+}
+
+.box p {
+font-size:						12px;
+color:							#A1ABB7;
+}
+
+a {
+font-size: 						12px;
+color: 							#3156A6;
+}
+
+a.btn {
+text-transform:					uppercase;
+text-decoration: 				none;
+border: 						1px solid #3156A6;
+font-size:						12px;
+color:							#3156A6;
+padding: 						5px;
+width: 							250px;
+text-align: 					center;
+border-radius: 					3px;
+margin: 						40px auto 0;
+}
+
+a.btn img {
+margin-right: 					5px;
+}
+
+button.submit {
+text-transform:					uppercase;
+border: 						1px solid #3156A6;
+background: 					#3156A6;
+font-size:						14px;
+font-weight: 					bold;
+color:							#fff;
+padding: 						10px;
+width: 							250px;
+text-align: 					center;
+border-radius: 					3px;
+margin: 						40px auto;
+}
+
+.boolean{
+overflow:hidden;
+width: 							100%;
+display: 						flex;
+justify-content: 				center;
+margin: 						20px 0;
+}
+
+.boolean label{
+float:left;
+padding:0.5em;
+line-height:38px;
+text-transform:					uppercase;
+font-size:						16px;
+color:							#3156A6;
+cursor: 						pointer;
+}
+
+.boolean .style{
+float:left;
+background:gray;
+border-radius:20px;
+height:35px;
+padding:2px;
+margin:10px;
+width:70px;
+position:relative;
+}
+.boolean input{
+position:absolute;
+left:-5000px;
+top:-5000px;
+}
+.boolean .style div{
+background: 					#fff;
+border-radius:50%;
+height:31px;
+width:31px;
+float:right;
+cursor: 						pointer;
+}
+.boolean.on .style{
+background: 					#3156A6;
+}
+.boolean.on .style div{
+float:left;
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 1350px) {
+
+	.contentView form {
+	max-width: 						inherit;
+	width: 							inherit;
+	}
+
+	.box + .box {
+	width: 							100%;
+	}
+
 }

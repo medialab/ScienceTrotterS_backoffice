@@ -11,7 +11,6 @@ $aRestrictExtension	= [
 // Les pages autorisées
 	// aux VISITEURS 
 		$aAccess["VISITOR"]	=	[
-			'index.html',
 			'logout.html',
 			'upload.html',
 			'upload/cities.html',
@@ -21,7 +20,8 @@ $aRestrictExtension	= [
 
 	// ADMIN 
 		$aAccess["ADMIN"]	=	[
-//			'index.html',
+			'index.html',
+			'test.html',
 			'edit.html',
 			'edit/city.html'
 		];
