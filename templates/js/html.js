@@ -238,10 +238,10 @@ $(document).ready(function() {
 		var label = $(e.currentTarget);
 
 		if (label.attr('data') === 'on') {
-			self.find('input').prop(checked, true);
+			self.find('input').prop("checked", true);
 		}
 		else{
-			self.find('input').prop(checked, false);
+			self.find('input').prop("checked", false);
 		}
 		
 
@@ -252,6 +252,8 @@ $(document).ready(function() {
 	switches.on('click', '.style', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
+
+		console.log("Toggle: ", $(this));
 
 		toggleSwitch($(this));
 	});
