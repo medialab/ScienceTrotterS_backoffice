@@ -15,10 +15,8 @@ exit;*/
 	define( 'TEMPLATE_PATH',        './templates/' );
 	define( 'UPLOAD_PATH',      	realpath('.').'/media/upload/' );
 
-	define("API_SSL", false);
-	define("API_URL", 'http://api-sts-stable.actu.com');
 
-
+	require_once('./config/defines.php');
 
 	// Fonction de chargement dynamique des classes
 		function fAutoLoader( $sClassName ){
