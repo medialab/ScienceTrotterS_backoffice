@@ -48,6 +48,11 @@
 			<img src="/media/image/interface/icons/icon_edit_preview.svg" alt="" width="18px" height="10px">
 			Preview
 		</a>
+
+		<a href="#" title="Preview" class="btn btn-lg">
+			<img src="/media/image/interface/icons/icon_create_roadMap.svg" alt="" width="18px" height="10px">
+			Créer un nouveau Parcours
+		</a>
 		
 		<div class="boolean {if $oCity->state|default: false}on{/if}">
 			<input id="publie" type="checkbox" name="state" {if $oCity->state|default: false}checked{/if} />

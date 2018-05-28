@@ -113,7 +113,7 @@
 				<!-- BTN LINK -->
 				<div class="columnBtnLink">
 					<a href="#">
-						<i class="icon icon-create-road"></i>
+						<i class="icon icon-create-roadMap"></i>
 						Créer un parcours
 					</a>
 				</div>
@@ -153,7 +153,7 @@
 				<!-- BTN LINK -->
 				<div class="columnBtnLink">
 					<a href="#">
-						<i class="icon icon-create-roadMap"></i>
+						<i class="icon icon-create-road"></i>
 						Créer un point d'intérêt
 					</a>
 				</div>

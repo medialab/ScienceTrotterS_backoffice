@@ -562,7 +562,9 @@ a.btn-lg {
 }
 
 a.btn img {
-margin-right: 					5px;
+  width: 10%;
+  height: auto;
+  margin-right: 5px;
 }
 
 button.submit {
