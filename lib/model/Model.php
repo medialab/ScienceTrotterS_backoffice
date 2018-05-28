@@ -144,7 +144,6 @@ abstract class Model
 			$oData = \ApiMgr::update($this);
 		}
 
-		var_dump($oData);
 		if ($oData->success) {
 			$this->load($oData->data);
 			$this->bSync = true;
@@ -153,7 +152,7 @@ abstract class Model
 			$this->bSync = false;
 		}
 
-		return $oData;
+		return $oData->success;
 	}
 
 	public function delete() {
