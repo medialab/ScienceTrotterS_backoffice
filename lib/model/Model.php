@@ -152,7 +152,7 @@ abstract class Model
 			$this->bSync = false;
 		}
 
-		return $oData->success;
+		return $oData;
 	}
 
 	public function delete() {
