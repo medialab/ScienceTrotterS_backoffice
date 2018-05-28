@@ -25,7 +25,6 @@ if (fMethodIs('post')) {
 	/* Validation Du Status */
 		$_POST['state'] = (bool) (empty($_POST['state']) ? 0 : $_POST['state']);
 		$oCity->state = $_POST['state'];
-		var_dump($_POST);
 
 	/* Validation De la Géolocalisation */
 		/* Validation De la Latitude */
@@ -107,7 +106,7 @@ if (fMethodIs('post')) {
 			$oCity->state = false;
 			
 			if ($_POST['state']) {
-				$aErrors['state'] = 'Attention: la ville ne peut être publiée qu\'une fois tout les champs seront remplis.';
+				$aErrors['state'] = 'Attention: la ville ne peut être publiée qu\'une fois tous les champs remplis.';
 			}
 		}
 
