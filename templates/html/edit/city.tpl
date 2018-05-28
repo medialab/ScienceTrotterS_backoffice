@@ -44,15 +44,19 @@
 			<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
 		</div>
 
-		<a href="#" title="Preview" class="btn">
-			<img src="/media/image/interface/icons/icon_edit_preview.svg">
-			Preview
-		</a>
+		<div class="box">
+			<a href="#" title="Preview" class="btn">
+				<img src="/media/image/interface/icons/icon_edit_preview.svg">
+				Preview
+			</a>
+		</div>
 
-		<a href="#" title="Preview" class="btn btn-lg">
-			<img src="/media/image/interface/icons/icon_create_roadMap.svg">
-			Créer un nouveau Parcours
-		</a>
+		<div class="box">
+			<a href="#" title="Preview" class="btn btn-lg">
+				<img src="/media/image/interface/icons/icon_create_roadMap.svg">
+				Créer un nouveau Parcours
+			</a>
+		</div>
 		
 		<div class="boolean {if $oCity->state|default: false}on{/if}">
 			<input id="publie" type="checkbox" name="state" {if $oCity->state|default: false}checked{/if} />
