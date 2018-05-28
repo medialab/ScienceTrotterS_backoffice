@@ -557,9 +557,9 @@ a.btn {
 }
 
 a.btn-lg {
+  font-size:          16px;
   width:              400px;
   padding:            15px 6%;
-  font-size:          20px;
 }
 
 a.btn img {
