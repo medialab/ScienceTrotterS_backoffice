@@ -30,11 +30,13 @@
 				{include file="include/html/navBar.tpl"}
 			{/if}
 
-			<div class="content"> 
-				{include file="include/html/top-bar.tpl"}
-				
-				<div class="contentView">
-					{$sPageContent|default:'noCONTENT'}
+			<div class="content">
+				<div class="mainContent">
+					{include file="include/html/top-bar.tpl"}
+
+					<div class="contentView">
+						{$sPageContent|default:'noCONTENT'}
+					</div>
 				</div>
 			</div>
 

@@ -16,11 +16,9 @@
 </div>
 <!-- .\ NAV BAR -->
 
-<div class="mainContent">
-	<div class="filDAriane">
-		<ul class="pathList">
-			<li class="pathName"><a class="faLink" href="#">Arborescence</a></li>
-			<li class="pathName"><a class="faLink" href="#">Arborescence</a></li>
-		</ul>
-	</div>
+<div class="filDAriane">
+	<ul class="pathList">
+		<li class="pathName"><a class="faLink" href="#">Arborescence</a></li>
+		<li class="pathName"><a class="faLink" href="#">Arborescence</a></li>
+	</ul>
 </div>
