@@ -1,12 +1,17 @@
 <?php
 
-/* Titre du formulaire */
-$smarty->assign('sCreation', 'une ville');
-
 /* Récupération de l'ID de la ville s'il existe */
 $id = !empty($_GET['id']) ? $_GET['id'] : false;
 if ($id && !fIdValidator($id)) {
 	header('location: /cities.html');
+}
+
+if ($id) {
+	/* Titre du formulaire */
+	$smarty->assign('sCreation', 'Mise à jour d\'une ville');
+}
+else{
+	$smarty->assign('sCreation', 'Création d\'une ville');
 }
 
 $oCity = new \Model\City($id);
