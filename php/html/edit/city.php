@@ -107,6 +107,7 @@ if (fMethodIs('post')) {
 			$oCity->state = false;
 		}
 
+		ApiMgr::$debugMode = true;
 		if (!$oCity->save()) {
 			$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
 		}
