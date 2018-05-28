@@ -79,6 +79,11 @@ class ApiMgr {
 			var_dump(Self::$curl->getError());
 
 			var_dump($r);
+
+			if (is_null($oResult)) {
+				echo $r;
+				exit;
+			}
 		}
 
 		// Si Le token est expiré ou invalide
