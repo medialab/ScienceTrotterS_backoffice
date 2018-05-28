@@ -209,11 +209,57 @@ $( '.inputFile' ).each( function() {
 
 /***/
 
+function updateSwitch(el) {
+	if (el.find('input').prop('checked')) {
+		el.addClass('on');
+	}
+	else{
+		el.removeClass('on');
+	}
+}
+
+function toggleSwitch(el) {
+	var inp = el.find('input');
+	inp.prop('checked', !inp.prop('checked'));
+	
+	updateSwitch(el);
+}
+
+$(document).ready(function() {
+	var switches = $(".boolean");
+
+	switches.on('click', 'label', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		var self = $(this);
+		console.log("UPDATE: ", self);
+
+		var label = $(e.currentTarget);
+
+		if (label.attr('data') === 'on') {
+			self.find('input').prop(checked, true);
+		}
+		else{
+			self.find('input').prop(checked, false);
+		}
+		
+
+		updateSwitch($(this));
+	});
+
+
+	switches.on('click', '.style', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		toggleSwitch($(this));
+	});
+});
 
 
 /* Switch */
-
-$(document).on( 'click', '.boolean label', function(){
+/*$(document).on( 'click', '.boolean label', function(){
 	var bOn				=	$('input#' + $(this).attr('for') ).val();
 	if( bOn == 1 ){
 		$(this).parents('.boolean').addClass( 'on' );
@@ -221,6 +267,8 @@ $(document).on( 'click', '.boolean label', function(){
 		$(this).parents('.boolean').removeClass( 'on' );
 	}
 });
+
 $(document).on( 'style', '.boolean label', function(){
 	$(this).parents('.boolean').find('input:not-check').click();
 });
+*/

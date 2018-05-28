@@ -50,15 +50,14 @@
 		</a>
 		
 		<div class="boolean {if $oCity->state|default: false}on{/if}">
-			<input type="radio" name="state" id="publie" value="1" />
-			<label for="publie">Publié</label>
-		
+			<input id="publie" type="checkbox" name="state" {if $oCity->state|default: false}checked{/if} />
+			<label for="publie" data="on">Publié</label>
+
 			<div class="style">
 				<div></div>
 			</div>
-			
-			<label for="brouillon" style="color:grey">Brouillon</label>
-			<input type="radio" name="state" id="brouillon" value="0" />
+
+			<label for="publie" data='off' style="color:grey">Brouillon</label>
 		</div>
 
 		<button class="btn submit" type="submit">Envoyer</button>
