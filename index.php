@@ -16,7 +16,7 @@ exit;*/
 	define( 'UPLOAD_PATH',      	realpath('.').'/media/upload/' );
 
 
-	require_once(realpath('.').'/config/defines.php');
+	require_once('./config/defines.php');
 
 	// Fonction de chargement dynamique des classes
 		function fAutoLoader( $sClassName ){
