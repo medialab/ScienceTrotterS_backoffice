@@ -85,6 +85,7 @@ if (fMethodIs('post')) {
 		if (!strlen($oCity->geoloc) || !strlen($oCity->image)) {
 			var_dump("SETTING STATE TO FALSE");
 			$oCity->state = false;
+			exit;
 		}
 
 		/* Sauvegarde Temporaire de l'image */
