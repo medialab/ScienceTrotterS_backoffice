@@ -80,18 +80,6 @@ if (fMethodIs('post')) {
 
 	/* Si On a pad d'erreur on prepare L'object ville */
 	if (empty($aErrors)) {
-		/* La ville ne peut être active que si tout les champs sont remplis */
-
-		if (!strlen($oCity->geoloc) || !strlen($oCity->image)) {
-			var_dump($oCity);
-			var_dump($oCity->geoloc);
-			var_dump(!strlen($oCity->geoloc));
-			var_dump($oCity->image);
-			var_dump(!strlen($oCity->image));
-			var_dump("SETTING STATE TO FALSE");
-			$oCity->state = false;
-			exit;
-		}
 
 		/* Sauvegarde Temporaire de l'image */
 		if (!empty($_FILES['img']) && !empty($_FILES['img']['name'])) {
@@ -112,6 +100,11 @@ if (fMethodIs('post')) {
 
 			/* On Sauvegarde le nouveau path de l'image*/
 			$oCity->image = $imgPath;
+		}
+
+		/* La ville ne peut être active que si tout les champs sont remplis */
+		if (!strlen($oCity->geoloc) || !strlen($oCity->image)) {
+			$oCity->state = false;
 		}
 
 		if (!$oCity->save()) {
