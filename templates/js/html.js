@@ -240,9 +240,11 @@ $(document).ready(function() {
 
 		console.log("DATA: "+label.attr('data'));
 		if (label.attr('data') === 'on') {
+			console.log("Setting to True");
 			cont.find('input').prop("checked", true);
 		}
 		else{
+			console.log("Setting to False");
 			cont.find('input').prop("checked", false);
 		}
 		
