@@ -109,6 +109,10 @@ class ApiMgr {
 			$oResult = Self::exec($method, $applyHeaders, false);
 		}
 
+		if (is_null($oResult)) {
+			return ['success' => false, 'message' => 'Malformed Response JSON'];
+		}
+
 		return $oResult;
 	}
 
