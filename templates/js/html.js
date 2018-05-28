@@ -238,6 +238,7 @@ $(document).ready(function() {
 
 		var label = $(e.currentTarget);
 
+		console.log("DATA: "+label.attr('data'));
 		if (label.attr('data') === 'on') {
 			cont.find('input').prop("checked", true);
 		}
