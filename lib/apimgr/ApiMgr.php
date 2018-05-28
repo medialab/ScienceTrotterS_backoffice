@@ -110,9 +110,11 @@ class ApiMgr {
 		}
 
 		if (is_null($oResult)) {
+			var_dump("FAILD RESULT", ['success' => false, 'message' => 'Malformed Response JSON']);
 			return ['success' => false, 'message' => 'Malformed Response JSON'];
 		}
 
+		var_dump("SUCCESS RESULT", $oResult);
 		return $oResult;
 	}
 
