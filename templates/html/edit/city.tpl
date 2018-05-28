@@ -44,7 +44,7 @@
 			<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
 		</div>
 
-		<div class="box">
+		<div class="box" style="background-color: transparent; box-shadow: none">
 			<div href="#" title="Preview" class="btn">
 				<a href="">
 					<img src="/media/image/interface/icons/icon_edit_preview.svg">
@@ -53,7 +53,7 @@
 			</div>
 		</div>
 
-		<div class="box">
+		<div class="box" style="background-color: transparent; box-shadow: none">
 			<div href="#" title="Preview" class="btn btn-lg">
 				<a href="">
 					<img src="/media/image/interface/icons/icon_create_roadMap.svg">
