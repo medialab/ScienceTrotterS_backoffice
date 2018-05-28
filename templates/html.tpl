@@ -31,13 +31,11 @@
 			{/if}
 
 			<div class="content">
-				<div class="mainContent">
 					{include file="include/html/top-bar.tpl"}
 
 					<div class="contentView">
 						{$sPageContent|default:'noCONTENT'}
 					</div>
-				</div>
 			</div>
 
 			{include file="include/html/footer.tpl"}
