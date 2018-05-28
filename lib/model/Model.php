@@ -144,7 +144,7 @@ abstract class Model
 			$oData = \ApiMgr::update($this);
 		}
 
-		//var_dump($oData);
+		var_dump($oData);
 		if ($oData->success) {
 			$this->load($oData->data);
 			$this->bSync = true;
