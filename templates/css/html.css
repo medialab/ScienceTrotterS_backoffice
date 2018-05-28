@@ -628,9 +628,7 @@ width:70px;
 position:relative;
 }
 .boolean input{
-position:absolute;
-left:-5000px;
-top:-5000px;
+    display: none;
 }
 .boolean .style div{
 background: 					#fff;
@@ -640,6 +638,23 @@ width:31px;
 float:right;
 cursor: 						pointer;
 }
+
+.boolean label:first-of-type {
+  color: grey;
+}
+
+.boolean label:last-of-type {
+  color: #3156A6;
+}
+
+.boolean.on label:first-of-type {
+  color: #3156A6;
+}
+
+.boolean.on label:last-of-type {
+  color: grey;
+}
+
 .boolean.on .style{
 background: 					#3156A6;
 }

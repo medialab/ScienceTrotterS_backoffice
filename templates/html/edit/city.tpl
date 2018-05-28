@@ -70,7 +70,7 @@
 				<div></div>
 			</div>
 
-			<label for="publie" data='off' style="color:grey">Brouillon</label>
+			<label for="publie" data='off'>Brouillon</label>
 		</div>
 
 		<button class="btn submit" type="submit">Envoyer</button>
