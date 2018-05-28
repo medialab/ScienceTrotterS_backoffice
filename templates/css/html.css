@@ -543,17 +543,23 @@ color: 							#3156A6;
 }
 
 .btn {
-  text-transform:			uppercase;
-  text-decoration: 		none;
-  border: 						1px solid #3156A6;
-  font-size:					12px;
-  color:							#3156A6;
+  text-transform:     uppercase;
+  text-decoration:    none;
+  border:             1px solid #3156A6;
+  font-size:          12px;
+  color:              #3156A6;
   padding:            15px 5%;
   width:              250px;
   text-align:         center;
   border-radius:      3px;
   margin:             40px auto 0;
   position:           relative;
+}
+
+.btn a {
+  width: 100%;
+  display: inline-block;
+  text-decoration: none;
 }
 
 .btn-lg {
