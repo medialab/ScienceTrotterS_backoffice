@@ -46,15 +46,19 @@
 
 		<div class="box">
 			<div href="#" title="Preview" class="btn">
-				<img src="/media/image/interface/icons/icon_edit_preview.svg">
-				Preview
+				<a href="">
+					<img src="/media/image/interface/icons/icon_edit_preview.svg">
+					Preview
+				</a>
 			</div>
 		</div>
 
 		<div class="box">
 			<div href="#" title="Preview" class="btn btn-lg">
-				<img src="/media/image/interface/icons/icon_create_roadMap.svg">
-				Créer un nouveau Parcours
+				<a href="">
+					<img src="/media/image/interface/icons/icon_create_roadMap.svg">
+					Créer un nouveau Parcours
+				</a>
 			</div>
 		</div>
 		
