@@ -625,18 +625,21 @@ height:35px;
 padding:2px;
 margin:10px;
 width:70px;
+cursor: pointer;
 position:relative;
 }
 .boolean input{
     display: none;
 }
 .boolean .style div{
-background: 					#fff;
+background:           #fff;
 border-radius:50%;
 height:31px;
 width:31px;
-float:right;
-cursor: 						pointer;
+position: absolute;
+left: 52%;
+
+transition: left 0.3s;
 }
 
 .boolean label:first-of-type {
@@ -656,10 +659,10 @@ cursor: 						pointer;
 }
 
 .boolean.on .style{
-background: 					#3156A6;
+background:           #3156A6;
 }
 .boolean.on .style div{
-float:left;
+  left: 2%;
 }
 
 
