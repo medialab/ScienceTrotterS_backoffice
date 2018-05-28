@@ -219,6 +219,7 @@ function updateSwitch(el) {
 }
 
 function toggleSwitch(el) {
+	console.log("Toggle: ", $(this));
 	var inp = el.find('input');
 	inp.prop('checked', !inp.prop('checked'));
 	
@@ -232,16 +233,16 @@ $(document).ready(function() {
 		e.preventDefault();
 		e.stopPropagation();
 
-		var self = $(this);
-		console.log("UPDATE: ", self);
+		var cont = $(this).parents('.boolean');
+		console.log("UPDATE: ", cont);
 
 		var label = $(e.currentTarget);
 
 		if (label.attr('data') === 'on') {
-			self.find('input').prop("checked", true);
+			cont.find('input').prop("checked", true);
 		}
 		else{
-			self.find('input').prop("checked", false);
+			cont.find('input').prop("checked", false);
 		}
 		
 
@@ -253,9 +254,8 @@ $(document).ready(function() {
 		e.preventDefault();
 		e.stopPropagation();
 
-		console.log("Toggle: ", $(this));
 
-		toggleSwitch($(this));
+		toggleSwitch($(this).parents('.boolean'));
 	});
 });
 
