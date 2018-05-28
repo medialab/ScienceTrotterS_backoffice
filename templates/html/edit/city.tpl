@@ -44,7 +44,7 @@
 			<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
 		</div>
 
-		<a href="#" title="Preview" class="btn">
+		<a href="#" title="Preview" class="btn btn-lg">
 			<img src="/media/image/interface/icons/icon_edit_preview.svg" alt="" width="18px" height="10px">
 			Preview
 		</a>

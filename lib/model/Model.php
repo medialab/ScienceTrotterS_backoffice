@@ -125,14 +125,7 @@ abstract class Model
 	}
 
 	/**
-	 * Insère dans la DB
-	 */
-	public function add() {
-		return \ApiMgr::insert($this);
-	}
-
-	/**
-	 * Met à jour dans la DB
+	 * Insère / Met à jour dans la DB
 	 */
 	public function save() {
 		if (!$this->id) {
