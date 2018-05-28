@@ -210,6 +210,8 @@ $( '.inputFile' ).each( function() {
 /***/
 
 function updateSwitch(el) {
+	console.log("UPDATE: ", el);
+	
 	if (el.find('input').prop('checked')) {
 		el.addClass('on');
 	}
@@ -219,7 +221,8 @@ function updateSwitch(el) {
 }
 
 function toggleSwitch(el) {
-	console.log("Toggle: ", $(this));
+	console.log("Toggle: ", el);
+
 	var inp = el.find('input');
 	inp.prop('checked', !inp.prop('checked'));
 	
@@ -233,14 +236,14 @@ $(document).ready(function() {
 		e.preventDefault();
 		e.stopPropagation();
 
-		var cont = $(this).parents('.boolean');
-		console.log("UPDATE: ", cont);
-
 		var label = $(e.currentTarget);
+		var cont = $(this).parents('.boolean');
 
 		console.log("DATA: "+label.attr('data'));
+		console.log(cont.find('input'));
 		if (label.attr('data') === 'on') {
 			console.log("Setting to True");
+
 			cont.find('input').prop("checked", true);
 		}
 		else{
