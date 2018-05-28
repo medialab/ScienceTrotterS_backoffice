@@ -45,12 +45,12 @@
 		</div>
 
 		<a href="#" title="Preview" class="btn btn-lg">
-			<img src="/media/image/interface/icons/icon_edit_preview.svg" alt="" width="18px" height="10px">
+			<img src="/media/image/interface/icons/icon_edit_preview.svg">
 			Preview
 		</a>
 
 		<a href="#" title="Preview" class="btn btn-lg">
-			<img src="/media/image/interface/icons/icon_create_roadMap.svg" alt="" width="18px" height="10px">
+			<img src="/media/image/interface/icons/icon_create_roadMap.svg">
 			Créer un nouveau Parcours
 		</a>
 		
