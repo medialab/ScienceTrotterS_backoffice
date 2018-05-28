@@ -78,11 +78,14 @@ class ApiMgr {
 			var_dump(Self::$curl->getInfos());
 			var_dump(Self::$curl->getError());
 
-			var_dump($r);
-
 			if (is_null($oResult)) {
+				var_dump("======= RAW RESPONSE =======");
 				echo $r;
 				exit;
+			}
+			else{
+				var_dump("======= JSON RESPONSE =======");
+				var_dump($oResult);
 			}
 		}
 
@@ -311,9 +314,9 @@ class ApiMgr {
 		$aData = Self::prepareModel($oModel);
 
 		Self::setData(['id' => $oModel->id, 'data' => $aData]);
-		Self::$debugMode = true;
+		// Self::$debugMode = true;
 		$res = Self::exec('post');
-		Self::$debugMode = false;
+		// Self::$debugMode = false;
 
 		return $res;
 	}
