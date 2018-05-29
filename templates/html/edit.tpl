@@ -32,7 +32,7 @@
 		border-bottom: 2px solid #3156A6;
 	}
 
-	.lang-selector .triggers{
+	.lang-selector .lang-triggers{
 		display: inline-block;
 	}
 
@@ -47,11 +47,11 @@
 		border-bottom: none;
 	}
 
-	.lang-selector .triggers .tab-trigger:first-of-type{
+	.lang-selector .lang-triggers div.tab-trigger:first-of-type{
 		border-radius: 4px 0px 0 0;
 	}
-	
-	.lang-selector .triggers .tab-trigger:last-of-type{
+
+	.lang-selector .lang-triggers div.tab-trigger:last-of-type{
 		border-radius: 0px 4px 0 0;
 	}
 
