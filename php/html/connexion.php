@@ -15,7 +15,7 @@ if (fMethodIs('post')) {
 
 
 $smarty->assign([
-	'showTopBar' => true,
+	'showTopBar' => false,
 	'showNavBar' => false,
 	'aErrors' => $aErrors
 ]);
