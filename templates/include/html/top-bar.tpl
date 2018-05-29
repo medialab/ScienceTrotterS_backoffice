@@ -1,4 +1,4 @@
-{if $hideTopBar|default: false}
+{if $showtopBar|default: true}
 	<!-- NAV BAR -->
 	<div class="navBar">
 		<div class="itemsNavBar">
