@@ -19,12 +19,17 @@
 
 	<div class="filDAriane">
 		<ul class="pathList">
-			{assign var="sPath" value=''}
+			{assign var="aPath" value=[]}
+
+
+			{assign var="i" value=0}
 			{foreach $aFilDArianne as $sUrl => $sText}
-				{assign var="sPath" value=$sPath|cat: '/'|cat: $sUrl}
+				{assign $aPath[$i++] $sUrl}
+				{assign var="sPath" value='/'|impolde: $aPath}
+				
 				{$sPath|var_dump}
 
-				<li class="pathName"><a class="faLink" href="{$sPath}">{$sText}</a></li>
+				<li class="pathName"><a class="faLink" href="{$sPath}.html">{$sText}</a></li>
 				
 			{/foreach}
 			
