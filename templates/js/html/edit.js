@@ -34,13 +34,17 @@ $(document).ready(function() {
 
 	$(".tab-trigger").click(function(e) {
 		var self = $(this);
-		var container = this.parent();
+		var container = self.parent();
+
+		console.log("Parent: ", containre);
+
 
 		container.find('.tab-trigger').removeClass('on');
 		
 		self.addClass('on');
 		var tabID = self.attr('target');
 
+		console.log("Test: ", $(".tab").is("#"+tabID));
 		$(".tab").removeClass('on').is("#"+tabID).addClass('on');
 		///var tab = $("#"+tabID);
 
