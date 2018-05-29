@@ -339,10 +339,11 @@ class ApiMgr {
 		$aData = Self::prepareModel($oModel);
 		Self::setData(['data' => $aData]);
 
+		
+		Self::$debugMode = true;
 		$res = Self::exec('post');
 		var_dump($res);
 		exit;
-		//Self::$debugMode = false;
 
 		if (empty($res->success) || !$res->success) {
 			return false;
