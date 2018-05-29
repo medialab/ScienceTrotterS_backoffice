@@ -1,8 +1,8 @@
 <?php
-/*
+
 var_dump($_SERVER['REQUEST_URI']);
 var_dump($_GET);
-exit;*/
+//exit;
 
 // Gestion des erreurs 
 	ini_set( 'display_errors', true );
