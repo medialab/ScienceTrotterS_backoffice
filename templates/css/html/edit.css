@@ -16,6 +16,7 @@
 	cursor: pointer;
 	padding: 3px 15px;
 	display: inline-block;
+	text-transform: capitalize;
 	
 	border: 2px solid #3156A6;
 	border-bottom: none;

@@ -4,12 +4,16 @@
 
 <div class="lang-selector">
 	<div class="lang-triggers">
-		<div class="tab-trigger on" target="">
-			Français
-		</div>
-		<div class="tab-trigger" target="">
+		{assign var="selected" value=$smarty.post.sLang|default: 'fr'}
+		{foreach $aLangs as $sIso => $sLang}
+			<div class="tab-trigger {if $selected === $sIso}on{/if}" target="tab-{$sIso}">
+				{$sLang}
+			</div>
+			
+		{/foreach}
+		<!-- <div class="tab-trigger" target="">
 			Anglais
-		</div>
+		</div> -->
 	</div>
 
 	<div class="french-only">
