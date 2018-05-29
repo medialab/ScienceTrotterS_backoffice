@@ -48,25 +48,26 @@
 				<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
 			</div>
 
-			<div class="box {if $oCity->isSync()}box-large{/if}" style="background-color: transparent; box-shadow: none">
-				<div href="#" title="Preview" class="btn">
-					<a href="">
-						<img src="/media/image/interface/icons/icon_edit_preview.svg">
-						Preview
-					</a>
-				</div>
-			</div>
 
-			<div class="box" style="background-color: transparent; box-shadow: none">
-				{if $oCity->isSync()}
+			{if $oCity->isSync()}
+				<div class="box" style="background-color: transparent; box-shadow: none">
+					<div href="#" title="Preview" class="btn">
+						<a href="">
+							<img src="/media/image/interface/icons/icon_edit_preview.svg">
+							Preview
+						</a>
+					</div>
+				</div>
+
+				<div class="box" style="background-color: transparent; box-shadow: none">
 					<div href="#" title="Preview" class="btn btn-lg">
 						<a href="/edit/parcours#.html">
 							<img src="/media/image/interface/icons/icon_create_roadMap.svg">
 							Créer un nouveau Parcours
 						</a>
 					</div>
-				{/if}
-			</div>
+				</div>
+			{/if}
 			
 			<div class="boolean {if $oCity->state|default: false}on{/if}">
 				<input id="publie" type="checkbox" name="state" {if $oCity->state|default: false}checked{/if} />
