@@ -106,4 +106,4 @@ class City extends Model
 	}
 }
 
-City1::$ssClass = 'City';
+City::$ssClass = 'City';
