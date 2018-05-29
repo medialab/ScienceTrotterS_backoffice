@@ -33,5 +33,6 @@ $(document).ready(function() {
 		console.log("New State", check);
 		self.trigger('checkbox::update', check);
 	})
+	.trigger("checkbox::update");
 	;
 })
