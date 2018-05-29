@@ -18,7 +18,7 @@ $oCity = new \Model\City($id);
 
 /* Validation du formulaire */
 if (fMethodIs('post')) {
-	var_dump("===== VALIDATING =====");
+	//var_dump("===== VALIDATING =====");
 
 	$sLang = empty($_POST['lang']) ? false : $_POST['lang'];
 	if (!$sLang) {
