@@ -42,13 +42,20 @@
 		cursor: pointer;
 		padding: 3px 15px;
 		display: inline-block;
-		border-radius: 4px 0px 0 0;
 		
 		border: 2px solid #3156A6;
 		border-bottom: none;
 	}
 
-	.lang-selector .tab-trigger .on{
+	.lang-selector .triggers .tab-trigger:first-of-type{
+		border-radius: 4px 0px 0 0;
+	}
+	
+	.lang-selector .triggers .tab-trigger:last-of-type{
+		border-radius: 0px 4px 0 0;
+	}
+
+	.lang-selector .tab-trigger.on{
 		color: white;
 		background-color: #3156A6;
 	}
