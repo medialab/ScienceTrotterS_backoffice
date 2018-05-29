@@ -24,7 +24,7 @@
 
 			{assign var="i" value=0}
 			{foreach $aFilDArianne as $sUrl => $sText}
-				{assign $aPath[$i++] $sUrl}
+				{assign var="aPath[$i]" value=$sUrl}
 				{assign var="sPath" value='/'|join: $aPath}
 				
 				{$sPath|var_dump}
