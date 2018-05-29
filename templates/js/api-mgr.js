@@ -39,7 +39,7 @@ var ApiMgr = {
 			data: data,
 			dataType: 'jsonp',
 
-			sCurLang: self.sCurLang,
+			sCurLang: false,
 			jsonpCallback: 'ApiResponse',
 
 			success: function(result) {
@@ -82,10 +82,11 @@ var ApiMgr = {
 
 			setLang: function(l) {
 				this.sCurLang = l;
-				this.data.sCurLang = l;
+				this.data.lang = l;
 			}
 		};
 
+		request.setLang(self.sCurLang);
 		this.addRequest(request);
 
 		return request;
