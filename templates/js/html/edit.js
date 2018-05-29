@@ -62,7 +62,12 @@ $(document).ready(function() {
 			disabled = true;
 		}
 		
-		console.log("Disable: ", disabled);
-		self.parents('.tab-selector').find('.tab-trigger').not('#trigger-fr').prop('disabled', disabled);
+		var otherTabs = self.parents('.tab-selector').find('.tab-trigger').not('#trigger-fr');
+		if (disabled) {
+			otherTabs.attr('disabled', disabled);
+		}
+		else{
+			otherTabs.removeAttr('disabled');
+		}
 	});
 })
