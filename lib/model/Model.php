@@ -308,9 +308,7 @@ abstract class Model
 		return null;
 	}
 
-	public static function list($sClass, $limit=0, $page=0) {
-		var_dump(Self::$ssClass);
-		exit;
+	public static function list($limit=0, $page=0, $sClass=false) {
 		$sClass = 'Model\\'.$sClass;
 
 		try {

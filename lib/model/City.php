@@ -101,7 +101,7 @@ class City extends Model
 		Parent::__set($sVar, $var);
 	}
 
-	public static function list($limit=0, $page=0, $sClass=false) {
+	public static function list($limit=0, $page=0) {
 		return Parent::list($limit, $page, self::$ssClass);
 	}
 }
