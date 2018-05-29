@@ -22,6 +22,7 @@
 			{assign var="aPath" value=[]}
 
 
+			{$aFilDArianne|var_dump}
 			{assign var="i" value=0}
 			{foreach $aFilDArianne as $sUrl => $sText}
 				{assign var="aPath[$i]" value=$sUrl}
