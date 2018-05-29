@@ -49,14 +49,17 @@ $(document).ready(function() {
 	});
 
 	$(".tab-selector .cust-checkbox").on('checkbox::update', function() {
+		console.log("TEST UPDATE");
 		var self = $(this);
 		var disabled = false;
 		
 		if (self.find('input[type="checkbox"]').prop('checked')) {
+			console.log("IS CHECKED");
 			$("#tab-fr").click();
 			disable = true;
 		}
 		
+		console.log("Disable: ", disabled);
 		self.parents('.tab-selector').find('.tab-trigger').not('#trigger-fr').prop('disabled', disabled);
 	});
 })
