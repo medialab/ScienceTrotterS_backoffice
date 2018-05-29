@@ -47,8 +47,10 @@
 			<div class="content">
 				{include file="include/html/top-bar.tpl"}
 
-				<div class="contentView">
+				<div class="mainContent">
+					<div class="contentView">
 					{$sPageContent|default:'noCONTENT'}
+					</div>
 				</div>
 			</div>
 
