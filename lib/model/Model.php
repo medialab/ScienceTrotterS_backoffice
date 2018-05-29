@@ -132,15 +132,15 @@ abstract class Model
 		    
 		    // Si une langue est choisie on met à jour que celle ci
 		    if ($this->sCurLang) {
-		        $this->setValueByLang($sVar, $value);
+		        $this->setValueByLang($sVar, $var);
 		    }
 		    // Si aucune langue est choisie on les met toutes à jour
 		    else{
-		        $this->setValueAsJson($sVar, $value);
+		        $this->setValueAsJson($sVar, $var);
 		    }
 		}
 		else{
-		    $this->$sVar = $value;
+		    $this->$sVar = $var;
 		}
 	}
 
