@@ -55,11 +55,11 @@ $(document).ready(function() {
 		
 		console.log('input: ', self.find('input[type="checkbox"]'));
 		console.log('Test: ', self.find('input[type="checkbox"]').prop('checked'));
-		
+
 		if (self.find('input[type="checkbox"]').prop('checked')) {
 			console.log("IS CHECKED");
-			$("#tab-fr").click();
-			disable = true;
+			$("#trigger-fr").click();
+			disabled = true;
 		}
 		
 		console.log("Disable: ", disabled);
