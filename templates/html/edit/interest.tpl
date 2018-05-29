@@ -1,21 +1,21 @@
 	<div id="tab-FR" class="tab" style="display:block!important">
 		<form method="post" enctype="multipart/form-data">
-			<input type="hidden" name="lang" value="{$sIso}">
-			<input type="hidden" name="id" value="{$oCity->id|default: 0}">
+			<input type="hidden" name="lang" value="">
+			<input type="hidden" name="id" value="">
 			
 			<div class="box">
 				<label for="ville">Nom de la ville *</label>
 				<p>Tel qu'il apparaîtra sur l'application</p>
 				
-				<input name="label" id="ville" required placeholder="Ex: Paris" type="text" value="{$smarty.post.label|default: $oCity->label: ''}">
+				<input name="label" id="ville" required placeholder="Ex: Paris" type="text" value="">
 			</div>
 			
 			<div class="box" id="box-Localisation">
 				<label for="latitude">Géolocation *</label>
 				<p>Latitude, longitude</p>
 				
-				<input name="geo-n" id="latitude" type="number" step=".0001" placeholder="ex: 48.856" value="{$smarty.post['geo-n']|default: $oCity->geoN: ''}">
-				<input name="geo-e" id="longitude" type="number" step=".0001" placeholder="ex: 2.3522" value="{$smarty.post['geo-e']|default: $oCity->geoE: ''}">
+				<input name="geo-n" id="latitude" type="number" step=".0001" placeholder="ex: 48.856" value="">
+				<input name="geo-e" id="longitude" type="number" step=".0001" placeholder="ex: 2.3522" value="" />
 				
 				<p>Avec Google Map, cliquez sur une adresse pour récupérer les coordonées GPS</p>
 				<a id="localisation" href="https://www.google.com/maps" target="_blank" title="" class="item itemClick">https://www.google.com/maps</a>
@@ -31,12 +31,7 @@
 				
 				<div class="borderGrey">
 					<label id="btnInputFileName" for="img">
-						{if $oCity->image|strlen}
-							<img src="{$_API_URL_}ressources/upload/{$oCity->image}" style="max-width: 100%;">
-						{else}
-							<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
-						{/if}
-
+						<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
 						<p></p>
 					</label>
 				</div>
@@ -63,8 +58,8 @@
 				</div>
 			</div>
 			
-			<div class="boolean {if $oCity->state|default: false}on{/if}">
-				<input id="publie" type="checkbox" name="state" {if $oCity->state|default: false}checked{/if} />
+			<div class="boolean">
+				<input id="publie" type="checkbox" name="state" />
 				<label for="publie" data="on">Publié</label>
 
 				<div class="style">

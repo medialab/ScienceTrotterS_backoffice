@@ -14,8 +14,8 @@ $smarty->assign('aLangs', [
 
 $curPage = $curPage[1];
 switch ($curPage) {
-	case 'interret':
-		$sFilPart = 'Édition d\'interrêt';
+	case 'interest':
+		$sFilPart = 'Édition d\'interêt';
 		break;
 
 	case 'city':
