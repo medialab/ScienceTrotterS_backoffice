@@ -2,7 +2,7 @@
 
 
 ApiMgr::setLang('fr');
-$aCities = Cities::list(5);
+$aCities = City::list(5);
 $smarty->assign('aCities', $aCities->data);
 
 var_dump($aCities);
