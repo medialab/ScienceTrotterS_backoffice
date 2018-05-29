@@ -36,7 +36,7 @@ $(document).ready(function() {
 		var self = $(this);
 		var container = self.parent();
 
-		console.log("Parent: ", containre);
+		console.log("Parent: ", container);
 
 
 		container.find('.tab-trigger').removeClass('on');
