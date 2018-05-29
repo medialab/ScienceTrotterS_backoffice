@@ -8,7 +8,7 @@ abstract class Model
 {
 	private $sCurLang = false;
 	protected $sClass = 'Model';
-	protected static $ssClass;
+	public static $ssClass;
 
 	protected $aTranslateVars = []; // les Variables à traduire
 
@@ -322,6 +322,8 @@ abstract class Model
 			$sClass = 'Model\\'.Self::$ssClass;
 		}
 		
+		var_dump(self::$ssClass);
+		exit;
 		$base = new $sClass();
 
 		try {
