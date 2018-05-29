@@ -35,7 +35,7 @@
 	background-color: #3156A6;
 }
 
-.tab-trigger[disabled="true"] {
+.tab-trigger[disabled] {
     background-color: #d5d5d5;
     color: white;
     border-color: #d5d5d5;
