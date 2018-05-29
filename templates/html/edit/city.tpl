@@ -48,7 +48,7 @@
 				<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
 			</div>
 
-			<div class="box" style="background-color: transparent; box-shadow: none">
+			<div class="box {if $oCity->isSync()}box-large{/if}" style="background-color: transparent; box-shadow: none">
 				<div href="#" title="Preview" class="btn">
 					<a href="">
 						<img src="/media/image/interface/icons/icon_edit_preview.svg">
