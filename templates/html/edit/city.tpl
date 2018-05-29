@@ -1,7 +1,5 @@
 {foreach $aLangs as $sIso => $sLang}
 	{$oCity->setLang($sIso)}
-	{$oCity|var_dump}
-	{$oCity->label|var_dump}
 
 	<div id="tab-{$sIso}" class="tab">
 		<form method="post" enctype="multipart/form-data">
