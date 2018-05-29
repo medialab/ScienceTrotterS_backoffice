@@ -6,7 +6,9 @@ namespace Model;
  */
 class City extends Model
 {
+	protected $sClass = 'City';
 	protected static $ssClass = 'City';
+	
 	protected $aTranslateVars = ['label', 'state']; // les Variables à traduire
 
 	protected $geoN;
