@@ -22,6 +22,7 @@
 			{assign var="sPath" value=''}
 			{foreach $aFilDArianne as $sUrl => $sText}
 				{assign var="sPath" value=$sPath|cat: '/'|cat: $sUrl}
+				{$sPath|var_dump}
 
 				<li class="pathName"><a class="faLink" href="{$sPath}">{$sText}</a></li>
 				
