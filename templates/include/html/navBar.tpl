@@ -42,9 +42,11 @@
             </label>
           </a>
         </li>
+        {*
         <li class="item itemBySTS">
           <label class="itemLabel itemLogo">SCIENCE TROTTERS</label>
         </li>
+        *}
         <li class="item itemByTNG">
           <label class="itemLabel itemLogo">TNG</label>
         </li>
