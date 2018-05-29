@@ -6,8 +6,8 @@
   margin-bottom: 15px; 
 }
 
-.mainContent > .contentView {
-
+.mainContent {
+  padding-left: 300px;
 }
 
 .filDAriane {
