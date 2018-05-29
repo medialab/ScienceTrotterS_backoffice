@@ -7,6 +7,7 @@ namespace Model;
 abstract class Model
 {
 	private $sCurLang = false;
+	protected $sClass = 'Model';
 	protected $aTranslateVars = []; // les Variables à traduire
 
 	protected $id;
@@ -294,8 +295,13 @@ abstract class Model
 		return $aResult;
 	}
 
-	public static function get($sClass, $id=0, $aData=[]) {
-		$sClass = 'Model\\'.$sClass;
+	public static function get($id=0, $aData=[], $sClass=false) {
+		if ($sClass) {
+			$sClass = 'Model\\'.$sClass;
+		}
+		else{
+			$sClass = 'Model\\'.$this->sClass;
+		}
 		
 		try {
 			return new $sClass($id, $aData);
@@ -304,4 +310,33 @@ abstract class Model
 
 		return null;
 	}
+
+	public static function list($limit, $page, $sClass=false) {
+		if ($sClass) {
+			$sClass = 'Model\\'.$sClass;
+		}
+		else{
+			$sClass = 'Model\\'.$this->sClass;
+		}
+		
+		$base new $sClass();
+
+		try {
+			$aResults = ApiMgr::list($base->sTable, false, $limit, $page);
+			if (!$aResults->success) {
+				return [];
+			}
+
+			foreach ($aResults->data as &$aData) {
+				$aData = $sClass(0, $aData);
+			}
+
+		} catch (Exception $e) {	
+			return [];
+		}
+
+		return $aResults->data;
+	}
+
+
 }

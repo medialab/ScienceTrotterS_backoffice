@@ -2,10 +2,11 @@
 
 
 ApiMgr::setLang('fr');
-$aCities = ApiMgr::list('cities', false, 5);
+$aCities = Cities::list(5);
 $smarty->assign('aCities', $aCities->data);
 
 var_dump($aCities);
+exit;
 
 $aParcours = ApiMgr::list('parcours', false, 5);
 $smarty->assign('aParcours', $aParcours->data);

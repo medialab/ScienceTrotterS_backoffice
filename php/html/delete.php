@@ -14,7 +14,7 @@ if ($id && !fIdValidator($id)) {
 }
 
 $sClass = $aPage[1];
-$oMdl = Model\Model::get(ucfirst($sClass), $id);
+$oMdl = Model\Model::get($id, null, ucfirst($sClass));
 
 if ($oMdl->isLoaded()) {
 	$b = $oMdl->delete();
