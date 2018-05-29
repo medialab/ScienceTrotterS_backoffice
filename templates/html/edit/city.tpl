@@ -10,15 +10,15 @@
 				<label for="ville">Nom de la ville *</label>
 				<p>Tel qu'il apparaîtra sur l'application</p>
 				
-				<input name="label" id="ville" required placeholder="Ex: Paris" type="text" value="{$smarty.post.label|default: $oCity->label: ''}">
+				<input name="label" id="ville" required placeholder="Ex: Paris" type="text" value="{$oCity->label|default: ''}">
 			</div>
 			
 			<div class="box" id="box-Localisation">
 				<label for="latitude">Géolocation *</label>
 				<p>Latitude, longitude</p>
 				
-				<input name="geo-n" id="latitude" type="number" step=".0001" placeholder="ex: 48.856" value="{$smarty.post['geo-n']|default: $oCity->geoN: ''}">
-				<input name="geo-e" id="longitude" type="number" step=".0001" placeholder="ex: 2.3522" value="{$smarty.post['geo-e']|default: $oCity->geoE: ''}">
+				<input name="geo-n" id="latitude" type="number" step=".0001" placeholder="ex: 48.856" value="{$oCity->geoN|default: ''}">
+				<input name="geo-e" id="longitude" type="number" step=".0001" placeholder="ex: 2.3522" value="{$oCity->geoE|default: ''}">
 				
 				<p>Avec Google Map, cliquez sur une adresse pour récupérer les coordonées GPS</p>
 				<a id="localisation" href="https://www.google.com/maps" target="_blank" title="" class="item itemClick">https://www.google.com/maps</a>

@@ -116,6 +116,8 @@ if (fMethodIs('post')) {
 
 		/* La ville ne peut être active que si tout les champs sont remplis */
 		if (!strlen($oCity->geoloc) || !strlen($oCity->image)) {
+			var_dump("Forcing FALSE STATE");
+			exit;
 			$oCity->state = false;
 			
 			if ($_POST['state']) {
