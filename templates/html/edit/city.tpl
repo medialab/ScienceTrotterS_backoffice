@@ -1,14 +1,12 @@
 {foreach $aLangs as $sIso => $sLang}
 	{$oCity->setLang($sIso)}
-	{$oCity|var_dump}
-	{$oCity->label|var_dump}
 
 	<div id="tab-{$sIso}" class="tab">
 		<form method="post" enctype="multipart/form-data">
 			<input type="hidden" name="lang" value="{$sIso}">
 			<input type="hidden" name="id" value="{$oCity->id|default: 0}">
 			
-			<div class="box">
+			<div class="box box-large">
 				<label for="ville">Nom de la ville *</label>
 				<p>Tel qu'il apparaîtra sur l'application</p>
 				
