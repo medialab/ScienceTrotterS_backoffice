@@ -1,4 +1,3 @@
-
 // Load Automatique Des Listes
 $(document).ready(function() {
 	/* On alerte avant de supprimer */

@@ -1,3 +1,7 @@
+/* DEFINITION DE LA LANGUE PAR DEFAUT */
+ApiMgr.setLang('fr');
+
+
 $.scrollElementVisible = function (el) {
 	var list = el.parent();
 	var listFound = false;
@@ -60,120 +64,6 @@ const handlerItemClick = function handlerItemClick (item) {
 const itemClick = document.querySelectorAll('.itemClick.withSubItem');
 
 itemClick.forEach(handlerItemClick);
-
-
-
-
-var ApiMgr = {
-	curRequest: null,
-	apiUrl: _API_URL_,
-	apiToken: _API_TOKEN_,
-
-	queue: [],
-	active: false,
-	
-	addRequest: function(req) {
-		console.log("Adding Request: ", req);
-		this.queue.push(req);
-		console.log("Queue Len: ", this.queue.length);
-
-		if (!this.active) {
-			this.execute();
-		}
-	},
-
-	execute: function() {
-		this.active = true;
-
-		console.log(this.queue);
-		this.curRequest = this.queue.shift();
-		console.log("Executing Request: ", this.curRequest);
-		console.log(this.curRequest.data);
-
-		$.ajax(this.curRequest);
-	},
-
-	call: function(method, url, data, success, error) {
-		var self = this;
-
-		console.log("PREPARING REQUEST");
-		var request = {
-			crossDomain: true,
-			url: this.apiUrl+url,
-			method: method,
-			data: data,
-			dataType: 'jsonp',
-
-			jsonpCallback: 'ApiResponse',
-
-			success: function(result) {
-				console.log("API SUCCESS", result);
-				if (success) {
-					success(result);
-				}
-			},
-
-			error: function(result) {
-				console.log("API FAILD", result);
-				if (error) {
-					error(result);
-				}
-			},
-
-			complete: function() {
-				if (self.queue.length) {
-					self.execute();
-				}
-				else{
-					self.active = false;
-					self.curRequest = null;
-				}
-			},
-
-			nextPage: function(success, error) {
-				this.data.offset += this.data.limit;
-				
-				if (success) {
-					this.success = success;
-				}
-
-				if (error) {
-					this.error = error;
-				}
-
-				self.addRequest(this);
-			}
-		};
-
-		this.addRequest(request);
-
-		return request;
-	},
-
-	list: function(table, page, limit, success, error) {
-		page = page || 0;
-
-		return this.call(
-			'get',
-			table+'/list',
-			{
-				token: _API_TOKEN_, 
-				limit: limit, 
-				offset: page*limit
-			},
-			success,
-			error
-		)
-	}
-}
-
-
-function ApiResponse(result) {
-	/*if (ApiMgr.curRequest.success) {
-		ApiMgr.curRequest.success(result);
-	}*/
-}
-
 
 
 /* Stylisation du bouton d'importation d'une image */
