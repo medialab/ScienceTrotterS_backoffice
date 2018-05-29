@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+*<!DOCTYPE html>
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8">
@@ -15,6 +15,19 @@
 			<link rel="stylesheet" href="/lib/navbar.css" type="text/css" />
 			<link rel="stylesheet" href="/lib/icons.css" type="text/css" />
 			<link rel="stylesheet" href="/lib/arbo.css" type="text/css" />
+			
+			{assign var='aFiles' value=('/'|explode: $smarty.get.name)}
+			{assign var='sPath' value=''}
+
+			{foreach $aFiles as $sFile}
+				{assign var="sPath" value=$sPath|cat:'/':$sFile}
+				{if file_exists( "./templates/css/html/"|cat:$sFile:".css" )}
+					
+					{$sFile|var_dump}
+					<link rel="stylesheet" href="/html/{$sFile}.css" type="text/css" />
+				{/if}
+			{/foreach}
+			
 			{if file_exists( "./templates/css/html/"|cat:$smarty.get.name:".css" )}
 				<link rel="stylesheet" href="/html/{$smarty.get.name}.css" type="text/css" />
 			{/if}
