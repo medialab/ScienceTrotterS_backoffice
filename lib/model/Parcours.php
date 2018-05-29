@@ -22,4 +22,8 @@ class Parcours extends Model
 		$this->sTable = 'parcours';
 		Parent::__construct($id, $aData);
 	}
+
+	public static function list($limit=0, $page=0, $sClass=false) {
+		return Parent::list($limit, $page, self::$ssClass);
+	}
 }
