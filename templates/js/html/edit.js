@@ -37,6 +37,7 @@ $(document).ready(function() {
 	;
 
 	$(".tab-trigger").click(function(e) {
-
+		
+		if (true) {}
 	});
 })

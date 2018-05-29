@@ -110,25 +110,19 @@ foreach ($files as $file) {
     $i++;
 }
 
-/*var_dump("TEST");*/
 foreach ($tplFiles as $f) {
-    /*var_dump($f);*/
     $sContent .= $smarty->fetch($f);
 }
 
-/*if ( file_exists('./php/'.$sExt.'.php') ) {
-        require_once('./php/'.$sExt.'.php');
-}
-
-if ( file_exists('./php/'.$sExt.'/'.$sPage.'.php') ) {
-        require_once('./php/'.$sExt.'/'.$sPage.'.php');
-}
-
-if ( file_exists('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile) ) {
-    $sContent = $smarty->fetch('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile);
-}*/
-
 $smarty->assign('sPageContent', $sContent);
+
+if (!empty($aFilDArianne)) {
+    $smarty->assign('aFilDArianne', $aFilDArianne);
+}
+else{
+    $smarty->assign('aFilDArianne', []);
+}
+
 if ( file_exists('./templates/'.$sExt.'.'.$sExtFile) ) {
     $sContent = $smarty->fetch($sExt.'.'.$sExtFile);
 }

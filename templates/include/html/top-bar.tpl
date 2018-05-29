@@ -19,8 +19,14 @@
 
 	<div class="filDAriane">
 		<ul class="pathList">
-			<li class="pathName"><a class="faLink" href="#">Arborescence</a></li>
-			<li class="pathName"><a class="faLink" href="#">Arborescence</a></li>
+			{assign var="sPath" value=''}
+			{foreach $aFilDArianne as $sUrl => $sText}
+				{assign var="sPath" value=$sPath|cat: '/'|cat: $sUrl}
+
+				<li class="pathName"><a class="faLink" href="{$sPath}">{$sText}</a></li>
+				
+			{/foreach}
+			
 		</ul>
 	</div>
 {/if}
