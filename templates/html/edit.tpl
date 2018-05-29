@@ -13,8 +13,8 @@
 	</div>
 
 	<div class="french-only">
-		<label>
-			<div class="cust-checkbox">
+		<label class="cust-checkbox">
+			<div class="check">
 				<div></div>
 				<input type="checkbox" name="french_only">
 			</div>
@@ -61,6 +61,9 @@
 	}
 
 	.cust-checkbox {
+	}
+
+	.cust-checkbox .check {
 		width: 18px;
 		height: 18px;
 		border: 2px solid #3156A6;
