@@ -1,3 +1,3 @@
 <?php
 
-$aFilDArianne = ['' => 'Accueil'];
+$aFilDArianne = ['index' => 'Accueil'];
