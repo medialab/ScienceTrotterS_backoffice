@@ -239,7 +239,12 @@ abstract class Model
 	 * Insère / Met à jour dans la DB
 	 */
 	public function save() {
-		var_dump("SAVING", $this);
+		var_dump("SAVING");
+
+		$tmpLang = \ApiMgr::getLang();
+		\ApiMgr::setLang($this->sCurLang);
+		var_dump("Saving With Lang", $this->sCurLang);
+		
 		if (!$this->id) {
 			$oData = \ApiMgr::insert($this);
 		}
@@ -256,6 +261,7 @@ abstract class Model
 			$this->bSync = false;
 		}
 
+		\ApiMgr::getLang($tmpLang);
 		return $oData;
 	}
 
