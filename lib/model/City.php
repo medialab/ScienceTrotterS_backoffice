@@ -57,7 +57,7 @@ class City extends Model
 
 	public function setGeoN($geoN) {
 		var_dump("Setting GeoN", $geoN);
-		if (!empty($geoN) && !preg_match('/^[0-9]{1,2}\.[0-9]{1,4}$/', $geoN)) {
+		if (!empty($geoN) && !preg_match('/^[0-9]{1,2}\.?[0-9]{0,4}$/', $geoN)) {
 			throw new Exception('Error: Invalid Lattitude Value: '.$geoN, 1);
 		}
 
@@ -71,7 +71,7 @@ class City extends Model
 
 	public function setGeoE($geoE) {
 		var_dump("Setting GeoE", $geoE);
-		if (!empty($geoE) && !preg_match('/^[0-9]{1,3}\.[0-9]{1,4}$/', $geoE)) {
+		if (!empty($geoE) && !preg_match('/^[0-9]{1,3}\.?[0-9]{0,4}$/', $geoE)) {
 			throw new Exception('Error: Invalid Longitude Value: '.$geoE, 1);
 		}
 
