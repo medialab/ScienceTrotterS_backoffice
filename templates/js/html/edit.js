@@ -53,6 +53,9 @@ $(document).ready(function() {
 		var self = $(this);
 		var disabled = false;
 		
+		console.log('input: ', self.find('input[type="checkbox"]'));
+		console.log('Test: ', self.find('input[type="checkbox"]').prop('checked'));
+		
 		if (self.find('input[type="checkbox"]').prop('checked')) {
 			console.log("IS CHECKED");
 			$("#tab-fr").click();
