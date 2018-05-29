@@ -17,7 +17,6 @@ $(document).ready(function() {
 		}
 	})
 	.click(function(e) {
-		
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -50,7 +49,7 @@ $(document).ready(function() {
 	});
 
 	$(".tab-selector .cust-checkbox").on('checkbox::update', function() {
-		console.log("TEST UPDATE");
+		console.log("TEST UPDATE", $(this));
 		var self = $(this);
 		var disabled = false;
 		
