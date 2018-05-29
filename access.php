@@ -24,7 +24,7 @@ $aRestrictExtension	= [
 			'test.html',
 			'edit.html',
 			'edit/city.html',
-			'edit/interrest.html',
+			'edit/interest.html',
 			'edit/parcours.html'
 		];
 

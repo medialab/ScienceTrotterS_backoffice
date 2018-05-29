@@ -19,6 +19,11 @@ $oCity = new \Model\City($id);
 /* Validation du formulaire */
 if (fMethodIs('post')) {
 
+	$sLang = empty($_POST['lang']) ? false : $_POST['lang'];
+	if (!$sLang) {
+		$aErrors['lang'] = 'Aucune langue n\'a été sélectionnée';
+	}
+
 	/* Validation Du Label */
 		if(!fRequiredValidator('label', $_POST)) {
 			$aErrors['Nom'] = 'Ce champs est obligatoire';
