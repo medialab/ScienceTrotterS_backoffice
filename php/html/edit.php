@@ -12,7 +12,7 @@ $smarty->assign('aLangs', [
 	'en' => 'anglais'
 ]);
 
-$curPage = $curPage[2];
+$curPage = $curPage[1];
 switch ($curPage) {
 	case 'interret':
 		$sFilPart = 'Édition d\'interrêt';
