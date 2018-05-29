@@ -61,7 +61,9 @@ abstract class Model
 	 */
 	private function setValueByLang($sVar, $value) {
 	    $sLang = $this->sCurLang;
+	    var_dump("Current Lang => $sLang");
 	    $var = $this->$sVar;
+	    var_dump("Current Value =>", $var);
 	    
 	    if (empty($value)) {
 	        $value = null;
@@ -69,16 +71,19 @@ abstract class Model
 
 	    // Si la valeur actuelle est une string on la décode
 	    if(is_string($var)) {
+	    	var_dump("Décoding Current");
 	        $var = json_decode($var);
 	    }
 
 	    // Initialisation par défaut
 	    if (empty($var)) {
+	    	var_dump("Current Is Empty");
 	        $var = new \StdClass;
 	    }
 
 	    $var->$sLang = $value;
 	    $this->$sVar = $var;
+	    var_dump("New Value", $var);
 	}
 
 	/**
@@ -111,6 +116,9 @@ abstract class Model
 
 
 	function __set($sVar, $var) {
+		var_dump("========================");
+		var_dump("SET $sVar => $var");
+		
 		$bAccess = $this->canAccessVar($sVar, false);
 		if ($bAccess === -1) {
 			trigger_error('Can\'t access Model Property "'.$sVar.'" due to Protection Level.');
@@ -128,14 +136,17 @@ abstract class Model
 
 		// Si il s'agit d'une variable à traduire
 		if (in_array($sVar, $this->aTranslateVars)) {
+			var_dump("Translate Var");
 		    //$var = $this->$sVar;
 		    
 		    // Si une langue est choisie on met à jour que celle ci
 		    if ($this->sCurLang) {
+				var_dump("Set By Lang Var");
 		        $this->setValueByLang($sVar, $var);
 		    }
 		    // Si aucune langue est choisie on les met toutes à jour
 		    else{
+				var_dump("Set As Object");
 		        $this->setValueAsJson($sVar, $var);
 		    }
 		}
