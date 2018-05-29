@@ -35,6 +35,12 @@
 	background-color: #3156A6;
 }
 
+.tab-trigger[disabled="true"] {
+    background-color: #d5d5d5;
+    color: white;
+    border-color: #d5d5d5;
+}
+
 .lang-selector .french-only{
 	right: 0;
 	bottom: 0;

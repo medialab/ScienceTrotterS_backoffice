@@ -197,9 +197,16 @@ abstract class Model
 
 	public function load($aData) {
 		$this->bSync = false;
+		$sCurLang = $aData['sCurLang'];
 		foreach ($aData as $sProp => $sData) {
 			if (property_exists($this, $sProp)) {
-				$this->$sProp = $sData;
+
+				if ($sCurLang && in_array($sProp, $this->aTranslateVars)) {
+					$this->$sProp = (object) [$sCurLang => $sData];
+				}
+				else{
+					$this->$sProp = $sData;
+				}
 			}
 			else {
 				return false;

@@ -6,6 +6,7 @@ namespace Model;
  */
 class City extends Model
 {
+	protected $aTranslateVars = ['label', 'state']; // les Variables à traduire
 
 	protected $geoN;
 	protected $geoE;
