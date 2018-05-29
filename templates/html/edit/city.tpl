@@ -33,7 +33,7 @@
 				<input type="file" name="img" id="img" class="inputFile">
 				
 				<div class="borderGrey">
-					<label id="btnInputFileName" for="img">
+					<label class="btnInputFileName" for="img">
 						{if $oCity->image|strlen}
 							<img src="{$_API_URL_}ressources/upload/{$oCity->image}" style="max-width: 100%;">
 						{else}

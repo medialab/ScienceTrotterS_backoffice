@@ -124,7 +124,59 @@
 
 
 
+<div class="box box-large">
+	<label for="imgs-interet">Image(s) du point d'intérêt</label>
+	<p>
+		5 maximum, format 600x600px, png ou jpg, poids maximum 60ko
+	</p>
 
+	<div class="borderGrey flexInputFile">
+		
+		<input type="file" name="imgs-interet-1" id="imgs-interet-1" class="inputFile">
+		<div class="blocInputFileName">
+			<label class="btnInputFileName" for="imgs-interet-1">
+				<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
+				<p></p>
+			</label>
+		</div>
+
+		<input type="file" name="imgs-interet-2" id="imgs-interet-2" class="inputFile">
+		<div class="blocInputFileName">
+			<label class="btnInputFileName" for="imgs-interet-2">
+				<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
+				<p></p>
+			</label>
+		</div>
+
+		<input type="file" name="imgs-interet-3" id="imgs-interet-3" class="inputFile">
+		<div class="blocInputFileName">
+			<label class="btnInputFileName" for="imgs-interet-3">
+				<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
+				<p></p>
+			</label>
+		</div>
+
+		<input type="file" name="imgs-interet-4" id="imgs-interet-4" class="inputFile">
+		<div class="blocInputFileName">
+			<label class="btnInputFileName" for="imgs-interet-4">
+				<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
+				<p></p>
+			</label>
+		</div>
+
+		<input type="file" name="imgs-interet-5" id="imgs-interet-5" class="inputFile">
+		<div class="blocInputFileName">
+			<label class="btnInputFileName" for="imgs-interet-5">
+				<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
+				<p></p>
+			</label>
+		</div>
+
+	</div>
+
+	<p>Avec Jpeg.io, optimisez le poid de vos images</p>
+	<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
+</div>
 
 
 
