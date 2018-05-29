@@ -34,18 +34,29 @@ $(document).ready(function() {
 
 	$(".tab-trigger").click(function(e) {
 		var self = $(this);
+		if (self.prop('disabled')) {
+			return;
+		}
+
 		var container = self.parent();
-
-		console.log("Parent: ", container);
-
-
-		container.find('.tab-trigger').removeClass('on');
 		
+		container.find('.tab-trigger').removeClass('on');
 		self.addClass('on');
+		
 		var tabID = self.attr('target');
-
-		console.log("Test: ", $(".tab").is("#"+tabID));
 		$(".tab").removeClass('on');
 		$("#"+tabID).addClass('on');
+	});
+
+	$(".tab-selector .cust-checkbox").on('checkbox::update', function() {
+		var self = $(this);
+		var disabled = false;
+		
+		if (self.find('input[type="checkbox"]').prop('checked')) {
+			$("#tab-fr").click();
+			disable = true;
+		}
+		
+		self.parents('.tab-selector').find('.tab-trigger').not('#trigger-fr').prop('disabled', disabled);
 	});
 })
