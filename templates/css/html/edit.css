@@ -48,7 +48,7 @@
 .cust-checkbox .check {
 	width: 18px;
 	height: 18px;
-	border-radius: 25%;
+	border-radius: 15%;
 	position: relative;
 	vertical-align: sub;
 	display: inline-block;
@@ -64,7 +64,7 @@
 	left: 1px;
 	width: 12px;
 	height: 12px;
-	border-radius: 25%;
+	border-radius: 15%;
 	position: absolute;
 	display: inline-block;
 }
