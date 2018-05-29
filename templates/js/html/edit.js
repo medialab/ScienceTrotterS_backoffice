@@ -22,12 +22,13 @@ $(document).ready(function() {
 			var self = $(this);
 			var disabled = false;
 			
+			// On Focus le tab francais
 			if (self.find('input[type="checkbox"]').prop('checked')) {
-				console.log("IS CHECKED");
 				$("#trigger-fr").click();
 				disabled = true;
 			}
-			
+
+			// On Dé/Ré-Active les tabs
 			var otherTabs = self.parents('.tab-selector').find('.tab-trigger').not('#trigger-fr');
 			if (disabled) {
 				otherTabs.attr('disabled', disabled);
@@ -47,7 +48,6 @@ $(document).ready(function() {
 			var check = !inp.prop('checked');
 			inp.prop('checked', check);
 
-			console.log("Calling UPDATE");
 			self.trigger('checkbox::update', check);
 		})
 	
@@ -70,5 +70,4 @@ $(document).ready(function() {
 		$(".tab").removeClass('on');
 		$("#"+tabID).addClass('on');
 	});
-
-})
+});
