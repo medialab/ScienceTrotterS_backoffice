@@ -21,9 +21,8 @@
 
 			{foreach $aFiles as $sFile}
 				{assign var="sPath" value=$sPath|cat:'/':$sFile}
+				
 				{if file_exists( "./templates/css/html/"|cat:$sFile:".css" )}
-					
-					{$sFile|var_dump}
 					<link rel="stylesheet" href="/html/{$sFile}.css" type="text/css" />
 				{/if}
 			{/foreach}
