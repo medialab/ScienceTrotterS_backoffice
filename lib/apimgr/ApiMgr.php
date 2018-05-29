@@ -20,6 +20,8 @@ class ApiMgr {
 
 	public static $debugMode = false;
 
+	private static $sCurLang = false;
+
 	public static function init() {
 		if (Self::$bInit) {
 			return;
@@ -65,6 +67,8 @@ class ApiMgr {
 		Self::$tmpData['limit'] = Self::$sqlLimit;
 		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
 
+		Self::$tmpData['sCurLang'] = Self::$sCurLang;
+	
 		//var_dump("Request DATA", Self::$tmpData);
 
 		// Création de la requete Curl
@@ -360,5 +364,9 @@ class ApiMgr {
 		}
 
 		return true;
+	}
+
+	public static function setLang($l=false) {
+		Self::$sCurLang = $l;
 	}
 }

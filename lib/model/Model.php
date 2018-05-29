@@ -6,6 +6,9 @@ namespace Model;
  */
 abstract class Model
 {
+	private $sCurLang = false;
+	protected $aTranslateVars = []; // les Variables à traduire
+
 	protected $id;
 	protected $created_at;
 	protected $updated_at;
@@ -48,6 +51,62 @@ abstract class Model
 		return false;
 	}
 
+	/**
+	 * Mets à jour une variable traductible pour une langue
+	 * @param String $sVar  Nom de la variable
+	 * @param mixed $value valeur de la variable
+	 */
+	private function setValueByLang($sVar, $value) {
+	    $sLang = $this->sCurLang;
+	    $var = $this->$sVar;
+	    
+	    if (empty($value)) {
+	        $value = null;
+	    }
+
+	    // Si la valeur actuelle est une string on la décode
+	    if(is_string($var)) {
+	        $var = json_decode($var);
+	    }
+
+	    // Initialisation par défaut
+	    if (empty($var)) {
+	        $var = new StdClass;
+	    }
+
+	    $var->$sLang = $value;
+	    $this->$sVar = $var;
+	}
+
+	/**
+	 * Mets à jour une variable traductible pour toutes les langues
+	 * @param String $sVar  Nom de la variable
+	 * @param mixed $value Valeur de la variable
+	 */
+	private function setValueAsJson($sVar, $value) {        
+	    $var = $this->$sVar;
+
+	    if (empty($value)) {
+	        $var = null;
+	    }
+	    elseif (is_string($value)) {            
+	        $var = json_decode($value);
+	        
+	        if (is_null($var)) {
+	            throw new Exception("Error: Can't Set Parcours::$sVar Due to Invalid Json: '$value'", 1);
+	        }
+	    }
+	    elseif (is_array($value)) {
+	        $var = (object) $value;
+	    }
+	    elseif(!is_object($value)) {
+	        throw new Exception("Error: Can't Set Parcours::$sVar Due to Invalid Data Type. Accepted StdClass, Array, String (json) OR null", 1);
+	    }
+
+	    $this->$sVar = $var;
+	}
+
+
 	function __set($sVar, $var) {
 		$bAccess = $this->canAccessVar($sVar, false);
 		if ($bAccess === -1) {
@@ -64,12 +123,54 @@ abstract class Model
 			$this->bSync = false;
 		}
 
-		$this->$sVar = $var;
+		// Si il s'agit d'une variable à traduire
+		if (in_array($sVar, $this->aTranslateVars)) {
+		    $var = $this->$sVar;
+		    
+		    // Si une langue est choisie on met à jour que celle ci
+		    if ($this->sCurLang) {
+		        $this->setValueByLang($sVar, $value);
+		    }
+		    // Si aucune langue est choisie on les met toutes à jour
+		    else{
+		        $this->setValueAsJson($sVar, $value);
+		    }
+		}
+		else{
+		    $this->$sVar = $value;
+		}
 	}
 
 	function __get($sVar) {
 		if (property_exists($this, $sVar)) {
-			return $this->$sVar;
+
+			if (in_array($sVar, $this->aTranslateVars)) {
+				$sLang = $this->sCurLang;
+				$var = $this->$sVar;
+
+				// Si la valeur actuelle est une string on la décode
+				if (is_string($var)) {
+				    $var = json_decode($var);
+
+				    // En cas d'échec on retourne NULL
+				    if (is_null($var)) {
+				        return null;
+				    }
+
+				    $this->$sVar = $var;
+				}
+
+				// Si une langue est séléctionnée
+				$sLang = $this->sCurLang;
+				if ($sLang) {
+				    return empty($var->$sLang) ? null : $var->$sLang;
+				}
+
+				return $var;
+			}
+			else{
+				return empty($this->$sVar) ? null : $this->$sVar;
+			}
 		}
 		
 		trigger_error('Property "'.$sVar.'" does not exists in Class: '.get_class().'');
@@ -161,6 +262,10 @@ abstract class Model
 		$this->id = 0;
 		$this->bSync = false;
 		return true;
+	}
+
+	public function setLang($lang = false) {
+		$this->sCurLang = $lang;
 	}
 
 
