@@ -59,7 +59,7 @@
 	display: none;
 }
 
-.cust-checkbox > div {
+.cust-checkbox .check > div {
 	top: 1px;
 	left: 1px;
 	width: 12px;
