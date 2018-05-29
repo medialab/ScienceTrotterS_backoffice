@@ -61,9 +61,9 @@ abstract class Model
 	 */
 	private function setValueByLang($sVar, $value) {
 	    $sLang = $this->sCurLang;
-	    var_dump("Current Lang => $sLang");
+	    //var_dump("Current Lang => $sLang");
 	    $var = $this->$sVar;
-	    var_dump("Current Value =>", $var);
+	    //var_dump("Current Value =>", $var);
 	    
 	    if ($value !== false && empty($value)) {
 	        $value = null;
@@ -71,19 +71,19 @@ abstract class Model
 
 	    // Si la valeur actuelle est une string on la décode
 	    if(is_string($var)) {
-	    	var_dump("Décoding Current");
+	    	//var_dump("Décoding Current");
 	        $var = json_decode($var);
 	    }
 
 	    // Initialisation par défaut
 	    if (empty($var)) {
-	    	var_dump("Current Is Empty");
+	    	//var_dump("Current Is Empty");
 	        $var = new \StdClass;
 	    }
 
 	    $var->$sLang = $value;
 	    $this->$sVar = $var;
-	    var_dump("New Value", $var);
+	    //var_dump("New Value", $var);
 	}
 
 	/**
@@ -116,8 +116,8 @@ abstract class Model
 
 
 	function __set($sVar, $var) {
-		var_dump("========================");
-		var_dump("SET $sVar => $var");
+		//var_dump("========================");
+		//var_dump("SET $sVar => $var");
 		
 		$bAccess = $this->canAccessVar($sVar, false);
 		if ($bAccess === -1) {
@@ -136,17 +136,17 @@ abstract class Model
 
 		// Si il s'agit d'une variable à traduire
 		if (in_array($sVar, $this->aTranslateVars)) {
-			var_dump("Translate Var");
+			//var_dump("Translate Var");
 		    //$var = $this->$sVar;
 		    
 		    // Si une langue est choisie on met à jour que celle ci
 		    if ($this->sCurLang) {
-				var_dump("Set By Lang Var");
+				//var_dump("Set By Lang Var");
 		        $this->setValueByLang($sVar, $var);
 		    }
 		    // Si aucune langue est choisie on les met toutes à jour
 		    else{
-				var_dump("Set As Object");
+				//var_dump("Set As Object");
 		        $this->setValueAsJson($sVar, $var);
 		    }
 		}
@@ -252,7 +252,7 @@ abstract class Model
 	public function save() {
 		$tmpLang = \ApiMgr::getLang();
 		\ApiMgr::setLang($this->sCurLang);
-		var_dump("Saving With Lang", $this->sCurLang);
+		//var_dump("Saving With Lang", $this->sCurLang);
 		
 		if (!$this->id) {
 			$oData = \ApiMgr::insert($this);
@@ -261,7 +261,7 @@ abstract class Model
 			$oData = \ApiMgr::update($this);
 		}
 
-		var_dump($oData);
+		//var_dump($oData);
 		if ($oData->success) {
 			$this->load($oData->data);
 			$this->bSync = true;
