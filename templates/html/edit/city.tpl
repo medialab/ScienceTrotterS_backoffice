@@ -1,7 +1,7 @@
 {foreach $aLangs as $sIso => $sLang}
 	<div id="tab-{$sIso}" class="tab">
 		<form method="post" enctype="multipart/form-data">
-			<input type="lagn" name="id" value="{$sIso}">
+			<input type="hidden" name="lang" value="{$sIso}">
 			<input type="hidden" name="id" value="{$oCity->id|default: 0}">
 			
 			<div class="box">
