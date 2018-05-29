@@ -239,6 +239,7 @@ abstract class Model
 	 * Insère / Met à jour dans la DB
 	 */
 	public function save() {
+		var_dump("SAVING", $this);
 		if (!$this->id) {
 			$oData = \ApiMgr::insert($this);
 		}
