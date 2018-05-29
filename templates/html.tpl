@@ -24,7 +24,7 @@
 				{assign var="sPath" value=$sPath|cat:'/':$sFile}
 				{$sPath|var_dump}
 
-				{if file_exists( "./templates/css/html/"|cat:$sFile:".css" )}
+				{if file_exists( "./templates/css/html"|cat:$sPath:".css" )}
 					<link rel="stylesheet" href="/html/{$sFile}.css" type="text/css" />
 				{/if}
 			{/foreach}
