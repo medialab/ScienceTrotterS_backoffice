@@ -303,7 +303,7 @@ abstract class Model
 			$sClass = 'Model\\'.$sClass;
 		}
 		else{
-			$sClass = 'Model\\'.$this->ssClass;
+			$sClass = 'Model\\'.$this->sClass;
 		}
 		
 		try {
@@ -319,7 +319,7 @@ abstract class Model
 			$sClass = 'Model\\'.$sClass;
 		}
 		else{
-			$sClass = 'Model\\'.Self::$sClass;
+			$sClass = 'Model\\'.Self::$ssClass;
 		}
 		
 		$base = new $sClass();
