@@ -61,7 +61,7 @@
 
 				<div class="box" style="background-color: transparent; box-shadow: none">
 					<div href="#" title="Preview" class="btn btn-lg" style="margin-top: 0;">
-						<a href="/edit/parcours#.html">
+						<a href="/edit/parcours#{$oCity->id}.html">
 							<img src="/media/image/interface/icons/icon_create_roadMap.svg">
 							Créer un nouveau Parcours
 						</a>
