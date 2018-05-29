@@ -8,7 +8,6 @@ abstract class Model
 {
 	private $sCurLang = false;
 	protected $sClass = 'Model';
-	public static $ssClass;
 
 	protected $aTranslateVars = []; // les Variables à traduire
 
@@ -298,13 +297,8 @@ abstract class Model
 		return $aResult;
 	}
 
-	public static function get($id=0, $aData=[], $sClass=false) {
-		if ($sClass) {
-			$sClass = 'Model\\'.$sClass;
-		}
-		else{
-			$sClass = 'Model\\'.Self::$ssClass;
-		}
+	public static function get($sClass, $id=0, $aData=[]) {
+		$sClass = 'Model\\'.$sClass;
 		
 		try {
 			return new $sClass($id, $aData);
@@ -314,19 +308,14 @@ abstract class Model
 		return null;
 	}
 
-	public static function list($limit=0, $page=0, $sClass=false) {
-		if ($sClass) {
-			$sClass = 'Model\\'.$sClass;
-		}
-		else{
-			$sClass = 'Model\\'.Self::$ssClass;
-		}
-		
-		var_dump(self::$ssClass);
+	public static function list($sClass, $limit=0, $page=0) {
+		var_dump(Self::$ssClass);
 		exit;
-		$base = new $sClass();
+		$sClass = 'Model\\'.$sClass;
 
 		try {
+			$base = new $sClass();
+
 			$aResults = \ApiMgr::list($base->sTable, false, $limit, $page);
 			if (!$aResults->success) {
 				return [];

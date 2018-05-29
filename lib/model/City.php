@@ -105,5 +105,3 @@ class City extends Model
 		return Parent::list($limit, $page, self::$ssClass);
 	}
 }
-
-City::$ssClass = 'City';
