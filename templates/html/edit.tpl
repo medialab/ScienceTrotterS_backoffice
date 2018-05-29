@@ -59,6 +59,32 @@
 		position: absolute;
 		display: inline-block;
 	}
+
+	.cust-checkbox {
+		width: 18px;
+		height: 18px;
+		border: 2px solid;
+		position: relative;
+		vertical-align: sub;
+		display: inline-block;
+	}
+
+	.cust-checkbox input[type="checkbox"] {
+	    display: none;
+	}
+
+	.cust-checkbox > div {
+	    top: 1px;
+	    left: 1px;
+	    width: 12px;
+	    height: 12px;
+	    position: absolute;
+	    display: inline-block;
+	}
+
+	.cust-checkbox.on > div {
+	    background: #3156A6;
+	}
 </style>
 
 {include file="include/html/form-error.tpl" aErrors=$aErrors}
