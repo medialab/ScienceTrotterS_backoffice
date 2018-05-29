@@ -278,7 +278,6 @@ abstract class Model
 		$this->sCurLang = $lang;
 	}
 
-
 	/**
 	 * Transformation en Tableau
 	 */
