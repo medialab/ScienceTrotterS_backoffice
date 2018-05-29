@@ -1,4 +1,3 @@
-{$oCity|var_dump}
 {foreach $aLangs as $sIso => $sLang}
 	{$oCity->setLang($sIso)}
 
