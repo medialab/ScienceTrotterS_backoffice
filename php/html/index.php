@@ -8,6 +8,7 @@ var_dump($aCities);
 
 ApiMgr::setLang('fr');
 
+ApiMgr::$debugMode = true;
 var_dump("GET CITIES 2");
 $aCities = ApiMgr::list('cities', false, 5);
 $smarty->assign('aCities', $aCities->data);
