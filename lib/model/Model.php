@@ -327,7 +327,7 @@ abstract class Model
 		$base = new $sClass();
 
 		try {
-			$aResults = ApiMgr::list($base->sTable, false, $limit, $page);
+			$aResults = \ApiMgr::list($base->sTable, false, $limit, $page);
 			if (!$aResults->success) {
 				return [];
 			}
