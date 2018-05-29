@@ -26,4 +26,8 @@ class Parcours extends Model
 	public static function list($limit=0, $page=0, $sClass=false) {
 		return Parent::list($limit, $page, self::$ssClass);
 	}
+
+	public static function get($id=0, $aData=[], $sClass=false) {
+		return Parent::get($id, $aData, self::$ssClass);
+	}
 }

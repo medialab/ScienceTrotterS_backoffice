@@ -322,8 +322,6 @@ abstract class Model
 			$sClass = 'Model\\'.Self::$ssClass;
 		}
 		
-		var_dump(Self::$ssClass);
-		var_dump($sClass);
 		$base = new $sClass();
 
 		try {
