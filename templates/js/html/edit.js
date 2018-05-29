@@ -45,8 +45,7 @@ $(document).ready(function() {
 		var tabID = self.attr('target');
 
 		console.log("Test: ", $(".tab").is("#"+tabID));
-		$(".tab").removeClass('on').is("#"+tabID).addClass('on');
-		///var tab = $("#"+tabID);
-
+		$(".tab").removeClass('on');
+		$("#"+tabID).addClass('on');
 	});
 })
