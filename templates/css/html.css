@@ -260,7 +260,7 @@ body {
   flex-wrap: nowrap;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 95vh;
   overflow-y: auto;
   transition: 0.3s;
 }
