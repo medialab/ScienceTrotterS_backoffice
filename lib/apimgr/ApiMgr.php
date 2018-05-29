@@ -341,6 +341,7 @@ class ApiMgr {
 
 		
 		Self::$debugMode = true;
+		
 		$res = Self::exec('post');
 		var_dump($res);
 		exit;
