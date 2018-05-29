@@ -1,5 +1,7 @@
 <?php
 
+ApiMgr::setLang('fr');
+
 $aCities = ApiMgr::list('cities', false, 5);
 $smarty->assign('aCities', $aCities->data);
 
