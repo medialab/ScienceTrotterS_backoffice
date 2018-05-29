@@ -61,6 +61,7 @@
 	}
 
 	.cust-checkbox {
+		cursor: pointer;
 	}
 
 	.cust-checkbox .check {
@@ -73,20 +74,20 @@
 	}
 
 	.cust-checkbox input[type="checkbox"] {
-	    display: none;
+		display: none;
 	}
 
 	.cust-checkbox > div {
-	    top: 1px;
-	    left: 1px;
-	    width: 12px;
-	    height: 12px;
-	    position: absolute;
-	    display: inline-block;
+		top: 1px;
+		left: 1px;
+		width: 12px;
+		height: 12px;
+		position: absolute;
+		display: inline-block;
 	}
 
 	.cust-checkbox.on > div {
-	    background: #3156A6;
+		background: #3156A6;
 	}
 </style>
 
