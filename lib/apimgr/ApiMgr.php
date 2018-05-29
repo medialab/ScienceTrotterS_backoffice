@@ -67,7 +67,7 @@ class ApiMgr {
 		Self::$tmpData['limit'] = Self::$sqlLimit;
 		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
 
-		Self::$tmpData['sCurLang'] = Self::$sCurLang;
+		Self::$tmpData['lang'] = Self::$sCurLang;
 	
 		//var_dump("Request DATA", Self::$tmpData);
 
