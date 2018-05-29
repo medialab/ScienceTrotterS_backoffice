@@ -157,25 +157,30 @@ abstract class Model
 
 	function __get($sVar) {
 		if (property_exists($this, $sVar)) {
+			var_dump("GETTING => $sVar");
 
 			if (in_array($sVar, $this->aTranslateVars)) {
+				var_dump("Translate Var");
 				$sLang = $this->sCurLang;
 				$var = $this->$sVar;
 
+				var_dump("Current Lang => $sLang");
+				var_dump("Current Value", $var);
+
 				// Si la valeur actuelle est une string on la décode
 				if (is_string($var)) {
+					var_dump("Décoding Current");
 				    $var = json_decode($var);
 
 				    // En cas d'échec on retourne NULL
 				    if (is_null($var)) {
+						var_dump("Current Is Empty");
 				        return null;
 				    }
-
-				    $this->$sVar = $var;
 				}
 
+				var_dump("Current Value", $var);
 				// Si une langue est séléctionnée
-				$sLang = $this->sCurLang;
 				if ($sLang) {
 				    return empty($var->$sLang) ? null : $var->$sLang;
 				}
