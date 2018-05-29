@@ -6,7 +6,7 @@
 			<input type="hidden" name="lang" value="{$sIso}">
 			<input type="hidden" name="id" value="{$oCity->id|default: 0}">
 			
-			<div class="box">
+			<div class="box box-large">
 				<label for="ville">Nom de la ville *</label>
 				<p>Tel qu'il apparaîtra sur l'application</p>
 				
