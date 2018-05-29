@@ -24,6 +24,8 @@ if (fMethodIs('post')) {
 		$aErrors['lang'] = 'Aucune langue n\'a été sélectionnée';
 	}
 
+	$oCity->setLang($sLang);
+
 	/* Validation Du Label */
 		if(!fRequiredValidator('label', $_POST)) {
 			$aErrors['Nom'] = 'Ce champs est obligatoire';
