@@ -333,7 +333,7 @@ abstract class Model
 			}
 
 			foreach ($aResults->data as &$aData) {
-				$aData = $sClass(0, $aData);
+				$aData = new $sClass(0, $aData);
 			}
 
 		} catch (Exception $e) {	
