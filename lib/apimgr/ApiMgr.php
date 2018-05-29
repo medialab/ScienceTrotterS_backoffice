@@ -330,6 +330,7 @@ class ApiMgr {
 	}
 
 	public static function insert(Model\Model $oModel) {
+		Self::$debugMode = true;
 		$c = Self::reset();
 		
 		$url = Self::$url.'private/'.$oModel->sTable.'/add';
@@ -346,6 +347,7 @@ class ApiMgr {
 			return false;
 		}
 
+		Self::$debugMode = false;
 		return $res;
 	}
 
