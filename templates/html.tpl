@@ -45,10 +45,11 @@
 			{/if}
 
 			<div class="content">
-				{include file="include/html/top-bar.tpl"}
 
 				<div class="mainContent">
 					<div class="contentView">
+					{include file="include/html/top-bar.tpl"}
+					
 					{$sPageContent|default:'noCONTENT'}
 					</div>
 				</div>
