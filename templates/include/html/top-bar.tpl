@@ -26,8 +26,6 @@
 			{foreach $aFilDArianne as $sUrl => $sText}
 				{assign var="aPath[$i]" value=$sUrl}
 				{assign var="sPath" value='/'|join: $aPath}
-				
-				{$sPath|var_dump}
 
 				<li class="pathName"><a class="faLink" href="{$sPath}.html">{$sText}</a></li>
 				
