@@ -26,7 +26,7 @@
 				{$sFile|var_dump}
 
 				{if file_exists( "./templates/css/html"|cat:$sPath:".css" )}
-					<link rel="stylesheet" href="/html/{$sFile}.css" type="text/css" />
+					<link rel="stylesheet" href="/html/{$sPath}.css" type="text/css" />
 				{/if}
 			{/foreach}
 
