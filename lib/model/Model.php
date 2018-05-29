@@ -26,7 +26,7 @@ abstract class Model
 
 	protected $sqlIgnore = ['sqlIgnore'];	// variable à ignorer lors du Toarray
 
-	function __construct($id=false, Array $aData=[]) {
+	function __construct($id=false, $aData=[]) {
 		if ($id) {
 			$this->loadById($id);
 		}
