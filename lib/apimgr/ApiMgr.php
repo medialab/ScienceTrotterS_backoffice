@@ -337,6 +337,8 @@ class ApiMgr {
 		$c->setUrl($url);
 
 		$aData = Self::prepareModel($oModel);
+		var_dump($aData);
+		exit;
 		Self::setData(['data' => $aData]);
 
 		$res = Self::exec('post');
