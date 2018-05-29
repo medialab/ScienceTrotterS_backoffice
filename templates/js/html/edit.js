@@ -27,6 +27,7 @@ $(document).ready(function() {
 		var check = !inp.prop('checked');
 		inp.prop('checked', check);
 
+		console.log("Calling UPDATE");
 		self.trigger('checkbox::update', check);
 	})
 	.trigger("checkbox::update");
