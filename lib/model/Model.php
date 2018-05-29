@@ -156,8 +156,9 @@ abstract class Model
 	}
 
 	function __get($sVar) {
+		var_dump("GETTING => $sVar");
 		if (property_exists($this, $sVar)) {
-			var_dump("GETTING => $sVar");
+		//	var_dump("GETTING => $sVar");
 
 			if (in_array($sVar, $this->aTranslateVars)) {
 				var_dump("Translate Var");
