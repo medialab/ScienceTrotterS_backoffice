@@ -6,15 +6,6 @@
   margin-bottom: 15px; 
 }
 
-.mainContent {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: scroll;
-  padding: 20px;
-}
-
 .mainContent > .contentView {
 
 }
