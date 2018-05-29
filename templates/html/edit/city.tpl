@@ -58,12 +58,14 @@
 			</div>
 
 			<div class="box" style="background-color: transparent; box-shadow: none">
-				<div href="#" title="Preview" class="btn btn-lg">
-					<a href="">
-						<img src="/media/image/interface/icons/icon_create_roadMap.svg">
-						Créer un nouveau Parcours
-					</a>
-				</div>
+				{if $oCity->isSync()}
+					<div href="#" title="Preview" class="btn btn-lg">
+						<a href="/edit/parcours#.html">
+							<img src="/media/image/interface/icons/icon_create_roadMap.svg">
+							Créer un nouveau Parcours
+						</a>
+					</div>
+				{/if}
 			</div>
 			
 			<div class="boolean {if $oCity->state|default: false}on{/if}">
