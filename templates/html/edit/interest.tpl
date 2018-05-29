@@ -3,28 +3,59 @@
 			<input type="hidden" name="lang" value="">
 			<input type="hidden" name="id" value="">
 			
-			<div class="box">
-				<label for="ville">Nom de la ville *</label>
-				<p>Tel qu'il apparaîtra sur l'application</p>
-				
-				<input name="label" id="ville" required placeholder="Ex: Paris" type="text" value="">
+
+			<div class="box box-large">
+				<label for="lieu">Nom du lieu</label>
+
+				<input name="lieu" id="lieu" type="text" value="">
 			</div>
-			
+
+			<div class="box">
+				<label for="intitule">Intitulé du point d'intérêt *</label>
+				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
+
+				<input name="intitule" id="intitule" required type="text" value="">
+			</div>
+
+			<div class="box">
+				<label for="ville">Ville *</label>
+
+				<select name="ville" id="ville" required>
+					<option value=""></option>
+				</select>
+			</div>
+
+			<div class="box">
+				<label for="intitule">Accroche du point d'intérêt *</label>
+				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
+
+				<input name="intitule" id="intitule" required type="text" value="">
+			</div>
+
+			<div class="box">
+				<label for="parcours">Parcours *</label>
+
+				<select name="parcours" id="parcours" required>
+					<option value=""></option>
+				</select>
+			</div>
+
 			<div class="box" id="box-Localisation">
-				<label for="latitude">Géolocation *</label>
-				<p>Latitude, longitude</p>
+				<label for="latitude">Géolocation</label>
+				<p>Latitude, longitude du point d'intérêt</p>
 				
 				<input name="geo-n" id="latitude" type="number" step=".0001" placeholder="ex: 48.856" value="">
-				<input name="geo-e" id="longitude" type="number" step=".0001" placeholder="ex: 2.3522" value="" />
+				<input name="geo-e" id="longitude" type="number" step=".0001" placeholder="ex: 2.3522" value="">
 				
 				<p>Avec Google Map, cliquez sur une adresse pour récupérer les coordonées GPS</p>
 				<a id="localisation" href="https://www.google.com/maps" target="_blank" title="" class="item itemClick">https://www.google.com/maps</a>
 			</div>
+
 			<div class="box">
-				<label for="img">Image *</label>
+				<label for="img">Image</label>
 				<p>
-					Choisir une image illustrant au mieux la ville.
-					<br />Format 600x600px, png ou jpg, poids maximum 60k
+					Choisir une image illustrant le point d'intérêt.
+					<br />Format 600x600px, png ou jpg, poids maximum 60ko
 				</p>
 				
 				<input type="file" name="img" id="img" class="inputFile">
@@ -39,6 +70,82 @@
 				<p>Avec Jpeg.io, optimisez le poid de vos images</p>
 				<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
 			</div>
+
+			<div class="box">
+				<label for="horaires">Horaires</label>
+				<p>ex. "mer-sam, 13h-17h"</p>
+
+				<input name="horaires" id="horaires"  type="text" value="">
+			</div>
+
+<div class="box">
+	<label for="audio">Audio</label>
+	<p>5min ou 6Mo max, format .mp3 ou .wav</p>
+
+	<input name="audio" id="audio"  type="text" value="">
+</div>
+
+			<div class="box">
+				<label for="difficultes">Difficulté(s)</label>
+				<p>ex. "payant (5€ tarif étudiant)"</p>
+
+				<input name="difficultes" id="difficultes"  type="text" value="">
+			</div>
+
+			<div class="box">
+				<label for="transport">Transport à proximité</label>
+				<p>ex. "RER B Luxembourg"</p>
+
+				<input name="transport" id="transport"  type="text" value="">
+			</div>
+
+			<div class="box">
+				<label for="resume">Résumé du point d'intérêt *</label>
+				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
+
+				<textarea name="resume" id="resume" required value=""></textarea>
+			</div>
+
+			<div class="box">
+				<label for="bibliographie">Bibliographie</label>
+				<p>5 maximum</p>
+
+				<input name="bibliographie1" id="bibliographie1"  type="text" value="">
+				<input name="bibliographie2" id="bibliographie2"  type="text" value="">
+				<input name="bibliographie3" id="bibliographie3"  type="text" value="">
+				<input name="bibliographie4" id="bibliographie4"  type="text" value="">
+				<input name="bibliographie5" id="bibliographie5"  type="text" value="">
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 			<div class="box" style="background-color: transparent; box-shadow: none">
 				<div href="#" title="Preview" class="btn">
