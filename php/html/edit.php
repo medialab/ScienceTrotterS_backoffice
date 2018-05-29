@@ -1,6 +1,6 @@
 <?php
 
-$curPage = explode('/' $sPage);
+$curPage = explode('/', $sPage);
 if (count($curPage) < 2) {
 	header('location: /');
 	exit;
