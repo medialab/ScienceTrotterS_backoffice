@@ -330,7 +330,7 @@ class ApiMgr {
 	}
 
 	public static function insert(Model\Model $oModel) {
-		Self::$debugMode = true;
+		// Self::$debugMode = true;
 		$c = Self::reset();
 		
 		$url = Self::$url.'private/'.$oModel->sTable.'/add';
@@ -339,7 +339,6 @@ class ApiMgr {
 		$aData = Self::prepareModel($oModel);
 		Self::setData(['data' => $aData]);
 
-		//Self::$debugMode = true;
 		$res = Self::exec('post');
 		//Self::$debugMode = false;
 
@@ -347,7 +346,7 @@ class ApiMgr {
 			return false;
 		}
 
-		Self::$debugMode = false;
+		// Self::$debugMode = false;
 		return $res;
 	}
 
