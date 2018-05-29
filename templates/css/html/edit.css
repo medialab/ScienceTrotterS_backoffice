@@ -79,3 +79,19 @@
 .cust-checkbox.on .check > div {
 	background: #3156A6;
 }
+
+.tab {
+	display: none;
+}
+
+.tab.on {
+	display: initial;
+}
+
+.tab {
+	display: none;
+}
+
+.tab {
+	display: none;
+}

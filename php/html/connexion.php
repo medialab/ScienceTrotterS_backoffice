@@ -12,5 +12,12 @@ if (fMethodIs('post')) {
 	$aErrors[] = 'Identifiant / Mot de passe invalides.';
 }
 
+[
+	'showTopBar' => true,
+	'showNavBar' => false,
+	'aErrors' => $aErrors
+]
+
+$smarty->assign('hideTopBar', true);
 $smarty->assign('aErrors', $aErrors);
 $smarty->assign('showNavBar', false);

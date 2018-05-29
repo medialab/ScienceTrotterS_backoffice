@@ -35,4 +35,8 @@ $(document).ready(function() {
 	})
 	.trigger("checkbox::update");
 	;
+
+	$(".tab-trigger").click(function(e) {
+
+	});
 })
