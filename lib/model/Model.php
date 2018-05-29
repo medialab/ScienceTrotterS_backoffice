@@ -319,7 +319,7 @@ abstract class Model
 			$sClass = 'Model\\'.$this->sClass;
 		}
 		
-		$base new $sClass();
+		$base = new $sClass();
 
 		try {
 			$aResults = ApiMgr::list($base->sTable, false, $limit, $page);
