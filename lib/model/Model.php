@@ -308,7 +308,7 @@ abstract class Model
 		return null;
 	}
 
-	public static function list($limit=0, $page=0, $sClass=false) {
+	public static function list($limit=0, $page=0, $sClass=null) {
 		$sClass = 'Model\\'.$sClass;
 
 		try {
