@@ -1,5 +1,7 @@
 {$oCity|var_dump}
 {foreach $aLangs as $sIso => $sLang}
+	{$oCity->setLang($sIso)}
+
 	<div id="tab-{$sIso}" class="tab">
 		<form method="post" enctype="multipart/form-data">
 			<input type="hidden" name="lang" value="{$sIso}">
