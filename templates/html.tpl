@@ -49,8 +49,7 @@
 
 				<div class="mainContent">
 					<div class="contentView">
-					
-					{$sPageContent|default:'noCONTENT'}
+						{$sPageContent|default:'noCONTENT'}
 					</div>
 				</div>
 			</div>
