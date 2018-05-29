@@ -65,7 +65,7 @@ abstract class Model
 	    $var = $this->$sVar;
 	    var_dump("Current Value =>", $var);
 	    
-	    if (empty($value)) {
+	    if ($value !== false && empty($value)) {
 	        $value = null;
 	    }
 
@@ -95,7 +95,7 @@ abstract class Model
 	    $var = $this->$sVar;
 
 	    if (empty($value)) {
-	        $var = null;
+	        $var = new \StdClass;
 	    }
 	    elseif (is_string($value)) {            
 	        $var = json_decode($value);
