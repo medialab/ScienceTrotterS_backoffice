@@ -4,7 +4,7 @@
 
 <div class="lang-selector">
 	<div class="lang-triggers">
-		<div class="tab-trigger" target="">
+		<div class="tab-trigger on" target="">
 			Français
 		</div>
 		<div class="tab-trigger" target="">
@@ -14,7 +14,10 @@
 
 	<div class="french-only">
 		<label>
-			<input type="checkbox">
+			<div class="cust-checkbox">
+				<div></div>
+				<input type="checkbox" name="french_only">
+			</div>
 			Français uniquement
 		</label>
 	</div>
