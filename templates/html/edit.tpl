@@ -63,7 +63,7 @@
 	.cust-checkbox {
 		width: 18px;
 		height: 18px;
-		border: 2px solid;
+		border: 2px solid #3156A6;
 		position: relative;
 		vertical-align: sub;
 		display: inline-block;
