@@ -9,11 +9,7 @@
 			<div class="tab-trigger {if $selected === $sIso}on{/if}" target="tab-{$sIso}">
 				{$sLang}
 			</div>
-			
 		{/foreach}
-		<!-- <div class="tab-trigger" target="">
-			Anglais
-		</div> -->
 	</div>
 
 	<div class="french-only">
