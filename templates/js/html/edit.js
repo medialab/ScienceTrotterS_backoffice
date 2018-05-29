@@ -1,35 +1,58 @@
 $(document).ready(function() {
 	
 	$(".cust-checkbox")
-	.on('checkbox::update', function(e, check) {
-		var self = $(this);
-		
-		if (check == -1) {
+		// MISE A JOUR DE L'APPARENCE
+		.on('checkbox::update', function(e, check) {
+			var self = $(this);
+			
+			if (check == -1) {
+				var inp = self.find('input[type="checkbox"]');
+				check = inp.prop('checked');
+			}
+
+			if (check) {
+				self.addClass('on');
+			}
+			else{
+				self.removeClass('on');
+			}
+		})
+		// MISE A JOUR DES TABS
+		.on('checkbox::update', function() {
+			var self = $(this);
+			var disabled = false;
+			
+			if (self.find('input[type="checkbox"]').prop('checked')) {
+				console.log("IS CHECKED");
+				$("#trigger-fr").click();
+				disabled = true;
+			}
+			
+			var otherTabs = self.parents('.tab-selector').find('.tab-trigger').not('#trigger-fr');
+			if (disabled) {
+				otherTabs.attr('disabled', disabled);
+			}
+			else{
+				otherTabs.removeAttr('disabled');
+			}
+		})
+		// MISE A JOUR DE L'INPUT
+		.click(function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var self = $(this);
 			var inp = self.find('input[type="checkbox"]');
-			check = inp.prop('checked');
-		}
 
-		if (check) {
-			self.addClass('on');
-		}
-		else{
-			self.removeClass('on');
-		}
-	})
-	.click(function(e) {
-		e.preventDefault();
-		e.stopPropagation();
+			var check = !inp.prop('checked');
+			inp.prop('checked', check);
 
-		var self = $(this);
-		var inp = self.find('input[type="checkbox"]');
-
-		var check = !inp.prop('checked');
-		inp.prop('checked', check);
-
-		console.log("Calling UPDATE");
-		self.trigger('checkbox::update', check);
-	})
-	.trigger("checkbox::update");
+			console.log("Calling UPDATE");
+			self.trigger('checkbox::update', check);
+		})
+	
+		// On Appel la mise à jour initialle
+		.trigger("checkbox::update");
 	;
 
 	$(".tab-trigger").click(function(e) {
@@ -48,26 +71,4 @@ $(document).ready(function() {
 		$("#"+tabID).addClass('on');
 	});
 
-	$(".tab-selector .cust-checkbox").on('checkbox::update', function() {
-		console.log("TEST UPDATE", $(this));
-		var self = $(this);
-		var disabled = false;
-		
-		console.log('input: ', self.find('input[type="checkbox"]'));
-		console.log('Test: ', self.find('input[type="checkbox"]').prop('checked'));
-
-		if (self.find('input[type="checkbox"]').prop('checked')) {
-			console.log("IS CHECKED");
-			$("#trigger-fr").click();
-			disabled = true;
-		}
-		
-		var otherTabs = self.parents('.tab-selector').find('.tab-trigger').not('#trigger-fr');
-		if (disabled) {
-			otherTabs.attr('disabled', disabled);
-		}
-		else{
-			otherTabs.removeAttr('disabled');
-		}
-	});
 })
