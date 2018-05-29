@@ -6,6 +6,7 @@ namespace Model;
  */
 class Parcours extends Model
 {
+	protected static $ssClass = 'Parcours';
 	protected $aTranslateVars = ['title', 'time', 'audio', 'description', 'state'];
 
 	protected $title;

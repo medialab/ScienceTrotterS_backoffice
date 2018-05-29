@@ -6,6 +6,7 @@ namespace Model;
  */
 class City extends Model
 {
+	protected static $ssClass = 'City';
 	protected $aTranslateVars = ['label', 'state']; // les Variables à traduire
 
 	protected $geoN;
@@ -14,6 +15,7 @@ class City extends Model
 	protected $label;
 	protected $state;
 	protected $image;
+
 
 	function __construct($id=false, Array $aData=[]) {
 		$this->sTable = 'cities';

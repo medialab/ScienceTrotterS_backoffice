@@ -8,6 +8,8 @@ abstract class Model
 {
 	private $sCurLang = false;
 	protected $sClass = 'Model';
+	protected static $ssClass;
+	
 	protected $aTranslateVars = []; // les Variables à traduire
 
 	protected $id;
@@ -18,6 +20,7 @@ abstract class Model
 	protected $sqlVars = ['id', 'created_at', 'updated_at'];
 
 	protected $sTable;
+
 	protected $bSync = false;	// Est Synchronisé avec la DB
 	protected $bLoaded = false;	// A des Donées Chargées
 
