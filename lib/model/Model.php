@@ -74,7 +74,7 @@ abstract class Model
 
 	    // Initialisation par défaut
 	    if (empty($var)) {
-	        $var = new StdClass;
+	        $var = new \StdClass;
 	    }
 
 	    $var->$sLang = $value;
