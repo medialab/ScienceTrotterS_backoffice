@@ -51,7 +51,7 @@
 
 			{if $oCity->isSync()}
 				<div class="box" style="background-color: transparent; box-shadow: none">
-					<div href="#" title="Preview" class="btn">
+					<div href="#" title="Preview" class="btn" style="margin-top: 0;">
 						<a href="">
 							<img src="/media/image/interface/icons/icon_edit_preview.svg">
 							Preview
@@ -60,7 +60,7 @@
 				</div>
 
 				<div class="box" style="background-color: transparent; box-shadow: none">
-					<div href="#" title="Preview" class="btn btn-lg">
+					<div href="#" title="Preview" class="btn btn-lg" style="margin-top: 0;">
 						<a href="/edit/parcours#.html">
 							<img src="/media/image/interface/icons/icon_create_roadMap.svg">
 							Créer un nouveau Parcours
