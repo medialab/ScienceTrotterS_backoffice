@@ -24,7 +24,8 @@ $aRestrictExtension	= [
 			'test.html',
 			'edit.html',
 			'edit/city.html',
-			'edit/parcours.html'
+			'edit/parcours.html', 
+			'edit/interest.html'
 		];
 
 		$aAccess['HTML'] = &$aAccess['ADMIN'];
