@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 	$(".tab-trigger").click(function(e) {
 		var self = $(this);
-		if (self.hasAttr('disabled')) {
+		if (self.attr('disabled')) {
 			return;
 		}
 
