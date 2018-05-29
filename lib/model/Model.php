@@ -305,12 +305,18 @@ abstract class Model
 	 */
 	public function toArray() {
 		$aResult = [];
+		$sLang = $this->sCurLang;
+
 		foreach (get_object_vars($this) as $key => $value) {
 			$bIgnore = in_array($key, $this->sqlIgnore);
 
 			$bModel = $this->canAccessVar($key) !== true;
 
 			if (!$bIgnore && !$bModel) {
+				if ($sLang && in_array($key, $this->aTranslateVars)) {
+					$value = $value->$sLang;
+				}
+				
 				$aResult[$key] = $value;
 			}
 		}
