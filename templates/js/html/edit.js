@@ -71,3 +71,5 @@ $(document).ready(function() {
 		$("#"+tabID).addClass('on');
 	});
 });
+
+$("#trigger-fr").click();
