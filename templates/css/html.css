@@ -551,8 +551,9 @@ flex-wrap:            wrap;
 justify-content:      space-between;
 }
 
-.blocInputFileName {
-
+.blocInputFileName label.btnInputFileName {
+max-width:           calc( 200px - 20px );
+min-width:          150px;
 }
 
 label.btnInputFileName img {

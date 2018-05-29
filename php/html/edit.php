@@ -7,6 +7,8 @@ if (count($curPage) < 2) {
 }
 
 $aErrors = [];
+$smarty->assign('aErrors', $aErrors );
+
 $smarty->assign('aLangs', [
 	'fr' => 'français',
 	'en' => 'anglais'

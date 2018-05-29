@@ -23,13 +23,13 @@
           </a>
         </li>
         <li class="item">
-          <a href="#" class="itemClick">
+          <a href="/edit/parcours.html" class="itemClick">
             <div class="itemIcon lb-icon-road"></div>
             <label class="itemLabel">Créer parcours</label>
           </a>
         </li>
         <li class="item">
-          <a href="#" class="itemClick">
+          <a href="/edit/interest.html" class="itemClick">
             <div class="itemIcon lb-icon-roadMap"></div>
             <label class="itemLabel">Créer points d'intérêts</label>
           </a>

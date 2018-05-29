@@ -61,7 +61,7 @@
 				<input type="file" name="img" id="img" class="inputFile">
 				
 				<div class="borderGrey">
-					<label id="btnInputFileName" for="img">
+					<label class="btnInputFileName" for="img">
 						<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
 						<p></p>
 					</label>

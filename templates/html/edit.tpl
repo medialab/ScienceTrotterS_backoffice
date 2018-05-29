@@ -23,4 +23,4 @@
 	</div>
 </div>
 
-{include file="include/html/form-error.tpl" aErrors=$aErrors}
+{include file="include/html/form-error.tpl" aErrors=$aErrors|default:false}
