@@ -21,7 +21,7 @@
 
 			{foreach $aFiles as $sFile}
 				{assign var="sPath" value=$sPath|cat:'/':$sFile}
-				
+
 				{if file_exists( "./templates/css/html/"|cat:$sFile:".css" )}
 					<link rel="stylesheet" href="/html/{$sFile}.css" type="text/css" />
 				{/if}
@@ -62,8 +62,18 @@
 
 		<script src="/api-mgr.js"></script>
 		<script src="/html.js"></script>
+
+		
+		{assign var='sPath' value=''}
+		{foreach $aFiles as $sFile}
+			{assign var="sPath" value=$sPath|cat:'/':$sFile}
+			
+			{if file_exists( "./templates/js/html/"|cat:$sFile:".js" )}
+				<script src="/html/{$sFile}.js"></script>
+			{/if}
+		{/foreach}
+
 		{if file_exists( "./templates/js/html/"|cat:$smarty.get.name:".js" )}
-			<script src="/html/{$smarty.get.name}.js"></script>
 		{/if}
 	</body>
 </html>
