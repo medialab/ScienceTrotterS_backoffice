@@ -19,8 +19,11 @@
 			{assign var='aFiles' value=('/'|explode: $smarty.get.name)}
 			{assign var='sPath' value=''}
 
+			{$aFiles|var_dump}
 			{foreach $aFiles as $sFile}
 				{assign var="sPath" value=$sPath|cat:'/':$sFile}
+				{$sPath|var_dump}
+				{$sFile|var_dump}
 
 				{if file_exists( "./templates/css/html"|cat:$sPath:".css" )}
 					<link rel="stylesheet" href="/html/{$sFile}.css" type="text/css" />
