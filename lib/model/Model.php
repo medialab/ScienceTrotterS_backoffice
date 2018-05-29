@@ -303,7 +303,7 @@ abstract class Model
 			$sClass = 'Model\\'.$sClass;
 		}
 		else{
-			$sClass = 'Model\\'.$this->sClass;
+			$sClass = 'Model\\'.Self::$ssClass;
 		}
 		
 		try {
