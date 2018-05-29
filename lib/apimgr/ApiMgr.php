@@ -371,4 +371,8 @@ class ApiMgr {
 	public static function setLang($l=false) {
 		Self::$sCurLang = $l;
 	}
+
+	public static function getLang() {
+		return Self::$sCurLang;
+	}
 }
