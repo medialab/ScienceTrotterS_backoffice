@@ -70,6 +70,7 @@ $(document).ready(function() {
 		$(".tab").removeClass('on');
 		$("#"+tabID).addClass('on');
 	});
-});
 
-$("#trigger-fr").click();
+
+	$("#trigger-fr").click();
+});

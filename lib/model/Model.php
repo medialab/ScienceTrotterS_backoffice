@@ -121,14 +121,14 @@ abstract class Model
 			return;
 		}
 
-		// Si on modifie la variavle on est dé-syncronisé de la DB
+		// Si on modifie la variable on est dé-syncronisé de la DB
 		if ($this->$sVar !== $var) {
 			$this->bSync = false;
 		}
 
 		// Si il s'agit d'une variable à traduire
 		if (in_array($sVar, $this->aTranslateVars)) {
-		    $var = $this->$sVar;
+		    //$var = $this->$sVar;
 		    
 		    // Si une langue est choisie on met à jour que celle ci
 		    if ($this->sCurLang) {
@@ -239,8 +239,6 @@ abstract class Model
 	 * Insère / Met à jour dans la DB
 	 */
 	public function save() {
-		var_dump("SAVING");
-
 		$tmpLang = \ApiMgr::getLang();
 		\ApiMgr::setLang($this->sCurLang);
 		var_dump("Saving With Lang", $this->sCurLang);
