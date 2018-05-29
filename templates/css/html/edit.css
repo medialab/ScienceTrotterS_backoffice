@@ -68,6 +68,6 @@
 	display: inline-block;
 }
 
-.cust-checkbox.on > div {
+.cust-checkbox.on .check > div {
 	background: #3156A6;
 }
