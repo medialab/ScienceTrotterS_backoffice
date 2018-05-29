@@ -2,7 +2,6 @@ $(document).ready(function() {
 	
 	$(".cust-checkbox")
 	.on('checkbox::update', function(e, check) {
-		console.log("UPDATING CHECKBOX", $(this));
 		var self = $(this);
 		
 		if (check == -1) {
@@ -18,26 +17,32 @@ $(document).ready(function() {
 		}
 	})
 	.click(function(e) {
-		console.log("CKLICKED");
 		
 		e.preventDefault();
 		e.stopPropagation();
 
 		var self = $(this);
 		var inp = self.find('input[type="checkbox"]');
-		console.log("inp", inp);
 
 		var check = !inp.prop('checked');
 		inp.prop('checked', check);
 
-		console.log("New State", check);
 		self.trigger('checkbox::update', check);
 	})
 	.trigger("checkbox::update");
 	;
 
 	$(".tab-trigger").click(function(e) {
+		var self = $(this);
+		var container = this.parent();
+
+		container.find('.tab-trigger').removeClass('on');
 		
-		if (true) {}
+		self.addClass('on');
+		var tabID = self.attr('target');
+
+		$(".tab").removeClass('on').is("#"+tabID).addClass('on');
+		///var tab = $("#"+tabID);
+
 	});
 })

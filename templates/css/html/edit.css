@@ -1,4 +1,4 @@
-.lang-selector {
+.tab-selector {
 	width: 1040px;
 	max-width: 70%;
 	position: relative;
@@ -6,11 +6,11 @@
 	border-bottom: 2px solid #3156A6;
 }
 
-.lang-selector .lang-triggers{
+.tab-selector .tab-triggers{
 	display: inline-block;
 }
 
-.lang-selector .tab-trigger{
+.tab-selector .tab-trigger{
 	color: #3156A6;
 	margin-right: 0;
 	cursor: pointer;
@@ -22,15 +22,15 @@
 	border-bottom: none;
 }
 
-.lang-selector .lang-triggers div.tab-trigger:first-of-type{
+.tab-selector .tab-triggers div.tab-trigger:first-of-type{
 	border-radius: 4px 0px 0 0;
 }
 
-.lang-selector .lang-triggers div.tab-trigger:last-of-type{
+.tab-selector .tab-triggers div.tab-trigger:last-of-type{
 	border-radius: 0px 4px 0 0;
 }
 
-.lang-selector .tab-trigger.on{
+.tab-selector .tab-trigger.on{
 	color: white;
 	background-color: #3156A6;
 }
@@ -41,7 +41,7 @@
     border-color: #d5d5d5;
 }
 
-.lang-selector .french-only{
+.tab-selector .french-only{
 	right: 0;
 	bottom: 0;
 	position: absolute;
