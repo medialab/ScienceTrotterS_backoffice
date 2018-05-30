@@ -82,5 +82,5 @@ $(document).ready(function() {
 			}
 
 		}, 75);
-	})
+	}).scroll();
 })
