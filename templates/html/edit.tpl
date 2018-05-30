@@ -23,7 +23,7 @@
 	</div>
 
 	<div class="lang-only" target="en">
-		<label class="cust-checkbox">
+		<label class="cust-checkbox"> 
 			<div class="check">
 				<div></div>
 				<input type="checkbox" name="english_only">
