@@ -311,7 +311,10 @@ abstract class Model
 		try {
 			return new $sClass($id, $aData);
 
-		} catch (Exception $e) {}
+		} catch (\Exception $e) {
+			var_dump($e->getMessage);
+			exit;
+		}
 
 		return null;
 	}
@@ -331,7 +334,8 @@ abstract class Model
 				$aData = new $sClass(0, $aData);
 			}
 
-		} catch (Exception $e) {	
+		} catch (\Exception $e) {	
+			var_dump($e->getMessage);
 			return [];
 		}
 
