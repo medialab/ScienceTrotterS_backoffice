@@ -96,6 +96,7 @@ $(document).ready(function() {
 			inp.appendTo(self);
 
 			self.submit();
+			return false;
 		}
 	});
 });
