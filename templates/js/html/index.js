@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 							// Si aucun résultat on suprime le spinner
 							if (!result.data.length) {
-								lists[id].spin.hide();
+								lists[id].spin.parents('.item').hide();
 								return;
 							}
 
