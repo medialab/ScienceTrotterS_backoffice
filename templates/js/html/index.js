@@ -11,6 +11,7 @@ $(document).ready(function() {
 	var lists = {};		// Taleau ID => [jquery el, timer, requete]
 
 	$('div.columnData').scroll(function() {
+		console.log("SCROLL");
 		var list = $(this);
 		var id = list.attr('id');
 

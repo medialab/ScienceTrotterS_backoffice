@@ -65,7 +65,7 @@ class ApiMgr {
 
 		// Mise en place des variables communes
 		Self::$tmpData['limit'] = Self::$sqlLimit;
-		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
+		Self::$tmpData['skip'] = Self::$sqlLimit * Self::$curPage;
 
 		Self::$tmpData['lang'] = Self::$sCurLang;
 	
@@ -228,7 +228,7 @@ class ApiMgr {
 
 		Self::setData([
 			'limit' => Self::$sqlLimit,
-			'offset' => Self::$sqlLimit * Self::$curPage,
+			'skip' => Self::$sqlLimit * Self::$curPage,
 		]);
 
 		$res = Self::exec();
@@ -264,7 +264,7 @@ class ApiMgr {
 		Self::$curPage++;
 		
 		Self::$tmpData['limit'] = Self::$sqlLimit;
-		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
+		Self::$tmpData['skip'] = Self::$sqlLimit * Self::$curPage;
 
 		$r = Self::exec('get', false);
 
