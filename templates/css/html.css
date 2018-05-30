@@ -207,6 +207,10 @@ body {
 	height: 100vh;
 }
 
+#content > .content {
+  padding-left: 300px;
+}
+
 .content {
   flex-grow: 1;
   display: flex;
@@ -222,6 +226,11 @@ body {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
+
+  top: 0;
+  left: 0;
+  height: 100vh;
+  position: fixed;
 }
 
 .leftBar.close {
@@ -256,13 +265,21 @@ body {
 
 .leftBar .itemList {
 	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	margin: 0;
-	padding: 0;
-	height: 100vh;
-	overflow-y: auto;
-	transition: 0.3s;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  transition: 0.3s;
+  position: relative;
+}
+
+.item.itemByTNG {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 /**
@@ -352,6 +369,7 @@ body {
 	display: none;
 	transition: 0.3s;
 }
+
 .item.selected .subItemList {
 	display: flex;
 }
