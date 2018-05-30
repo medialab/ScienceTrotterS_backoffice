@@ -2,11 +2,12 @@
 	<h2>{$sCreation}</h2>
 </div>
 
-<div class="tab-selector" target="{$smarty.post.sLang|default: 'fr'}">
+{assign var="lang" value=$smarty.post.sLang|default: 'fr'}
+
+<div class="tab-selector" target="{$lang}">
 	<div class="tab-triggers">
-		{assign var="selected" value=$smarty.post.sLang|default: 'fr'}
 		{foreach $aLangs as $sIso => $sLang}
-			<div id="trigger-{$sIso}" class="tab-trigger {if $selected === $sIso}on{/if}" target="tab-{$sIso}">
+			<div id="trigger-{$sIso}" class="tab-trigger {if $lang === $sIso}on{/if}" target="tab-{$sIso}">
 				{$sLang}
 			</div>
 		{/foreach}
