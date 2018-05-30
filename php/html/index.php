@@ -8,6 +8,7 @@ $smarty->assign('aCities', $aCities);
 $aParcours = Model\Parcours::list(5);
 $smarty->assign('aParcours', $aParcours);
 
+ApiMgr::debugMode = true;
 $aInterrests = ApiMgr::list('interrests', false, 5);
-var_dump($aInterrests);
+exit;
 $smarty->assign('aInterrests', $aInterrests->data);
