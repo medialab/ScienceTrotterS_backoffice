@@ -30,8 +30,7 @@ $(document).ready(function() {
 				disabled = true;
 			}
 
-			var container = self.parents('.tab-selector');
-			
+			var container = self.parents('.tab-selector');			
 			container.attr('target', target);
 
 			// On Dé/Ré-Active les tabs
@@ -76,6 +75,8 @@ $(document).ready(function() {
 		var tabID = self.attr('target');
 		$(".tab").removeClass('on');
 		$("#"+tabID).addClass('on');
+
+		container.parent().attr('target', tabID);
 	});
 
 
