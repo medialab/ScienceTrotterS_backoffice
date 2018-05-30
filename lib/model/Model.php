@@ -206,10 +206,10 @@ abstract class Model
 		foreach ($oData as $sProp => $sData) {
 			if (property_exists($this, $sProp)) {
 				if ($sCurLang && in_array($sProp, $this->aTranslateVars)) {
-					$this->setValueByLang($sProp, $sData):
+					$this->setValueByLang($sProp, $sData);
 				}
 				else{
-					$this->setValueAsJson($sProp, $sData):
+					$this->setValueAsJson($sProp, $sData);
 				}
 			}
 			else {
