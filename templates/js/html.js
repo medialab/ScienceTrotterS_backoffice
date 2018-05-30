@@ -68,14 +68,11 @@ itemClick.forEach(handlerItemClick);
 
 /* Stylisation du bouton d'importation d'une image */
 
-$( '.inputFile' ).each( function() {
+$( '.inputFile' ).on('click', function() {
 
+	var oThis	 = $( this );
 
-	var $this	 = $( this ),
-		$label	 = $this.next( 'label' ),
-		labelVal = $label.html();
-
-	$this.on( 'change', function( e )
+	oThis.on( 'change', function( e )
 	{
 		var fileName = '';
 
@@ -85,16 +82,16 @@ $( '.inputFile' ).each( function() {
 			fileName = e.target.value.split( '\\' ).pop();
 
 		if( fileName ) {
-			$('#btnInputFileName p').html(fileName);
+			oThis.next('.blocInputFileName').find('p').html(fileName);
 		}
 
 	});
 
 
 	// Firefox bug fix
-	$this
-	.on( 'focus', function(){ $this.addClass( 'has-focus' ); })
-	.on( 'blur', function(){ $this.removeClass( 'has-focus' ); });
+	oThis
+	.on( 'focus', function(){ oThis.addClass( 'has-focus' ); })
+	.on( 'blur', function(){ oThis.removeClass( 'has-focus' ); });
 });
 
 /***/
