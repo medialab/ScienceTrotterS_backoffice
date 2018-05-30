@@ -7,8 +7,9 @@ namespace Model;
 abstract class Model
 {
 	private $sCurLang = false;
+	private $force_lang = false;
+	
 	protected $sClass = 'Model';
-
 	protected $aTranslateVars = []; // les Variables à traduire
 
 	protected $id;
@@ -198,17 +199,17 @@ abstract class Model
 		return true;
 	}
 
-	public function load($aData) {
+	public function load($oData) {
 		$this->bSync = false;
-		$sCurLang = $aData->sCurLang;
-		foreach ($aData as $sProp => $sData) {
-			if (property_exists($this, $sProp)) {
+		$sCurLang = $oData->sCurLang;
 
+		foreach ($oData as $sProp => $sData) {
+			if (property_exists($this, $sProp)) {
 				if ($sCurLang && in_array($sProp, $this->aTranslateVars)) {
-					$this->$sProp = (object) [$sCurLang => $sData];
+					$this->setValueByLang($sProp, $sData):
 				}
 				else{
-					$this->$sProp = $sData;
+					$this->setValueAsJson($sProp, $sData):
 				}
 			}
 			else {

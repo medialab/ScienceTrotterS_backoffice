@@ -81,4 +81,21 @@ $(document).ready(function() {
 
 
 	$("#trigger-fr").click();
+
+	$('#content form').submit(function(e) {
+		var self = $(this);
+		
+		if (!self.find('input.lang-check').length) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var selector = $(".tab-selector");
+			var langTaget = selector.attr('target');
+
+			var inp = selector.find('.lang-only[target="'+langTaget+'"] input');
+			inp.appendTo(self);
+
+			self.submit();
+		}
+	});
 });

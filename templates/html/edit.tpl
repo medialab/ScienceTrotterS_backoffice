@@ -17,7 +17,7 @@
 		<label class="cust-checkbox">
 			<div class="check">
 				<div></div>
-				<input type="checkbox" name="french_only">
+				<input class="lang-check" type="checkbox" name="lang_only" value='fr'>
 			</div>
 			Français uniquement
 		</label>
@@ -27,7 +27,7 @@
 		<label class="cust-checkbox"> 
 			<div class="check">
 				<div></div>
-				<input type="checkbox" name="english_only">
+				<input class="lang-check" type="checkbox" name="lang_only" value='en'>
 			</div>
 			Anglais uniquement
 		</label>
