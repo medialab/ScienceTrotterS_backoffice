@@ -1,10 +1,3 @@
-.mainContent {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-}
-
 /**
 * NAV BAR
 */
@@ -22,10 +15,6 @@
   flex-wrap: nowrap;
   justify-content: flex-end;
   height: 56px;
-}
-
-.itemsNavBar .item {
-
 }
 
 .itemsNavBar .item.searchBar {
