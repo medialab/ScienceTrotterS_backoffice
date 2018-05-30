@@ -67,7 +67,7 @@ var ApiMgr = {
 			},
 
 			nextPage: function(success, error) {
-				this.data.offset += this.data.limit;
+				this.data.skip += this.data.limit;
 				
 				if (success) {
 					this.success = success;
@@ -101,7 +101,7 @@ var ApiMgr = {
 			{
 				token: _API_TOKEN_, 
 				limit: limit, 
-				offset: page*limit
+				skip: page*limit
 			},
 			success,
 			error
