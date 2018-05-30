@@ -14,12 +14,13 @@ Getting Started
 
 
 
-	Copy the file etc/nginx/sites-enabled
-		listen 80;
-		listen [::]:80;
-
-		server_name admin-sts.actu.com;
-		root /data/vhosts/science_trotters/admin;
+	Copy the file vhost.conf
+		Replace {$sslPath} with the SSL Certificates path
+		Replace {$sitePath} with the Website path
+	
+	Paste the file in /etc/nginx/sites-enabled
+	Restart Ngnix
+		
 
 
 License
