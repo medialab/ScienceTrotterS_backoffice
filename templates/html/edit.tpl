@@ -7,7 +7,7 @@
 <div class="tab-selector" target="{$lang}">
 	<div class="tab-triggers">
 		{foreach $aLangs as $sIso => $sLang}
-			<div id="trigger-{$sIso}" class="tab-trigger {if $lang === $sIso}on{/if}" target="tab-{$sIso}">
+			<div id="trigger-{$sIso}" class="tab-trigger {if $lang === $sIso}on{/if}" target="{$sIso}">
 				{$sLang}
 			</div>
 		{/foreach}

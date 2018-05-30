@@ -74,7 +74,7 @@ $(document).ready(function() {
 		
 		var tabID = self.attr('target');
 		$(".tab").removeClass('on');
-		$("#"+tabID).addClass('on');
+		$("#tab-"+tabID).addClass('on');
 
 		container.parent().attr('target', tabID);
 	});
