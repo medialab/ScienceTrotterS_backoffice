@@ -22,7 +22,7 @@
 		</label>
 	</div>
 
-	<div class="lang-only" target="fr">
+	<div class="lang-only" target="en">
 		<label class="cust-checkbox">
 			<div class="check">
 				<div></div>

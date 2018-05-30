@@ -22,14 +22,21 @@ $(document).ready(function() {
 			var self = $(this);
 			var disabled = false;
 			
+			var target = self.parents('.lang-only').attr('target');
+
 			// On Focus le tab francais
 			if (self.find('input[type="checkbox"]').prop('checked')) {
-				$("#trigger-fr").click();
+				$("#trigger-"+target).click();
 				disabled = true;
 			}
 
+			var container = self.parents('.tab-selector');
+			
+			container.attr('target', target);
+
 			// On Dé/Ré-Active les tabs
-			var otherTabs = self.parents('.tab-selector').find('.tab-trigger').not('#trigger-fr');
+			var otherTabs = container.find('.tab-trigger').not('#trigger-'+target);
+
 			if (disabled) {
 				otherTabs.attr('disabled', disabled);
 			}
