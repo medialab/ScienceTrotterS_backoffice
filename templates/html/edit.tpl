@@ -2,7 +2,7 @@
 	<h2>{$sCreation}</h2>
 </div>
 
-<div class="tab-selector">
+<div class="tab-selector" target="{$smarty.post.sLang|default: 'fr'}">
 	<div class="tab-triggers">
 		{assign var="selected" value=$smarty.post.sLang|default: 'fr'}
 		{foreach $aLangs as $sIso => $sLang}
@@ -12,13 +12,23 @@
 		{/foreach}
 	</div>
 
-	<div class="french-only">
+	<div class="lang-only" target="fr">
 		<label class="cust-checkbox">
 			<div class="check">
 				<div></div>
 				<input type="checkbox" name="french_only">
 			</div>
 			Français uniquement
+		</label>
+	</div>
+
+	<div class="lang-only" target="fr">
+		<label class="cust-checkbox">
+			<div class="check">
+				<div></div>
+				<input type="checkbox" name="english_only">
+			</div>
+			Anglais uniquement
 		</label>
 	</div>
 </div>

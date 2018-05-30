@@ -41,10 +41,22 @@
     border-color: #d5d5d5;
 }
 
-.tab-selector .french-only{
+.tab-selector .lang-only{
 	right: 0;
 	bottom: 0;
 	position: absolute;
+	display: inline-block;
+}
+
+.tab-selector .lang-only {
+	display: none;
+}
+
+.tab-selector[target='fr'] .lang-only[target='fr'] {
+	display: inline-block;
+}
+
+.tab-selector[target='en'] .lang-only[target='en'] {
 	display: inline-block;
 }
 
