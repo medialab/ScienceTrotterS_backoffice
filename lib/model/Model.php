@@ -63,6 +63,7 @@ abstract class Model
 	private function setValueByLang($sVar, $value) {
 	    $sLang = $this->sCurLang;
 	    $var = $this->$sVar;
+
 	    
 	    if ($value !== false && empty($value)) {
 	        $value = null;
@@ -97,22 +98,21 @@ abstract class Model
 	        $var = json_decode($value);
 	        
 	        if (is_null($var)) {
-	            throw new Exception("Error: Can't Set Parcours::$sVar Due to Invalid Json: '$value'", 1);
+	            throw new \Exception("Error: Can't Set Parcours::$sVar Due to Invalid Json: '$value'", 1);
 	        }
 	    }
 	    elseif (is_array($value)) {
 	        $var = (object) $value;
 	    }
 	    elseif(!is_object($value)) {
-	        throw new Exception("Error: Can't Set Parcours::$sVar Due to Invalid Data Type. Accepted StdClass, Array, String (json) OR null", 1);
+	        throw new \Exception("Error: Can't Set Parcours::$sVar Due to Invalid Data Type. Accepted StdClass, Array, String (json) OR null", 1);
 	    }
 
-	    $this->$sVar = $var;
+	    $this->$sVar = $value;
 	}
 
 
 	function __set($sVar, $var) {
-		
 		$bAccess = $this->canAccessVar($sVar, false);
 		if ($bAccess === -1) {
 			trigger_error('Can\'t access Model Property "'.$sVar.'" due to Protection Level.');
@@ -130,7 +130,6 @@ abstract class Model
 
 		// Si il s'agit d'une variable à traduire
 		if (in_array($sVar, $this->aTranslateVars)) {
-		    //$var = $this->$sVar;
 		    
 		    // Si une langue est choisie on met à jour que celle ci
 		    if ($this->sCurLang) {
@@ -140,6 +139,9 @@ abstract class Model
 		    else{
 		        $this->setValueAsJson($sVar, $var);
 		    }
+		}
+		elseif ($sVar === 'state') {
+			$this->setState($var);
 		}
 		else{
 		    $this->$sVar = $var;
@@ -186,8 +188,7 @@ abstract class Model
 			return false;
 		}
 
-		$oData = \ApiMgr::get($this->sTable, $id);	
-
+		$oData = \ApiMgr::get($this->sTable, $id, false);	
 		if (empty($oData) || !$oData->success) {
 			$this->bSync = false;
 			$this->bLoaded = false;
@@ -200,19 +201,29 @@ abstract class Model
 	}
 
 	public function load($oData) {
+		/*var_dump("LOADING", $oData);*/
 		$this->bSync = false;
 		$sCurLang = $oData->sCurLang;
+		$this->setLang($sCurLang);
 
 		foreach ($oData as $sProp => $sData) {
-			if (property_exists($this, $sProp)) {
-				if ($sCurLang && in_array($sProp, $this->aTranslateVars)) {
-					$this->setValueByLang($sProp, $sData);
+			if (property_exists($this, $sProp) || in_array($sProp, $this->aTranslateVars)) {
+				if (in_array($sProp, $this->aTranslateVars)) {
+					/*var_dump("Translate Prop", $sProp);*/
+					if ($sCurLang) {
+						$this->setValueByLang($sProp, $sData);
+					}
+					else{
+						$this->setValueAsJson($sProp, $sData);
+					}
 				}
 				else{
-					$this->setValueAsJson($sProp, $sData);
+					$this->$sProp = $sData;
 				}
 			}
-			else {
+			else {/*
+				var_dump("Faild Prop", $sProp, get_object_vars($this));
+				var_dump("Faild Prop", $sProp);*/
 				return false;
 			}
 		}
@@ -295,7 +306,7 @@ abstract class Model
 
 			if (!$bIgnore && !$bModel) {
 				if ($sLang && in_array($key, $this->aTranslateVars)) {
-					$value = $value->$sLang;
+					$value = empty($value->$sLang) ? null : $value->$sLang;
 				}
 
 				$aResult[$key] = $value;
@@ -305,27 +316,35 @@ abstract class Model
 		return $aResult;
 	}
 
-	public static function get($sClass, $id=0, $aData=[]) {
+	public function setState($bState) {
+		$this->state = $bState;
+	}
+
+	public static function get($id=0, $aData=[], $sClass=false) {
 		$sClass = 'Model\\'.$sClass;
 		
 		try {
 			return new $sClass($id, $aData);
-
 		} catch (\Exception $e) {
-			var_dump($e->getMessage);
 			exit;
 		}
 
 		return null;
 	}
 
-	public static function list($limit=0, $page=0, $sClass=false) {
+	public static function list($limit=0, $page=0, $columns=false, $sClass=false) {
 		$sClass = 'Model\\'.$sClass;
 
 		try {
 			$base = new $sClass();
 
-			$aResults = \ApiMgr::list($base->sTable, false, $limit, $page);
+			if (is_array($columns)) {
+				if (!in_array('id', $columns)) {
+					$columns[] = 'id';
+				}
+			}
+
+			$aResults = \ApiMgr::list($base->sTable, false, $limit, $page, $columns);
 			if (!$aResults->success) {
 				return [];
 			}
@@ -334,13 +353,18 @@ abstract class Model
 				$aData = new $sClass(0, $aData);
 			}
 
-		} catch (\Exception $e) {	
-			var_dump($e->getMessage);
+		} catch (\Exception $e) {
 			return [];
 		}
 
 		return $aResults->data;
 	}
 
+	public static function validateID($id) {
+		if (preg_match('/[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}/', $id)) {
+			return $id;
+		}
 
+		return false;
+	}
 }

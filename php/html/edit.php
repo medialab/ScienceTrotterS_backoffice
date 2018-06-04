@@ -1,5 +1,6 @@
 <?php
 
+//ApiMgr::$debugMode = true;
 $curPage = explode('/', $sPage);
 if (count($curPage) < 2) {
 	header('location: /');

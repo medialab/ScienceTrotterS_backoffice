@@ -2,7 +2,8 @@
 
 $aErrors = [];
 if (fMethodIs('post')) {
-	$res = ApiMgr::login('ouio@oui.com', $_POST['user_password']);
+	//$pass = password_hash( $_POST['user_password'], PASSWORD_BCRYPT );
+	$res = ApiMgr::login('admin@admin.com', $_POST['user_password']);
 
 	if ($res) {
 		header('location: /');
@@ -11,8 +12,6 @@ if (fMethodIs('post')) {
 
 	$aErrors[] = 'Identifiant / Mot de passe invalides.';
 }
-
-
 
 $smarty->assign([
 	'showTopBar' => false,

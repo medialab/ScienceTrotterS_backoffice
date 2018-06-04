@@ -107,3 +107,15 @@
 .tab {
 	display: none;
 }
+
+.audio-name {
+	
+}
+
+.box .borderGrey .blocInputFileName label.btnInputFileName {
+	text-align: center;
+	text-transform: initial;
+}
+.box .borderGrey .blocInputFileName label.btnInputFileName img{
+	margin-bottom: 15px;
+}

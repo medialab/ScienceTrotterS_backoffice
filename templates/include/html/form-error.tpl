@@ -1,9 +1,9 @@
 {if !empty($aErrors)}
 	<div class="error-container">
 		<ul>
-			{foreach $aErrors as $err}
+			{foreach $aErrors as $k => $err}
 				<li>
-					{$err}
+					<b>{$k}: </b> {$err}
 				</li>
 			{/foreach}
 		</ul>

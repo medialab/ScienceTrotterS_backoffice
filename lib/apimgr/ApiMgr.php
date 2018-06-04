@@ -14,7 +14,7 @@ class ApiMgr {
 	
 	private static $curPage = 0;		// Current Page
 	private static $sqlLimit = 25;		// Request Return Limit
-	private static $sqlMaxLimit = 200;	// Max Reuest Return Limit
+	private static $sqlMaxLimit = 5000;	// Max Reuest Return Limit
 	
 	private static $tmpData = [];		// Temporary Request
 
@@ -195,7 +195,7 @@ class ApiMgr {
 	 * @param  integer $page   Page
 	 * @return Array          List d'elements
 	 */
-	public static function list($model, $public=true, $limit=0, $page=0) {
+	public static function list($model, $public=true, $limit=0, $page=0, $columns=false) {
 		$c = Self::reset();
 
 		Self::setLimit($limit);
@@ -206,6 +206,10 @@ class ApiMgr {
 		$url = Self::$url.$base.$model.'/list';
 
 		$c->setUrl($url);
+		if ($columns) {
+			Self::setData(['columns' => $columns]);
+		}
+
 		$res = Self::exec();
 		return $res;
 	}
@@ -281,10 +285,7 @@ class ApiMgr {
 	public static function setLimit($limit) {
 		$limit = (int)$limit;
 		
-		if ($limit <= 0) {
-			$limit = 1;
-		}
-		elseif ($limit > Self::$sqlMaxLimit) {
+		if ($limit <= 0 || $limit > Self::$sqlMaxLimit) {
 			$limit = Self::$sqlMaxLimit;
 		}
 

@@ -10,7 +10,7 @@
 				<label for="ville">Nom de la ville *</label>
 				<p>Tel qu'il apparaîtra sur l'application</p>
 				
-				<input name="label" id="ville" required placeholder="Ex: Paris" type="text" value="{$oCity->label|default: ''}">
+				<input name="title" id="ville" required placeholder="Ex: Paris" type="text" value="{$oCity->title|default: ''}">
 			</div>
 			
 			<div class="box" id="box-Localisation">
@@ -63,7 +63,7 @@
 
 				<div class="box" style="background-color: transparent; box-shadow: none">
 					<div href="#" title="Preview" class="btn btn-lg" style="margin-top: 0;">
-						<a href="/edit/parcours#{$oCity->id}.html">
+						<a href="/edit/parcours/@{$oCity->id}.html">
 							<img src="/media/image/interface/icons/icon_create_roadMap.svg">
 							Créer un nouveau Parcours
 						</a>

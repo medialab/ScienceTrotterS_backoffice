@@ -9,8 +9,7 @@
 		</div>
 
 		<!-- DATA -->
-		<div id="cities" class="columnData">
-
+		<div id="cities" class="columnData" limit="{$aCities|count}">
 			<ul class="itemList">
 				{foreach $aCities as $city}
 					<!-- ITEM -->
@@ -26,7 +25,7 @@
 								<i class="icon-pre icon-list-preview"></i>
 							</a>
 						</div>
-						<label class="itemLabel">{$city->label}</label>
+						<label class="itemLabel">{$city->title}</label>
 					</li>
 					<!-- .\ ITEM -->
 				{/foreach}
@@ -61,15 +60,15 @@
 		</div>
 
 		<!-- DATA -->
-		<div class="columnData">
+		<div id="parcours"  class="columnData" limit="{$aParcours|count}">
 			<ul class="itemList">
 				{foreach $aParcours as $parcours}
 					<li class="item">
 						<div class="itemAction">
-							<a href="#">
+							<a class="delete-btn" href="/delete/parcours/{$parcours->id}.html">
 								<i class="icon-pre icon-list-remove"></i>
 							</a>
-							<a href="#">
+							<a href="/edit/parcours/{$parcours->id}.html">
 								<i class="icon-pre icon-list-edit"></i>
 							</a>
 							<a href="#">
@@ -101,22 +100,22 @@
 		</div>
 
 		<!-- DATA -->
-		<div class="columnData">
+		<div id="interests"  class="columnData" limit="{$aInterests|count}">
 			<ul class="itemList">
-				{foreach $aInterrests as $interrest}
+				{foreach $aInterests as $interest}
 					<li class="item">
 						<div class="itemAction">
-							<a href="#">
+							<a class="delete-btn" href="/delete/interest/{$interest->id}.html">
 								<i class="icon-pre icon-list-remove"></i>
 							</a>
-							<a href="#">
+							<a href="/edit/interests/{$interest->id}.html">
 								<i class="icon-pre icon-list-edit"></i>
 							</a>
 							<a href="#">
 								<i class="icon-pre icon-list-preview"></i>
 							</a>
 						</div>
-						<label class="itemLabel">{$interrest->title}</label>
+						<label class="itemLabel">{$interest->title}</label>
 					</li>
 				{/foreach}
 			</ul>
@@ -124,7 +123,7 @@
 
 		<!-- BTN LINK -->
 		<div class="columnBtnLink">
-			<a href="#">
+			<a href="/edit/interest.html">
 				<i class="icon icon-create-road"></i>
 				Créer un point d'intérêt
 			</a>

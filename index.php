@@ -1,10 +1,8 @@
 <?php
 /*
-if ($_SERVER['REMOTE_ADDR'] === '194.150.15.75') {
-	var_dump($_SERVER['REQUEST_URI']);
-	var_dump($_GET);
-	exit;
-}*/
+var_dump($_GET);
+exit;
+*/
 
 // Gestion des erreurs 
 	ini_set( 'display_errors', true );

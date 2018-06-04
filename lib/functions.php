@@ -24,7 +24,7 @@
 
 // Création d'une chaine de caractère URL Friendly ( sans accents, ni caractère spécial, en minuscule )
 	function fCreateFriendlyUrl( $sString ) {
-		return preg_replace('/([^a-z0-9.-]+)/', '-', $sString);
+		return preg_replace(['/([^a-z0-9.-]+)/', '/(\-)+/'], ['-', '-'], strtolower($sString));
 	}
 //---
 
@@ -314,3 +314,31 @@ function fMethodIs($type='get') {
 
 		return $aMimeMap;
 	}
+
+
+function handleUploadedFile($name, $directory) {
+	/* Sauvegarde Temporaire de l'image */
+	if (!empty($_FILES[$name]) && !empty($_FILES[$name]['name'])) {
+		/* Création du dossier */
+		if (!is_dir(UPLOAD_PATH.$directory)) {
+			mkdir(UPLOAD_PATH.$directory, 0775, true);
+		}
+
+		$imgPath = $directory.'/'.fCreateFriendlyUrl($_FILES[$name]['name']);
+		$dest = UPLOAD_PATH.$imgPath;
+
+		$dest = str_replace('/', DIRECTORY_SEPARATOR, $dest);
+		/* Si le fichier existe on le remplace */
+		if (file_exists($dest)) {
+			unlink($dest);
+		}
+
+		$result = move_uploaded_file($_FILES[$name]['tmp_name'], $dest);
+
+		if ($result) {
+			return $imgPath;
+		}
+	}
+
+	return null;
+}

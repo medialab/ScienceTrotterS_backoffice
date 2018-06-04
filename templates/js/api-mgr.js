@@ -92,8 +92,9 @@ var ApiMgr = {
 		return request;
 	},
 
-	list: function(table, page, limit, success, error) {
+	list: function(table, page, limit, success, error, columns) {
 		page = page || 0;
+		columns = columns || false;
 
 		return this.call(
 			'get',

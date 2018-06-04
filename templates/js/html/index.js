@@ -1,11 +1,14 @@
 // Load Automatique Des Listes
 $(document).ready(function() {
 	/* On alerte avant de supprimer */
-	$("#cities").on('click', 'a.delete-btn', function(e) {
+	console.log($(".arboItem .columnData"));
+
+	$(".arboItem .columnData").on('click', 'a.delete-btn', function(e) {
 		if (!confirm("Êtes vous sûr de vouloir supprimer cette ville ?")) {
 			e.preventDefault();
 			return false;
 		}
+		
 	});
 
 	var lists = {};		// Taleau ID => [jquery el, timer, requete]
@@ -17,7 +20,8 @@ $(document).ready(function() {
 
 		if (typeof lists[id] === 'undefined') {	// Ajout de la liste si elle n'existe pas
 			lists[id] = {
-				el: list
+				el: list,
+				limit: parseInt(list.attr('limit'))
 			}
 		}
 		else if(lists[id].timer){	// Remise à Zero Tu Timer
@@ -41,7 +45,7 @@ $(document).ready(function() {
 
 					// Appel à L'api 
 					lists[id].req = ApiMgr.list(
-						'cities', 1, 5, 
+						'cities', 1, lists[id].limit, 
 
 						// On Success
 						function(result){
@@ -73,7 +77,9 @@ $(document).ready(function() {
 						// On Error
 						function(result){
 							console.log("ERROR: ", result)
-						}
+						},
+
+						['id', 'title']
 					);
 				}
 				else{

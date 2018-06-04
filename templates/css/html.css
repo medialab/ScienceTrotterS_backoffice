@@ -550,14 +550,21 @@ flex-direction: 				column;
 justify-content: 				center;
 align-items: 					center;
 position: 						relative;
-min-height: 					150px;
+}
+
+.box label.blocInputFileName.img {
+	min-height: 					150px;
+}
+
+.box label.blocInputFileName.audio {
+	min-height: 					60px;
 }
 
 .flexInputFile {
 display:              flex;
 flex-direction:       row;
 flex-wrap:            wrap;
-justify-content:      flex-start;
+justify-content:      center;
 }
 
 .blocInputFileName {
@@ -732,4 +739,10 @@ background:           #3156A6;
 	width: 							100%;
 	}
 
+}
+
+.error-container {
+	display: block;
+	max-width: 1000px;
+	margin: 24px auto;
 }

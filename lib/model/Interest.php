@@ -1,28 +1,52 @@
 <?php
 
 namespace Model;
+
 /**
  * 
  */
-class City extends Model
+class Interest extends Model
 {
-	protected $sClass = 'City';
-	public static $ssClass = 'City';
+	protected $sClass = 'Interest';
+	public static $ssClass = 'Interest';
 	
-	protected $aTranslateVars = ['title']; // les Variables à traduire
+	protected $aTranslateVars = ['title', 'transport', 'audio_script', 'bibliography', 'audio', 'price', 'schedule', 'address']; // les Variables à traduire
 
+	protected $geoloc;
 	protected $geoN;
 	protected $geoE;
-	protected $geoloc;
-	protected $title;
-	protected $state;
-	protected $image;
 
+	protected $title;
+	
+	protected $address;
+	protected $transport;
+	protected $audio_script;
+	protected $bibliography;
+	protected $header_image;
+	protected $gallery_image;
+	protected $audio;
+	protected $price;
+	protected $cities_id;
+	protected $parcours_id;
+	protected $state;
+	protected $schedule;
 
 	function __construct($id=false, $aData=[]) {
-		$this->sTable = 'cities';
+		$this->sTable = 'interests';
 		$this->sqlIgnore = ['geoE','geoN'];
 		Parent::__construct($id, $aData);
+	}
+
+	function __get($sVar) {
+		if ($sVar === 'gallery_image') {
+			if (is_null($this->gallery_image)) {
+				$this->gallery_image = [];
+			}
+
+			return $this->gallery_image;
+		}
+
+		return Parent::__get($sVar);
 	}
 
 	public function load($aData) {
@@ -30,25 +54,25 @@ class City extends Model
 		$this->setGeoloc($this->geoloc);
 	}
 
-	
 	public function setGeoloc(&$geoloc) {
 		if ($geoloc === ';') {
 			$geoloc = null;
 		}
-
-		if (is_string($geoloc)) {
-			$geo = explode(';', $geoloc);
-			$geoloc = (object) ['latitude' => (float)$geo[0], 'longitude' => (float)$geo[1]];
-		}
-
 		if (empty($geoloc)) {
 			$this->geoN = $geoloc;
 			$this->geoE = $geoloc;
 			return;
 		}
 
-		$this->geoN = $geoloc->latitude;
-		$this->geoE = $geoloc->longitude;
+		$aMatches = [];
+		if (!preg_match_all('/^(-?[0-9]{1,2}\.?[0-9]{0,4});(-?[0-9]{1,3}\.?[0-9]{0,4})$/', $geoloc, $aMatches)) {
+			trigger_error("Faild to Set Interest::geoloc propoerty. Value is Invalid");
+			return;
+		}
+
+		/*$this->geoloc = $geoloc;*/
+		$this->geoN = $aMatches[1][0];
+		$this->geoE = $aMatches[2][0];
 	}
 
 	public function setGeoN($geoN) {

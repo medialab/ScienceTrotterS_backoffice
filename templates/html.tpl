@@ -16,7 +16,7 @@
 			<link rel="stylesheet" href="/lib/icons.css" type="text/css" />
 			<link rel="stylesheet" href="/lib/arbo.css" type="text/css" />
 			
-			{assign var='aFiles' value=('/'|explode: $smarty.get.name)}
+			{assign var='aFiles' value=('/'|explode: $sPage)}
 			{assign var='sPath' value=''}
 
 			{foreach $aFiles as $sFile}
@@ -75,7 +75,7 @@
 			{/if}
 		{/foreach}
 
-		{if file_exists( "./templates/js/html/"|cat:$smarty.get.name:".js" )}
+		{if file_exists( "./templates/js/html/"|cat:$sPage:".js" )}
 		{/if}
 	</body>
 </html>

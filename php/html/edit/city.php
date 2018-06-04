@@ -27,12 +27,12 @@ if (fMethodIs('post')) {
 
 	$oCity->setLang($sLang);
 
-	/* Validation Du Label */
-		if(!fRequiredValidator('label', $_POST)) {
+	/* Validation Du Title */
+		if(!fRequiredValidator('title', $_POST)) {
 			$aErrors['Nom'] = 'Ce champs est obligatoire';
 		}
 		else{
-			$oCity->label = $_POST['label'];
+			$oCity->title = $_POST['title'];
 		}
 
 	/* Validation Du Status */
@@ -115,14 +115,14 @@ if (fMethodIs('post')) {
 		}
 
 		/* La ville ne peut être active que si tout les champs sont remplis */
-		if (!strlen($oCity->geoloc) || !strlen($oCity->image)) {
+		if (is_null($oCity->geoloc) || count(get_object_vars($oCity->geoloc)) != 2 || !strlen($oCity->image)) {
 			$oCity->state = false;
 			
 			if ($_POST['state']) {
 				$aErrors['state'] = 'Attention: la ville ne peut être publiée qu\'une fois tous les champs remplis.';
 			}
 		}
-
+		
 		$oSaveRes = $oCity->save();
 		if (!$oSaveRes->success) {
 			$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';

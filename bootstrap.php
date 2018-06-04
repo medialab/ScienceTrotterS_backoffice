@@ -14,6 +14,8 @@ $sContent = '';
 
         require_once('./lib/smarty/Smarty.class.php');
         $smarty = new Smarty();
+        $smarty->assign('sPage', $sPage);
+        $smarty->assign('sExt', $sExt);
 # exit();
 
         // $smarty->force_compile = true;
