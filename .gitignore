@@ -1,4 +1,4 @@
 media/upload/*
 templates_c/*
 .phpintel/*
-/config/defines.php
+config/defines.php
