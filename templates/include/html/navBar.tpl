@@ -7,7 +7,7 @@
     <div class="content">
       <!-- ITEM LIST -->
       <ul class="itemList">
-        <li class="item selected">
+        <li class="item {if $sPage === 'index'}selected{/if}">
 
           <a href="/" class="itemClick">
             <div class="itemIcon lb-icon-home"></div>
@@ -16,19 +16,19 @@
           <!-- .\ SUB ITEMS -->
         </li>
 
-        <li class="item">
+        <li class="item {if $sPage === 'edit/city'}selected{/if}">
           <a href="/edit/city.html" class="itemClick">
             <div class="itemIcon lb-icon-city"></div>
             <label class="itemLabel">Créer ville</label>
           </a>
         </li>
-        <li class="item">
+        <li class="item {if $sPage === 'edit/parcours'}selected{/if}">
           <a href="/edit/parcours.html" class="itemClick">
             <div class="itemIcon lb-icon-road"></div>
             <label class="itemLabel">Créer parcours</label>
           </a>
         </li>
-        <li class="item">
+        <li class="item {if $sPage === 'edit/interest'}selected{/if}">
           <a href="/edit/interest.html" class="itemClick">
             <div class="itemIcon lb-icon-roadMap"></div>
             <label class="itemLabel">Créer points d'intérêts</label>
