@@ -8,6 +8,7 @@ $sContent = '';
       require_once('./lib/functions.php');
 //---
 
+
 // Smarty
 
 
@@ -39,7 +40,7 @@ ApiMgr::init();
     require( "./access.php" );
     if ( in_array($sExt, $aRestrictExtension) ){
         // On est dans une extension controlée
-            if( empty($_SESSION['user']['token']) || !in_array( "{$sPage}.{$sExt}", $aAccessUtilisateur ) ){
+            if( empty($_SESSION['user']['token']) && !in_array( "{$sPage}.{$sExt}", $aAccessUtilisateur ) ){
                 $ext = strtoupper($sExt);
                 if (!empty($aAccess[$ext]['redirection'])) {
                     $redir = $aAccess[$ext]['redirection'];
@@ -109,25 +110,19 @@ foreach ($files as $file) {
     $i++;
 }
 
-/*var_dump("TEST");*/
 foreach ($tplFiles as $f) {
-    /*var_dump($f);*/
     $sContent .= $smarty->fetch($f);
 }
 
-/*if ( file_exists('./php/'.$sExt.'.php') ) {
-        require_once('./php/'.$sExt.'.php');
-}
-
-if ( file_exists('./php/'.$sExt.'/'.$sPage.'.php') ) {
-        require_once('./php/'.$sExt.'/'.$sPage.'.php');
-}
-
-if ( file_exists('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile) ) {
-    $sContent = $smarty->fetch('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile);
-}*/
-
 $smarty->assign('sPageContent', $sContent);
+
+if (!empty($aFilDArianne)) {
+    $smarty->assign('aFilDArianne', $aFilDArianne);
+}
+else{
+    $smarty->assign('aFilDArianne', []);
+}
+
 if ( file_exists('./templates/'.$sExt.'.'.$sExtFile) ) {
     $sContent = $smarty->fetch($sExt.'.'.$sExtFile);
 }

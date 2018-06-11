@@ -1,6 +1,13 @@
-
 // Load Automatique Des Listes
 $(document).ready(function() {
+	/* On alerte avant de supprimer */
+	$("#cities").on('click', 'a.delete-btn', function(e) {
+		if (!confirm("Êtes vous sûr de vouloir supprimer cette ville ?")) {
+			e.preventDefault();
+			return false;
+		}
+	});
+
 	var lists = {};		// Taleau ID => [jquery el, timer, requete]
 
 	$('div.columnData').scroll(function() {
@@ -51,8 +58,12 @@ $(document).ready(function() {
 							$.each(result.data, function(i,e) {
 								console.log("=== "+i+" ===", e);
 
-								var row = base.clone();
+								var row = base.clone(true);
 								row.find('.itemLabel').text(e.label);
+								row.find('.delete-btn').attr('href', '/delete/city/'+e.id+'.html');
+								row.find('.edit-btn').attr('href', '/edit/city/'+e.id+'.html');
+								row.find('.preview-btn').attr('href', '/preview/city/'+e.id+'.html');
+
 								ul.append(row);
 								ul.append(spin.parents('.item'));
 							});

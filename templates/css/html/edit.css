@@ -1,0 +1,97 @@
+.tab-selector {
+	width: 1040px;
+	max-width: 70%;
+	position: relative;
+	margin: 0px auto 24px auto;
+	border-bottom: 2px solid #3156A6;
+}
+
+.tab-selector .tab-triggers{
+	display: inline-block;
+}
+
+.tab-selector .tab-trigger{
+	color: #3156A6;
+	margin-right: 0;
+	cursor: pointer;
+	padding: 3px 15px;
+	display: inline-block;
+	text-transform: capitalize;
+	
+	border: 2px solid #3156A6;
+	border-bottom: none;
+}
+
+.tab-selector .tab-triggers div.tab-trigger:first-of-type{
+	border-radius: 4px 0px 0 0;
+}
+
+.tab-selector .tab-triggers div.tab-trigger:last-of-type{
+	border-radius: 0px 4px 0 0;
+}
+
+.tab-selector .tab-trigger.on{
+	color: white;
+	background-color: #3156A6;
+}
+
+.tab-trigger[disabled] {
+    background-color: #d5d5d5;
+    color: white;
+    border-color: #d5d5d5;
+}
+
+.tab-selector .french-only{
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	display: inline-block;
+}
+
+.cust-checkbox {
+	cursor: pointer;
+}
+
+.cust-checkbox .check {
+	width: 18px;
+	height: 18px;
+	border-radius: 15%;
+	position: relative;
+	vertical-align: sub;
+	display: inline-block;
+	border: 2px solid #3156A6;
+}
+
+.cust-checkbox input[type="checkbox"] {
+	display: none;
+}
+
+.cust-checkbox .check > div {
+	top: 1px;
+	left: 1px;
+	width: 12px;
+	height: 12px;
+	border-radius: 15%;
+	position: absolute;
+	display: inline-block;
+}
+
+.cust-checkbox.on .check > div {
+	background: #3156A6;
+}
+
+.tab {
+	display: none;
+}
+
+.tab.on {
+	display: initial;
+}
+
+.tab {
+	display: none;
+}
+
+.tab {
+	display: none;
+}

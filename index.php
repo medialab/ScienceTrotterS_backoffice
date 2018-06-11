@@ -1,4 +1,10 @@
 <?php
+/*
+if ($_SERVER['REMOTE_ADDR'] === '194.150.15.75') {
+	var_dump($_SERVER['REQUEST_URI']);
+	var_dump($_GET);
+	exit;
+}*/
 
 // Gestion des erreurs 
 	ini_set( 'display_errors', true );
@@ -9,11 +15,10 @@
 
 	define( 'LIBRARY_PATH',        './lib/' );
 	define( 'TEMPLATE_PATH',        './templates/' );
-
-	define("API_SSL", false);
-	define("API_URL", 'http://api-sts-stable.actu.com');
+	define( 'UPLOAD_PATH',      	realpath('.').'/media/upload/' );
 
 
+	require_once('./config/defines.php');
 
 	// Fonction de chargement dynamique des classes
 		function fAutoLoader( $sClassName ){
@@ -30,7 +35,7 @@
 
 			// var_dump($sPathClassName);
 			if ( file_exists( $sPathClassName ) ) {
-				require( realpath( $sPathClassName ) );
+				require_once( realpath( $sPathClassName ) );
 
 			} 
 			else {
@@ -38,7 +43,7 @@
 				$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.php' );
 				// var_dump($sPathClassName);
 				if ( file_exists( $sPathClassName ) ) {
-					require( realpath( $sPathClassName ) );
+					require_once( realpath( $sPathClassName ) );
 				}
 			}
 		} spl_autoload_register( 'fAutoLoader' );

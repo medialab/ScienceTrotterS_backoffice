@@ -8,6 +8,7 @@ class CurlMgr {
     private $res;           // Request Result
     private $err;           // Error Msg
     private $errCode;       // Error Code
+    private $responseCode = 0;   // Http Response Code
 
     public $headers = [];   // Headers to Apply
 
@@ -136,6 +137,7 @@ class CurlMgr {
         $this->res = NULL;
         $this->errCode = 0;
         $this->headers = [];
+        $this->responseCode = 0;
 
         return $this;
     }
@@ -177,8 +179,17 @@ class CurlMgr {
         $this->res = curl_exec($this->c);
         $this->err = curl_error($this->c);
         $this->errCode = curl_errno($this->c);
+        $this->responseCode = $this->getInfos()['http_code'];
 
         return $this->res;
+    }
+
+    /**
+     * Get Http Response Code
+     * @return String Response
+     */
+    public function getHttpCode(){
+        return $this->responseCode;
     }
 
     /**
@@ -254,7 +265,7 @@ class CurlMgr {
     }
 
     /**
-     * sET Curl Option
+     * SET Curl Option
      * @param [type] $opt  [description]
      * @param [type] $data [description]
      */

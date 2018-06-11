@@ -4,9 +4,12 @@
  * 
  */
 class ApiMgr {
+	private static $mail;				// API E-MAIL
+	private static $pass;				// API PASSWORD
+	private static $token = false;		// Api Token
+
 	private static $url;				// Base API URL
 	private static $curl;				// CurlMgr
-	private static $token = false;		// Api Token
 	private static $bInit = false;		// Is Init
 	
 	private static $curPage = 0;		// Current Page
@@ -14,6 +17,10 @@ class ApiMgr {
 	private static $sqlMaxLimit = 200;	// Max Reuest Return Limit
 	
 	private static $tmpData = [];		// Temporary Request
+
+	public static $debugMode = false;
+
+	private static $sCurLang = false;
 
 	public static function init() {
 		if (Self::$bInit) {
@@ -27,6 +34,8 @@ class ApiMgr {
 
 		if (!empty($_SESSION['user']['token'])) {
 			Self::setToken($_SESSION['user']['token']);
+			Self::$pass = $_SESSION['user']['pass'];
+			Self::$mail = $_SESSION['user']['email'];
 		}
 
 		Self::$bInit = true;
@@ -48,20 +57,67 @@ class ApiMgr {
 	 * @param  boolean $applyHeaders Ajoute ou non le header Authorization 
 	 * @return Array                Résultats
 	 */
-	private static function exec($method='get', $applyHeaders=true) {
+	private static function exec($method='get', $applyHeaders=true, $bRelogin=true) {
+		// Application Du Header De Connexion
 		if (Self::$token && $applyHeaders) {
 			Self::$curl->setHeader('Authorization: '.Self::$token);
 		}
 
+		// Mise en place des variables communes
 		Self::$tmpData['limit'] = Self::$sqlLimit;
 		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
 
+		Self::$tmpData['lang'] = Self::$sCurLang;
+	
 		//var_dump("Request DATA", Self::$tmpData);
-		
-		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 
+		// Création de la requete Curl
+		Self::$curl->setData(Self::$tmpData)->setMethod($method);
 		$r = Self::$curl->exec();
-		return json_decode($r);
+		$oResult =  json_decode($r);
+		
+		if (Self::$debugMode) {
+			var_dump("======= DEBUG REQUEST =======");
+			var_dump(Self::$tmpData);
+			var_dump(Self::$curl->getInfos());
+			var_dump(Self::$curl->getError());
+
+			if (is_null($oResult)) {
+				var_dump("======= RAW RESPONSE =======");
+				echo $r;
+				exit;
+			}
+			else{
+				var_dump("======= JSON RESPONSE =======");
+				var_dump($oResult);
+			}
+		}
+
+		// Si Le token est expiré ou invalide
+		if ($bRelogin && in_array(Self::$curl->getHttpCode(), [401, 440])) {
+			// On garde la requete de coté
+			$tmp = Self::$tmpData;
+			$url = Self::$curl->getInfos(CURLINFO_EFFECTIVE_URL);
+
+			// On se Reconnecte
+			$bLoginRes = Self::login(Self::$mail, Self::$pass);
+
+			if(!$bLoginRes) {	// Connexion échouée, On abandonne
+				return $oResult;
+			}
+
+			// On ré-éxécute la requete et on retourne le résultat
+			Self::reset();
+			Self::$curl->setUrl($url);
+			Self::setData($tmp);
+			$oResult = Self::exec($method, $applyHeaders, false);
+		}
+
+		if (is_null($oResult)) {
+			return (object) ['success' => false, 'message' => 'Malformed Response JSON'];
+		}
+
+		return $oResult;
 	}
 
 	/**
@@ -100,13 +156,16 @@ class ApiMgr {
 			'password' => $pass
 		]);
 
-		$res = Self::exec('post');
+		$res = Self::exec('post', true, false);
 
 		if (empty($res) || !$res->status || empty($res->token)) {
 			return false;
 		}
 
-		Self::setToken($token);
+		Self::setToken($res->token);
+
+		Self::$pass = $pass;
+		Self::$mail = $mail;
 
 		$_SESSION['user'] = [
 			'pass' => $pass,
@@ -114,7 +173,6 @@ class ApiMgr {
 			'token' => $res->token,
 			'aut_access' => 'ADMIN'
 		];
-
 
 		return true;
 	}
@@ -245,5 +303,76 @@ class ApiMgr {
 		}
 
 		Self::$curPage = $page;
+	}
+
+	private static function prepareModel(Model\Model $oModel) {
+		$aData = $oModel->toArray();
+		unset($aData['created_at']);
+		unset($aData['updated_at']);
+
+		return $aData;
+	}
+
+	public static function update(Model\Model $oModel) {
+		$c = Self::reset();
+		
+		$url = Self::$url.'private/'.$oModel->sTable.'/update';
+		$c->setUrl($url);
+
+		$aData = Self::prepareModel($oModel);
+
+		Self::setData(['id' => $oModel->id, 'data' => $aData]);
+		
+		$res = Self::exec('post');
+		/*var_dump($res);
+		exit;*/
+
+		return $res;
+	}
+
+	public static function insert(Model\Model $oModel) {
+		// Self::$debugMode = true;
+		$c = Self::reset();
+		
+		$url = Self::$url.'private/'.$oModel->sTable.'/add';
+		$c->setUrl($url);
+
+		$aData = Self::prepareModel($oModel);
+		Self::setData(['data' => $aData]);
+
+		
+		$res = Self::exec('post');
+
+		if (empty($res->success) || !$res->success) {
+			return false;
+		}
+
+		// Self::$debugMode = false;
+		return $res;
+	}
+
+	public static function delete(Model\Model $oModel) {
+		$c = Self::reset();
+		
+		$url = Self::$url.'private/'.$oModel->sTable.'/delete';
+		$c->setUrl($url);
+
+		Self::setData(['id' => $oModel->id]);
+
+		$res = Self::exec('post');
+
+		if (empty($res->success) || !$res->success) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public static function setLang($l=false) {
+		Self::$sCurLang = $l;
+	}
+
+	public static function getLang() {
+		return Self::$sCurLang;
 	}
 }

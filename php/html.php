@@ -1,2 +1,3 @@
 <?php
-/* lool*/
+
+$aFilDArianne = ['index' => 'Accueil'];

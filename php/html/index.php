@@ -1,13 +1,12 @@
 <?php
 
-$aCities = ApiMgr::list('cities', true, 5);
-$smarty->assign('aCities', $aCities->data);
 
+ApiMgr::setLang('fr');
+$aCities = Model\City::list(5);
+$smarty->assign('aCities', $aCities);
 
+$aParcours = Model\Parcours::list(5);
+$smarty->assign('aParcours', $aParcours);
 
-$aParcours = ApiMgr::list('parcours', true, 5);
-$smarty->assign('aParcours', $aParcours->data);
-
-
-$aInterrests = ApiMgr::list('interrests', true, 5);
+$aInterrests = ApiMgr::list('interrests', false, 5);
 $smarty->assign('aInterrests', $aInterrests->data);

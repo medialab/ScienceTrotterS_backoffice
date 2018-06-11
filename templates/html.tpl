@@ -10,13 +10,28 @@
 		<!-- FONTS -->
 		
 		<!-- CSS -->
+			<link rel="stylesheet" href="/lib/reset.css" type="text/css" />
 			<link href="/html.css" rel="stylesheet" type="text/css" />
 			<link rel="stylesheet" href="/lib/navbar.css" type="text/css" />
 			<link rel="stylesheet" href="/lib/icons.css" type="text/css" />
 			<link rel="stylesheet" href="/lib/arbo.css" type="text/css" />
-			{if file_exists( "./templates/css/html/"|cat:$smarty.get.name:".css" )}
-				<link rel="stylesheet" href="/html/{$smarty.get.name}.css" type="text/css" />
-			{/if}
+			
+			{assign var='aFiles' value=('/'|explode: $smarty.get.name)}
+			{assign var='sPath' value=''}
+
+			{foreach $aFiles as $sFile}
+					{assign var="sPath" value=$sPath|cat:'/':$sFile}
+
+				{if file_exists( "./templates/css/html"|cat:$sPath:".css" )}
+					<link rel="stylesheet" href="/html/{$sPath}.css" type="text/css" />
+				{/if}
+			{/foreach}
+
+			{*
+				{if file_exists( "./templates/css/html/"|cat:$smarty.get.name:".css" )}
+					<link rel="stylesheet" href="/html/{$smarty.get.name}.css" type="text/css" />
+				{/if}
+			*}
 
 			<script type="text/javascript" src="/lib/jquery-3.3.1.min.js"></script>
 	</head>
@@ -30,20 +45,37 @@
 			{/if}
 
 			<div class="content">
-				{$sPageContent|default:'noCONTENT'}
+				{include file="include/html/top-bar.tpl"}
+
+				<div class="mainContent">
+					<div class="contentView">
+						{$sPageContent|default:'noCONTENT'}
+					</div>
+				</div>
 			</div>
 
 			{include file="include/html/footer.tpl"}
 		</div>
 
 		<script>
-			var _API_URL_ = '{$_API_URL_}public/';
+			var _API_URL_ = '{$_API_URL_}private/';
 			var _API_TOKEN_ = '{$_API_TOKEN_|default: ""}';
 		</script>
 
+		<script src="/api-mgr.js"></script>
 		<script src="/html.js"></script>
+
+		
+		{assign var='sPath' value=''}
+		{foreach $aFiles as $sFile}
+			{assign var="sPath" value=$sPath|cat:'/':$sFile}
+			
+			{if file_exists( "./templates/js/html/"|cat:$sFile:".js" )}
+				<script src="/html/{$sFile}.js"></script>
+			{/if}
+		{/foreach}
+
 		{if file_exists( "./templates/js/html/"|cat:$smarty.get.name:".js" )}
-			<script src="/html/{$smarty.get.name}.js"></script>
 		{/if}
 	</body>
 </html>

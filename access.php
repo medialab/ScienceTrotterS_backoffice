@@ -12,15 +12,20 @@ $aRestrictExtension	= [
 	// aux VISITEURS 
 		$aAccess["VISITOR"]	=	[
 			'logout.html',
+			'upload.html',
+			'upload/cities.html',
 			'connexion.html',
-			'edit.html',
-			'edit/city.html'
 		];
 	
 
 	// ADMIN 
 		$aAccess["ADMIN"]	=	[
-			'index.html'
+			'index.html',
+			'test.html',
+			'edit.html',
+			'edit/city.html',
+			'edit/interest.html',
+			'edit/parcours.html'
 		];
 
 		$aAccess['HTML'] = &$aAccess['ADMIN'];
