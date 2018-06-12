@@ -2,7 +2,7 @@
 
 $aErrors = [];
 if (fMethodIs('post')) {
-	$res = ApiMgr::login('ouio@oui.com', $_POST['user_password']);
+	$res = ApiMgr::login('admin@admin.com', $_POST['user_password']);
 
 	if ($res) {
 		header('location: /');
