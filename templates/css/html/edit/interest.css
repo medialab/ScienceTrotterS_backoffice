@@ -16,6 +16,10 @@ position: 						relative;
 top: 							-20px;
 }
 
+#box-imgs-interest .blocInputFileName {
+	margin: 0;
+}
+
 #box-imgs-interest .blocInputFileName label.btnInputFileName {
 max-width:           calc( 200px - 20px );
 min-width:          150px;

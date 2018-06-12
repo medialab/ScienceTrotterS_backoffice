@@ -18,6 +18,7 @@ abstract class Model
 
 
 	protected $sqlVars = ['id', 'created_at', 'updated_at'];
+	protected $aPublicVars = ['force_lang'];
 
 	protected $sTable;
 
@@ -45,7 +46,7 @@ abstract class Model
 		if ($bSqlVars && in_array($sVar, $this->sqlVars)) {
 			return true;
 		}
-		elseif (property_exists('Model\Model', $sVar)) {
+		elseif (!in_array($sVar, $this->aPublicVars) && property_exists('Model\Model', $sVar)) {
 			return -1;
 		} 
 		elseif(property_exists($this, $sVar)) {
@@ -221,9 +222,9 @@ abstract class Model
 					$this->$sProp = $sData;
 				}
 			}
-			else {/*
-				var_dump("Faild Prop", $sProp, get_object_vars($this));
-				var_dump("Faild Prop", $sProp);*/
+			else {
+				//var_dump("Faild Prop", $sProp, get_object_vars($this));
+				//var_dump("Faild Prop", $sProp);
 				return false;
 			}
 		}
@@ -253,7 +254,7 @@ abstract class Model
 	public function save() {
 		$tmpLang = \ApiMgr::getLang();
 		\ApiMgr::setLang($this->sCurLang);
-		
+
 		if (!$this->id) {
 			$oData = \ApiMgr::insert($this);
 		}

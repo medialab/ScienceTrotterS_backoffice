@@ -4,7 +4,8 @@ $(document).ready(function() {
 	console.log($(".arboItem .columnData"));
 
 	$(".arboItem .columnData").on('click', 'a.delete-btn', function(e) {
-		if (!confirm("Êtes vous sûr de vouloir supprimer cette ville ?")) {
+		console.log("DELETE ", $(this))
+		if (!confirm("Êtes vous sûr de vouloir supprimer "+$(this).parents('.columnData').attr('target')+" ?")) {
 			e.preventDefault();
 			return false;
 		}

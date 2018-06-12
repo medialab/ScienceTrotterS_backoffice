@@ -490,6 +490,10 @@ width: 							calc( 50% - 20px );
 width:              100%;
 }
 
+.box-small {
+width:              calc((50% / 2) - 30px);
+}
+
 .box + .box {
 margin-top: 					40px;
 }
@@ -543,6 +547,7 @@ z-index: 						-1;
 }
 
 .box .inputFile + div label.btnInputFileName {
+padding: 15px 0px;
 cursor: 						pointer;
 background: 					#F0F0F7;
 display: 						flex;
@@ -551,6 +556,8 @@ justify-content: 				center;
 align-items: 					center;
 position: 						relative;
 }
+
+
 
 .box label.blocInputFileName.img {
 	min-height: 					150px;
@@ -568,10 +575,11 @@ justify-content:      center;
 }
 
 .blocInputFileName {
-margin: 							10px;
+	margin: 							0 10%;
 }
 
 label.btnInputFileName img {
+
 background-size: 				cover;
 }
 
@@ -593,8 +601,8 @@ color: 							#3156A6;
 }
 
 .borderGrey {
-padding:            20px 0;
-border-top:           1px solid #F0F0F7;
+padding:            	0px;
+border-top:           	1px solid #F0F0F7;
 border-bottom:          1px solid #F0F0F7;
 margin-bottom:          15px;
 }

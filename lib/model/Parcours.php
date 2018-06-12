@@ -33,7 +33,7 @@ class Parcours extends Model
 	}
 
 	public function setColor($color) {
-		if (!preg_match('/^#[a-z0-9]{3,6}$/', $color)) {
+		if (!preg_match('/^#[a-z0-9]{3,6}$/i', $color)) {
 			$this->color = '#0000';
 
 			if (!empty($color)) {

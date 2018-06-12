@@ -48,7 +48,7 @@ class ApiMgr {
 		global $smarty;
 
 		Self::$url = API_URL.'/';
-		$smarty->assign("_API_URL_", Self::$url);
+		$smarty->assign("_API_URL_", API_URL);
 	}
 
 	/**
@@ -195,7 +195,7 @@ class ApiMgr {
 	 * @param  integer $page   Page
 	 * @return Array          List d'elements
 	 */
-	public static function list($model, $public=true, $limit=0, $page=0, $columns=false) {
+	public static function list($model, $public=true, $limit=0, $page=0, $columns=false, $aOrder=false) {
 		$c = Self::reset();
 
 		Self::setLimit($limit);
@@ -206,9 +206,16 @@ class ApiMgr {
 		$url = Self::$url.$base.$model.'/list';
 
 		$c->setUrl($url);
+		$adata = [];
 		if ($columns) {
-			Self::setData(['columns' => $columns]);
+			$aData['columns'] = $columns;
 		}
+
+		if ($aOrder) {
+			$aData['order'] = $aOrder;
+		}
+
+		Self::setData($aData);
 
 		$res = Self::exec();
 		return $res;
@@ -375,5 +382,31 @@ class ApiMgr {
 
 	public static function getLang() {
 		return Self::$sCurLang;
+	}
+
+	
+	/**
+	 * Récupère Un Array d'Interests Par Id de parcours
+	 * @param  integer $limit  Limit
+	 * @param  integer $page   Page
+	 * @return Array          List d'elements
+	 */
+	public static function listByParcours($id, $public=true, $limit=0, $page=0, $columns=false) {
+		$c = Self::reset();
+
+		Self::setLimit($limit);
+		Self::setPage($page);
+
+		$base = $public ? 'public/' : 'private/';
+		
+		$url = Self::$url.$base.'interests/byParcourId/'.$id;
+
+		$c->setUrl($url);
+		if ($columns) {
+			Self::setData(['columns' => $columns]);
+		}
+
+		$res = Self::exec();
+		return $res;
 	}
 }

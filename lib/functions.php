@@ -24,7 +24,8 @@
 
 // Création d'une chaine de caractère URL Friendly ( sans accents, ni caractère spécial, en minuscule )
 	function fCreateFriendlyUrl( $sString ) {
-		return preg_replace(['/([^a-z0-9.-]+)/', '/(\-)+/'], ['-', '-'], strtolower($sString));
+		return preg_replace(['/([^a-z0-9.-]+)/', '/(\-)+/', '/^\-/', '/\-([^a-z0-9])/'], ['-', '-', '', '$1'], strtolower($sString));
+		return str_replace('-.', '.', $sString);
 	}
 //---
 
@@ -134,9 +135,11 @@ function fMethodIs($type='get') {
 	}
 
 	function fFileExtensionValidator($sName, $aFileTypes) {
-
+		//var_dump($_FILES);
+		//var_dump("VALIDATE $sName");
 		/* Si aucun Fichier */
 		if (empty($_FILES) || empty($_FILES[$sName]) || empty($_FILES[$sName]['tmp_name'])) {
+			//var_dump("File Empty");
 			return true;
 		}
 
@@ -146,6 +149,7 @@ function fMethodIs($type='get') {
 		$finfo = finfo_open( FILEINFO_MIME_TYPE );
 		$mtype = finfo_file( $finfo,  $sTmpPath);
 		finfo_close( $finfo );
+		//var_dump("mType: $mtype");;
 		
 		/* On récupère les Mimes Authorisés */
 		if (is_string($aFileTypes)) {
@@ -153,6 +157,8 @@ function fMethodIs($type='get') {
 		}
 
 		$aAuthorizedMimes = fGetAuthorizedMimes($aFileTypes);
+		//var_dump("Autorized: ", $aAuthorizedMimes);;
+		//var_dump("Result: ", in_array($mtype, $aAuthorizedMimes));;
 
 		return in_array($mtype, $aAuthorizedMimes);
 	}
@@ -232,7 +238,7 @@ function fMethodIs($type='get') {
 	function fGetMimeMap() {
 		static $aMimeMap = [
 			'mimes' => [
-				'audio' => ['mpeg', 'x-wav', 'flac'],
+				'audio' => ['mpeg', 'x-wav', 'flac', 'wav'],
 				'video' => ['mpeg', 'mp4', 'quicktime', 'x-flv'],
 				'text' => ['css', 'csv', 'html', 'javascript', 'plain', 'xml'],
 				'image' => ['gif', 'jpg', 'jpeg', 'png', 'x-icon', 'svg', 'tiff'],
@@ -277,9 +283,11 @@ function fMethodIs($type='get') {
 				'flac' => 'audio/flac',
 				'mp1' => 'audio/mpeg',
 				'mp2' => 'audio/mpeg',
+				'mp3' => 'audio/mpeg',
 				'm2a' => 'audio/mpeg',
 				'mpa' => 'audio/mpeg',
 				'mpg' => 'audio/mpeg',
+				'wav' => 'audio/wav',
 
 
 				/* VIDEO */
@@ -317,27 +325,43 @@ function fMethodIs($type='get') {
 
 
 function handleUploadedFile($name, $directory) {
+	//var_dump("UPLOAD: $name");
 	/* Sauvegarde Temporaire de l'image */
 	if (!empty($_FILES[$name]) && !empty($_FILES[$name]['name'])) {
+		//var_dump("Directory: $directory");
+		//var_dump("Full Path: ".UPLOAD_PATH.$directory);
+
 		/* Création du dossier */
 		if (!is_dir(UPLOAD_PATH.$directory)) {
+			//var_dump("Create Directory");
 			mkdir(UPLOAD_PATH.$directory, 0775, true);
 		}
 
 		$imgPath = $directory.'/'.fCreateFriendlyUrl($_FILES[$name]['name']);
+		//var_dump("Img Path: $imgPath");
 		$dest = UPLOAD_PATH.$imgPath;
 
 		$dest = str_replace('/', DIRECTORY_SEPARATOR, $dest);
+		//var_dump("dest Path: $dest");
 		/* Si le fichier existe on le remplace */
 		if (file_exists($dest)) {
+			//var_dump("Deleting Old");
 			unlink($dest);
 		}
 
 		$result = move_uploaded_file($_FILES[$name]['tmp_name'], $dest);
+		//var_dump("Move Upload");
 
 		if ($result) {
 			return $imgPath;
 		}
+		else{
+		//var_dump("Faild");
+
+		}
+	}
+	else{
+		//var_dump("No File Uploaded");
 	}
 
 	return null;

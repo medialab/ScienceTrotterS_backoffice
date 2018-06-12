@@ -19,7 +19,7 @@
 				
 				<input name="geo-n" id="latitude" type="number" step=".0001" placeholder="ex: 48.856" value="{$oCity->geoN|default: ''}">
 				<input name="geo-e" id="longitude" type="number" step=".0001" placeholder="ex: 2.3522" value="{$oCity->geoE|default: ''}">
-				
+
 				<p>Avec Google Map, cliquez sur une adresse pour récupérer les coordonées GPS</p>
 				<a id="localisation" href="https://www.google.com/maps" target="_blank" title="" class="item itemClick">https://www.google.com/maps</a>
 			</div>

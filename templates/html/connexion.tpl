@@ -6,11 +6,11 @@
 		<img src="/media/image/interface/leftbar/sts-full.svg" width="250px" height="14px" alt="Logo Science Trotters format Mobile" id="imgMobile">
 	</div>
 
-	{include file="include/html/form-error.tpl"}
-
 	<div class="all">
 		<div class="form">	
 			<form method="post">
+				{include file="include/html/form-error.tpl"}
+
 	        	<input type="password" id="password" name="user_password" placeholder="Mot de Passe">
 
 				<p class="forget">

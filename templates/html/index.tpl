@@ -9,7 +9,7 @@
 		</div>
 
 		<!-- DATA -->
-		<div id="cities" class="columnData" limit="{$aCities|count}">
+		<div id="cities" class="columnData" limit="{$aCities|count}" target="cette ville">
 			<ul class="itemList">
 				{foreach $aCities as $city}
 					<!-- ITEM -->
@@ -30,13 +30,15 @@
 					<!-- .\ ITEM -->
 				{/foreach}
 
-				<!-- LOAD ITEM -->
-				<li class="item">
-					<div class="itemAction">
-					</div>
-					<label class="itemLabel">{include file="include/spinner.tpl" size='xs'}</label>
-				</li>
-				<!-- .\ LOAD ITEM -->
+				{*
+					<!-- LOAD ITEM -->
+					<li class="item">
+						<div class="itemAction">
+						</div>
+						<label class="itemLabel">{include file="include/spinner.tpl" size='xs'}</label>
+					</li>
+					<!-- .\ LOAD ITEM -->
+				*}
 			</ul>
 
 		</div>
@@ -60,7 +62,7 @@
 		</div>
 
 		<!-- DATA -->
-		<div id="parcours"  class="columnData" limit="{$aParcours|count}">
+		<div id="parcours"  class="columnData" limit="{$aParcours|count}" target="ce parcours">
 			<ul class="itemList">
 				{foreach $aParcours as $parcours}
 					<li class="item">
@@ -100,7 +102,7 @@
 		</div>
 
 		<!-- DATA -->
-		<div id="interests"  class="columnData" limit="{$aInterests|count}">
+		<div id="interests"  class="columnData" limit="{$aInterests|count}" target="ce point d'interêt">
 			<ul class="itemList">
 				{foreach $aInterests as $interest}
 					<li class="item">
@@ -108,7 +110,7 @@
 							<a class="delete-btn" href="/delete/interest/{$interest->id}.html">
 								<i class="icon-pre icon-list-remove"></i>
 							</a>
-							<a href="/edit/interests/{$interest->id}.html">
+							<a href="/edit/interest/{$interest->id}.html">
 								<i class="icon-pre icon-list-edit"></i>
 							</a>
 							<a href="#">

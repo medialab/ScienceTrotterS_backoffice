@@ -23,10 +23,10 @@ foreach ($oCities->data as $oCity) {
 }
 
 
-$oParcours = ApiMgr::list('parcours', false, 0, 0, ['id', 'title']);
+$oParcours = ApiMgr::list('parcours', false, 0, 0, ['id', 'title', 'cities_id']);
 $aParcours = [];
-foreach ($oParcours->data as $aPar) {
-	$aParcours[$aPar->id] = $aPar->title;
+foreach ($oParcours->data as $oPar) {
+	$aParcours[$oPar->id] = ['id' => $oPar->id, 'title' => $oPar->title, 'city_id' => $oPar->cities_id];
 }
 
 ApiMgr::setLang(false);
@@ -36,112 +36,40 @@ $oCity = null;
 
 $oInt = new \Model\Interest($id);
 /*var_dump($oInt);
-exit;*/
-
+exit;
+*/
 $curParc = false;
-if (fMethodIs('post')) {
-	//var_dump($_POST);
-	$sLang = empty($_POST['lang']) ? false : $_POST['lang'];
-	/*var_dump($sLang);
-	exit;*/
-	if (!$sLang) {
-		$aErrors['lang'] = 'Aucune langue n\'a été sélectionnée';
-	}
-
-	$oInt->setLang($sLang);
-
-	/* Validation Du Title */
-		if(!fRequiredValidator('title', $_POST)) {
-			$aErrors['Nom'] = 'Ce champs est obligatoire';
-		}
-		else{
-			$oInt->title = $_POST['title'];
+if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
+	
+	/* Validation De  accroche */
+		if (!empty($_POST['address'])) {
+			$oInt->address = $_POST['address'];
 		}
 
-		/* Validation Du Status */
-			$_POST['state'] = (bool) (empty($_POST['state']) ? 0 : $_POST['state']);
-			$oInt->state = $_POST['state'];
+	/* Validation De  transports */
+		if (!empty($_POST['transport'])) {
+			$oInt->transport = $_POST['transport'];
+		}
 
-		/* Validation De la Géolocalisation */
-			/* Validation De la Latitude */
-			if (!empty($_POST['geo-n'])) {
-				$geoN = &$_POST['geo-n'];
+	/* Validation De  audio_script */
+		if (!empty($_POST['audio_script'])) {
+			$oInt->audio_script = $_POST['audio_script'];
+		}
 
-				if (empty($geoN)) {
-					$aErrors['Longitude'] = 'Ce champs est obligatoire';
-				}
-				else{
-					if (!is_numeric($geoN) || $geoN < -90 || $geoN > 90) {
-						$aErrors['Latitude'] = 'Ce Champs doit être compris entre -90° et 90°';
-					}
-				}
-			}
+	/* Validation De  bibliography */
+		if (!empty($_POST['bibliography'])) {
+			$oInt->bibliography = $_POST['bibliography'];
+		}
 
-			/* Validation De la Longitude */
-			if (!empty($_POST['geo-e'])) {
-				$geoE = &$_POST['geo-e'];
+	/* Validation De  schedule */
+		if (!empty($_POST['schedule'])) {
+			$oInt->schedule = $_POST['schedule'];
+		}
 
-				if (empty($_POST['geo-n'])) {
-					$aErrors['Latitude'] = 'Ce champs est obligatoire';
-				}
-				else{
-					if (!is_numeric($geoE) || $geoE < -180 || $geoE > 180) {
-						$aErrors['Latitude'] = 'Ce Champs doit être compris entre -180° et 180°';
-					}
-				}
-			}
-
-			/* Validation De  accroche */
-			if (!empty($_POST['address'])) {
-				$oInt->address = $_POST['address'];
-			}
-
-			/* Validation De  transports */
-			if (!empty($_POST['transport'])) {
-				$oInt->transport = $_POST['transport'];
-			}
-
-			/* Validation De  audio_script */
-			if (!empty($_POST['audio_script'])) {
-				$oInt->audio_script = $_POST['audio_script'];
-			}
-
-			/* Validation De  bibliography */
-			if (!empty($_POST['bibliography'])) {
-				$oInt->bibliography = $_POST['bibliography'];
-			}
-
-			/* Validation De  schedule */
-			if (!empty($_POST['schedule'])) {
-				$oInt->schedule = $_POST['schedule'];
-			}
-
-			/* Validation De price */
-			if (!empty($_POST['price'])) {
-				$oInt->price = $_POST['price'];
-			}
-
-			if (empty($aErrors['Latitude']) && empty($aErrors['Latitude'])) {		
-				$oInt->geoloc = $_POST['geo-n'].';'.$_POST['geo-e'];
-			}
-
-		/* Validation de L'image */
-			$aFileTypes = ['png', 'jpg', 'jpeg'];
-			if (!fFileExtensionValidator('img', $aFileTypes)) {
-				$mimes = fGetAuthorizedMimes($aFileTypes);
-				
-				if (count($mimes) > 1) {
-					$aErrors['Image'] = 'L\'image doit faire parti des types suivants: .'.join(', .', $aFileTypes);
-				}
-				else{
-					$aErrors['Image'] = 'L\'image doit être du type suivant: .'.join('', $aFileTypes);
-				}
-			}
-
-			$maxSize = '500Mo';
-			if (!fFileZieValidator('img', $maxSize)) {
-				$aErrors['Image'] = 'L\'image ne peut dépasser 500 Mo';
-			}
+	/* Validation De price */
+		if (!empty($_POST['price'])) {
+			$oInt->price = $_POST['price'];
+		}
 
 		/* Validation de  ville */
 		if (!empty($_POST['cities_id'])) {
@@ -165,13 +93,14 @@ if (fMethodIs('post')) {
 
 		/* Si On a pad d'erreur on prepare L'object ville */
 		if (empty($aErrors)) {
+			$oInt->state = $_POST['state'];
 			/* Sauvegarde Temporaire de l'image */
 			$oInt->header_image = handleUploadedFile('img', 'interests');
-			/*
-			ApiMgr::$debugMode = true;
-			var_dump($oInt);*/
+			
+			//ApiMgr::$debugMode = true;
+			/*var_dump($oInt);*/
 			$oSaveRes = $oInt->save();
-			//exit;
+			/*exit;*/
 			if (!$oSaveRes->success) {
 				$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
 			}
@@ -185,25 +114,31 @@ if (fMethodIs('post')) {
 		}
 }
 elseif (!empty($_GET['parent'])) {
-	$oInt->par_id = \Model\Model::validateID($_GET['parent']);
+	$oInt->parcours_id = \Model\Model::validateID($_GET['parent']);
 
-	if ($oInt->par_id) {
+	if ($oInt->parcours_id) {
 		ApiMgr::setLang('fr');
-		foreach ($aParcours as $oParc) {
-			if ($oParc->id == $oInt->par_id) {
-				$curParc = $oParc;
-				$oCity = \Model\City::get($oParc->cities_id);
+		foreach ($aParcours as $id => $aParc) {
+			if ($id == $oInt->parcours_id) {
+				$curParc = $aParc;
+
+				$oCity = \Model\City::get($aParc['city_id']);
 			}
 		}
 		ApiMgr::setLang(false);
 	}
 }
 
+/*var_dump($curParc);
+var_dump($oCity);
+exit;*/
+
 $smarty->assign([
 	'aErros' => $aErrors,
 	'oInt' => $oInt,
+	'oModel' => $oInt,
 	'oCity' => $oCity,
-	'oParc' => $curParc,
+	'curParc' => $curParc,
 	'aCities' => $aCities,
 	'aParcours' => $aParcours
 ]);

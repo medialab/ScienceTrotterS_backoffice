@@ -1,6 +1,14 @@
 <?php
 
+if (empty($_GET['hash'])) {
+	http_response_code(404);
+	exit;
+}
+
 $sPath = UPLOAD_PATH.$_GET['hash'];
+
+$sPath = str_replace('/', DIRECTORY_SEPARATOR, $sPath);
+
 if (!file_exists($sPath)) {
 	http_response_code(404);
 	exit;
@@ -13,5 +21,5 @@ finfo_close( $finfo );
 header('Content-Type: '.$mtype);
 echo file_get_contents($sPath);
 
-//unlink($sPath);
+unlink($sPath);
 exit;

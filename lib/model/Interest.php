@@ -54,25 +54,25 @@ class Interest extends Model
 		$this->setGeoloc($this->geoloc);
 	}
 
+	
 	public function setGeoloc(&$geoloc) {
 		if ($geoloc === ';') {
 			$geoloc = null;
 		}
+
+		if (is_string($geoloc)) {
+			$geo = explode(';', $geoloc);
+			$geoloc = (object) ['latitude' => (float)$geo[0], 'longitude' => (float)$geo[1]];
+		}
+
 		if (empty($geoloc)) {
 			$this->geoN = $geoloc;
 			$this->geoE = $geoloc;
 			return;
 		}
 
-		$aMatches = [];
-		if (!preg_match_all('/^(-?[0-9]{1,2}\.?[0-9]{0,4});(-?[0-9]{1,3}\.?[0-9]{0,4})$/', $geoloc, $aMatches)) {
-			trigger_error("Faild to Set Interest::geoloc propoerty. Value is Invalid");
-			return;
-		}
-
-		/*$this->geoloc = $geoloc;*/
-		$this->geoN = $aMatches[1][0];
-		$this->geoE = $aMatches[2][0];
+		$this->geoN = $geoloc->latitude;
+		$this->geoE = $geoloc->longitude;
 	}
 
 	public function setGeoN($geoN) {
@@ -130,5 +130,12 @@ class Interest extends Model
 
 	public static function get($id=0, $aData=[], $sClass=false) {
 		return Parent::get($id, $aData, self::$ssClass);
+	}
+
+	public static function listByParcours($parc_id) {
+		if (!Model::validateID($id)) {
+			return false;
+		}
+
 	}
 }

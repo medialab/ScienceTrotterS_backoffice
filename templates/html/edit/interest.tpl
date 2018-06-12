@@ -13,11 +13,11 @@
 				<input name="title" id="intitule" required type="text" value="{$oInt->title}">
 			</div>
 
-			<div class="box">
+			<div id="box-Ville" class="box">
 				<label for="ville">Ville *</label>
 				<select name="cities_id" id="ville">
 					<option value="">Choisir une ville</option>
-					{assign var="sCityID" value=$smarty.post.cities_id|default: $oInt->cities_id:false}
+					{assign var="sCityID" value=$smarty.post.cities_id|default: $oInt->cities_id:$oCity->id:false}
 
 					{foreach $aCities as $city_id => $sCity}
 						<option value="{$city_id}" {if ($sCityID) == $city_id}selected{/if}>
@@ -34,16 +34,16 @@
 				<input name="address" id="address" type="text" value="{$oInt->address}">
 			</div>
 
+			{assign var="sParcID" value=$smarty.post.par_id|default: $oInt->par_id:$curParc['id']:false}
 			<div class="box">
 				<label for="parcours">Parcours *</label>
 
 				<select name="parcours_id" id="parcours">
 					<option value="">Choisir un parcours</option>
-					{assign var="sParcID" value=$smarty.post.par_id|default: $oInt->par_id:false}
 
 					{foreach $aParcours as $par_id => $parc}
 						<option value="{$par_id}" {if ($sParcID) == $par_id}selected{/if}>
-							{$parc}
+							{$parc['title']}
 						</option>
 					{/foreach}
 				</select>
@@ -140,11 +140,11 @@
 				<label for="bibliographie">Bibliographie</label>
 				<p>5 maximum</p>
 
-				<input name="bibliography[]" id="bibliography1"  type="text" value="{$oInt->bibliography[0]}">
-				<input name="bibliography[]" id="bibliography2"  type="text" value="{$oInt->bibliography[1]}">
-				<input name="bibliography[]" id="bibliography3"  type="text" value="{$oInt->bibliography[2]}">
-				<input name="bibliography[]" id="bibliography4"  type="text" value="{$oInt->bibliography[3]}">
-				<input name="bibliography[]" id="bibliography5"  type="text" value="{$oInt->bibliography[4]}">
+				<input name="bibliography[]" id="bibliography1"  type="text" value="{$oInt->bibliography[0]|default: ''}">
+				<input name="bibliography[]" id="bibliography2"  type="text" value="{$oInt->bibliography[1]|default: ''}">
+				<input name="bibliography[]" id="bibliography3"  type="text" value="{$oInt->bibliography[2]|default: ''}">
+				<input name="bibliography[]" id="bibliography4"  type="text" value="{$oInt->bibliography[3]|default: ''}">
+				<input name="bibliography[]" id="bibliography5"  type="text" value="{$oInt->bibliography[4]|default: ''}">
 			</div>
 
 
@@ -156,12 +156,13 @@
 
 				<div class="borderGrey flexInputFile">
 					{for $index=0 to 4}
-						{if $oInt->gallery_image[$index]|default: false}
+						{$sImg = $oInt->gallery_image[$index]|default: false}
+						{if $sImg}
 							<input type="file" name="imgs-interet-{$index}" id="imgs-interet-{$index}" class="inputFile">
 							<div class="blocInputFileName">
 								<label class="btnInputFileName" for="imgs-interet-{$index}">
 									<img class="iconPreview" src="{$_API_URL_}ressources/upload/{$sImg}" alt="" width="56" height="50">
-									<p></p>
+									<p>{$sImg}</p>
 								</label>
 							</div>
 						{else}
@@ -190,8 +191,8 @@
 				</div>
 			</div>
 			
-			<div class="boolean box">
-				<input id="publie" type="checkbox" name="state" />
+			<div class="boolean {if $oInt->state|default: false}on{/if}">
+				<input id="publie" type="checkbox" name="state" {if $oInt->state|default: false}checked{/if}/>
 				<label for="publie" data="on">Publié</label>
 
 				<div class="style">

@@ -3,7 +3,10 @@
 		<ul>
 			{foreach $aErrors as $k => $err}
 				<li>
-					<b>{$k}: </b> {$err}
+					{if !empty($k)}
+						<b>{$k}: </b> 
+					{/if}
+					{$err}
 				</li>
 			{/foreach}
 		</ul>

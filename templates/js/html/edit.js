@@ -1,5 +1,13 @@
+function generateColorSelector(el) {
+	el.hide();
+	var selector = $('<div></div>');
+	selector.addClass('cust-color-selector');
+}
+
 $(document).ready(function() {
-	
+	var tabSelector = $(".tab-selector")	
+	var curLang = tabSelector.attr('target');
+
 	$(".cust-checkbox")
 		// MISE A JOUR DE L'APPARENCE
 		.on('checkbox::update', function(e, check) {
@@ -7,7 +15,12 @@ $(document).ready(function() {
 			
 			if (check == -1) {
 				var inp = self.find('input[type="checkbox"]');
-				check = inp.prop('checked');
+				check = self.hasClass('on')// inp.prop('checked');
+				inp.prop('checked', check);
+
+				/*if (check) {
+					$('.tab-selector').find()
+				}*/
 			}
 
 			if (check) {
@@ -30,7 +43,7 @@ $(document).ready(function() {
 				disabled = true;
 			}
 
-			var container = self.parents('.tab-selector');			
+			var container = tabSelector //self.parents('.tab-selector');			
 			container.attr('target', target);
 
 			// On Dé/Ré-Active les tabs
@@ -58,7 +71,7 @@ $(document).ready(function() {
 		})
 	
 		// On Appel la mise à jour initialle
-		.trigger("checkbox::update");
+		.trigger("checkbox::update", -1);
 	;
 
 	$(".tab-trigger").click(function(e) {
@@ -79,8 +92,7 @@ $(document).ready(function() {
 		container.parent().attr('target', tabID);
 	});
 
-
-	$("#trigger-fr").click();
+	$("#trigger-"+curLang).click();
 
 	$('#content form').submit(function(e) {
 		var self = $(this);
@@ -89,14 +101,24 @@ $(document).ready(function() {
 			e.preventDefault();
 			e.stopPropagation();
 
-			var selector = $(".tab-selector");
-			var langTaget = selector.attr('target');
+			var langTaget = tabSelector.attr('target');
 
-			var inp = selector.find('.lang-only[target="'+langTaget+'"] input');
-			inp.appendTo(self);
+			var inp = tabSelector.find('.lang-only[target="'+langTaget+'"] input');
+			if (!inp.prop('checked')) {
+				inp.val('');
+			}
+
+			inp.hide().appendTo(self);
 
 			self.submit();
 			return false;
 		}
+
+	});
+
+
+	$(".color-selector").each(function(i, e) {
+		e = $(e);
+
 	});
 });
