@@ -14,8 +14,8 @@ else{
 	$smarty->assign('sCreation', 'Création d\'un parcours');
 }
 
+//ApiMgr::$debugMode = true;
 $aColors = ApiMgr::list('colors', true, 0, 0, false, ['name', 'DESC']);
-
 $smarty->assign('aColors', $aColors->data);
 
 
@@ -49,20 +49,12 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 	
 	$oParc->setLang($sLang);
 
-	/* Validation Du Title */
-		if(!fRequiredValidator('title', $_POST)) {
-			$aErrors['Nom'] = 'Ce champs est obligatoire';
-		}
-		else{
-			$oParc->title = $_POST['title'];
-		}
-
 	$oParc->time = $_POST['time'];
 	$oParc->color = $_POST['color'];
 	$oParc->cities_id = $_POST['cities_id'];
 	$oParc->description = empty($_POST['description']) ? null : $_POST['description'];
 
-	$oParc->state = $_POST['state'];
+	$oParc->state = (bool) $_POST['state'];
 
 	/* Si On a pad d'erreur on prepare L'object Parcours */
 		if (empty($aErrors)) {

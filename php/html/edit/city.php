@@ -31,7 +31,6 @@ if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
 			$oCity->image = handleUploadedFile('img', 'cities/image');
 		}
 
-		
 		$oSaveRes = $oCity->save();
 		if (!$oSaveRes->success) {
 			$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';

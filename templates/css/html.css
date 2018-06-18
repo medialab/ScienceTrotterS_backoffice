@@ -731,6 +731,9 @@ background:           #3156A6;
 }
 
 
+form label {
+	cursor: pointer;
+}
 
 
 

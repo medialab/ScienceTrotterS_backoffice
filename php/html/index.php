@@ -2,6 +2,7 @@
 
 
 ApiMgr::setLang('fr');
+//ApiMgr::$debugMode = true;
 
 $aCities = Model\City::list(0, 0, ['title']);
 $smarty->assign('aCities', $aCities);

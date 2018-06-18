@@ -95,10 +95,21 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 		if (empty($aErrors)) {
 			$oInt->state = $_POST['state'];
 			/* Sauvegarde Temporaire de l'image */
-			$oInt->header_image = handleUploadedFile('img', 'interests');
+			if (!empty($_FILES['img'])) {
+				$oInt->header_image = handleUploadedFile('img', 'interests');
+			}
 			
-			//ApiMgr::$debugMode = true;
-			/*var_dump($oInt);*/
+			if (!empty($_FILES['audio'])) {
+				$oInt->audio = handleUploadedFile('audio', 'interests/audio');
+			}
+
+
+			if (!empty($_FILES['imgs-interet'])) {
+				$oInt->gallery_image = handleUploadedFile('imgs-interet', 'interests/image', true);
+			}
+
+			ApiMgr::$debugMode = true;
+			var_dump($oInt);
 			$oSaveRes = $oInt->save();
 			/*exit;*/
 			if (!$oSaveRes->success) {

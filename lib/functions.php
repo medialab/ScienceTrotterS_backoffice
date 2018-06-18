@@ -324,41 +324,82 @@ function fMethodIs($type='get') {
 	}
 
 
-function handleUploadedFile($name, $directory) {
+function handleUploadedFile($name, $directory, $bArray = false) {
 	//var_dump("UPLOAD: $name");
 	/* Sauvegarde Temporaire de l'image */
-	if (!empty($_FILES[$name]) && !empty($_FILES[$name]['name'])) {
-		//var_dump("Directory: $directory");
-		//var_dump("Full Path: ".UPLOAD_PATH.$directory);
 
-		/* Création du dossier */
-		if (!is_dir(UPLOAD_PATH.$directory)) {
-			//var_dump("Create Directory");
-			mkdir(UPLOAD_PATH.$directory, 0775, true);
+	//var_dump("Directory: $directory");
+	//var_dump("Full Path: ".UPLOAD_PATH.$directory);
+	if (empty($_FILES[$name])) {
+		return null;
+	}
+
+	$aresult = [];
+	$aF = &$_FILES[$name];
+	if (!empty($aF['name'])) {
+
+		if (is_string($aF['name'])) {
+			$aF['name'] = [$aF['name']];
+			$aF['type'] = [$aF['type']];
+			$aF['tmp_name'] = [$aF['tmp_name']];
+			$aF['error'] = [$aF['error']];
+			$aF['size'] = [$aF['size']];
 		}
 
-		$imgPath = $directory.'/'.fCreateFriendlyUrl($_FILES[$name]['name']);
-		//var_dump("Img Path: $imgPath");
-		$dest = UPLOAD_PATH.$imgPath;
+		//var_dump("---- FILE LIST: ", $aF['name']);
+		foreach ($aF['name'] as $i => $fName) {
+			if (empty($fName)) {
+				continue;
+			}
 
-		$dest = str_replace('/', DIRECTORY_SEPARATOR, $dest);
-		//var_dump("dest Path: $dest");
-		/* Si le fichier existe on le remplace */
-		if (file_exists($dest)) {
-			//var_dump("Deleting Old");
-			unlink($dest);
+			//var_dump("===== File: $fName =====");
+
+			/* Création du dossier */
+			if (!is_dir(UPLOAD_PATH.$directory)) {
+				//var_dump("Create Directory");
+				mkdir(UPLOAD_PATH.$directory, 0775, true);
+			}
+			
+			$imgPath = $directory.'/'.fCreateFriendlyUrl($aF['name'][$i]);
+			//var_dump("Img Path: $imgPath");
+			
+			$dest = UPLOAD_PATH.$imgPath;
+			$dest = str_replace('/', DIRECTORY_SEPARATOR, $dest);
+			//var_dump("dest Path: $dest");
+
+			/* Si le fichier existe on le remplace */
+			if (file_exists($dest)) {
+				//var_dump("Deleting Old");
+				unlink($dest);
+			}
+
+			$result = move_uploaded_file($aF['tmp_name'][$i], $dest);
+			//var_dump("Move Upload: $result");
+
+			if ($result) {
+				if (!$bArray) {
+					//var_dump($imgPath);
+					return $imgPath;
+				}
+				else{
+					$aResult[] = $imgPath;
+				}
+			}
+			else{
+				//var_dump("Faild");
+
+				if (!$bArray){
+					$aResult[] = null;
+				}
+				else{
+					return null;
+				}
+			}
 		}
 
-		$result = move_uploaded_file($_FILES[$name]['tmp_name'], $dest);
-		//var_dump("Move Upload");
-
-		if ($result) {
-			return $imgPath;
-		}
-		else{
-		//var_dump("Faild");
-
-		}
+		//var_dump($aResult);
+		//exit;
+		return $aResult;
 	}
 	else{
 		//var_dump("No File Uploaded");

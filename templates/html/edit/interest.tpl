@@ -34,7 +34,7 @@
 				<input name="address" id="address" type="text" value="{$oInt->address}">
 			</div>
 
-			{assign var="sParcID" value=$smarty.post.par_id|default: $oInt->par_id:$curParc['id']:false}
+			{assign var="sParcID" value=$smarty.post.par_id|default: $oInt->parcours_id:$curParc['id']:false}
 			<div class="box">
 				<label for="parcours">Parcours *</label>
 
@@ -100,12 +100,12 @@
 				</p>
 				
 				<div class="borderGrey">
-					<input type="file" name="audio_script" id="audio" class="inputFile">
+					<input type="file" name="audio" id="audio" class="inputFile">
 					
 					<div class="blocInputFileName audio">
 						<label class="btnInputFileName" for="audio">
-							<div class="audio-name" {if $oParc->audio|default:false}disabled{/if}>
-								{$oParc->audio|default: ''}
+							<div class="audio-name" {if $oInt->audio|default:false}disabled{/if}>
+								{$oInt->audio|default: ''}
 							</div>
 							<p></p>
 						</label>
@@ -166,9 +166,9 @@
 								</label>
 							</div>
 						{else}
-							<input type="file" name="imgs-interet-5" id="imgs-interet-5" class="inputFile">
+							<input type="file" name="imgs-interet[{$index}]" id="imgs-interet-{$index}" class="inputFile">
 							<div class="blocInputFileName">
-								<label class="btnInputFileName" for="imgs-interet-5">
+								<label class="btnInputFileName" for="imgs-interet-{$index}">
 									<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
 									<p></p>
 								</label>

@@ -13,7 +13,7 @@
 				<label for="parcours">Intitulé du Parcours *</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum.</p>
 				
-				<input name="title" id="parcours" required placeholder="Ex: Le Chemin Vert" type="text" value="{$smarty.post.title|default: $oParc->title: ''}">
+				<input name="title" id="parcours" required placeholder="Ex: Le Chemin Vert" type="text" value="{$oParc->title|default: ''}">
 			</div>
 			
 			<!-- VILLE -->
@@ -21,7 +21,7 @@
 				<label for="cities_id">Ville *</label>
 				<p>La ville à la quelle le parcours appartient</p>
 				
-				{assign var="sCityID" value=$smarty.post.cities_id|default: $oParc->cities_id:false}
+				{assign var="sCityID" value=$oParc->cities_id|default: false}
 				<select name="cities_id" id="cities_id">
 					<option value="">Choisir une ville</option>
 
@@ -67,7 +67,7 @@
 					
 					{foreach $aColors as $oColor}
 						{$selected = $oColor->color == $oParc->color}
-						<option value="{$oColor->color}" {if $selected}selected{/if}>{$oColor->name}</option>
+						<option value="{$oColor->color}" {if $selected}selected{/if} style="color: white; background-color: {$oColor->color}">{$oColor->name}</option>
 					{/foreach}
 				</select>
 				<!-- <input name="color" id="color" placeholder="Ex: #fff" type="color" value="{$smarty.post.color|default: $oParc->color: ''}"> -->
@@ -78,18 +78,18 @@
 				<label for="time">Durée *</label>
 				<p>Durée du parcours.</p>
 				
-				<input name="time" id="time" placeholder="Ex: Entre 3h et 5h" type="text" value="{$smarty.post.time|default: $oParc->time: ''}">
+				<input name="time" id="time" placeholder="Ex: Entre 3h et 5h" type="text" value="{$oParc->time|default: ''}">
 			</div>
 
 			<!-- AUDIO -->
 			<div class="box">
-				<label for="audio">Audio *</label>
+				<label for="audio-{$sIso}">Audio *</label>
 				<p>
 					5min ou 6Mo max. format .mp3 ou .wav
 				</p>
 				
 				<div class="borderGrey">
-					<input type="file" name="audio" id="audio" class="inputFile">
+					<input type="file" name="audio" id="audio-{$sIso}" class="inputFile">
 					
 					<div class="blocInputFileName audio">
 						<label class="btnInputFileName" for="audio">
@@ -112,7 +112,7 @@
 				<label for="description">Résumé</label>
 				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
 				
-				<textarea id="description" name="description">{$smarty.post.description|default: $oParc->description: ''}</textarea>
+				<textarea id="description" name="description">{$oParc->description|default: ''}</textarea>
 			</div>
 
 			<!-- Interêts -->

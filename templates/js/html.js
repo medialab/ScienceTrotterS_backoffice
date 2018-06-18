@@ -68,30 +68,34 @@ itemClick.forEach(handlerItemClick);
 
 /* Stylisation du bouton d'importation d'une image */
 
-$( '.inputFile' ).on('click', function() {
+$( '.inputFile' ).click(function() {
 
 	var oThis	 = $( this );
-
-	oThis.on( 'change', function( e )
-	{
-		var fileName = '';
-
-		if( this.files && this.files.length > 1 )
-			fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-		else if( e.target.value )
-			fileName = e.target.value.split( '\\' ).pop();
-
-		if( fileName ) {
-			oThis.next('.blocInputFileName').find('p').html(fileName);
-		}
-
-	});
-
 
 	// Firefox bug fix
 	oThis
 	.on( 'focus', function(){ oThis.addClass( 'has-focus' ); })
 	.on( 'blur', function(){ oThis.removeClass( 'has-focus' ); });
+})
+.change(function( e ){
+	console.log("Add File");
+	var fileName = '';
+	var oThis	 = $( this );
+
+	if( e.target.value ) {
+		fileName = e.target.value.split( '\\' ).pop();
+		console.log("File Name: "+fileName);
+	}
+
+
+	if( fileName ) {
+		console.log("p: ", oThis.parent().find('.blocInputFileName p'));
+		oThis.parent().find('.blocInputFileName p').text(fileName);
+	}
+	else{
+		console.log("No File Name");
+	}
+
 });
 
 /***/
