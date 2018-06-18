@@ -53,8 +53,8 @@
 				<label for="latitude">Géolocation</label>
 				<p>Latitude, longitude du point d'intérêt</p>
 				
-				<input name="geo-n" id="latitude" type="number" step=".0001" placeholder="ex: 48.856" value="{$oInt->geoN}">
-				<input name="geo-e" id="longitude" type="number" step=".0001" placeholder="ex: 2.3522" value="{$oInt->geoE}">
+				<input name="geo-n" id="latitude" type="text" pattern="{$sGeoPat}" placeholder="ex: 48.856" value="{$oInt->geoN}">
+				<input name="geo-e" id="longitude" type="text" pattern="{$sGeoPat}" placeholder="ex: 2.3522" value="{$oInt->geoE}">
 				
 				<p>Avec Google Map, cliquez sur une adresse pour récupérer les coordonées GPS</p>
 				<a id="localisation" href="https://www.google.com/maps" target="_blank" title="" class="item itemClick">https://www.google.com/maps</a>
@@ -94,18 +94,21 @@
 
 			<!-- AUDIO -->
 			<div class="box">
-				<label for="audio">Audio *</label>
+				<label for="audio-{$sIso}">Audio *</label>
 				<p>
 					5min ou 6Mo max. format .mp3 ou .wav
 				</p>
 				
 				<div class="borderGrey">
-					<input type="file" name="audio" id="audio" class="inputFile">
+					<input type="file" name="audio" id="audio-{$sIso}" class="inputFile">
 					
 					<div class="blocInputFileName audio">
 						<label class="btnInputFileName" for="audio">
+							{$audio = '/'|explode: ($oInt->audio|default: '')}
+							{$audio = $audio[count($audio)-1]}
+
 							<div class="audio-name" {if $oInt->audio|default:false}disabled{/if}>
-								{$oInt->audio|default: ''}
+								{$audio|default: ''}
 							</div>
 							<p></p>
 						</label>

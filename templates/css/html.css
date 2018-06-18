@@ -751,9 +751,3 @@ form label {
 	}
 
 }
-
-.error-container {
-	display: block;
-	max-width: 1000px;
-	margin: 24px auto;
-}

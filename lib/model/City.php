@@ -30,55 +30,6 @@ class City extends Model
 		$this->setGeoloc($this->geoloc);
 	}
 
-	
-	public function setGeoloc(&$geoloc) {
-		if ($geoloc === ';') {
-			$geoloc = null;
-		}
-
-		if (is_string($geoloc)) {
-			$geo = explode(';', $geoloc);
-			$geoloc = (object) ['latitude' => (float)$geo[0], 'longitude' => (float)$geo[1]];
-		}
-
-		if (empty($geoloc)) {
-			$this->geoN = $geoloc;
-			$this->geoE = $geoloc;
-			return;
-		}
-
-		$this->geoN = $geoloc->latitude;
-		$this->geoE = $geoloc->longitude;
-	}
-
-	public function setGeoN($geoN) {
-		var_dump("Setting GeoN", $geoN);
-		if (!empty($geoN) && !preg_match('/^[0-9]{1,2}\.?[0-9]{0,4}$/', $geoN)) {
-			throw new Exception('Error: Invalid Lattitude Value: '.$geoN, 1);
-		}
-
-		if (empty($geoN) && empty($this->$geoE)) {
-			$this->geoloc = null;
-		}
-		else {
-			$this->geoloc = $geoN.';'.$this->geoE;
-		}
-	}
-
-	public function setGeoE($geoE) {
-		var_dump("Setting GeoE", $geoE);
-		if (!empty($geoE) && !preg_match('/^[0-9]{1,3}\.?[0-9]{0,4}$/', $geoE)) {
-			throw new Exception('Error: Invalid Longitude Value: '.$geoE, 1);
-		}
-
-		if (empty($geoE) && empty($this->$geoN)) {
-			$this->geoloc = null;
-		}
-		else {
-			$this->geoloc = $this->geoN.';'.$geoE;
-		}
-	}
-
 	function __set($sVar, $var) {
 		switch ($sVar) {
 			case 'geoloc':

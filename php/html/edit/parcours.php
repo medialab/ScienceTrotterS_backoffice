@@ -62,18 +62,35 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 				$oParc->audio = handleUploadedFile('audio', 'parcours/audio');
 			}
 
-			ApiMgr::$debugMode = true;
+			//ApiMgr::$debugMode = true;
 			$oSaveRes = $oParc->save();
-			exit;
+			//exit;
+
 			if (!$oSaveRes->success) {
-				$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+				if(!empty($oSaveRes->message)) {
+					$aErrors['Erreur'] = $oSaveRes->message;
+				}
+				else{
+					$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+				}
 			}
-			elseif(!empty($oSaveRes->message)) {
-				$aErrors['Erreur'] = $oSaveRes->message;
-			}
-			elseif (!$id && empty($aErrors)) {	// On redirige pour se mettre en modification
-				header('location: /edit/parcours/'.$oParc->id.'.html');
-				exit;
+			else {
+				$_SESSION['session_msg'] = [
+					'success' => [
+						'Le parcours a bien été sauvegardé'
+					]
+				];
+
+				if (!empty($oSaveRes->message)) {
+					$_SESSION['session_msg']['warning'] = [
+						$oSaveRes->message
+					];
+				}
+
+				if (!$id && empty($aErrors)) {	// On redirige pour se mettre en modification
+					header('location: /edit/parcours/'.$oParc->id.'.html');
+					exit;
+				}
 			}
 		}
 }

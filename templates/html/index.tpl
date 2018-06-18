@@ -12,6 +12,7 @@
 		<div id="cities" class="columnData" limit="{$aCities|count}" target="cette ville">
 			<ul class="itemList">
 				{foreach $aCities as $city}
+					{$city->setLang('default')}
 					<!-- ITEM -->
 					<li class="item">
 						<div class="itemAction">
@@ -65,6 +66,7 @@
 		<div id="parcours"  class="columnData" limit="{$aParcours|count}" target="ce parcours">
 			<ul class="itemList">
 				{foreach $aParcours as $parcours}
+					{$parcours->setLang('default')}
 					<li class="item">
 						<div class="itemAction">
 							<a class="delete-btn" href="/delete/parcours/{$parcours->id}.html">
@@ -105,6 +107,8 @@
 		<div id="interests"  class="columnData" limit="{$aInterests|count}" target="ce point d'interêt">
 			<ul class="itemList">
 				{foreach $aInterests as $interest}
+					{$interest->setLang('default')}
+
 					<li class="item">
 						<div class="itemAction">
 							<a class="delete-btn" href="/delete/interest/{$interest->id}.html">

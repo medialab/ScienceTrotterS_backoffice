@@ -131,4 +131,4 @@ if ( file_exists('./templates/'.$sExt.'.'.$sExtFile) ) {
 
 
 echo $sContent;
-#exit();
+unset($_SESSION['session_msg']);

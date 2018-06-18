@@ -41,6 +41,9 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 				}
 			}
 		}
+		else{
+			$oModel->setGeoN(null);
+		}
 
 		/* Validation De la Longitude */
 		if (!empty($_POST['geo-e'])) {
@@ -58,6 +61,9 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 			if (empty($aErrors['Latitude']) && empty($aErrors['Latitude'])) {		
 				$oModel->geoloc = $_POST['geo-n'].';'.$_POST['geo-e'];
 			}
+		}
+		else{
+			$oModel->setGeoE(null);
 		}
 
 
@@ -110,6 +116,7 @@ if (count($curPage) < 2) {
 
 $aErrors = [];
 $smarty->assign('aErrors', $aErrors );
+$smarty->assign('sGeoPat', '^[0-9]{1,2}(\.[0-9]{1,6})?$');
 
 $smarty->assign('aLangs', [
 	'fr' => 'français',

@@ -22,25 +22,42 @@ $oCity = new \Model\City($id);
 /* Validation du formulaire */
 if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
 //	var_dump("===== VALIDATING =====", $_POST);
-
 	/* Si On a pad d'erreur on prepare L'object ville */
 	if (empty($aErrors)) {
-
 		/* Sauvegarde Temporaire de l'image */
-		if (!empty($_FILES['img'])) {
+		if (!empty($_FILES['img']) && !$_FILES['img']['error']) {
 			$oCity->image = handleUploadedFile('img', 'cities/image');
 		}
-
+		
+		//ApiMgr::$debugMode = true;
 		$oSaveRes = $oCity->save();
+		///exit;
+
 		if (!$oSaveRes->success) {
-			$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+			if(!empty($oSaveRes->message)) {
+				$aErrors['Erreur'] = $oSaveRes->message;
+			}
+			else{
+				$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+			}
 		}
-		elseif(!empty($oSaveRes->message)) {
-			$aErrors['Erreur'] = $oSaveRes->message;
-		}
-		elseif (!$id && empty($aErrors)) {	// On redirige pour se mettre en modification
-			header('location: /edit/city/'.$oCity->id.'.html');
-			exit;
+		else {
+			$_SESSION['session_msg'] = [
+				'success' => [
+					'La ville a bien été sauvegardée'
+				]
+			];
+
+			if (!empty($oSaveRes->message)) {
+				$_SESSION['session_msg']['warning'] = [
+					$oSaveRes->message
+				];
+			}
+
+			if (!$id && empty($aErrors)) {	// On redirige pour se mettre en modification
+				header('location: /edit/city/'.$oCity->id.'.html');
+				exit;
+			}
 		}
 	}
 }

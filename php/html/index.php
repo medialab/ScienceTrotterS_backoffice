@@ -1,15 +1,14 @@
 <?php
 
 
-ApiMgr::setLang('fr');
-//ApiMgr::$debugMode = true;
+//ApiMgr::setLang('fr');
 
-$aCities = Model\City::list(0, 0, ['title']);
+//ApiMgr::$debugMode = true;
+$aCities = Model\City::list(0, 0, ['title', 'state']);
 $smarty->assign('aCities', $aCities);
 
-
-$aParcours = Model\Parcours::list(0, 0, ['title']);
+$aParcours = Model\Parcours::list(0, 0, ['title', 'state']);
 $smarty->assign('aParcours', $aParcours);
 
-$aInterests = Model\Interest::list(0, 0, ['title']);
+$aInterests = Model\Interest::list(0, 0, ['title', 'state']);
 $smarty->assign('aInterests', $aInterests);

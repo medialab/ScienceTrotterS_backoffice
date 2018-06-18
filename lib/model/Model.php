@@ -154,8 +154,12 @@ abstract class Model
 		if (property_exists($this, $sVar)) {
 
 			if (in_array($sVar, $this->aTranslateVars)) {
-				$sLang = $this->sCurLang;
 				$var = $this->$sVar;
+				$sLang = $this->sCurLang;
+				
+				if (!$sLang) {
+					$sLang = $this->force_lang;
+				}
 
 
 				// Si la valeur actuelle est une string on la décode
@@ -202,7 +206,7 @@ abstract class Model
 	}
 
 	public function load($oData) {
-		/*var_dump("LOADING", $oData);*/
+		//var_dump("LOADING", $oData);
 		$this->bSync = false;
 		$sCurLang = $oData->sCurLang;
 		$this->setLang($sCurLang);
@@ -210,7 +214,7 @@ abstract class Model
 		foreach ($oData as $sProp => $sData) {
 			if (property_exists($this, $sProp) || in_array($sProp, $this->aTranslateVars)) {
 				if (in_array($sProp, $this->aTranslateVars)) {
-					/*var_dump("Translate Prop", $sProp);*/
+					//var_dump("Translate Prop", $sProp);
 					if ($sCurLang) {
 						$this->setValueByLang($sProp, $sData);
 					}
@@ -219,6 +223,8 @@ abstract class Model
 					}
 				}
 				else{
+					//var_dump("Prop", $sProp);
+					//var_dump($sData);
 					$this->$sProp = $sData;
 				}
 			}
@@ -290,7 +296,15 @@ abstract class Model
 	}
 
 	public function setLang($lang = false) {
-		$this->sCurLang = $lang;
+		if ($lang !== 'default') {
+			$this->sCurLang = $lang;
+		}
+		elseif(!empty($this->force_lang)){
+			$this->sCurLang = $this->force_lang;
+		}
+		else {
+			$this->sCurLang = 'fr';
+		}
 	}
 
 	/**
@@ -321,6 +335,59 @@ abstract class Model
 		$this->state = $bState;
 	}
 
+	
+	
+	public function setGeoloc(&$geoloc) {
+		if ($geoloc === ';') {
+			$geoloc = null;
+		}
+
+		if (is_string($geoloc)) {
+			$geo = explode(';', $geoloc);
+			$geoloc = (object) ['latitude' => (float)$geo[0], 'longitude' => (float)$geo[1]];
+		}
+
+		if (empty($geoloc)) {
+			$this->geoN = $geoloc;
+			$this->geoE = $geoloc;
+			return;
+		}
+
+		$this->geoN = $geoloc->latitude;
+		$this->geoE = $geoloc->longitude;
+	}
+
+	public function setGeoN($geoN) {
+		//var_dump("Setting GeoN", $geoN);
+		if (!empty($geoN) && !preg_match('/^[0-9]{1,2}(\.[0-9]{1,6})?$/', $geoN)) {
+			throw new Exception('Error: Invalid Lattitude Value: '.$geoN, 1);
+		}
+
+		$this->geoN = $geoN;
+
+		if (empty($geoN) && empty($this->geoE)) {
+			$this->geoloc = null;
+		}
+		else {
+			$this->geoloc = $geoN.';'.$this->geoE;
+		}
+	}
+
+	public function setGeoE($geoE) {
+		//var_dump("Setting GeoE", $geoE);
+		if (!empty($geoE) && !preg_match('/^[0-9]{1,2}(\.[0-9]{1,6})?$/', $geoE)) {
+			throw new Exception('Error: Invalid Longitude Value: '.$geoE, 1);
+		}
+
+		$this->geoE = $geoE;
+		if (empty($geoE) && empty($this->geoN)) {
+			$this->geoloc = null;
+		}
+		else {
+			$this->geoloc = $this->geoN.';'.$geoE;
+		}
+	}
+
 	public static function get($id=0, $aData=[], $sClass=false) {
 		$sClass = 'Model\\'.$sClass;
 		
@@ -340,8 +407,11 @@ abstract class Model
 			$base = new $sClass();
 
 			if (is_array($columns)) {
-				if (!in_array('id', $columns)) {
-					$columns[] = 'id';
+				$aReqColumns = ['id', 'state', 'force_lang'];
+				foreach ($aReqColumns as $sColumn) {
+					if (!in_array($sColumn, $columns)) {
+						$columns[] = $sColumn;
+					}
 				}
 			}
 

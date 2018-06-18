@@ -72,4 +72,18 @@ class Parcours extends Model
 
 		Parent::__set($sVar, $value);
 	}
+
+
+	
+	public function setGeoloc(&$geoloc) {
+		return;
+	}
+
+	public function setGeoN($geoN) {
+		return;
+	}
+
+	public function setGeoE($geoE) {
+		return;
+	}
 }
