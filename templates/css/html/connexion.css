@@ -116,6 +116,16 @@ color: 					#3156A6;
 margin: 				0 auto;
 }
 
+.contentView form {
+justify-content: center !important;
+margin: 0 !important;
+}
+
+#content .form {
+max-width: 500px;
+width: inherit;
+}
+
 
 @media only screen
 and (max-width: 750px) {
@@ -160,6 +170,15 @@ and (max-width: 750px) {
 
 	.link {
 	margin-top: 			10px;
+	}
+
+	.contentView form {
+	flex-direction: 	column;
+	align-items: 	center;
+	}
+
+	#content .form {
+	width: 90%;
 	}
 
 }

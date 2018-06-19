@@ -751,3 +751,31 @@ form label {
 	}
 
 }
+
+
+.msg-cont {
+	padding: 15px;
+	display: block;
+	border: 2px solid;
+	max-width: 1000px;
+	margin: 24px auto;
+}
+
+.msg-cont ul {
+	list-style: inside;
+}
+
+.success-container {
+	border-color: green;
+	background-color: #c1f3c1;
+}
+
+.warning-container {
+	border-color: orange;
+	background-color: #ffd997;
+}
+
+.error-container {
+	border-color: red;
+	background-color: #ffb6b6;
+}

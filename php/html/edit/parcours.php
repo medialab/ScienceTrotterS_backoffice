@@ -59,10 +59,11 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 	/* Si On a pad d'erreur on prepare L'object Parcours */
 		if (empty($aErrors)) {
 			if (!empty($_FILES['audio'])) {
+				//var_dump($_FILES);
 				$oParc->audio = handleUploadedFile('audio', 'parcours/audio');
 			}
 
-			//ApiMgr::$debugMode = true;
+//			ApiMgr::$debugMode = true;
 			$oSaveRes = $oParc->save();
 			//exit;
 
