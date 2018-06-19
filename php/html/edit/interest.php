@@ -103,7 +103,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 				$oInt->audio = handleUploadedFile('audio', 'interests/audio');
 			}
 
-			var_dump($_FILES['imgs-interet']);
+			/*var_dump($_FILES['imgs-interet']);
 			if (!empty($_FILES['imgs-interet'])) {
 				$bDoUpload = false;
 
@@ -118,6 +118,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 					$oInt->gallery_image = handleUploadedFile('imgs-interet', 'interests/image', true);
 				}
 			}
+			*/
 
 			/*ApiMgr::$debugMode = true;
 			var_dump($oInt);
