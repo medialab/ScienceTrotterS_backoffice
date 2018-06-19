@@ -546,7 +546,7 @@ position: 						absolute;
 z-index: 						-1;
 }
 
-.box .inputFile + div label.btnInputFileName {
+.box .blocInputFileName label.btnInputFileName {
 padding: 15px 0px;
 cursor: 						pointer;
 background: 					#F0F0F7;

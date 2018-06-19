@@ -157,22 +157,23 @@
 					5 maximum, format 600x600px, png ou jpg, poids maximum 60ko
 				</p>
 
-				<div class="borderGrey flexInputFile">
+				<div id="gallery-container" class="borderGrey flexInputFile">
 					{for $index=0 to 4}
 						{$sImg = $oInt->gallery_image[$index]|default: false}
 						{if $sImg}
-							<input type="file" name="imgs-interet-{$index}" id="imgs-interet-{$index}" class="inputFile">
 							<div class="blocInputFileName">
-								<label class="btnInputFileName" for="imgs-interet-{$index}">
-									<img class="iconPreview" src="{$_API_URL_}ressources/upload/{$sImg}" alt="" width="56" height="50">
+								<input type="file" name="imgs-interet-{$index}" id="imgs-interet-{$index}" target="img" class="inputFile {if $sImg}hasFile{/if}">
+
+								<label class="btnInputFileName" >
+									<img class="iconPreview" src="{$_API_URL_}ressources/upload/{$sImg}" index="{$index}" alt="" width="56" height="50">
 									<p>{$sImg}</p>
 								</label>
 							</div>
 						{else}
-							<input type="file" name="imgs-interet[{$index}]" id="imgs-interet-{$index}" class="inputFile">
 							<div class="blocInputFileName">
-								<label class="btnInputFileName" for="imgs-interet-{$index}">
-									<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
+								<input type="file" name="imgs-interet[{$index}]" id="imgs-interet-{$index}" target="img" class="inputFile {if $sImg}hasFile{/if}">
+								<label class="btnInputFileName" >
+									<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" index="{$index}" alt="" width="56" height="50">
 									<p></p>
 								</label>
 							</div>

@@ -12,10 +12,11 @@
 				{include file="include/html/form-error.tpl"}
 
 	        	<input type="password" id="password" name="user_password" placeholder="Mot de Passe">
-
 				<p class="forget">
+<!-- 
 					<a href="#">Mot de passe oublié</a>
-				</p>	
+				-->
+				</p>	 
 				
 				<p class="login">
 					<button type="submit">Connexion</button>	

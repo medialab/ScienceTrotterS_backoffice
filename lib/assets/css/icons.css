@@ -9,47 +9,47 @@
 }
 
 .lb-icon-home {
-  background-image: url('../../assets/imgs/leftBar/icons/icon_home.svg');
+  background-image: url('/media/image/interface/leftbar/icons/icon_home.svg');
 }
 .lb-icon-city {
-  background-image: url('../../assets/imgs/leftBar/icons/icon_city.svg');
+  background-image: url('/media/image/interface/leftbar/icons/icon_city.svg');
 }
 .lb-icon-road {
-  background-image: url('../../assets/imgs/leftBar/icons/icon_road.svg');
+  background-image: url('/media/image/interface/leftbar/icons/icon_road.svg');
 }
 .lb-icon-roadMap {
-  background-image: url('../../assets/imgs/leftBar/icons/icon_roadMap.svg');
+  background-image: url('/media/image/interface/leftbar/icons/icon_roadMap.svg');
 }
 .lb-icon-logout {
-  background-image: url('../../assets/imgs/leftBar/icons/icon_logout.svg');
+  background-image: url('/media/image/interface/leftbar/icons/icon_logout.svg');
 }
 .icon-create-city {
-  background-image: url('../../assets/imgs/icons/icon_create_city.svg');
+  background-image: url('/media/image/interface/icons/icon_create_city.svg');
 }
 .icon-create-road {
-  background-image: url('../../assets/imgs/icons/icon_create_road.svg');
+  background-image: url('/media/image/interface/icons/icon_create_road.svg');
 }
 .icon-create-roadMap {
-  background-image: url('../../assets/imgs/icons/icon_create_roadMap.svg');
+  background-image: url('/media/image/interface/icons/icon_create_roadMap.svg');
 }
 .icon-list-remove {
-  background-image: url('../../assets/imgs/icons/icon_list_remove.svg');
+  background-image: url('/media/image/interface/icons/icon_list_remove.svg');
 }
 .icon-list-edit {
-  background-image: url('../../assets/imgs/icons/icon_list_edit.svg');
+  background-image: url('/media/image/interface/icons/icon_list_edit.svg');
 }
 .icon-list-remove-active {
-  background-image: url('../../assets/imgs/icons/icon_list_remove_active.svg');
+  background-image: url('/media/image/interface/icons/icon_list_remove_active.svg');
 }
 .icon-list-edit-active {
-  background-image: url('../../assets/imgs/icons/icon_list_edit_active.svg');
+  background-image: url('/media/image/interface/icons/icon_list_edit_active.svg');
 }
 .icon-list-preview {
-  background-image: url('../../assets/imgs/icons/icon_list_preview.svg');
+  background-image: url('/media/image/interface/icons/icon_list_preview.svg');
 }
 .icon-list-preview-active {
-  background-image: url('../../assets/imgs/icons/icon_list_preview_active.svg');
+  background-image: url('/media/image/interface/icons/icon_list_preview_active.svg');
 }
 .icon-list-arrow-right {
-  background-image: url('../../assets/imgs/icons/icon_list_arrow_right.svg');
+  background-image: url('/media/image/interface/icons/icon_list_arrow_right.svg');
 }

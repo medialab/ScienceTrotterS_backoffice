@@ -90,7 +90,7 @@ $( '.inputFile' ).click(function() {
 
 	if( fileName ) {
 		console.log("p: ", oThis.parent().find('.blocInputFileName p'));
-		oThis.parent().find('.blocInputFileName p').text(fileName);
+		oThis.parent().find('p').text(fileName);
 	}
 	else{
 		console.log("No File Name");

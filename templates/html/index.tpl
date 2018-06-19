@@ -130,7 +130,7 @@
 		<!-- BTN LINK -->
 		<div class="columnBtnLink">
 			<a href="/edit/interest.html">
-				<i class="icon icon-create-road"></i>
+				<i class="icon icon-poi"></i>
 				Créer un point d'intérêt
 			</a>
 		</div>

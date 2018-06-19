@@ -74,6 +74,7 @@ $(document).ready(function() {
 		.trigger("checkbox::update", -1);
 	;
 
+	// Changement de Tab
 	$(".tab-trigger").click(function(e) {
 		var self = $(this);
 		if (self.attr('disabled')) {
@@ -92,8 +93,10 @@ $(document).ready(function() {
 		container.parent().attr('target', tabID);
 	});
 
+	// Selection automatique du Tab de la langue selectionnée
 	$("#trigger-"+curLang).click();
 
+	// à l'envois du formulaire on ajoute la valeur du dorce lang
 	$('#content form').submit(function(e) {
 		var self = $(this);
 		
@@ -122,6 +125,7 @@ $(document).ready(function() {
 
 	});
 
+	// Auto-Correction des champs géoloc
 	$('.geo-input').keyup(function() {
 		var self = $(this);
 
@@ -130,5 +134,23 @@ $(document).ready(function() {
 		val = val.replace(/[^0-9\.]+/, '');
 
 		self.val(val);
-	})
+	});
+
+	$("input[target='img']").change(function() {
+		var self = $(this);
+
+		var oDisplay = self.parents('.blocInputFileName').find('img');
+		if (!this.files || !this.files[0]) {
+			oDisplay.attr('src', '/media/image/interface/icons/icon_photo.svg');
+			return;
+		}
+
+		var oReader = new FileReader();
+
+		oReader.onload = function(e) {
+			oDisplay.attr('src', e.target.result);
+		}
+
+		oReader.readAsDataURL(this.files[0]);
+	});
 });

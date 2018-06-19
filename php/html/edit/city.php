@@ -31,7 +31,7 @@ if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
 		
 		//ApiMgr::$debugMode = true;
 		$oSaveRes = $oCity->save();
-		///exit;
+		//exit;
 
 		if (!$oSaveRes->success) {
 			if(!empty($oSaveRes->message)) {

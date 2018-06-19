@@ -32,8 +32,9 @@
 				
 				<div class="borderGrey">
 
-					<input type="file" name="img" id="img" class="inputFile">
 					<div class="blocInputFileName">
+						<input type="file" name="img" id="img" target="img" class="inputFile">
+						
 						<label class="btnInputFileName" for="img">
 							{if $oCity->image|strlen}
 								<img src="{$_API_URL_}ressources/upload/{$oCity->image}" style="max-width: 100%;">

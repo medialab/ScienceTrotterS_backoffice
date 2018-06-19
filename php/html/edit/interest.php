@@ -95,32 +95,61 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 		if (empty($aErrors)) {
 			$oInt->state = $_POST['state'];
 			/* Sauvegarde Temporaire de l'image */
-			if (!empty($_FILES['img'])) {
+			if (!empty($_FILES['img'])  && !$_FILES['img']['error']) {
 				$oInt->header_image = handleUploadedFile('img', 'interests');
 			}
 			
-			if (!empty($_FILES['audio'])) {
+			if (!empty($_FILES['audio'])  && !$_FILES['audio']['error']) {
 				$oInt->audio = handleUploadedFile('audio', 'interests/audio');
 			}
 
-
+			var_dump($_FILES['imgs-interet']);
 			if (!empty($_FILES['imgs-interet'])) {
-				$oInt->gallery_image = handleUploadedFile('imgs-interet', 'interests/image', true);
+				$bDoUpload = false;
+
+				foreach ($_FILES['imgs-interet']['error'] as $bIsValid) {
+					if ($bIsValid) {
+						$bDoUpload = true;
+						break;
+					}
+				}
+
+				if ($bDoUpload) {
+					$oInt->gallery_image = handleUploadedFile('imgs-interet', 'interests/image', true);
+				}
 			}
 
-			ApiMgr::$debugMode = true;
+			/*ApiMgr::$debugMode = true;
 			var_dump($oInt);
+			exit;*/
 			$oSaveRes = $oInt->save();
-			/*exit;*/
+
+
 			if (!$oSaveRes->success) {
-				$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+				if(!empty($oSaveRes->message)) {
+					$aErrors['Erreur'] = $oSaveRes->message;
+				}
+				else{
+					$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+				}
 			}
-			elseif(!empty($oSaveRes->message)) {
-				$aErrors['Erreur'] = $oSaveRes->message;
-			}
-			elseif (!$id && empty($aErrors)) {	// On redirige pour se mettre en modification
-				header('location: /edit/interest/'.$oInt->id.'.html');
-				exit;
+			else {
+				$_SESSION['session_msg'] = [
+					'success' => [
+						'Le point d\'intérêt a bien été sauvegardé'
+					]
+				];
+
+				if (!empty($oSaveRes->message)) {
+					$_SESSION['session_msg']['warning'] = [
+						$oSaveRes->message
+					];
+				}
+
+				if (!$id && empty($aErrors)) {	// On redirige pour se mettre en modification
+					header('location: /edit/interest/'.$oInt->id.'.html');
+					exit;
+				}
 			}
 		}
 }

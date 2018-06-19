@@ -28,6 +28,10 @@ height: 				100vh;
 font-family: 			'montserratregular', sans-serif !important;
 }
 
+#content > .content {
+padding-left: 			0;
+}
+
 #global	{
 display: 				flex;
 flex-direction: 		row;

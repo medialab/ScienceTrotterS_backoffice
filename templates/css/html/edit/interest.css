@@ -24,3 +24,7 @@ top: 							-20px;
 max-width:           calc( 200px - 20px );
 min-width:          150px;
 }
+
+.box .inputFile + label.btnInputFileName p {
+	bottom: 0;
+}
