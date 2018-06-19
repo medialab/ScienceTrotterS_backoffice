@@ -35,7 +35,7 @@
 
 			<script type="text/javascript" src="/lib/jquery-3.3.1.min.js"></script>
 	</head>
-	<body id="page{$smarty.get.name|ucfirst}">
+	<body id="page{$smarty.get.name|default: 'index'|ucfirst}">
 <!-- 
 		{include file="include/html/header.tpl"}
  -->

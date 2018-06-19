@@ -24,15 +24,21 @@
   background-image: url('/media/image/interface/leftbar/icons/icon_logout.svg');
 }
 .icon-create-city {
-  background-image: url('/media/image/interface/icons/icon_create_city.svg');
+  background-image: url('/media/image/interface/icons/icon_create_city_blue.svg');
+}
+a:hover .icon-create-city {
+  background-image: url('/media/image/interface/icons/icon_create_city_white.svg');
 }
 .icon-create-road {
   background-image: url('/media/image/interface/icons/icon_create_road.svg');
 }
 .icon-create-roadMap {
-  background-image: url('/media/image/interface/icons/icon_create_roadMap.svg');
+  background-image: url('/media/image/interface/icons/icon_create_road.svg');
 }
-.icon-list-remove {
+a:hover .icon-create-roadMap {
+  background-image: url('/media/image/interface/icons/icon_create_road_white.svg');
+}
+.icon-list-remove { 
   background-image: url('/media/image/interface/icons/icon_list_remove.svg');
 }
 .icon-list-edit {
@@ -52,4 +58,11 @@
 }
 .icon-list-arrow-right {
   background-image: url('/media/image/interface/icons/icon_list_arrow_right.svg');
+}
+
+.icon-poi {
+  background-image: url('/media/image/interface/icons/icon_poi_blue.svg');
+}
+a:hover .icon-poi{
+  background-image: url('/media/image/interface/icons/icon_poi_white.svg');
 }

@@ -18,13 +18,19 @@
   background-image: url('/media/image/interface/leftbar/icons/icon_road.svg');
 }
 .lb-icon-roadMap {
-  background-image: url('/media/image/interface/leftbar/icons/icon_roadMap.svg');
+  background-image: url('/media/image/interface/leftbar/icons/icon_roadMap_blue.svg');
+}
+.lb-icon-roadMap:hover {
+  background-image: url('/media/image/interface/leftbar/icons/icon_roadMap_white.svg');
 }
 .lb-icon-logout {
   background-image: url('/media/image/interface/leftbar/icons/icon_logout.svg');
 }
 .icon-create-city {
-  background-image: url('/media/image/interface/icons/icon_create_city.svg');
+  background-image: url('/media/image/interface/icons/icon_create_city_blue.svg');
+}
+.icon-create-city:hover {
+  background-image: url('/media/image/interface/icons/icon_create_city_white.svg');
 }
 .icon-create-road {
   background-image: url('/media/image/interface/icons/icon_create_road.svg');
