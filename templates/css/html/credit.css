@@ -1,5 +1,9 @@
 .mainContent {
+<<<<<<< HEAD
 padding: 					0 20px;
+=======
+padding: 					2%;
+>>>>>>> 605c44cc2e8c4b93ba8a032469cefe0100234bba
 }
 
 h3 {
@@ -13,6 +17,7 @@ margin-bottom: 				15px;
 
 p + p {
 margin-top: 				15px;
+<<<<<<< HEAD
 }
 
 ul {
@@ -24,3 +29,6 @@ li {
 font-size: 					12px;
 color: 						#A1ABB7;
 }
+=======
+}
+>>>>>>> 605c44cc2e8c4b93ba8a032469cefe0100234bba
