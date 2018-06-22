@@ -3,19 +3,74 @@ $(document).ready(function() {
 	/* On alerte avant de supprimer */
 	console.log($(".arboItem .columnData"));
 
-	$(".arboItem .columnData").on('click', 'a.delete-btn', function(e) {
-		console.log("DELETE ", $(this))
-		if (!confirm("Êtes vous sûr de vouloir supprimer "+$(this).parents('.columnData').attr('target')+" ?")) {
+	$(".arboItem .columnData a.delete-btn").on('click', function(e) {		
+		var self = $(this);
+		var oParent = self.parents(".item");
+		var oCont = oParent.parents(".columnData");
+		var sTitle = oParent.attr("title");
+		
+		if (!confirm("Êtes vous sûr de vouloir supprimer "+oCont.attr('target')+" "+oParent.attr('title')+" ?")) {
 			e.preventDefault();
 			return false;
 		}
-		
+
+		return false;
+	});
+
+	$(".arboItem .columnData a.preview-btn").on('click', function(e) {
+		var self = $(this);
+		var oParent = self.parents(".item");
+		var oCont = oParent.parents(".columnData");
+		var sTitle = oParent.attr("title");
+
+
+		var bEnable = oParent.hasClass('disabled');
+		var sEnable = bEnable ? "activer" : "déactiver";
+
+		if (!confirm("Êtes vous sûr de vouloir "+sEnable+" "+oCont.attr('target')+" "+oParent.attr('title')+" ?")) {
+			e.preventDefault();
+			return false;
+		}
+
+		var sModel = oCont.attr("id");
+		aUpdateData = {
+			id: oParent.attr("id"),
+			data: {
+				state: bEnable
+			}
+		}
+
+		ApiMgr.update(sModel, aUpdateData, function(result){
+			var aModel = result.data;
+
+			if (!aModel.state) {
+				oParent.addClass('disabled');
+			}
+			else {
+				oParent.removelass('disabled');
+			}
+
+			console.log(aModel);
+			if (result.success) {
+				if (result.message === null || !result.message.length) {
+					Notify.success(aModel.title, 'Mise à jour réussie.');
+				}
+				else{
+					Notify.warning(aModel.title, result.message);
+				}
+			}
+			else{
+				Notify.error(aModel.title, result.message);
+			}
+		}, function(error) {
+			console.error("Modale Update Faild: ", error);
+
+		});
 	});
 
 	var lists = {};		// Taleau ID => [jquery el, timer, requete]
 
 	$('div.columnData').scroll(function() {
-		console.log("SCROLL");
 		var list = $(this);
 		var id = list.attr('id');
 
@@ -91,4 +146,4 @@ $(document).ready(function() {
 
 		}, 75);
 	}).scroll();
-})
+});

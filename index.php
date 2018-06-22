@@ -49,5 +49,3 @@ exit;
 
 // On appel la bonne page
 	require_once('./bootstrap.php');
-
-

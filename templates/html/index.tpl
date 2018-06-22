@@ -1,3 +1,4 @@
+{include file="include/html/form-error.tpl" aErrors=$aErrors|default:false}
 
 <div class="arbo">
 
@@ -9,24 +10,33 @@
 		</div>
 
 		<!-- DATA -->
-		<div id="cities" class="columnData" limit="{$aCities|count}" target="cette ville">
+		<div id="cities" class="columnData" limit="{$aCities|count}" target="la ville">
 			<ul class="itemList">
-				{foreach $aCities as $city}
-					{$city->setLang('default')}
+				{foreach $aCities as $model}
+					{$model->setLang('default')}
 					<!-- ITEM -->
-					<li class="item">
+					<li id="{$model->id}" class="item {if !$model->state}disabled{/if}" title="{$model->title}">
 						<div class="itemAction">
-							<a class="delete-btn" href="/delete/city/{$city->id}.html">
+							<a class="delete-btn" href="/delete/city/{$model->id}.html">
 								<i class="icon-pre icon-list-remove"></i>
 							</a>
-							<a class="edit-btn" href="/edit/city/{$city->id}.html">
+							<a class="edit-btn" href="/edit/city/{$model->id}.html">
 								<i class="icon-pre icon-list-edit"></i>
 							</a>
-							<a class="preview-btn" href="https://science-trotters.actu.com/#/cities">
+							<a class="preview-btn">
 								<i class="icon-pre icon-list-preview"></i>
 							</a>
 						</div>
-						<label class="itemLabel">{$city->title}</label>
+						<label class="itemLabel">{$model->title}</label>
+
+						<div>
+							{if $model->force_lang === null ||$model->force_lang === 'fr'}
+								<i class="icon-pre icon-flag-fr"></i>
+							{/if}
+							{if $model->force_lang === null ||$model->force_lang === 'en'}
+								<i class="icon-pre icon-flag-en"></i>
+							{/if}
+						</div>
 					</li>
 					<!-- .\ ITEM -->
 				{/foreach}
@@ -63,23 +73,24 @@
 		</div>
 
 		<!-- DATA -->
-		<div id="parcours"  class="columnData" limit="{$aParcours|count}" target="ce parcours">
+		<div id="parcours"  class="columnData" limit="{$aParcours|count}" target="le parcours">
 			<ul class="itemList">
-				{foreach $aParcours as $parcours}
-					{$parcours->setLang('default')}
-					<li class="item">
+				{foreach $aParcours as $model}
+					{$model->setLang('default')}
+
+					<li id="{$model->id}" class="item {if !$model->state}disabled{/if}" title="{$model->title}">
 						<div class="itemAction">
-							<a class="delete-btn" href="/delete/parcours/{$parcours->id}.html">
+							<a class="delete-btn" href="/delete/parcours/{$model->id}.html">
 								<i class="icon-pre icon-list-remove"></i>
 							</a>
-							<a href="/edit/parcours/{$parcours->id}.html">
+							<a href="/edit/parcours/{$model->id}.html">
 								<i class="icon-pre icon-list-edit"></i>
 							</a>
-							<a href="#">
+							<a  class="preview-btn">
 								<i class="icon-pre icon-list-preview"></i>
 							</a>
 						</div>
-						<label class="itemLabel">{$parcours->title}</label>
+						<label class="itemLabel">{$model->title}</label>
 					</li>
 				{/foreach}
 			</ul>
@@ -104,24 +115,24 @@
 		</div>
 
 		<!-- DATA -->
-		<div id="interests"  class="columnData" limit="{$aInterests|count}" target="ce point d'interêt">
+		<div id="interests"  class="columnData" limit="{$aInterests|count}" target="cl point d'interêt">
 			<ul class="itemList">
-				{foreach $aInterests as $interest}
-					{$interest->setLang('default')}
+				{foreach $aInterests as $model}
+					{$model->setLang('default')}
 
-					<li class="item">
+					<li id="{$model->id}" class="item {if !$model->state}disabled{/if}" title="{$model->title}">
 						<div class="itemAction">
-							<a class="delete-btn" href="/delete/interest/{$interest->id}.html">
+							<a class="delete-btn" href="/delete/interest/{$model->id}.html">
 								<i class="icon-pre icon-list-remove"></i>
 							</a>
-							<a href="/edit/interest/{$interest->id}.html">
+							<a href="/edit/interest/{$model->id}.html">
 								<i class="icon-pre icon-list-edit"></i>
 							</a>
-							<a href="#">
+							<a  class="preview-btn">
 								<i class="icon-pre icon-list-preview"></i>
 							</a>
 						</div>
-						<label class="itemLabel">{$interest->title}</label>
+						<label class="itemLabel">{$model->title}</label>
 					</li>
 				{/foreach}
 			</ul>

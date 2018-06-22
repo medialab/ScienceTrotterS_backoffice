@@ -20,6 +20,9 @@
 .lb-icon-roadMap {
   background-image: url('/media/image/interface/leftbar/icons/icon_roadMap.svg');
 }
+.lb-icon-iconInfo {
+  background-image: url('/media/image/interface/leftbar/icons/icon-info.svg');
+}
 .lb-icon-logout {
   background-image: url('/media/image/interface/leftbar/icons/icon_logout.svg');
 }
@@ -59,6 +62,13 @@ a:hover .icon-create-roadMap {
 .icon-list-arrow-right {
   background-image: url('/media/image/interface/icons/icon_list_arrow_right.svg');
 }
+.icon-flag-fr {
+  background-image: url('/media/image/interface/icons/icon_french_flag');
+}
+.icon-flag-en {
+  background-image: url('/media/image/interface/icons/icon_english_flag.svg');
+}
+
 
 .icon-poi {
   background-image: url('/media/image/interface/icons/icon_poi_blue.svg');

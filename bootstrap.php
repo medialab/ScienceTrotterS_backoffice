@@ -54,10 +54,6 @@ ApiMgr::init();
                     $redir = '/';
                 }
 
-                /*var_dump($sExt);
-                var_dump($aAccess, $aAccessUtilisateur);
-                var_dump("Redirection: ".$redir);
-                exit;*/
 
                 if ('/'.$sPage.'.'.$sExt !== $redir) {
                     header( 'location: '.$redir );
@@ -87,7 +83,8 @@ $libPath = './php/';
 $viewPath = '';
 $files = explode('/', $sExt.'/'.$sPage);
 
-$i = 0;
+
+$dFileCnt = 0;
 $f = '';
 $sContent = '';
 $tplFiles = [];
@@ -98,18 +95,20 @@ foreach ($files as $file) {
 
     $f .= $file;
 
-        /*var_dump($libPath.$f.'.php');*/
     if (file_exists($libPath.$f.'.php')) {
-        /*var_dump($libPath.$f.'.php');*/
         require_once($libPath.$f.'.php');
+    }
+    else{
     }
 
     
-    if ($i > 0 && file_exists('./templates/'.$viewPath.$f.'.tpl')) {
+    if ($dFileCnt > 0 && file_exists(realpath('.').'/templates/'.$viewPath.$f.'.tpl')) {
         $tplFiles[] = $viewPath.$f.'.tpl';
     }
+    else{
+    }
 
-    $i++;
+    $dFileCnt++;
 }
 
 foreach ($tplFiles as $f) {

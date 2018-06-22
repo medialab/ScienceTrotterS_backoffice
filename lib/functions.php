@@ -352,7 +352,7 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 				continue;
 			}
 
-			//var_dump("===== File: $fName =====");
+			//var_dump("===== File: $i => $fName =====");
 
 			/* Création du dossier */
 			if (!is_dir(UPLOAD_PATH.$directory)) {
@@ -382,23 +382,21 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 					return $imgPath;
 				}
 				else{
-					$aResult[] = $imgPath;
+					$aResult[$i] = $imgPath;
 				}
 			}
 			else{
 				//var_dump("Faild");
-
 				if (!$bArray){
-					$aResult[] = null;
+					return null;
 				}
 				else{
-					return null;
+					$aResult[$i] = null;
 				}
 			}
 		}
 
 		//var_dump($aResult);
-		//exit;
 		return $aResult;
 	}
 	else{

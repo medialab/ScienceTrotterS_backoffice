@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 12">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #00247d;
+      }
+
+      .cls-2 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-3, .cls-4 {
+        fill: #cf142b;
+      }
+
+      .cls-4 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-5, .cls-6 {
+        stroke: none;
+      }
+
+      .cls-6 {
+        fill: #fff;
+      }
+
+      .cls-7 {
+        filter: url(#Rectangle_114);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_77" data-name="Rectangle 77" class="cls-1" width="16" height="12" rx="1" transform="translate(-12927 1873)"/>
+    </clipPath>
+    <filter id="Rectangle_114" x="0" y="0" width="16" height="12" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood flood-color="#fff"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Symbole_72_1" data-name="Symbole 72 – 1" transform="translate(12927 -1873)">
+    <g id="Groupe_de_masques_14" data-name="Groupe de masques 14" class="cls-2">
+      <path id="Rectangle_77-2" data-name="Rectangle 77" class="cls-1" d="M1,0H15a1,1,0,0,1,1,1V11a1,1,0,0,1-1,1H1a1,1,0,0,1-1-1V1A1,1,0,0,1,1,0Z" transform="translate(-12927 1873)"/>
+      <g class="cls-7" transform="matrix(1, 0, 0, 1, -12927, 1873)">
+        <path id="Rectangle_114-2" data-name="Rectangle 114" class="cls-3" d="M6.818,6,0,1V0H1L8,5.133,15,0h1V1L9.182,6,16,11v1H15L8,6.867,1,12H0V11Z"/>
+      </g>
+      <g id="Rectangle_112" data-name="Rectangle 112" class="cls-4" transform="translate(-12927 1873)">
+        <path class="cls-5" d="M 9.5 12.5 L 9 12.5 L 7 12.5 L 6.5 12.5 L 6.5 12 L 6.5 7.5 L 0 7.5 L -0.5 7.5 L -0.5 7 L -0.5 5 L -0.5 4.5 L 0 4.5 L 6.5 4.5 L 6.5 -8.881784197001252e-16 L 6.5 -0.5 L 7 -0.5 L 9 -0.5 L 9.5 -0.5 L 9.5 -8.881784197001252e-16 L 9.5 4.5 L 16 4.5 L 16.5 4.5 L 16.5 5 L 16.5 7 L 16.5 7.5 L 16 7.5 L 9.5 7.5 L 9.5 12 L 9.5 12.5 Z"/>
+        <path class="cls-6" d="M 9 12 L 9 7 L 16 7 L 16 5 L 9 5 L 9 -8.881784197001252e-16 L 7 -8.881784197001252e-16 L 7 5 L 0 5 L 0 7 L 7 7 L 7 12 L 9 12 M 10 13 L 9 13 L 7 13 L 6 13 L 6 12 L 6 8 L 0 8 L -1 8 L -1 7 L -1 5 L -1 4 L 0 4 L 6 4 L 6 -8.881784197001252e-16 L 6 -1 L 7 -1 L 9 -1 L 10 -1 L 10 -8.881784197001252e-16 L 10 4 L 16 4 L 17 4 L 17 5 L 17 7 L 17 8 L 16 8 L 10 8 L 10 12 L 10 13 Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

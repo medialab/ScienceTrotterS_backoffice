@@ -41,11 +41,23 @@
 				<select name="parcours_id" id="parcours">
 					<option value="">Choisir un parcours</option>
 
+					{$sLastCity = false}
 					{foreach $aParcours as $par_id => $parc}
+						{$bGroup = $sLastCity !== $parc->city->id}
+						{if $bGroup}
+							{if $sLastCity !== false}
+								</optgroup>
+							{/if}
+
+							<optgroup target="{$parc->city->id}" label="{$parc->city->title}">
+							{$sLastCity = $parc->city->id}
+						{/if}
+								
 						<option value="{$par_id}" {if ($sParcID) == $par_id}selected{/if}>
-							{$parc['title']}
+							{$parc->title}
 						</option>
 					{/foreach}
+						</optgroup>
 				</select>
 			</div>
 
@@ -53,8 +65,8 @@
 				<label for="latitude">Géolocation</label>
 				<p>Latitude, longitude du point d'intérêt</p>
 				
-				<input name="geo-n" id="latitude" type="text" pattern="{$sGeoPat}" placeholder="ex: 48.856" value="{$oInt->geoN}">
-				<input name="geo-e" id="longitude" type="text" pattern="{$sGeoPat}" placeholder="ex: 2.3522" value="{$oInt->geoE}">
+				<input name="geo-n" id="latitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 48.856" value="{$oInt->geoN}">
+				<input name="geo-e" id="longitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 2.3522" value="{$oInt->geoE}">
 				
 				<p>Avec Google Map, cliquez sur une adresse pour récupérer les coordonées GPS</p>
 				<a id="localisation" href="https://www.google.com/maps" target="_blank" title="" class="item itemClick">https://www.google.com/maps</a>
@@ -68,7 +80,7 @@
 				</p>
 				
 				<div class="borderGrey">
-					<input type="file" name="img" id="img" class="inputFile">
+					<input type="file" name="img" id="img" target="img" class="inputFile">
 					<div class="blocInputFileName">
 						<label class="btnInputFileName" for="img">
 							{if $oInt->header_image|strlen}
@@ -115,7 +127,7 @@
 					</div>
 				</div>
 
-				<a href="" title="Supprimer l'audio'" class="item itemClick">Supprimer l'audio</a>
+				{*<a href="" title="Supprimer l'audio'" class="item itemClick">Supprimer l'audio</a>*}
 			</div>
 
 			<div class="box">
@@ -159,14 +171,17 @@
 
 				<div id="gallery-container" class="borderGrey flexInputFile">
 					{for $index=0 to 4}
-						{$sImg = $oInt->gallery_image[$index]|default: false}
+						{$sImg = $oInt->gallery_image->$index|default: false}
+						{$sName = '/'|explode: ($sImg|default: '')}
+						{$sName = $sName[count($sName)-1]}
+
 						{if $sImg}
 							<div class="blocInputFileName">
-								<input type="file" name="imgs-interet-{$index}" id="imgs-interet-{$index}" target="img" class="inputFile {if $sImg}hasFile{/if}">
+								<input type="file" name="imgs-interet[{$index}]" id="imgs-interet-{$index}" target="img" class="inputFile {if $sImg}hasFile{/if}">
 
 								<label class="btnInputFileName" >
 									<img class="iconPreview" src="{$_API_URL_}ressources/upload/{$sImg}" index="{$index}" alt="" width="56" height="50">
-									<p>{$sImg}</p>
+									<p>{$sName}</p>
 								</label>
 							</div>
 						{else}
@@ -197,13 +212,13 @@
 			
 			<div class="boolean {if $oInt->state|default: false}on{/if}">
 				<input id="publie" type="checkbox" name="state" {if $oInt->state|default: false}checked{/if}/>
-				<label for="publie" data="on">Publié</label>
+				<label for="publie" data="on">Public</label>
 
 				<div class="style">
 					<div></div>
 				</div>
 
-				<label for="publie" data='off'>Brouillon</label>
+				<label for="publie" data='off'>Privé</label>
 			</div>
 
 			<button class="btn submit" type="submit">Envoyer</button>

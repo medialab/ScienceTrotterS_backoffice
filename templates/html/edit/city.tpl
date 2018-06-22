@@ -74,13 +74,13 @@
 			
 			<div class="boolean {if $oCity->state|default: false}on{/if}">
 				<input id="publie" type="checkbox" name="state" {if $oCity->state|default: false}checked{/if} />
-				<label for="publie" data="on">Publié</label>
+				<label for="publie" data="on">Public</label>
 
 				<div class="style">
 					<div></div>
 				</div>
 
-				<label for="publie" data='off'>Brouillon</label>
+				<label for="publie" data='off'>Privé</label>
 			</div>
 
 			<button class="btn submit" type="submit">Envoyer</button>

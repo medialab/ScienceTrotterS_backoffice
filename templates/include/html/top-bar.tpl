@@ -10,7 +10,7 @@
 			<a href="#" class="item itemClick">
 				<div class="itemIcon iconMessage"></div>
 			</a>
-			<a href="#" class="item itemClick">
+			<a href="/credit.html" class="item itemClick">
 				<div class="itemIcon iconInfo"></div>
 			</a>
 		</div>

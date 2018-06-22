@@ -63,9 +63,9 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 				$oParc->audio = handleUploadedFile('audio', 'parcours/audio');
 			}
 
-//			ApiMgr::$debugMode = true;
+			ApiMgr::$debugMode = true;
 			$oSaveRes = $oParc->save();
-			//exit;
+			exit;
 
 			if (!$oSaveRes->success) {
 				if(!empty($oSaveRes->message)) {

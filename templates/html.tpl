@@ -64,14 +64,14 @@
 
 		<script src="/api-mgr.js"></script>
 		<script src="/html.js"></script>
+		<script src="/notify.js"></script>
 
 		
 		{assign var='sPath' value=''}
 		{foreach $aFiles as $sFile}
 			{assign var="sPath" value=$sPath|cat:'/':$sFile}
-			
-			{if file_exists( "./templates/js/html/"|cat:$sFile:".js" )}
-				<script src="/html/{$sFile}.js"></script>
+			{if file_exists( "./templates/js/html/"|cat:$sPath:".js" )}
+				<script src="/html/{$sPath}.js"></script>
 			{/if}
 		{/foreach}
 

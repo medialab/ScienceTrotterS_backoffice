@@ -31,19 +31,27 @@ class Interest extends Model
 	protected $state;
 	protected $schedule;
 
+	protected $city;
+
 	function __construct($id=false, $aData=[]) {
 		$this->sTable = 'interests';
-		$this->sqlIgnore = ['geoE','geoN'];
+		$this->sqlIgnore = ['geoE','geoN', 'city'];
 		Parent::__construct($id, $aData);
 	}
 
 	function __get($sVar) {
-		if ($sVar === 'gallery_image') {
-			if (is_null($this->gallery_image)) {
-				$this->gallery_image = [];
-			}
+		switch ($sVar) {
+			case 'gallery_image':
+				if (is_null($this->gallery_image)) {
+					$this->gallery_image = new \StdClass;
+				}
 
-			return $this->gallery_image;
+				return (object)$this->gallery_image;
+				break;
+
+			case 'city':
+				return $this->getCity();
+				break;			
 		}
 
 		return Parent::__get($sVar);
@@ -75,8 +83,29 @@ class Interest extends Model
 		Parent::__set($sVar, $var);
 	}
 
-	public static function list($limit=0, $page=0, $columns=false, $sClass=false) {
-		return Parent::list($limit, $page, $columns, self::$ssClass);
+	public function setLang($lang=false) {
+		Parent::setLang($lang);
+
+		if (!empty($this->city)) {
+			$this->city->setLang($this->getLang());
+		}
+	}
+
+	public function getCity() {
+		if (empty($this->city)) {
+			if (empty($this->cities_id)) {
+				return null;
+			}
+			
+			$this->city = City::get($this->cities_id);
+			$this->city->setLang($this->getLang());
+		}
+
+		return $this->city;
+	}
+
+	public static function list($limit=0, $page=0, $columns=false, $aOptions=false, $sClass=false) {
+		return Parent::list($limit, $page, $columns, $aOptions, self::$ssClass);
 	}
 
 	public static function get($id=0, $aData=[], $sClass=false) {

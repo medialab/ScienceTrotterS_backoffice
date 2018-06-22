@@ -18,18 +18,43 @@ class Parcours extends Model
 	protected $description;
 	protected $state;
 	protected $cities_id;
+	
+	protected $city;
 
 	function __construct($id=false, $aData=[]) {
 		$this->sTable = 'parcours';
+		$this->sqlIgnore = ['city'];
 		Parent::__construct($id, $aData);
 	}
 
-	public static function list($limit=0, $page=0, $columns=false, $sClass=false) {
-		return Parent::list($limit, $page, $columns, self::$ssClass);
+	public static function list($limit=0, $page=0, $columns=false, $aOptions=false, $sClass=false) {
+		return Parent::list($limit, $page, $columns, $aOptions, self::$ssClass);
 	}
 
 	public static function get($id=0, $aData=[], $sClass=false) {
 		return Parent::get($id, $aData, self::$ssClass);
+	}
+	
+
+	public function setLang($lang=false) {
+		Parent::setLang($lang);
+
+		if (!empty($this->city)) {
+			$this->city->setLang($this->getLang());
+		}
+	}
+
+	public function getCity() {
+		if (empty($this->city)) {
+			if (empty($this->cities_id)) {
+				return null;
+			}
+			
+			$this->city = City::get($this->cities_id);
+			$this->city->setLang($this->getLang());
+		}
+
+		return $this->city;
 	}
 
 	public function setColor($color) {
@@ -73,6 +98,17 @@ class Parcours extends Model
 		Parent::__set($sVar, $value);
 	}
 
+
+
+	function __get($sVar) {
+		switch ($sVar) {
+			case 'city':
+				return $this->getCity();
+				break;			
+		}
+
+		return Parent::__get($sVar);
+	}
 
 	
 	public function setGeoloc(&$geoloc) {

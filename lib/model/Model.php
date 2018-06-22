@@ -335,7 +335,9 @@ abstract class Model
 		$this->state = $bState;
 	}
 
-	
+	public function getLang() {
+		return $this->sCurLang;
+	}
 	
 	public function setGeoloc(&$geoloc) {
 		if ($geoloc === ';') {
@@ -400,7 +402,7 @@ abstract class Model
 		return null;
 	}
 
-	public static function list($limit=0, $page=0, $columns=false, $sClass=false) {
+	public static function list($limit=0, $page=0, $columns=false, $aOptions=false, $sClass=false) {
 		$sClass = 'Model\\'.$sClass;
 
 		try {
@@ -415,7 +417,7 @@ abstract class Model
 				}
 			}
 
-			$aResults = \ApiMgr::list($base->sTable, false, $limit, $page, $columns);
+			$aResults = \ApiMgr::list($base->sTable, false, $limit, $page, $columns, $aOptions);
 			if (!$aResults->success) {
 				return [];
 			}

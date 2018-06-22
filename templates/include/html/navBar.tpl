@@ -34,6 +34,12 @@
             <label class="itemLabel">Créer points d'intérêts</label>
           </a>
         </li>
+        <li class="item {if $sPage === 'credit'}selected{/if}">
+          <a href="/credit.html" class="itemClick">
+            <div class="itemIcon lb-icon-iconInfo"></div>
+            <label class="itemLabel">Crédit</label>
+          </a>
+        </li>
         <li class="item">
           <a href="/logout.html" class="itemClick">
             <div class="itemIcon lb-icon-logout"></div>

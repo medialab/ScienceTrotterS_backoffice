@@ -251,3 +251,12 @@ body {
   color: #BCBCCB;
   text-decoration: none;
 }
+
+
+.columnData > .itemList > .item.disabled label.itemLabel{
+  color: #a8a8a8 !important;
+}
+
+.columnData li.item a {
+  cursor: pointer;
+}

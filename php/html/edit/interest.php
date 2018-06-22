@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 
 /* Récupération de l'ID de la ville s'il existe */
 	$id = !empty($_GET['id']) ? $_GET['id'] : false;
@@ -16,17 +15,21 @@
 
 
 ApiMgr::setLang('fr');
-$oCities = ApiMgr::list('cities', false, 0, 0, ['id', 'title']);
+
 $aCities = [];
+$oCities = ApiMgr::list('cities', false, 0, 0, ['id', 'title']);
 foreach ($oCities->data as $oCity) {
 	$aCities[$oCity->id] = $oCity->title;
 }
 
+$aoParcours = \Model\Parcours::list(false, false, ['id', 'title', 'cities_id']);
+//
 
-$oParcours = ApiMgr::list('parcours', false, 0, 0, ['id', 'title', 'cities_id']);
 $aParcours = [];
-foreach ($oParcours->data as $oPar) {
-	$aParcours[$oPar->id] = ['id' => $oPar->id, 'title' => $oPar->title, 'city_id' => $oPar->cities_id];
+//$oParcours = ApiMgr::list('parcours', false, 0, 0, ['id', 'title', 'cities_id']);
+foreach ($aoParcours as $oPar) {
+	$aParcours[$oPar->id] = $oPar; //['id' => $oPar->id, 'title' => $oPar->title, 'city_id' => $oPar->cities_id];
+	/*exit;*/
 }
 
 ApiMgr::setLang(false);
@@ -34,10 +37,10 @@ ApiMgr::setLang(false);
 
 $oCity = null;
 
+/*ApiMgr::$debugMode = true;*/
 $oInt = new \Model\Interest($id);
-/*var_dump($oInt);
-exit;
-*/
+/*exit;*/
+
 $curParc = false;
 if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 	
@@ -103,30 +106,45 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 				$oInt->audio = handleUploadedFile('audio', 'interests/audio');
 			}
 
-			/*var_dump($_FILES['imgs-interet']);
 			if (!empty($_FILES['imgs-interet'])) {
-				$bDoUpload = false;
-
-				foreach ($_FILES['imgs-interet']['error'] as $bIsValid) {
-					if ($bIsValid) {
-						$bDoUpload = true;
-						break;
-					}
-				}
+				//var_dump("TEST UPLOAD", $_FILES['imgs-interet']);
+				$bDoUpload = in_array(0, $_FILES['imgs-interet']['error']);
+				//var_dump($bDoUpload);
 
 				if ($bDoUpload) {
-					$oInt->gallery_image = handleUploadedFile('imgs-interet', 'interests/image', true);
+					//var_dump("Fetching files");
+					$aUploaded = handleUploadedFile('imgs-interet', 'interests/image', true);
+
+					$oTmp = new Stdclass;
+					//var_dump("Updating files");
+					foreach ($aUploaded as $dIndex => $sFile) {
+						if (!empty($sFile)) {
+							$oTmp->$dIndex = $sFile;
+							//var_dump("Updating $dIndex => $sFile");
+							//var_dump("Current => ". $oInt->gallery_image->$dIndex);
+							$oInt->gallery_image->$dIndex = $sFile;
+							//var_dump("Vérif => ". $oInt->gallery_image->$dIndex);
+						}
+						else{
+							$oTmp->$dIndex = $oInt->gallery_image->$dIndex;
+
+						}
+					}
+
+					$oInt->gallery_image = $oTmp;
+					//var_dump("Veruify: ", $oInt->gallery_image);
+
 				}
 			}
-			*/
+			
 
-			/*ApiMgr::$debugMode = true;
-			var_dump($oInt);
-			exit;*/
+			/*ApiMgr::$debugMode = true;*/
 			$oSaveRes = $oInt->save();
+			/*exit;*/
 
 
 			if (!$oSaveRes->success) {
+				$oInt->enable(false);
 				if(!empty($oSaveRes->message)) {
 					$aErrors['Erreur'] = $oSaveRes->message;
 				}
@@ -170,12 +188,8 @@ elseif (!empty($_GET['parent'])) {
 	}
 }
 
-/*var_dump($curParc);
-var_dump($oCity);
-exit;*/
-
 $smarty->assign([
-	'aErros' => $aErrors,
+	'aErrors' => $aErrors,
 	'oInt' => $oInt,
 	'oModel' => $oInt,
 	'oCity' => $oCity,

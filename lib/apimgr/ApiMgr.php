@@ -69,10 +69,9 @@ class ApiMgr {
 
 		Self::$tmpData['lang'] = Self::$sCurLang;
 	
-		//var_dump("Request DATA", Self::$tmpData);
-
 		// Création de la requete Curl
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
+		
 		$r = Self::$curl->exec();
 		$oResult =  json_decode($r);
 		
@@ -206,7 +205,7 @@ class ApiMgr {
 		$url = Self::$url.$base.$model.'/list';
 
 		$c->setUrl($url);
-		$adata = [];
+		$aData = [];
 		if ($columns) {
 			$aData['columns'] = $columns;
 		}

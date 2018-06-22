@@ -21,29 +21,25 @@ var ApiMgr = {
 	execute: function() {
 		this.active = true;
 
-		console.log(this.queue);
 		this.curRequest = this.queue.shift();
-		console.log("Executing Request: ", this.curRequest);
-		console.log(this.curRequest.data);
 
 		$.ajax(this.curRequest);
 	},
 
 	call: function(method, url, data, success, error) {
 		var self = this;
+		console.log("Calling:", data);
 
 		var request = {
 			crossDomain: true,
 			url: this.apiUrl+url,
 			method: method,
 			data: data,
-			dataType: 'jsonp',
+			dataType: 'json',
 
 			sCurLang: false,
-			jsonpCallback: 'ApiResponse',
 
 			success: function(result) {
-				console.log("API SUCCESS", result);
 				if (success) {
 					success(result);
 				}
@@ -109,14 +105,18 @@ var ApiMgr = {
 		)
 	},
 
+	update: function(table, aData, success, error) {
+		aData['token'] = _API_TOKEN_;
+		return this.call(
+			'post',
+			table+'/update',
+			aData,
+			success,
+			error
+		)
+	},
+
 	setLang: function(l) {
 		this.sCurLang = l;
 	}
-}
-
-
-function ApiResponse(result) {
-	/*if (ApiMgr.curRequest.success) {
-		ApiMgr.curRequest.success(result);
-	}*/
 }
