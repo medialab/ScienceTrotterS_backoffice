@@ -20,11 +20,11 @@
 				<input name="geo-n" id="latitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 48.856" value="{$oCity->geoN|default: ''}">
 				<input name="geo-e" id="longitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 2.3522" value="{$oCity->geoE|default: ''}">
 
-				<p>Avec Google Map, cliquez sur une adresse pour récupérer les coordonées GPS</p>
-				<a id="localisation" href="https://www.google.com/maps" target="_blank" title="" class="item itemClick">https://www.google.com/maps</a>
+				<p>Avec <i>Coordonnées GPS</i>, recherchez une adresse pour récupérer les coordonées</p>
+				<a id="localisation" href="https://www.coordonnees-gps.fr/" target="_blank" class="item itemClick">https://www.coordonnees-gps.fr/</a>
 			</div>
 			<div class="box">
-				<label for="img">Image *</label>
+				<label for="img-{$sIso}">Image *</label>
 				<p>
 					Choisir une image illustrant au mieux la ville.
 					<br />Format 600x600px, png ou jpg, poids maximum 60k
@@ -33,9 +33,9 @@
 				<div class="borderGrey">
 
 					<div class="blocInputFileName">
-						<input type="file" name="img" id="img" target="img" class="inputFile">
+						<input type="file" name="img" id="img-{$sIso}" target="img" class="inputFile">
 						
-						<label class="btnInputFileName" for="img">
+						<label class="btnInputFileName" for="img-{$sIso}">
 							{if $oCity->image|strlen}
 								<img src="{$_API_URL_}ressources/upload/{$oCity->image}" style="max-width: 100%;">
 							{else}
@@ -53,16 +53,16 @@
 
 
 			{if $oCity->isSync()}
-				<div class="box" style="background-color: transparent; box-shadow: none">
+				<!-- <div class="box" style="background-color: transparent; box-shadow: none">
 					<div href="#" title="Preview" class="btn" style="margin-top: 0;">
 						<a href="">
 							<img src="/media/image/interface/icons/icon_edit_preview.svg">
 							Preview
 						</a>
 					</div>
-				</div>
+				</div> -->
 
-				<div class="box" style="background-color: transparent; box-shadow: none">
+				<div class="box" style="background-color: transparent; box-shadow: none; width: 100%">
 					<div href="#" title="Preview" class="btn btn-lg" style="margin-top: 0;">
 						<a href="/edit/parcours/@{$oCity->id}.html">
 							<img src="/media/image/interface/icons/icon_create_roadMap.svg">

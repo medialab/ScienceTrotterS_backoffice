@@ -26,6 +26,7 @@
 					<link rel="stylesheet" href="/html/{$sPath}.css" type="text/css" />
 				{/if}
 			{/foreach}
+			<link rel="stylesheet" href="/html/topbar.css" type="text/css" />
 
 			{*
 				{if file_exists( "./templates/css/html/"|cat:$smarty.get.name:".css" )}
@@ -33,7 +34,8 @@
 				{/if}
 			*}
 
-			<script type="text/javascript" src="/lib/jquery-3.3.1.min.js"></script>
+			<script type="text/javascript" src="/lib/jquery.min.js"></script>
+			<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
 	</head>
 	<body id="page{$smarty.get.name|default: 'index'|ucfirst}">
 <!-- 
@@ -62,9 +64,11 @@
 			var _API_TOKEN_ = '{$_API_TOKEN_|default: ""}';
 		</script>
 
+		<script src="/functions.js"></script>
 		<script src="/api-mgr.js"></script>
 		<script src="/html.js"></script>
 		<script src="/notify.js"></script>
+		<script src="/html/topbar.js"></script>
 
 		
 		{assign var='sPath' value=''}

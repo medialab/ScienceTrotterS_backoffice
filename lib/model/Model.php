@@ -25,7 +25,7 @@ abstract class Model
 	protected $bSync = false;	// Est Synchronisé avec la DB
 	protected $bLoaded = false;	// A des Donées Chargées
 
-	protected $sqlIgnore = ['sqlIgnore'];	// variable à ignorer lors du Toarray
+	protected $sqlIgnore = ['sqlIgnore', 'parcours', 'city'];	// variable à ignorer lors du Toarray
 
 	function __construct($id=false, $aData=[]) {
 		if ($id) {
@@ -34,6 +34,32 @@ abstract class Model
 		elseif(!empty($aData)) {
 			$this->load($aData);
 		}
+	}
+
+	private function encode($var) {
+		if (is_string($var)) {
+			$var = htmlentities($var);
+		}
+		elseif (is_array($var) || is_object($var)) {
+			foreach ($var as $sKey => &$val) {
+				$val = $this->encode($val);
+			}
+		}
+
+		return $var;
+	}
+
+	private function decode($var) {
+		if (is_string($var)) {
+			$var = html_entity_decode($var);
+		}
+		elseif (is_array($var) || is_object($var)) {
+			foreach ($var as $sKey => &$val) {
+				$val = $this->decode($val);
+			}
+		}
+
+		return $var;
 	}
 
 	/**
@@ -114,6 +140,10 @@ abstract class Model
 
 
 	function __set($sVar, $var) {
+		if (is_string($var)) {
+			$var = $this->decode($var);
+		}
+
 		$bAccess = $this->canAccessVar($sVar, false);
 		if ($bAccess === -1) {
 			trigger_error('Can\'t access Model Property "'.$sVar.'" due to Protection Level.');
@@ -150,7 +180,6 @@ abstract class Model
 	}
 
 	function __get($sVar) {
-
 		if (property_exists($this, $sVar)) {
 
 			if (in_array($sVar, $this->aTranslateVars)) {
@@ -174,13 +203,13 @@ abstract class Model
 
 				// Si une langue est séléctionnée
 				if ($sLang) {
-				    return empty($var->$sLang) ? null : $var->$sLang;
+				    return empty($var->$sLang) ? null : $this->encode($var->$sLang);
 				}
 
-				return $var;
+				return $this->encode($var);
 			}
 			else{
-				return empty($this->$sVar) ? null : $this->$sVar;
+				return empty($this->$sVar) ? null : $this->encode($this->$sVar);
 			}
 		}
 		

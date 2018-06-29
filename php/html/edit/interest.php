@@ -17,21 +17,34 @@
 ApiMgr::setLang('fr');
 
 $aCities = [];
-$oCities = ApiMgr::list('cities', false, 0, 0, ['id', 'title']);
+$oCities = ApiMgr::list('cities', false, 0, 0, ['id', 'title'], ['title', 'asc']);
 foreach ($oCities->data as $oCity) {
 	$aCities[$oCity->id] = $oCity->title;
 }
 
-$aoParcours = \Model\Parcours::list(false, false, ['id', 'title', 'cities_id']);
-//
+//ApiMgr::$debugMode = true;
+$aoParcours = \Model\Parcours::list(false, false, ['id', 'title', 'cities_id'], [['cities_id', 'title'], 'asc']);
+//exit;
 
 $aParcours = [];
+$aParcoursOut = [];
 //$oParcours = ApiMgr::list('parcours', false, 0, 0, ['id', 'title', 'cities_id']);
 foreach ($aoParcours as $oPar) {
-	$aParcours[$oPar->id] = $oPar; //['id' => $oPar->id, 'title' => $oPar->title, 'city_id' => $oPar->cities_id];
-	/*exit;*/
+	//var_dump($oPar->title, $oPar->cities_id, strlen($oPar->cities_id));
+	if (strlen($oPar->cities_id) && $oPar->city->isLoaded()) {
+		$aParcoursOut[$oPar->id] = $oPar;
+		continue;
+	}
+
+	//var_dump("Is Empty");
+	$oPar->city = (object) ['id' => 0, 'title' => 'Sans Ville'];
+	$aParcours[$oPar->id] = $oPar;
 }
 
+//var_dump($aParcours);
+$aParcours = array_merge($aParcours, $aParcoursOut);
+//var_dump($aParcours);
+//exit;
 ApiMgr::setLang(false);
 
 
@@ -39,11 +52,19 @@ $oCity = null;
 
 /*ApiMgr::$debugMode = true;*/
 $oInt = new \Model\Interest($id);
-/*exit;*/
+$oInt->setLang('en');
+/*var_dump($oInt->bibliography);
+var_dump($oInt);
+exit;*/
 
 $curParc = false;
 if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 	
+	/* Validation De  la Ville */
+		/*if(!fRequiredValidator('cities_id', $_POST)) {
+			$aErrors['Ville'] = 'Ce champs est obligatoire';
+		}*/
+
 	/* Validation De  accroche */
 		if (!empty($_POST['address'])) {
 			$oInt->address = $_POST['address'];
@@ -52,11 +73,6 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 	/* Validation De  transports */
 		if (!empty($_POST['transport'])) {
 			$oInt->transport = $_POST['transport'];
-		}
-
-	/* Validation De  audio_script */
-		if (!empty($_POST['audio_script'])) {
-			$oInt->audio_script = $_POST['audio_script'];
 		}
 
 	/* Validation De  bibliography */
@@ -144,7 +160,6 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 
 			if (!$oSaveRes->success) {
-				$oInt->enable(false);
 				if(!empty($oSaveRes->message)) {
 					$aErrors['Erreur'] = $oSaveRes->message;
 				}
@@ -181,7 +196,7 @@ elseif (!empty($_GET['parent'])) {
 			if ($id == $oInt->parcours_id) {
 				$curParc = $aParc;
 
-				$oCity = \Model\City::get($aParc['city_id']);
+				$oCity = \Model\City::get($aParc->cities_id);
 			}
 		}
 		ApiMgr::setLang(false);

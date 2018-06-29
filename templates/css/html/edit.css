@@ -146,7 +146,8 @@ ul.interest-list a:hover {
 	text-decoration: underline;
 }
 
-textarea#description {
+textarea#description,
+textarea#audio_script {
 	min-height: 250px;
 }
 
@@ -165,8 +166,14 @@ textarea#description {
 	cursor: pointer;
 	max-width: 350px;
 	border: 1px solid;
-	padding: 0px 0px;
 	position: relative;
+	padding: 5px 0;
+	line-height: 1;
+}
+
+.cust-color-selector input{
+	left: -1500%;
+	position: absolute;
 }
 
 .cust-color-selector div.option-container{
@@ -204,10 +211,15 @@ textarea#description {
     left: -1px;
     right: -1px;
     top: 100%;
-    padding: 5px 0px;
+    padding: 0px;
+    display: none;
     border: 1px solid;
     position: absolute;
     background-color: white;
+}
+
+.cust-color-selector.on div.option-container {
+    display: inline-block;
 }
 
 .cust-color-selector div.opt-text {

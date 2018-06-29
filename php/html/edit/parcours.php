@@ -18,7 +18,6 @@ else{
 $aColors = ApiMgr::list('colors', true, 0, 0, false, ['name', 'DESC']);
 $smarty->assign('aColors', $aColors->data);
 
-
 //ApiMgr::$debugMode = true;
 $oParc = new \Model\Parcours($id);
 //exit;
@@ -30,7 +29,7 @@ if ($id && !$oParc->isLoaded()) {
 
 $aInts = [];
 ApiMgr::setLang('fr');
-$aCities = \Model\City::list(0, 0, ['id', 'title']);
+$aCities = \Model\City::list(0, 0, ['id', 'title'], ['title', 'asc']);
 
 if ($oParc->isLoaded()) {
 	$aInts = ApiMgr::listByParcours($id, false, 0, 0, ['id', 'title', 'state']);
@@ -46,6 +45,12 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 	if (!$sLang) {
 		$aErrors['lang'] = 'Aucune langue n\'a été sélectionnée';
 	}
+
+	
+	/* Validation De  la Ville */
+		/*if(!fRequiredValidator('cities_id', $_POST)) {
+			$aErrors['Ville'] = 'Ce champs est obligatoire';
+		}*/
 	
 	$oParc->setLang($sLang);
 
@@ -63,9 +68,9 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 				$oParc->audio = handleUploadedFile('audio', 'parcours/audio');
 			}
 
-			ApiMgr::$debugMode = true;
+			//ApiMgr::$debugMode = true;
 			$oSaveRes = $oParc->save();
-			exit;
+			//exit;
 
 			if (!$oSaveRes->success) {
 				if(!empty($oSaveRes->message)) {

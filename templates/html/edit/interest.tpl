@@ -40,6 +40,9 @@
 
 				<select name="parcours_id" id="parcours">
 					<option value="">Choisir un parcours</option>
+					<option value="0">
+						Hors Parcours
+					</option>
 
 					{$sLastCity = false}
 					{foreach $aParcours as $par_id => $parc}
@@ -58,6 +61,10 @@
 						</option>
 					{/foreach}
 						</optgroup>
+
+						<option disabled class="notfound">
+							Aucun Parcours Trouvé.
+						</option>
 				</select>
 			</div>
 
@@ -68,8 +75,8 @@
 				<input name="geo-n" id="latitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 48.856" value="{$oInt->geoN}">
 				<input name="geo-e" id="longitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 2.3522" value="{$oInt->geoE}">
 				
-				<p>Avec Google Map, cliquez sur une adresse pour récupérer les coordonées GPS</p>
-				<a id="localisation" href="https://www.google.com/maps" target="_blank" title="" class="item itemClick">https://www.google.com/maps</a>
+				<p>Avec <i>Coordonnées GPS</i>, recherchez une adresse pour récupérer les coordonées</p>
+				<a id="localisation" href="https://www.coordonnees-gps.fr/" target="_blank" class="item itemClick">https://www.coordonnees-gps.fr/</a>
 			</div>
 
 			<div class="box">
@@ -108,16 +115,17 @@
 			<div class="box">
 				<label for="audio-{$sIso}">Audio *</label>
 				<p>
-					5min ou 6Mo max. format .mp3 ou .wav
+					5min ou 20Mo max. format .mp3 ou .wav
 				</p>
 				
 				<div class="borderGrey">
 					<input type="file" name="audio" id="audio-{$sIso}" class="inputFile">
 					
 					<div class="blocInputFileName audio">
-						<label class="btnInputFileName" for="audio">
+						<label class="btnInputFileName" for="audio-{$sIso}">
 							{$audio = '/'|explode: ($oInt->audio|default: '')}
 							{$audio = $audio[count($audio)-1]}
+							{$audio = preg_replace('/_[0-9]+$/', '', $audio)}
 
 							<div class="audio-name" {if $oInt->audio|default:false}disabled{/if}>
 								{$audio|default: ''}
@@ -181,7 +189,7 @@
 
 								<label class="btnInputFileName" >
 									<img class="iconPreview" src="{$_API_URL_}ressources/upload/{$sImg}" index="{$index}" alt="" width="56" height="50">
-									<p>{$sName}</p>
+									<p>{preg_replace('/_[0-9]+$/', '', $sName)}</p>
 								</label>
 							</div>
 						{else}

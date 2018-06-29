@@ -1,15 +1,159 @@
 // Load Automatique Des Listes
 $(document).ready(function() {
-	/* On alerte avant de supprimer */
-	console.log($(".arboItem .columnData"));
+	var emptyRow = null;
+	var scrollList = $(".arboItem .columnData");
 
-	$(".arboItem .columnData a.delete-btn").on('click', function(e) {		
+	scrollList.find("li.item").click(function(e) {
+		ApiMgr.setLang('fr');
+
+		var self = $(this);
+		var pId = self.attr('id');
+
+		var container = self.parents('.columnData');
+		if (container.attr('id') === 'interests') {
+			return;
+		}
+
+		self.parent().find('li').removeClass("active");
+		self.addClass("active");
+
+		var type = container.attr('id');
+		//console.log("Type: "+type);
+
+		var childType = container.attr('child');
+		//console.log("ChildType: "+childType);
+
+		var sModel = childType;
+		if (sModel === 'cities') {
+			sModel = 'city';
+		}
+		else if(sModel === 'interests') {
+			sModel = 'interest';
+		}
+
+		var childContainer = $("#"+childType+" ul.itemList");
+		var by = container.attr('id') === 'cities' ? 'CityId' : 'ParcoursId';
+		
+		if (type === 'cities') {
+			if (pId !== "no-city") {
+				by = 'cityId';
+			}
+			else{
+				by = "NoCity";
+			}
+		}
+		else if(type === 'parcours') {
+			if (pId !== "no-prcours") {
+				by = "parcoursId";
+			}
+			else{
+				by = "NoParcours";
+				pId = self.attr('parent'); // City Id
+			}
+		}
+
+		childContainer.empty();
+		self.addClass("loading");
+
+		ApiMgr.by({
+			by: by,
+			id: pId,
+			table: childType,
+			order: [childType+'.title', 'ASC'],
+			columns: ['id', 'title', 'state'],
+
+			success: function(aData) {
+				self.removeClass("loading");
+				if (childType === "parcours") {
+					$("#interests ul.itemList").empty();
+				}
+
+				if (aData.data.length) {
+					for(var i in aData.data) {
+						var data = aData.data[i];
+
+						//console.log("Row: ", data);
+						//console.log("ADDING: #"+ data.id +" => "+data.title);
+
+						var row = emptyRow.clone(true, true);
+						row.attr('id', data.id);
+						row.attr('title', data.title);
+
+						row.attr('parent', pId);
+						
+						row.find('label.itemLabel').text(data.title);
+						
+						if (!data.state) {
+							row.addClass('disabled');
+						}
+
+						var flags = row.find('.flag-cont');
+						flags.removeClass('en');
+						flags.removeClass('fr');
+						if (data.force_lang) {
+							flags.addClass(data.force_lang);
+						}
+						
+						row.find("a.edit-btn").attr('href', "/edit/"+sModel+"/"+data.id+".html");
+						row.find("a.delete-btn").attr('href', "/delete/"+sModel+"/"+data.id+".html");
+
+						if (data.force_lang) {
+							row.find('flag-cont').addClass(data.force_lang);
+						}
+
+						childContainer.append(row);
+					}
+				}
+				else if(sModel === 'interest') {
+					var row = emptyRow.clone(false);
+					row.attr('id', '');
+					row.attr('parent', '');
+
+					row.find('label.itemLabel').text("Aucun Résultat Trouvé !");
+					row.addClass("item-notif");
+
+					childContainer.append(row);
+				}
+
+				if (childType === 'parcours') {
+					var row = emptyRow.clone(true, true);
+					row.attr('id', 'no-prcours');
+					row.addClass('item-notif');
+					row.attr('parent', pId);
+
+					row.addClass("item-notif");
+					row.find('label.itemLabel').text("Hors Parcours");
+					
+					childContainer.append(row);
+				}
+			},
+
+			error: function(data) {
+				self.removeClass("loading");
+			}
+		});
+	});
+
+	scrollList.find("a.delete-btn").click(function(e) {		
+		e.preventDefault();
+		e.stopPropagation();
+		
 		var self = $(this);
 		var oParent = self.parents(".item");
 		var oCont = oParent.parents(".columnData");
 		var sTitle = oParent.attr("title");
+		console.log("Deleting: "+oParent.attr('title'));
 		
-		if (!confirm("Êtes vous sûr de vouloir supprimer "+oCont.attr('target')+" "+oParent.attr('title')+" ?")) {
+		var bParcours = oCont.attr("id") === "parcours";
+		var msg = 'Êtes vous sûr de vouloir supprimer '+oCont.attr('target')+': "'+oParent.attr('title')+'" ?';
+		
+		if (bParcours) {
+			//msg += "\nTous les points d'intérêts associés seront désactivés";
+		}
+
+		console.log("Msg: "+msg);
+
+		if (!confirm(msg)) {
 			e.preventDefault();
 			return false;
 		}
@@ -17,7 +161,9 @@ $(document).ready(function() {
 		return false;
 	});
 
-	$(".arboItem .columnData a.preview-btn").on('click', function(e) {
+	scrollList.find("a.preview-btn").click(function(e) {
+		e.stopPropagation();
+
 		var self = $(this);
 		var oParent = self.parents(".item");
 		var oCont = oParent.parents(".columnData");
@@ -25,7 +171,7 @@ $(document).ready(function() {
 
 
 		var bEnable = oParent.hasClass('disabled');
-		var sEnable = bEnable ? "activer" : "déactiver";
+		var sEnable = bEnable ? "activer" : "désactiver";
 
 		if (!confirm("Êtes vous sûr de vouloir "+sEnable+" "+oCont.attr('target')+" "+oParent.attr('title')+" ?")) {
 			e.preventDefault();
@@ -47,10 +193,10 @@ $(document).ready(function() {
 				oParent.addClass('disabled');
 			}
 			else {
-				oParent.removelass('disabled');
+				oParent.removeClass('disabled');
 			}
 
-			console.log(aModel);
+			//console.log(aModel);
 			if (result.success) {
 				if (result.message === null || !result.message.length) {
 					Notify.success(aModel.title, 'Mise à jour réussie.');
@@ -63,13 +209,22 @@ $(document).ready(function() {
 				Notify.error(aModel.title, result.message);
 			}
 		}, function(error) {
-			console.error("Modale Update Faild: ", error);
+			//console.error("Modale Update Faild: ", error);
 
 		});
 	});
 
-	var lists = {};		// Taleau ID => [jquery el, timer, requete]
+	emptyRow = scrollList.first().find('li').first().clone(true, true);
+	emptyRow.attr('id', '');
+	emptyRow.attr('title', '');
+	emptyRow.attr('parent', '');
+	emptyRow.removeClass('disabled');
 
+	var flagCont = emptyRow.find("flag-cont");
+	flagCont.removeClass('fr');
+	flagCont.removeClass('en');
+
+	var lists = {};		// Taleau ID => [jquery el, timer, requete]
 	$('div.columnData').scroll(function() {
 		var list = $(this);
 		var id = list.attr('id');
@@ -117,9 +272,9 @@ $(document).ready(function() {
 
 							// On Ajoute les Résultats dans la liste
 							$.each(result.data, function(i,e) {
-								console.log("=== "+i+" ===", e);
+								//console.log("=== "+i+" ===", e);
 
-								var row = base.clone(true);
+								var row = base.clone(true, true);
 								row.find('.itemLabel').text(e.label);
 								row.find('.delete-btn').attr('href', '/delete/city/'+e.id+'.html');
 								row.find('.edit-btn').attr('href', '/edit/city/'+e.id+'.html');
@@ -132,14 +287,14 @@ $(document).ready(function() {
 
 						// On Error
 						function(result){
-							console.log("ERROR: ", result)
+							//console.log("ERROR: ", result)
 						},
 
 						['id', 'title']
 					);
 				}
 				else{
-					console.log("CallingNextPage");
+					//console.log("CallingNextPage");
 					lists[id].req.nextPage();
 				}
 			}

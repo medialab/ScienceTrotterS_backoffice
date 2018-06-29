@@ -28,7 +28,7 @@
 		<div class="site">
 			<p class="link">
 				Allez sur le site
-				<a href="#"> FORCCAST</a>
+				<a href="https://medialab.sciencespo.fr/fr/projets/forccast/" target="_blank"> FORCCAST</a>
 			</p>
 		</div>
 

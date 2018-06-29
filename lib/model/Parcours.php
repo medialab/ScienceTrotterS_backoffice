@@ -9,13 +9,14 @@ class Parcours extends Model
 	protected $sClass = 'Parcours';
 	protected static $ssClass = 'Parcours';
 
-	protected $aTranslateVars = ['title', 'time', 'audio', 'description'];
+	protected $aTranslateVars = ['title', 'time', 'audio', 'description', 'audio_script'];
 
 	protected $title;
 	protected $time;
 	protected $audio;
 	protected $color;
 	protected $description;
+	protected $audio_script;
 	protected $state;
 	protected $cities_id;
 	

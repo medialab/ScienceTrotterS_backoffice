@@ -360,7 +360,7 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 				mkdir(UPLOAD_PATH.$directory, 0775, true);
 			}
 			
-			$imgPath = $directory.'/'.fCreateFriendlyUrl($aF['name'][$i]);
+			$imgPath = $directory.'/'.fCreateFriendlyUrl($aF['name'][$i]).'_'.time();
 			//var_dump("Img Path: $imgPath");
 			
 			$dest = UPLOAD_PATH.$imgPath;

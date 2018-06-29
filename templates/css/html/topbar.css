@@ -1,0 +1,101 @@
+.itemsNavBar {
+	position: relative;
+}
+
+#search-container {
+	left: 2%;
+	top: 100%;
+	
+	display: none;
+	min-width: 770px;
+	padding: 20px 25px;
+	
+	background: white;
+	position: absolute;
+
+	box-shadow: 0px 6px 12px 0px rgba(29, 48, 92, 0.3);
+	-moz-box-shadow: 0px 6px 12px 0px rgba(49, 86, 166, 0.3);
+	-webkit-box-shadow: 0px 6px 12px 0px rgba(49, 86, 166, 0.3);
+}
+
+#search-container.on {
+	display: inline-block;
+}
+
+#search-container ul {
+	list-style: none;
+}
+
+#search-container ul li {
+	border-bottom: 1px solid #D7DDE4;
+}
+
+#search-container ul li:last-of-type {
+	border-bottom: none;
+}
+
+#search-container ul li a {
+	width: 100%;
+	color: black;
+	font-size: 20px;
+	padding: 15px 15px;
+	display: inline-block;
+	text-decoration: none;
+}
+
+#search-container ul li a:hover {
+	background: lightgray;
+}
+
+#search-container ul li a .title {
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+#search-container ul li a .tree-el {
+	text-transform: capitalize;
+}
+
+#search-container ul li a .tree-el i{
+	font-size: 0.8em;
+}
+
+#search-container ul li a sep {
+	margin: 0px 5px;
+}
+
+#search-container ul li.cities a sep,
+#search-container ul li.cities a .tree-parcours,
+#search-container ul li.cities a .tree-interests {
+	display: none;
+}
+
+#search-container ul li.parcours a sep:last-of-type,
+#search-container ul li.parcours a .tree-interests {
+	display: none;
+}
+
+#search-overlay {
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 5;
+	position: fixed;
+	background: #000000b3;
+}
+
+.searchBar.loading .labelSearchBar {
+    display: none;
+}
+
+.searchBar .spinner.spinner-xs {
+    display: none;
+    vertical-align: middle;
+    margin: 0 15px;
+}
+
+.searchBar.loading .spinner.spinner-xs {
+    display: inline-block;
+    vertical-align: middle;
+}

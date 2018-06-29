@@ -214,6 +214,7 @@ class ApiMgr {
 			$aData['order'] = $aOrder;
 		}
 
+		//var_dump($aData);
 		Self::setData($aData);
 
 		$res = Self::exec();
@@ -398,7 +399,7 @@ class ApiMgr {
 
 		$base = $public ? 'public/' : 'private/';
 		
-		$url = Self::$url.$base.'interests/byParcourId/'.$id;
+		$url = Self::$url.$base.'interests/byParcoursId/'.$id;
 
 		$c->setUrl($url);
 		if ($columns) {

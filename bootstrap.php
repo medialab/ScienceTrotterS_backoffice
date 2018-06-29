@@ -66,7 +66,12 @@ ApiMgr::init();
 
 if (in_array($sExt, ['js', 'css'])) {
     if (file_exists('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile)) {
-        header('Content-Type: text/'.$sExt);
+        if ($sExt === 'js') {
+            header('Content-Type: application/javascript');        
+        }
+        else{
+            header('Content-Type: text/'.$sExt);        
+        }
         echo file_get_contents('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile);
         exit;
     }

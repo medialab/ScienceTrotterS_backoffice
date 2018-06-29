@@ -32,10 +32,11 @@ class Interest extends Model
 	protected $schedule;
 
 	protected $city;
+	protected $parcours;
 
 	function __construct($id=false, $aData=[]) {
 		$this->sTable = 'interests';
-		$this->sqlIgnore = ['geoE','geoN', 'city'];
+		$this->sqlIgnore = ['geoE','geoN', 'city', 'parcours'];
 		Parent::__construct($id, $aData);
 	}
 
@@ -102,6 +103,19 @@ class Interest extends Model
 		}
 
 		return $this->city;
+	}
+
+	public function getParcours() {
+		if (empty($this->parcours)) {
+			if (empty($this->parcours_id)) {
+				return null;
+			}
+			
+			$this->parcours = Parcours::get($this->parcours_id);
+			$this->parcours->setLang($this->getLang());
+		}
+
+		return $this->parcours;
 	}
 
 	public static function list($limit=0, $page=0, $columns=false, $aOptions=false, $sClass=false) {

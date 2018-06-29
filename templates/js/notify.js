@@ -13,7 +13,7 @@ var Notify = {
 		};
 		
 
-		console.log(this.containers);
+		//console.log(this.containers);
 	},
 
 	add: function (sType, sKey, sMsg) {

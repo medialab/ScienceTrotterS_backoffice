@@ -87,6 +87,10 @@
   padding: 12px 0;
 }
 
+.columnData > .itemList > .item.active {
+  background-color: lightcyan;
+}
+
 .columnData > .itemList > .item.selected {
   background-color: #3156A6 !important;
 }

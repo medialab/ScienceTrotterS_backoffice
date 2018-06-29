@@ -1,4 +1,3 @@
-
 {foreach $aLangs as $sIso => $sLang}
 	{$oParc->setLang($sIso)}
 
@@ -38,7 +37,7 @@
 				<label for="color">Couleur *</label>
 				<p>Couleur du parcours</p>
 
-				<!-- <div class="cust-color-selector" target='sel-color'>
+				<div class="cust-color-selector" target='sel-color'>
 					<div class="sel-opt opt-selected">
 						<div class="opt-color" style="background-color: transparent">
 						</div>
@@ -60,17 +59,20 @@
 							</div>
 						{/foreach}
 					</div>
-				</div> -->
-				
-				<select  name="color" id="sel-color">
-					<option value="">Choisissez une Couleur</option>
 					
-					{foreach $aColors as $oColor}
-						{$selected = $oColor->color == $oParc->color}
-						<option value="{$oColor->color}" {if $selected}selected{/if} style="color: white; background-color: {$oColor->color}">{$oColor->name}</option>
-					{/foreach}
-				</select>
-				<!-- <input name="color" id="color" placeholder="Ex: #fff" type="color" value="{$smarty.post.color|default: $oParc->color: ''}"> -->
+					<input name="color" id="color" placeholder="Ex: #fff" type="text" value="{$oParc->color|default: ''}">
+				</div>
+				
+				{*
+					<select  name="color" id="sel-color">
+						<option value="">Choisissez une Couleur</option>
+						
+						{foreach $aColors as $oColor}
+							{$selected = $oColor->color == $oParc->color}
+							<option value="{$oColor->color}" {if $selected}selected{/if} style="color: white; background-color: {$oColor->color}">{$oColor->name}</option>
+						{/foreach}
+					</select>
+				*}
 			</div>
 			
 			<!-- DURÉE -->
@@ -85,19 +87,22 @@
 			<div class="box">
 				<label for="audio-{$sIso}">Audio *</label>
 				<p>
-					5min ou 6Mo max. format .mp3 ou .wav
+					5min ou 20Mo max. format .mp3 ou .wav
 				</p>
 				
 				<div class="borderGrey">
 					<input type="file" name="audio" id="audio-{$sIso}" class="inputFile">
 					
 					<div class="blocInputFileName audio">
-						<label class="btnInputFileName" for="audio">
+						<label class="btnInputFileName" for="audio-{$sIso}">
 							{$audio = '/'|explode: ($oParc->audio|default: '')}
 							{$audio = $audio[count($audio)-1]}
+							{$audio = preg_replace('/_[0-9]+$/', '', $audio)}
 
 							<div class="audio-name" {if $oParc->audio|default:false}disabled{/if}>
-								{($audio)|default: ''}
+								{if $audio|default: false}
+									<a href="{$_API_URL_}ressources/upload/{$oParc->audio}" target="_blank">{$audio}</a>
+								{/if}
 							</div>
 							<p></p>
 						</label>
@@ -109,16 +114,24 @@
 
 			<!-- RÉSUMÉ -->
 			<div class="box" id="box-Description">
-				<label for="description">Résumé</label>
+				<label for="description">Résumé *</label>
 				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
 				
 				<textarea id="description" name="description">{$oParc->description|default: ''}</textarea>
 			</div>
 
+			<!-- Audio Script -->
+			<div class="box" id="box-Description">
+				<label for="description">Audio Script *</label>
+				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
+				
+				<textarea id="audio_script" name="audio_script">{$oParc->audio_script|default: ''}</textarea>
+			</div>
+
 			<!-- Interêts -->
 			<div class="box" id="box-Interets">
 				<label >Points d'interêts</label>
-				{$count = count($aInts)}
+				{$count = count(($aInts|default: []))}
 				<p>
 					{if !$oParc->isLoaded()}
 						Veuillez enregister ce parcours<br>
@@ -131,7 +144,7 @@
 				</p>
 				
 				<ul class="interest-list">
-					{foreach $aInts as $oInt}
+					{foreach $aInts|default: [] as $oInt}
 						<li {if $oInt->state}class="active"{/if}>
 							<a href="/edit/interest/{$oInt->id}.html">{$oInt->title}</a>
 						</li>
@@ -140,19 +153,19 @@
 			</div>
 
 			{if $oParc->isSync()}
-				<div class="box" style="background-color: transparent; box-shadow: none">
+				<!-- <div class="box" style="background-color: transparent; box-shadow: none">
 					<div href="#" title="Preview" class="btn">
 						<a href="">
 							<img src="/media/image/interface/icons/icon_edit_preview.svg">
 							Preview
 						</a>
 					</div>
-				</div>
+				</div> -->
 
-				<div class="box" style="background-color: transparent; box-shadow: none">
+				<div class="box" style="background-color: transparent; box-shadow: none; width: 100%">
 					<div href="#" title="Preview" class="btn btn-lg">
 						<a href="/edit/interest/@{$oParc->id}.html">
-							<img src="/media/image/interface/icons/icon_create_roadMap.svg">
+							<img src="/media/image/interface/icons/icon_poi_blue.svg">
 							Créer un nouveau Point d'Interêt
 						</a>
 					</div>

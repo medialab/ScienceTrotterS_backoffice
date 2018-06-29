@@ -3,6 +3,10 @@
   */
 
 .icon-pre {
+  display: block;
+  width: 18px;
+  height: 18px;
+  
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -63,10 +67,19 @@ a:hover .icon-create-roadMap {
   background-image: url('/media/image/interface/icons/icon_list_arrow_right.svg');
 }
 .icon-flag-fr {
-  background-image: url('/media/image/interface/icons/icon_french_flag');
+  background-image: url('/media/image/interface/icons/icon_french_flag.svg');
 }
 .icon-flag-en {
   background-image: url('/media/image/interface/icons/icon_english_flag.svg');
+}
+
+.icon-list-check {
+  background-size: 170%;
+  background-image: url('/media/image/interface/icons/check-on.svg');
+}
+
+.disabled .icon-list-check {
+  background-image: url('/media/image/interface/icons/check-off.svg');
 }
 
 

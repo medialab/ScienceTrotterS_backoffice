@@ -98,9 +98,15 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 			}
 		}
 
-		$maxSize = '6Mo';
+		$maxSize = '20Mo';
 		if (!fFileZieValidator('audio', $maxSize)) {
-			$aErrors['Audio'] = 'L\'Audio ne peut dépasser 6 Mo';
+			$aErrors['Audio'] = 'L\'Audio ne peut dépasser 20 Mo';
+		}
+
+
+	/* Validation De  audio_script */
+		if (!empty($_POST['audio_script'])) {
+			$oModel->audio_script = $_POST['audio_script'];
 		}
 
 	$oModel->setState($_POST['state']);

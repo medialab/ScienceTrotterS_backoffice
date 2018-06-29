@@ -73,18 +73,37 @@
 .columnData > .itemList {
   padding: 0;
   margin: 0;
-  padding: 7px 0;
+  padding: 0px 0;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
 }
 
 .columnData > .itemList > .item {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  border-bottom: 1px solid #D7DDE4;
+  cursor: pointer;
   padding: 12px 0;
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px solid #D7DDE4;
+}
+
+.columnData > .itemList > .item label {
+  cursor: pointer;
+}
+
+.columnData > .itemList > .item .spinner{
+  top: 34%;
+  right: 50px;
+  display: none;
+  position: absolute;
+}
+
+.columnData > .itemList > .item.loading .spinner{
+  display: inline-block;
+}
+
+.columnData > .itemList > .item.active {
+  background-color: lightcyan;
 }
 
 .columnData > .itemList > .item.selected {
@@ -104,19 +123,19 @@
 }
 
 .columnData > .itemList > .item > .itemAction {
-  display: inline-flex;
   padding: 0 10px;
+  display: inline-block;
+  vertical-align: sub;
 }
 
 .columnData > .itemList > .item > .itemAction a {
-  display: flex;
-  padding: 0 7px;
+  padding: 0 4px;
+  display: inline-block;
 }
 
 .columnData > .itemList > .item > .itemAction .icon-pre {
-  display: block;
   width: 18px;
-  height: 18px;
+  display: inline-block;
 }
 
 .columnData > .itemList > .item.selected .icon-list-remove {
@@ -136,11 +155,12 @@
   text-transform: uppercase;
   color: #243342;
   display: inline-block;
-  display: flex;
   align-items: center;
   position: relative;
-  margin: 0 7px 0 0;
-  flex-grow: 1;
+  max-width: calc(100% - 134px);
+  width: 100%;
+  vertical-align: middle;
+  margin: 0;
 }
 
 .columnData > .itemList > .item.selected  > .itemLabel {
@@ -157,6 +177,20 @@
   width: 18px;
   height: 18px;
   right: 0;
+}
+
+
+.columnData > .itemList > .item  > .flag-cont {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.columnData > .itemList > .item  > .flag-cont.fr .icon-flag-en {
+  display: none;
+}
+
+.columnData > .itemList > .item  > .flag-cont.en .icon-flag-fr {
+  display: none;
 }
 
 @media screen and (max-width: 1300px) {

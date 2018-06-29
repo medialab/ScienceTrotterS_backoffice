@@ -120,9 +120,69 @@ $(document).ready(function() {
 	});
 
 
-	$(".color-selector").each(function(i, e) {
-		e = $(e);
+	var aColorSelectors = $(".cust-color-selector");
+	aColorSelectors.click(function() {
+		var self = $(this);
+		self.addClass("on");
+		self.find('input').focus();
+	});
 
+	//console.log(aColorSelectors.find('.option-container .sel-opt'));
+
+	aColorSelectors.find('.option-container .sel-opt').click(function(e) {
+		//console.log("TEEEEEST");
+		e.preventDefault();
+		e.stopPropagation();
+
+		var option = $(this);
+		var selector = option.parents('.cust-color-selector');
+		var input = selector.find('input');
+		
+		//console.log("Current Selector: ", selector);
+		//console.log("Input: ", input);
+		//console.log("Clicked Option: ", option);
+
+		var name = option.text().trim();
+		var color = option.attr('value');
+		//console.log("Value: "+name+" => "+color);
+
+		var currentOption = selector.find('.opt-selected');
+		//console.log("Current", currentOption);
+		
+		currentOption.find('.opt-text').text(name);
+		currentOption.find('.opt-color').css("background-color", color);
+
+		input.val(color);
+
+		//input.blur();
+		return false;
+	});
+	
+	aColorSelectors.each(function(i, e) {
+		var selector = $(e);
+		var input = selector.find('input');
+		//console.log(selector, input);
+
+		//console.log("Value", input.val());
+		if (input.val().length) {
+			var opt = selector.find('.option-container .sel-opt[value="'+input.val()+'"]');
+			//console.log(opt)
+			opt.click();
+		}
+
+		//input.trigger('cust-blur');
+		input.blur();
+	});
+
+	/*aColorSelectors.find('input').on('cust-blur', function(e) {
+		console.log("BLUR !!!!!!")
+	});*/
+
+	aColorSelectors.on('blur', 'input', function(e) {
+		var self = $(this);
+		setTimeout(function() {
+			self.parents('.cust-color-selector').removeClass('on');
+		}, 200)
 	});
 
 	// Auto-Correction des champs géoloc
@@ -140,8 +200,11 @@ $(document).ready(function() {
 		var self = $(this);
 
 		var oDisplay = self.parent().find('img');
+		console.log("DISPLAY", oDisplay);
+		
 		if (!this.files || !this.files[0]) {
 			oDisplay.attr('src', '/media/image/interface/icons/icon_photo.svg');
+			console.log("updating SRC", oDisplay);
 			return;
 		}
 
