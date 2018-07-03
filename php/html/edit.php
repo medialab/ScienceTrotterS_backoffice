@@ -105,9 +105,9 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 
 
 	/* Validation De  audio_script */
-		if (!empty($_POST['audio_script'])) {
+		/*if (!empty($_POST['audio_script'])) {
 			$oModel->audio_script = $_POST['audio_script'];
-		}
+		}*/
 
 	$oModel->setState($_POST['state']);
 	return empty($aErrors);
@@ -145,3 +145,8 @@ switch ($curPage) {
 }
 
 $aFilDArianne['edit/'.$curPage] = $sFilPart;
+
+addJs(
+	'tab-selector',
+	'custom-checkbox'
+);

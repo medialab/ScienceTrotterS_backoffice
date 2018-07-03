@@ -11,8 +11,12 @@ exit;
 	ini_set('xdebug.var_display_max_depth', -1);
 	ini_set('xdebug.var_display_max_children', -1);
 
-	define( 'LIBRARY_PATH',        './lib/' );
-	define( 'TEMPLATE_PATH',        './templates/' );
+	define( 'LIBRARY_PATH', './lib/' );
+	define( 'TEMPLATE_PATH', '/templates/' );
+	
+	define( 'JS_PATH', TEMPLATE_PATH.'js/lib/');
+	define( 'CSS_PATH', TEMPLATE_PATH.'css/lib/');
+	
 	define( 'UPLOAD_PATH',      	realpath('.').'/media/upload/' );
 
 

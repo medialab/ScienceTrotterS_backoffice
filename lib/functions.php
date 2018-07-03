@@ -405,3 +405,54 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 
 	return null;
 }
+
+global $_JS_FILES;
+$_JS_FILES = [];
+
+function addJs() {
+	$aPaths = func_get_args();
+	foreach ($aPaths as $sPath) {
+		$sPath .= '.js';
+		global $_JS_FILES;
+		
+		$sHtmlPath = '/lib/'.$sPath;
+		$sRealPath = realpath('.').JS_PATH.$sPath;
+
+
+		if (!file_exists($sRealPath)) {
+			trigger_error('Can\'t add JS file: "'.$sRealPath.'". File Not found.');
+			continue;
+		}
+
+		if (!in_array($sHtmlPath, $_JS_FILES)) {
+			$_JS_FILES[] = $sHtmlPath;
+		}
+
+	}
+}
+
+global $_CSS_FILES;
+$_CSS_FILES = [];
+
+function addCss($sPath) {
+	$aPaths = func_get_args();
+	foreach ($aPaths as $sPath) {
+		$sPath .= '.css';
+		global $_CSS_FILES;
+		
+		$sHtmlPath = '/lib/'.$sPath;
+		$sRealPath = realpath('.').CSS_PATH.$sPath;
+
+
+		if (!file_exists($sRealPath)) {
+			trigger_error('Can\'t add CSS file: "'.$sRealPath.'". File Not found.');
+			continue;
+		}
+
+		if (!in_array($sHtmlPath, $_CSS_FILES)) {
+			$_CSS_FILES[] = $sHtmlPath;
+		}
+
+	}
+	return true;
+}

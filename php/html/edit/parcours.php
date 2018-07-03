@@ -58,6 +58,7 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 	$oParc->color = $_POST['color'];
 	$oParc->cities_id = $_POST['cities_id'];
 	$oParc->description = empty($_POST['description']) ? null : $_POST['description'];
+	$oParc->audio_script = empty($_POST['audio_script']) ? null : $_POST['audio_script'];
 
 	$oParc->state = (bool) $_POST['state'];
 
@@ -104,6 +105,8 @@ elseif (!empty($_GET['parent'])) {
 	$oParc->cities_id = \Model\Model::validateID($_GET['parent']);
 }
 
+
+addJs('color-selector');
 
 $smarty->assign('oParc', $oParc);
 $smarty->assign('oModel', $oParc);

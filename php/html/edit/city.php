@@ -62,6 +62,11 @@ if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
 	}
 }
 
+addJs(
+	'geo-input',
+	'img-upload'
+);
+
 $smarty->assign('oCity', $oCity);
 $smarty->assign('oModel', $oCity);
 $smarty->assign("aErrors", $aErrors);

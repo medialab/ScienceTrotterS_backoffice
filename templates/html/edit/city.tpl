@@ -63,8 +63,8 @@
 				</div> -->
 
 				<div class="box" style="background-color: transparent; box-shadow: none; width: 100%">
-					<div href="#" title="Preview" class="btn btn-lg" style="margin-top: 0;">
-						<a href="/edit/parcours/@{$oCity->id}.html">
+					<div title="Preview" class="btn btn-lg" style="margin-top: 0;">
+						<a href="/edit/parcours/@{$oCity->id}.html" target="_blank">
 							<img src="/media/image/interface/icons/icon_create_roadMap.svg">
 							Créer un nouveau Parcours
 						</a>
@@ -73,7 +73,7 @@
 			{/if}
 			
 			<div class="boolean {if $oCity->state|default: false}on{/if}">
-				<input id="publie" type="checkbox" name="state" {if $oCity->state|default: false}checked{/if} />
+				<input id="publie" type="checkbox" name="state" {if $oCity->state|default: false}checked{/if} default="{$oCity->state|default: false}"/>
 				<label for="publie" data="on">Public</label>
 
 				<div class="style">

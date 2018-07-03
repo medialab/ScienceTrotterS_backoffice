@@ -48,10 +48,11 @@ class Parcours extends Model
 	public function getCity() {
 		if (empty($this->city)) {
 			if (empty($this->cities_id)) {
-				return null;
+				$this->city = new City();
+				return $this->city;
 			}
 			
-			$this->city = City::get($this->cities_id);
+			$this->city = new City($this->cities_id);
 			$this->city->setLang($this->getLang());
 		}
 

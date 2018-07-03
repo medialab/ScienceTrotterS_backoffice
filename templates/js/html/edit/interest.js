@@ -29,8 +29,8 @@ $(document).ready(function() {
 		oFound.click();
 	});
 
-	var oVilleList = $("select#ville");
-	var oParcoursList = $("select#parcours");
+	var oVilleList = $("select[id^='ville-']");
+	var oParcoursList = $("select[id^='parcours-']");
 	oParcoursList.find('.notfound').hide();
 
 	oVilleList.change(function() {
@@ -39,8 +39,7 @@ $(document).ready(function() {
 		var parcs = self.parents('form').find('select#parcours');
 
 		oVilleList.not(self).val(self.val());
-
-		if (typeof id === 'undefined' || !id.length) {
+		if (typeof id === 'undefined' || !id || !id.length) {
 			oParcoursList.find('optgroup').show();
 			oParcoursList.find('.notfound').hide();
 			return;

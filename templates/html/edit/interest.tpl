@@ -7,15 +7,15 @@
 			<input type="hidden" name="id" value="{$oInt->id}">
 
 			<div class="box">
-				<label for="intitule">Intitulé du point d'intérêt *</label>
+				<label for="intitule-{$sIso}">Intitulé du point d'intérêt *</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
-				<input name="title" id="intitule" required type="text" value="{$oInt->title}">
+				<input name="title" id="intitule-{$sIso}" required type="text" value="{$oInt->title}">
 			</div>
 
 			<div id="box-Ville" class="box">
-				<label for="ville">Ville *</label>
-				<select name="cities_id" id="ville">
+				<label for="ville-{$sIso}">Ville *</label>
+				<select name="cities_id" id="ville-{$sIso}">
 					<option value="">Choisir une ville</option>
 					{assign var="sCityID" value=$smarty.post.cities_id|default: $oInt->cities_id:$oCity->id:false}
 
@@ -24,29 +24,36 @@
 							{$sCity}
 						</option>
 					{/foreach}
+					
+					{assign var="sCityID" value=false}
 				</select>
 			</div>
 
 			<div class="box">
-				<label for="address">Accroche du point d'intérêt *</label>
+				<label for="address-{$sIso}">Accroche du point d'intérêt *</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
-				<input name="address" id="address" type="text" value="{$oInt->address}">
+				<input name="address" id="address-{$sIso}" type="text" value="{$oInt->address}">
 			</div>
 
 			{assign var="sParcID" value=$smarty.post.par_id|default: $oInt->parcours_id:$curParc['id']:false}
 			<div class="box">
-				<label for="parcours">Parcours *</label>
-
-				<select name="parcours_id" id="parcours">
-					<option value="">Choisir un parcours</option>
-					<option value="0">
+				<label for="parcours-{$sIso}">Parcours</label>
+				<select name="parcours_id" id="parcours-{$sIso}">
+					<option value="0" {if !strlen($oInt->parcours_id)} selected {/if}>
 						Hors Parcours
 					</option>
 
 					{$sLastCity = false}
 					{foreach $aParcours as $par_id => $parc}
 						{$bGroup = $sLastCity !== $parc->city->id}
+						
+
+						{if $parc->city instanceOf \Model\Model}
+							{$parc->city->setLang('default')}
+						{/if}
+
+
 						{if $bGroup}
 							{if $sLastCity !== false}
 								</optgroup>
@@ -69,10 +76,11 @@
 			</div>
 
 			<div class="box" id="box-Localisation">
-				<label for="latitude">Géolocation</label>
+				<label for="latitude-{$sIso}">Géolocation *</label>
 				<p>Latitude, longitude du point d'intérêt</p>
 				
-				<input name="geo-n" id="latitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 48.856" value="{$oInt->geoN}">
+				<input name="geo-n" id="latitude-{$sIso}" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 48.856" value="{$oInt->geoN}">
+
 				<input name="geo-e" id="longitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 2.3522" value="{$oInt->geoE}">
 				
 				<p>Avec <i>Coordonnées GPS</i>, recherchez une adresse pour récupérer les coordonées</p>
@@ -80,16 +88,16 @@
 			</div>
 
 			<div class="box">
-				<label for="img">Image</label>
+				<label for="img-{$sIso}">Image *</label>
 				<p>
 					Choisir une image illustrant le point d'intérêt.
 					<br />Format 600x600px, png ou jpg, poids maximum 60ko
 				</p>
 				
 				<div class="borderGrey">
-					<input type="file" name="img" id="img" target="img" class="inputFile">
+					<input type="file" name="img" id="img-{$sIso}" target="img" class="inputFile">
 					<div class="blocInputFileName">
-						<label class="btnInputFileName" for="img">
+						<label class="btnInputFileName" for="img-{$sIso}">
 							{if $oInt->header_image|strlen}
 								<img src="{$_API_URL_}ressources/upload/{$oInt->header_image}" style="max-width: 100%;">
 							{else}
@@ -105,10 +113,10 @@
 			</div>
 
 			<div class="box">
-				<label for="horaires">Horaires</label>
+				<label for="horaires-{$sIso}">Horaires *</label>
 				<p>ex. "mer-sam, 13h-17h"</p>
 
-				<input name="schedule" id="horaires"  type="text" value="{$oInt->schedule}">
+				<input name="schedule" id="horaires-{$sIso}" type="text" value="{$oInt->schedule}">
 			</div>
 
 			<!-- AUDIO -->
@@ -139,24 +147,31 @@
 			</div>
 
 			<div class="box">
-				<label for="difficultes">Difficulté(s)</label>
+				<label for="difficultes-{$sIso}">Difficulté(s) *</label>
 				<p>ex. "payant (5€ tarif étudiant)"</p>
 
-				<input name="price" id="difficultes"  type="text" value="{$oInt->price}">
+				<input name="price" id="difficultes-{$sIso}"  type="text" value="{$oInt->price}">
 			</div>
 
 			<div class="box">
-				<label for="transport">Transport à proximité</label>
+				<label for="transport-{$sIso}">Transport à proximité *</label>
 				<p>ex. "RER B Luxembourg"</p>
 
-				<input name="transport" id="transport"  type="text" value="{$oInt->transport}">
+				<input name="transport" id="transport-{$sIso}"  type="text" value="{$oInt->transport}">
 			</div>
 
 			<div class="box">
-				<label for="description">Résumé du point d'intérêt *</label>
+				<label for="description-{$sIso}">Description du point d'intérêt *</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
-				<textarea name="audio_script" id="description" value="">{$oInt->audio_script}</textarea>
+				<textarea name="description" id="description-{$sIso}" value="">{$oInt->description}</textarea>
+			</div>
+
+			<div class="box">
+				<label for="audio_script-{$sIso}">Script Audio *</label>
+				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
+
+				<textarea name="audio_script" id="audio_script-{$sIso}" value="">{$oInt->audio_script}</textarea>
 			</div>
 
 			<div class="box">
@@ -172,7 +187,7 @@
 
 
 			<div class="box box-large" id="box-imgs-interest">
-				<label for="imgs-interet">Image(s) du point d'intérêt</label>
+				<label for="imgs-interet">Image(s) du point d'intérêt *</label>
 				<p>
 					5 maximum, format 600x600px, png ou jpg, poids maximum 60ko
 				</p>

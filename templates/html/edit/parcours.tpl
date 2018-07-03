@@ -34,7 +34,7 @@
 
 			<!-- COULEUR -->
 			<div class="box box-small">
-				<label for="color">Couleur *</label>
+				<label>Couleur *</label>
 				<p>Couleur du parcours</p>
 
 				<div class="cust-color-selector" target='sel-color'>
@@ -122,7 +122,7 @@
 
 			<!-- Audio Script -->
 			<div class="box" id="box-Description">
-				<label for="description">Audio Script *</label>
+				<label for="audio_script">Audio Script *</label>
 				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
 				
 				<textarea id="audio_script" name="audio_script">{$oParc->audio_script|default: ''}</textarea>
@@ -163,8 +163,8 @@
 				</div> -->
 
 				<div class="box" style="background-color: transparent; box-shadow: none; width: 100%">
-					<div href="#" title="Preview" class="btn btn-lg">
-						<a href="/edit/interest/@{$oParc->id}.html">
+					<div title="Preview" class="btn btn-lg">
+						<a href="/edit/interest/@{$oParc->id}.html" target="_blank">
 							<img src="/media/image/interface/icons/icon_poi_blue.svg">
 							Créer un nouveau Point d'Interêt
 						</a>

@@ -190,7 +190,6 @@ abstract class Model
 					$sLang = $this->force_lang;
 				}
 
-
 				// Si la valeur actuelle est une string on la décode
 				if (is_string($var)) {
 				    $var = json_decode($var);
@@ -237,6 +236,7 @@ abstract class Model
 	public function load($oData) {
 		//var_dump("LOADING", $oData);
 		$this->bSync = false;
+		
 		$sCurLang = $oData->sCurLang;
 		$this->setLang($sCurLang);
 
@@ -328,7 +328,7 @@ abstract class Model
 		if ($lang !== 'default') {
 			$this->sCurLang = $lang;
 		}
-		elseif(!empty($this->force_lang)){
+		elseif(strlen($this->force_lang)){
 			$this->sCurLang = $this->force_lang;
 		}
 		else {

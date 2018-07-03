@@ -116,6 +116,11 @@ foreach ($files as $file) {
     $dFileCnt++;
 }
 
+$smarty->assign([
+    '_CSS_FILES' => $_CSS_FILES, 
+    '_JS_FILES' => $_JS_FILES
+]);
+
 foreach ($tplFiles as $f) {
     $sContent .= $smarty->fetch($f);
 }

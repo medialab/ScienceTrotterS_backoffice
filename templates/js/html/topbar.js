@@ -47,19 +47,12 @@ $(document).ready(function() {
 	}
 
 	function addResult(aData, model) {
-		// console.log("################################################");
-		// console.log("Adding Résult For: "+model);
-
 		for (var i in aData) {
-			// console.log("================================================");
 			var data = aData[i];
-			// console.log("type: "+model);
-			// console.log("Adding: "+data.title);
-			
+
 			var row = tmpRow.clone();
-
-
 			var modelUrl = model;
+
 			switch (model) {
 				case "cities":
 					modelUrl = "city";
@@ -73,8 +66,6 @@ $(document).ready(function() {
 			row.find("a").attr('href', '/edit/'+modelUrl+'/'+data.id+'.html');
 
 			row.addClass(model);
-
-			// console.log("title: "+data.title);
 			row.find('.title').text(data.title);
 
 			if (typeof data.city !== "undefined" && data.city) {
@@ -96,11 +87,7 @@ $(document).ready(function() {
 			}
 
 			row.find('.tree-'+model).text(data.title);
-			// console.log("#### Model: " + model);
-			// console.log("Class: " + '.tree-'+model);
-			// console.log("container: ", row.find('.tree-'+model));
 
-			// console.log("Adding to List");
 			list.append(row);
 		}
 	}
@@ -108,7 +95,6 @@ $(document).ready(function() {
 	searchBar.keyup(function(e) {
 		e.keyCode = e.keyCode || e.witch || e.charCode;
 
-		console.log("KeyCode: "+ e.keyCode);
 		// Si la touche est Echap On Cache la recherche
 		if (e.keyCode == 27) {
 			console.log("Hiding And Returning");
@@ -118,33 +104,25 @@ $(document).ready(function() {
 
 		var self = $(this);
 		var query = self.val();
-		//console.log("Query: "+query);
 		
-		query = query.trim();
 		if (!query.length || (query.length < 3 && e.keyCode != 13)) {
-			//console.log("Query Too Short Skipping ("+query.length+")");
 			return;
 		}
 
 		if (timer) {
-			//console.log("Resetting Timer");
 			clearTimeout(timer);
 			timer = false;
 		}
 
 		list.empty();
-		//console.log("Setting Timer");
+
 		timer = setTimeout(function(){
 			var i;
 			timer = false;
 			showOverLay();
 
-			//console.log("Running Query");
-
 			var columns = ['id', 'title'];
 			for (i = 0; i < tables.length; i++) {
-				
-				//console.log("Launching Table #"+i+": "+tables[i]);
 				
 				switch(i) {
 					case 1:
@@ -156,29 +134,24 @@ $(document).ready(function() {
 						break;
 				}
 
-				//console.log("Columns: ", columns.slice());
-
 				ApiMgr.search(tables[i], query, 0, 0, 
 					function(aData) {
 						addResult(aData.data, tables[i]);
-						console.log("#i: "+i +" / "+tables.length -1);
 
 						if (i == tables.length -1) {
-							console.log("Last Table");
-							console.log(list.find('li'));
 							
 							if (!list.find('li').length) {
 								var row = emptyRow.clone();
 								row.html("Aucun résultat trouvé.");
 								row.appendTo(list);
 							}
+
 							showSearch();
 						}
 						i++;
 					}, 
 					function(error) {
 						hideSearch();
-						console.error("Fail To Search Data", error);
 					}, 
 					columns.slice(), true
 				);
@@ -187,6 +160,4 @@ $(document).ready(function() {
 			i = 0;
 		}, 500);
 	});
-
-
 });

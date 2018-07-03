@@ -144,14 +144,14 @@ $(document).ready(function() {
 		var sTitle = oParent.attr("title");
 		console.log("Deleting: "+oParent.attr('title'));
 		
-		var bParcours = oCont.attr("id") === "parcours";
+		var bCity = oCont.attr("id") === "cities";
 		var msg = 'Êtes vous sûr de vouloir supprimer '+oCont.attr('target')+': "'+oParent.attr('title')+'" ?';
 		
-		if (bParcours) {
-			//msg += "\nTous les points d'intérêts associés seront désactivés";
+		if (bCity) {
+			msg += "\nAttention, les parcours et points d'intérêt liés à cette ville deviendront inaccessibles";
 		}
 
-		console.log("Msg: "+msg);
+		//console.log("Msg: "+msg);
 
 		if (!confirm(msg)) {
 			e.preventDefault();
@@ -173,7 +173,14 @@ $(document).ready(function() {
 		var bEnable = oParent.hasClass('disabled');
 		var sEnable = bEnable ? "activer" : "désactiver";
 
-		if (!confirm("Êtes vous sûr de vouloir "+sEnable+" "+oCont.attr('target')+" "+oParent.attr('title')+" ?")) {
+		var bCity = oCont.attr("id") === "cities";
+		var msg = "Êtes vous sûr de vouloir "+sEnable+" "+oCont.attr('target')+': "'+oParent.attr('title')+'" ?';
+		
+		if (bCity) {
+			msg += "\nAttention, les parcours et points d'intérêt liés à cette ville deviendront inaccessibles";
+		}
+
+		if (!confirm(msg)) {
 			e.preventDefault();
 			return false;
 		}

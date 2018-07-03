@@ -22,10 +22,22 @@ foreach ($oCities->data as $oCity) {
 	$aCities[$oCity->id] = $oCity->title;
 }
 
-//ApiMgr::$debugMode = true;
 $aoParcours = \Model\Parcours::list(false, false, ['id', 'title', 'cities_id'], [['cities_id', 'title'], 'asc']);
-//exit;
-
+/*foreach ($aoParcours as $oParc) {
+	if ($oParc->id === '14ebaa0f-fc58-45ce-a041-b4000993d054') {
+		$oParc->setLang('fr');
+		var_dump($oParc->title);
+		var_dump($oParc->cities_id);
+		var_dump($oParc->city->id);
+		var_dump($oParc->city);
+		
+		$oParc->city->setLang('en');
+		var_dump($oParc->city->title);
+		var_dump("========================");
+	}
+}
+exit;
+*/
 $aParcours = [];
 $aParcoursOut = [];
 //$oParcours = ApiMgr::list('parcours', false, 0, 0, ['id', 'title', 'cities_id']);
@@ -47,16 +59,12 @@ $aParcours = array_merge($aParcours, $aParcoursOut);
 //exit;
 ApiMgr::setLang(false);
 
-
-$oCity = null;
-
 /*ApiMgr::$debugMode = true;*/
 $oInt = new \Model\Interest($id);
-$oInt->setLang('en');
-/*var_dump($oInt->bibliography);
-var_dump($oInt);
+/*var_dump($oInt);
 exit;*/
 
+$oCity = null;
 $curParc = false;
 if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 	
@@ -109,6 +117,12 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 				$aErrors['Parcours'] = "Le parcours sélectionné n'existe pas.";
 			}
 		}
+		elseif ($_POST['parcours_id'] === '0') {
+			$oInt->parcours_id = null;
+		}
+
+		$oInt->description = empty($_POST['description']) ? null : $_POST['description'];
+		$oInt->audio_script = empty($_POST['audio_script']) ? null : $_POST['audio_script'];
 
 		/* Si On a pad d'erreur on prepare L'object ville */
 		if (empty($aErrors)) {
@@ -202,6 +216,11 @@ elseif (!empty($_GET['parent'])) {
 		ApiMgr::setLang(false);
 	}
 }
+
+addJs(
+	'geo-input',
+	'img-upload'
+);
 
 $smarty->assign([
 	'aErrors' => $aErrors,

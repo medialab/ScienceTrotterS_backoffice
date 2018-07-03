@@ -1,3 +1,4 @@
+var page = $("#contentView");
 /* DEFINITION DE LA LANGUE PAR DEFAUT */
 ApiMgr.setLang('fr');
 

@@ -130,8 +130,8 @@ var ApiMgr = {
 	},
 
 	search: function(table, query, page, limit, success, error, columns, parents) {
-		parents = parents || false;
 		columns = columns || [];
+		parents = parents || false;
 
 		if (typeof columns === 'object') {
 			if (columns.indexOf('id') == -1) {

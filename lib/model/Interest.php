@@ -10,7 +10,7 @@ class Interest extends Model
 	protected $sClass = 'Interest';
 	public static $ssClass = 'Interest';
 	
-	protected $aTranslateVars = ['title', 'transport', 'audio_script', 'bibliography', 'audio', 'price', 'schedule', 'address']; // les Variables à traduire
+	protected $aTranslateVars = ['title', 'transport', 'audio_script', 'description', 'bibliography', 'audio', 'price', 'schedule', 'address']; // les Variables à traduire
 
 	protected $geoloc;
 	protected $geoN;
@@ -20,6 +20,7 @@ class Interest extends Model
 	
 	protected $address;
 	protected $transport;
+	protected $description;
 	protected $audio_script;
 	protected $bibliography;
 	protected $header_image;
@@ -95,7 +96,8 @@ class Interest extends Model
 	public function getCity() {
 		if (empty($this->city)) {
 			if (empty($this->cities_id)) {
-				return null;
+				$this->city = new City();
+				return $this->city;
 			}
 			
 			$this->city = City::get($this->cities_id);
@@ -108,7 +110,8 @@ class Interest extends Model
 	public function getParcours() {
 		if (empty($this->parcours)) {
 			if (empty($this->parcours_id)) {
-				return null;
+				$this->parcours = new Parcours();
+				return $this->parcours;
 			}
 			
 			$this->parcours = Parcours::get($this->parcours_id);
