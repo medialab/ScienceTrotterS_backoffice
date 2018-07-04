@@ -22,6 +22,8 @@ class ApiMgr {
 
 	private static $sCurLang = false;
 
+	private static $lastMessage = null;
+
 	public static function init() {
 		if (Self::$bInit) {
 			return;
@@ -113,9 +115,11 @@ class ApiMgr {
 		}
 
 		if (is_null($oResult)) {
+			Self::$lastMessage = 'Malformed Response JSON';
 			return (object) ['success' => false, 'message' => 'Malformed Response JSON'];
 		}
 
+		Self::$lastMessage = $oResult->message;
 		return $oResult;
 	}
 
@@ -408,5 +412,9 @@ class ApiMgr {
 
 		$res = Self::exec();
 		return $res;
+	}
+
+	public static function getMessage() {
+		return Self::$lastMessage;
 	}
 }

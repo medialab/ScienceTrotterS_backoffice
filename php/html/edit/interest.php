@@ -16,6 +16,7 @@
 
 ApiMgr::setLang('fr');
 
+//ApiMgr::$debugMode = true;
 $aCities = [];
 $oCities = ApiMgr::list('cities', false, 0, 0, ['id', 'title'], ['title', 'asc']);
 foreach ($oCities->data as $oCity) {
@@ -23,21 +24,7 @@ foreach ($oCities->data as $oCity) {
 }
 
 $aoParcours = \Model\Parcours::list(false, false, ['id', 'title', 'cities_id'], [['cities_id', 'title'], 'asc']);
-/*foreach ($aoParcours as $oParc) {
-	if ($oParc->id === '14ebaa0f-fc58-45ce-a041-b4000993d054') {
-		$oParc->setLang('fr');
-		var_dump($oParc->title);
-		var_dump($oParc->cities_id);
-		var_dump($oParc->city->id);
-		var_dump($oParc->city);
-		
-		$oParc->city->setLang('en');
-		var_dump($oParc->city->title);
-		var_dump("========================");
-	}
-}
-exit;
-*/
+
 $aParcours = [];
 $aParcoursOut = [];
 //$oParcours = ApiMgr::list('parcours', false, 0, 0, ['id', 'title', 'cities_id']);
@@ -166,11 +153,10 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 				}
 			}
-			
 
-			/*ApiMgr::$debugMode = true;*/
+			//ApiMgr::$debugMode = true;
 			$oSaveRes = $oInt->save();
-			/*exit;*/
+			//exit;
 
 
 			if (!$oSaveRes->success) {

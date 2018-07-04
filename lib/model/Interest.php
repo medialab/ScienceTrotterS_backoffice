@@ -9,6 +9,7 @@ class Interest extends Model
 {
 	protected $sClass = 'Interest';
 	public static $ssClass = 'Interest';
+	protected $sUserStr = 'le point d\'intérêt';
 	
 	protected $aTranslateVars = ['title', 'transport', 'audio_script', 'description', 'bibliography', 'audio', 'price', 'schedule', 'address']; // les Variables à traduire
 
