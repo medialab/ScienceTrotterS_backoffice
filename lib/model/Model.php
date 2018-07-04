@@ -10,6 +10,7 @@ abstract class Model
 	private $force_lang = false;
 	
 	protected $sClass = 'Model';
+	protected $sUserStr = 'le model';
 	protected $aTranslateVars = []; // les Variables à traduire
 
 	protected $id;
@@ -177,6 +178,16 @@ abstract class Model
 		else{
 		    $this->$sVar = $var;
 		}
+	}
+
+	public function __isset($sVar) {
+		var_dump("Has Prop: $sVar", property_exists($this, $sVar));
+		if (property_exists($this, $sVar)) {
+			var_dump("TEST", $this->$sVar);
+			return empty($this->$sVar);
+		}
+		
+		return true;
 	}
 
 	function __get($sVar) {
@@ -378,9 +389,9 @@ abstract class Model
 			$geoloc = (object) ['latitude' => (float)$geo[0], 'longitude' => (float)$geo[1]];
 		}
 
-		if (empty($geoloc)) {
-			$this->geoN = $geoloc;
-			$this->geoE = $geoloc;
+		if (empty(get_object_vars($geoloc))) {
+			$this->geoN = null;
+			$this->geoE = null;
 			return;
 		}
 

@@ -778,6 +778,12 @@ form label {
 	list-style: inside;
 }
 
+.msg-cont ul ul {
+    list-style-type: disclosure-closed;
+    font-size: 0.8em;
+    padding-left: 2%;
+}
+
 .success-container {
 	border-color: green;
 	background-color: #c1f3c1;

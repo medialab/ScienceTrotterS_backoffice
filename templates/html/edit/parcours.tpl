@@ -146,7 +146,7 @@
 				<ul class="interest-list">
 					{foreach $aInts|default: [] as $oInt}
 						<li {if $oInt->state}class="active"{/if}>
-							<a href="/edit/interest/{$oInt->id}.html">{$oInt->title}</a>
+							<a href="/edit/interest/{$oInt->id}.html" target="_blank">{$oInt->title}</a>
 						</li>
 					{/foreach}
 				</ul>

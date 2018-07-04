@@ -8,6 +8,7 @@ class Parcours extends Model
 {
 	protected $sClass = 'Parcours';
 	protected static $ssClass = 'Parcours';
+	protected $sUserStr = 'le parcours';
 
 	protected $aTranslateVars = ['title', 'time', 'audio', 'description', 'audio_script'];
 

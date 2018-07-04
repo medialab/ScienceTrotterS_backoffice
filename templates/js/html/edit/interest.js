@@ -46,15 +46,15 @@ $(document).ready(function() {
 		}
 
 		oParcoursList.find('optgroup[target!='+id+']').hide();
-		oParcoursList.find('optgroup[target='+id+']').show();
+		var oParcGroup = oParcoursList.find('optgroup[target='+id+']');
+		oParcGroup.show();
 
 		if (!oParcoursList.find('option:selected').is(':visible')) {
 			oParcoursList.val('');
 		}
 
 		if (self.is(':visible')) {
-			console.log("VISIBLE: ", parcs.find('optgroup:visible'));
-			if (!parcs.find('optgroup:visible').length) {
+			if (!oParcGroup.length) {
 				oParcoursList.find('.notfound').show();
 			}
 			else{

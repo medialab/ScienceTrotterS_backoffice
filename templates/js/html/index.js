@@ -135,7 +135,6 @@ $(document).ready(function() {
 	});
 
 	scrollList.find("a.delete-btn").click(function(e) {		
-		e.preventDefault();
 		e.stopPropagation();
 		
 		var self = $(this);
@@ -157,8 +156,6 @@ $(document).ready(function() {
 			e.preventDefault();
 			return false;
 		}
-
-		return false;
 	});
 
 	scrollList.find("a.preview-btn").click(function(e) {

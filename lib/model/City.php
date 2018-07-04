@@ -8,6 +8,7 @@ class City extends Model
 {
 	protected $sClass = 'City';
 	public static $ssClass = 'City';
+	protected $sUserStr = 'la ville';
 	
 	protected $aTranslateVars = ['title']; // les Variables à traduire
 
