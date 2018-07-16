@@ -8,8 +8,11 @@ $(document).ready(function() {
 		e.stopPropagation();
 
 		var self = $(this);
-		var index = parseInt(self.attr('index'));		
-		var oSelfInp = $(aGalleryInp.get(index));
+		var index = parseInt(self.attr('index'));
+		var cont = self.parents("#gallery-container");
+
+		var oInputs = cont.find("input[type='file']");
+		var oSelfInp = $(oInputs.get(index));
 
 		if (oSelfInp.prop('files').length || oSelfInp.hasClass('hasFile')) {
 			oSelfInp.click();
@@ -17,7 +20,7 @@ $(document).ready(function() {
 		}
 
 		var oFound = false;
-		aGalleryInp.each(function(i, e) {
+		oInputs.each(function(i, e) {
 			var oInp = $(e);
 
 			if (!oInp.hasClass('hasFile') && !oInp.prop('files').length) {
