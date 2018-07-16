@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 		var val = self.val();
 		val = val.replace(',', '.');
-		val = val.replace(/[^0-9\.]+/, '');
+		val = val.replace(/[^0-9\.\-]+/, '');
 
 		self.val(val);
 	});

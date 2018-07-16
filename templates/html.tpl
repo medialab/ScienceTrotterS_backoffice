@@ -89,9 +89,9 @@
 		</script>
 
 		<script src="/functions.js"></script>
+		<script src="/notify.js"></script>
 		<script src="/api-mgr.js"></script>
 		<script src="/html.js"></script>
-		<script src="/notify.js"></script>
 		<script src="/html/topbar.js"></script>
 
 		

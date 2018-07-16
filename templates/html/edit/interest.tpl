@@ -133,7 +133,7 @@
 						<label class="btnInputFileName" for="audio-{$sIso}">
 							{$audio = '/'|explode: ($oInt->audio|default: '')}
 							{$audio = $audio[count($audio)-1]}
-							{$audio = preg_replace('/_[0-9]+$/', '', $audio)}
+							{$audio = preg_replace('/_[0-9]+\.([^.]+)$/', '', $audio)}
 
 							<div class="audio-name" {if $oInt->audio|default:false}disabled{/if}>
 								{$audio|default: ''}
@@ -194,9 +194,10 @@
 
 				<div id="gallery-container" class="borderGrey flexInputFile">
 					{for $index=0 to 4}
-						{$sImg = $oInt->gallery_image->$index|default: false}
+						{$sImg = $oInt->gallery_image->$index|default: ''}
 						{$sName = '/'|explode: ($sImg|default: '')}
 						{$sName = $sName[count($sName)-1]}
+						{$sName = preg_replace('/_[0-9]+\.([^.]+)$/', '', $sName)}
 
 						{if $sImg}
 							<div class="blocInputFileName">

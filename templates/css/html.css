@@ -522,7 +522,10 @@ margin-bottom: 					5px;
 .box label + p {
 font-size:						12px;
 color:							#A1ABB7;
-margin-bottom: 					15px;
+}
+
+.box p:last-of-type {
+	margin-bottom: 					15px;
 }
 
 .box label + input,

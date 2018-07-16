@@ -12,10 +12,12 @@
 		<!-- DATA -->
 		<div id="cities" class="columnData" limit="{$aCities|count}" child="parcours" target="la ville">
 			<ul class="itemList">
+
 				{foreach $aCities as $model}
 					{$model->setLang('default')}
 					<!-- ITEM -->
 					<li id="{$model->id}" class="item {if !$model->state}disabled{/if}" title="{$model->title}">
+						<!-- ACTIONS -->
 						<div class="itemAction">
 							<a class="delete-btn" href="/delete/city/{$model->id}.html">
 								<i class="icon-pre icon-list-remove"></i>
@@ -27,22 +29,30 @@
 								<i class="icon-pre icon-list-check"></i>
 							</a>
 						</div>
-						<label class="itemLabel">{$model->title}</label>
+						<!-- / ACTION -->
 
+						<!-- TITLE -->
+						<label class="itemLabel">{$model->title}</label>
+						<!-- /TITLE -->
+
+						<!-- LANG FLAGS -->
 						<div class="flag-cont {$model->force_lang|default: ''}">
 							<i class="icon-pre icon-flag-fr"></i>
 							<i class="icon-pre icon-flag-en"></i>
 						</div>
+						<!-- /LANG FLAGS -->
 
+						<!-- LOAD SPINNER -->
 						<div class="spinner spinner-xs">
 							<div class="double-bounce1"></div>
 							<div class="double-bounce2"></div>
 						</div>
+						<!-- /LOAD SPINNER -->
 					</li>
-					<!-- .\ ITEM -->
+					<!-- /ITEM -->
 				{/foreach}
 
-				
+				<!-- SANS VILLES -->
 				<li id="no-city" class="item item-notif">
 					<div class="itemAction">
 					</div>
@@ -52,6 +62,7 @@
 						<div class="double-bounce2"></div>
 					</div>
 				</li>
+				<!-- / SANS VILLES -->
 			</ul>
 
 		</div>
@@ -65,7 +76,7 @@
 		</div>
 
 	</div>
-	<!-- .\ ROW -->
+	<!-- /ROW -->
 
 	<!-- ROW -->
 	<div class="arboItem">
@@ -74,32 +85,8 @@
 			<label>parcours</label>
 		</div>
 
-		<!-- <li id="empty" class="item" title="">
-			<div class="itemAction">
-				<a class="delete-btn" href="/delete/">
-					<i class="icon-pre icon-list-remove"></i>
-				</a>
-		
-				<a href="/edit/">
-					<i class="icon-pre icon-list-edit"></i>
-				</a>
-				
-				<a  class="preview-btn">
-					<i class="icon-pre icon-list-preview"></i>
-				</a>
-		
-			</div>
-		
-			<label class="itemLabel"></label>
-		
-			<div class="flag-cont">	
-				<i class="icon-pre icon-flag-fr"></i>
-				<i class="icon-pre icon-flag-en"></i>
-			</div>
-		</li> -->
-
 		<!-- DATA -->
-		<div id="parcours"  class="columnData" limit="{$aParcours|count}" child="interests" target="le parcours">
+		<div id="parcours"  class="columnData" limit="" child="interests" target="le parcours">
 			<ul class="itemList">
 				<li id="" class="item item-notif">
 					<label class="itemLabel">Cliquez sur une ville<br>pour voir les parcours associés.</label>
@@ -116,7 +103,7 @@
 		</div>
 
 	</div>
-	<!-- .\ ROW -->
+	<!-- /ROW -->
 
 	<!-- ROW -->
 	<div class="arboItem">
@@ -126,11 +113,9 @@
 		</div>
 
 		<!-- DATA -->
-		<div id="interests"  class="columnData" limit="{$aInterests|count}" target="le point d'interêt">
+		<div id="interests"  class="columnData" limit="" target="le point d'interêt">
 			<ul class="itemList">
-				<!-- <li id="" class="item item-notif">
-					<label class="itemLabel">Cliquez sur un parcours<br>pour voir les points d'intérêts associés.</label>
-				</li> -->
+
 			</ul>
 		</div>
 
@@ -143,5 +128,5 @@
 		</div>
 
 	</div>
-	<!-- .\ ROW -->
+	<!-- /ROW -->
 </div>

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Fonction De Validation Basic d'un Modele
+ * @param  Model\Model $oModel   Le Model à valider
+ * @param  Array      &$aErrors Liste des Erreurs
+ * @return Bool                Success
+ */
 function fValidateModel(Model\Model $oModel, &$aErrors) {
 	/* Validation Du Status */
 		$_POST['state'] = (bool) (empty($_POST['state']) ? false : $_POST['state']);
@@ -59,12 +65,14 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 			}
 			
 			if (empty($aErrors['Latitude']) && empty($aErrors['Latitude'])) {		
+				
 				$oModel->geoloc = $_POST['geo-n'].';'.$_POST['geo-e'];
 			}
 		}
 		else{
 			$oModel->setGeoE(null);
 		}
+
 
 
 	/* Validation de L'image Principale */
@@ -103,32 +111,33 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 			$aErrors['Audio'] = 'L\'Audio ne peut dépasser 20 Mo';
 		}
 
-
-	/* Validation De  audio_script */
-		/*if (!empty($_POST['audio_script'])) {
-			$oModel->audio_script = $_POST['audio_script'];
-		}*/
-
 	$oModel->setState($_POST['state']);
 	return empty($aErrors);
 }
 
 //ApiMgr::$debugMode = true;
+
+// Si L'Url n'es Pas Bonne On Revient Sur L'index
 $curPage = explode('/', $sPage);
 if (count($curPage) < 2) {
 	header('location: /');
 	exit;
 }
 
+// Liste Des Erreurs
 $aErrors = [];
 $smarty->assign('aErrors', $aErrors );
-$smarty->assign('sGeoPat', '^[0-9]{1,2}(\.[0-9]{1,6})?$');
 
+// Rerex D'une Geolocalisation
+$smarty->assign('sGeoPat', '^(-)?[0-9]{1,2}(\.[0-9]{1,16})?$');
+
+// Langues Disponibles
 $smarty->assign('aLangs', [
 	'fr' => 'français',
 	'en' => 'anglais'
 ]);
 
+// Mise à Jour Du Fil D'arrianne
 $curPage = $curPage[1];
 switch ($curPage) {
 	case 'interest':
@@ -146,6 +155,7 @@ switch ($curPage) {
 
 $aFilDArianne['edit/'.$curPage] = $sFilPart;
 
+// Ajout De Js Spécifiques
 addJs(
 	'tab-selector',
 	'custom-checkbox'

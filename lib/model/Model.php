@@ -1,32 +1,77 @@
 <?php
 
 namespace Model;
-/**
- * 
- */
+
 abstract class Model
 {
+	/**
+	 * Langue Séléctionnée
+	 * @var boolean
+	 */
 	private $sCurLang = false;
+
+	/**
+	 * Langue Forcée
+	 * @var boolean
+	 */
 	private $force_lang = false;
 	
-	protected $sClass = 'Model';
-	protected $sUserStr = 'le model';
-	protected $aTranslateVars = []; // les Variables à traduire
 
+	/**
+	 * Class Du Model
+	 */
+	protected $sClass = 'Model';
+
+	/**
+	 * Nom du Model pour un utilisateur
+	 */
+	protected $sUserStr = 'le model';
+
+	/**
+	 * Variables à Traduire
+	 */
+	protected $aTranslateVars = []; 
+
+	/**
+	 * Variables De La BDD
+	 */
+	protected $sqlVars = ['id', 'created_at', 'updated_at'];
+
+
+	/**
+	 * Variable Accessibles Au Public
+	 */
+	protected $aPublicVars = ['force_lang'];
+
+	/**
+	 * Table Du Model
+	 * @var [type]
+	 */
+	protected $sTable;
+
+	/**
+	 * Est Synchronisé avec la DB
+	 */
+	protected $bSync = false;
+
+
+	/**
+	 * Est Chargé
+	 */
+	protected $bLoaded = false;
+
+
+	/**
+	 * Variables à Ignorer lord du Save
+	 */
+	protected $sqlIgnore = ['sqlIgnore', 'parcours', 'city'];
+
+	/**
+	 * Colones Par Default
+	 */
 	protected $id;
 	protected $created_at;
 	protected $updated_at;
-
-
-	protected $sqlVars = ['id', 'created_at', 'updated_at'];
-	protected $aPublicVars = ['force_lang'];
-
-	protected $sTable;
-
-	protected $bSync = false;	// Est Synchronisé avec la DB
-	protected $bLoaded = false;	// A des Donées Chargées
-
-	protected $sqlIgnore = ['sqlIgnore', 'parcours', 'city'];	// variable à ignorer lors du Toarray
 
 	function __construct($id=false, $aData=[]) {
 		if ($id) {
@@ -37,6 +82,11 @@ abstract class Model
 		}
 	}
 
+	/**
+	 * Protège L'html avec Html Entities
+	 * @param  String|Array $var Contenu
+	 * @return String|Array      Html Protégé
+	 */
 	private function encode($var) {
 		if (is_string($var)) {
 			$var = htmlentities($var);
@@ -50,6 +100,12 @@ abstract class Model
 		return $var;
 	}
 
+
+	/**
+	 * Décode L'Html
+	 * @param  String|Array $var Contenu
+	 * @return String|Array      Html Décodé
+	 */
 	private function decode($var) {
 		if (is_string($var)) {
 			$var = html_entity_decode($var);
@@ -70,9 +126,11 @@ abstract class Model
 	 * @return bool|int       true, -1 Si Accès Interdit, false Si la variable n'existe pas
 	 */
 	private function canAccessVar($sVar, $bSqlVars=true) {
+		// Si Les Données Sql Sont Incluses
 		if ($bSqlVars && in_array($sVar, $this->sqlVars)) {
 			return true;
 		}
+		// Si La Variable N'est Pas Accèssible Au Public
 		elseif (!in_array($sVar, $this->aPublicVars) && property_exists('Model\Model', $sVar)) {
 			return -1;
 		} 
@@ -139,13 +197,18 @@ abstract class Model
 	    $this->$sVar = $value;
 	}
 
-
+	/**
+	 * Réécritue Ecriture de variable
+	 * @param String $sVar  Nom de la variable
+	 * @param Mixed $value Valeur de la variable 
+	 */
 	function __set($sVar, $var) {
 		if (is_string($var)) {
 			$var = $this->decode($var);
 		}
 
 		$bAccess = $this->canAccessVar($sVar, false);
+		// var_dump("======== $sVar ========", $var, $bAccess);
 		if ($bAccess === -1) {
 			trigger_error('Can\'t access Model Property "'.$sVar.'" due to Protection Level.');
 			return;
@@ -180,19 +243,39 @@ abstract class Model
 		}
 	}
 
+	/**
+	 * Réécriture Logique empty()
+	 * @param  String  $sVar Nom de la variable
+	 * @return boolean       La variable sest vide
+	 */
 	public function __isset($sVar) {
-		var_dump("Has Prop: $sVar", property_exists($this, $sVar));
 		if (property_exists($this, $sVar)) {
-			var_dump("TEST", $this->$sVar);
-			return empty($this->$sVar);
+			$v = $this->$sVar;
+
+			if (in_array($v, $this->aTranslateVars)) {
+				if (is_string($v)) {
+					$v = json_decode($v);
+				}
+			}
+
+			if (is_object($v)) {
+				return !empty(get_object_vars($this->attributes[$sVar]));
+			}
+			
+			return !empty($this->$sVar);
 		}
 		
-		return true;
+		return false;
 	}
 
+	/**
+	 * Réécritue Récupération de variable
+	 * @param  String $sVar Nom de la variable
+	 * @return Mixed       La variable ou NULL
+	 */
 	function __get($sVar) {
 		if (property_exists($this, $sVar)) {
-
+			// Si La Variable Est à Traduire
 			if (in_array($sVar, $this->aTranslateVars)) {
 				$var = $this->$sVar;
 				$sLang = $this->sCurLang;
@@ -227,6 +310,11 @@ abstract class Model
 		return null;
 	}
 
+	/**
+	 * Chargement Par ID
+	 * @param  String $id Id
+	 * @return Bool     Success
+	 */
 	public function loadById($id) {
 		if (!fIdValidator($id)) {
 			return false;
@@ -244,14 +332,24 @@ abstract class Model
 		return true;
 	}
 
+	/**
+	 * Chargement Des Données
+	 * @param  Array $oData Les Données
+	 * @return Bool        Success
+	 */
 	public function load($oData) {
-		//var_dump("LOADING", $oData);
+		if (empty(get_object_vars($oData))) {
+			return true;
+		}
+
+		// Le Model Est Dé-Synchronisé
 		$this->bSync = false;
 		
 		$sCurLang = $oData->sCurLang;
 		$this->setLang($sCurLang);
-
+		// Mise à Jour Des Infos
 		foreach ($oData as $sProp => $sData) {
+			//var_dump("=== PROP: $sProp ===");
 			if (property_exists($this, $sProp) || in_array($sProp, $this->aTranslateVars)) {
 				if (in_array($sProp, $this->aTranslateVars)) {
 					//var_dump("Translate Prop", $sProp);
@@ -265,7 +363,13 @@ abstract class Model
 				else{
 					//var_dump("Prop", $sProp);
 					//var_dump($sData);
-					$this->$sProp = $sData;
+
+					if ($this->canAccessVar($sProp, false) !== -1) {
+						$this->__set($sProp, $sData);
+					}
+					else{
+						$this->$sProp = $sData;
+					}
 				}
 			}
 			else {
@@ -275,6 +379,7 @@ abstract class Model
 			}
 		}
 		
+		// Le Model à Des Données Chargée
 		$this->bLoaded = true;
 		return true;
 	}
@@ -316,10 +421,14 @@ abstract class Model
 			$this->bSync = false;
 		}
 
+
 		\ApiMgr::getLang($tmpLang);
 		return $oData;
 	}
 
+	/**
+	 * Supprime De la BDD
+	 */
 	public function delete() {
 		if (!$this->bLoaded) {
 			return false;
@@ -335,13 +444,20 @@ abstract class Model
 		return true;
 	}
 
+	/**
+	 * Séléctionne Une Langue
+	 * @param boolean $lang [description]
+	 */
 	public function setLang($lang = false) {
+		// Si la Langue est Différent De défault
 		if ($lang !== 'default') {
 			$this->sCurLang = $lang;
 		}
+		// Si le Force Lang Est défini
 		elseif(strlen($this->force_lang)){
 			$this->sCurLang = $this->force_lang;
 		}
+		// Par Défaut La Langue Est Français
 		else {
 			$this->sCurLang = 'fr';
 		}
@@ -355,9 +471,11 @@ abstract class Model
 		$sLang = $this->sCurLang;
 
 		foreach (get_object_vars($this) as $key => $value) {
-			$bIgnore = in_array($key, $this->sqlIgnore);
 
+			// Est Ce Que La Variable Est à Ignorer
+			$bIgnore = in_array($key, $this->sqlIgnore);
 			$bModel = $this->canAccessVar($key) !== true;
+
 
 			if (!$bIgnore && !$bModel) {
 				if ($sLang && in_array($key, $this->aTranslateVars)) {
@@ -371,42 +489,65 @@ abstract class Model
 		return $aResult;
 	}
 
+	/**
+	 * Définition Du Status
+	 * @param Bool $bState Nouveau Status
+	 */
 	public function setState($bState) {
 		$this->state = $bState;
 	}
 
+	/**
+	 * Récupère La Langue
+	 * @return String La Langue Séléctionnée
+	 */
 	public function getLang() {
 		return $this->sCurLang;
 	}
 	
+	/**
+	 * écriture De la Géoloc
+	 * @param [type] &$geoloc [description]
+	 */
 	public function setGeoloc(&$geoloc) {
 		if ($geoloc === ';') {
 			$geoloc = null;
 		}
 
+		// On Décode La Géoloc
 		if (is_string($geoloc)) {
 			$geo = explode(';', $geoloc);
 			$geoloc = (object) ['latitude' => (float)$geo[0], 'longitude' => (float)$geo[1]];
 		}
 
-		if (empty(get_object_vars($geoloc))) {
+		//var_dump("Setting Geo: ", $geoloc);
+		// Si LA Géoloc Est Vide
+		if (is_null($geoloc) || empty(get_object_vars($geoloc))) {
+			var_dump("Geo Is Empty", $geoloc);
 			$this->geoN = null;
 			$this->geoE = null;
 			return;
 		}
 
+		// Si LA Géoloc Est OK
 		$this->geoN = $geoloc->latitude;
 		$this->geoE = $geoloc->longitude;
+		$this->geoloc = $geoloc;
 	}
 
+	/**
+	 * Définition de la Latitude
+	 * @param float $geoN Latitude
+	 */
 	public function setGeoN($geoN) {
-		//var_dump("Setting GeoN", $geoN);
-		if (!empty($geoN) && !preg_match('/^[0-9]{1,2}(\.[0-9]{1,6})?$/', $geoN)) {
+		// Si La Latitude Est Erronée
+		if (!empty($geoN) && !preg_match('/^(-)?[0-9]{1,2}(\.[0-9]{1,16})?$/', $geoN)) {
 			throw new Exception('Error: Invalid Lattitude Value: '.$geoN, 1);
 		}
 
 		$this->geoN = $geoN;
 
+		// Mise à Jour De la Géoloc
 		if (empty($geoN) && empty($this->geoE)) {
 			$this->geoloc = null;
 		}
@@ -415,13 +556,20 @@ abstract class Model
 		}
 	}
 
+
+	/**
+	 * Définition de la Latitude
+	 * @param float $geoN Longitude
+	 */
 	public function setGeoE($geoE) {
-		//var_dump("Setting GeoE", $geoE);
-		if (!empty($geoE) && !preg_match('/^[0-9]{1,2}(\.[0-9]{1,6})?$/', $geoE)) {
+		// Si La Longitude Est Erronée
+		if (!empty($geoE) && !preg_match('/^[0-9]{1,2}(\.[0-9]{1,16})?$/', $geoE)) {
 			throw new Exception('Error: Invalid Longitude Value: '.$geoE, 1);
 		}
 
 		$this->geoE = $geoE;
+
+		// Mise à Jour De la Géoloc
 		if (empty($geoE) && empty($this->geoN)) {
 			$this->geoloc = null;
 		}
@@ -430,6 +578,13 @@ abstract class Model
 		}
 	}
 
+	/**
+	 * Recherche Par Id
+	 * @param  integer $id     Id
+	 * @param  array   $aData  Donée Par Défault
+	 * @param  boolean $sClass Class Du Model
+	 * @return Model          Le Model
+	 */
 	public static function get($id=0, $aData=[], $sClass=false) {
 		$sClass = 'Model\\'.$sClass;
 		
@@ -442,12 +597,22 @@ abstract class Model
 		return null;
 	}
 
+	/**
+	 * [list description]
+	 * @param  integer $limit    Limite
+	 * @param  integer $page     Page
+	 * @param  boolean $columns  Les Colones
+	 * @param  boolean $aOptions Options
+	 * @param  boolean $sClass   La Classe Du Modèle
+	 * @return Array            Array Des Modèles
+	 */
 	public static function list($limit=0, $page=0, $columns=false, $aOptions=false, $sClass=false) {
 		$sClass = 'Model\\'.$sClass;
 
 		try {
 			$base = new $sClass();
 
+			// Selection Des Colones
 			if (is_array($columns)) {
 				$aReqColumns = ['id', 'state', 'force_lang'];
 				foreach ($aReqColumns as $sColumn) {
@@ -457,6 +622,7 @@ abstract class Model
 				}
 			}
 
+			// Appel à L'Api
 			$aResults = \ApiMgr::list($base->sTable, false, $limit, $page, $columns, $aOptions);
 			if (!$aResults->success) {
 				return [];
@@ -473,6 +639,11 @@ abstract class Model
 		return $aResults->data;
 	}
 
+	/**
+	 * Validation d'un uid_v4
+	 * @param  String $id ID
+	 * @return Bool     Success
+	 */
 	public static function validateID($id) {
 		if (preg_match('/[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}/', $id)) {
 			return $id;

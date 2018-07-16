@@ -323,18 +323,20 @@ function fMethodIs($type='get') {
 		return $aMimeMap;
 	}
 
-
+/**
+ * Gestion Des Uploads
+ * @param  Sname  $name      Nom Input Du Fichier
+ * @param  String  $directory Dossier D'enregistrement
+ * @param  boolean $bArray    Est Un Tableau de Fichiers
+ * @return String             Le Path relatif Du Fichier
+ */
 function handleUploadedFile($name, $directory, $bArray = false) {
-	//var_dump("UPLOAD: $name");
 	/* Sauvegarde Temporaire de l'image */
-
-	//var_dump("Directory: $directory");
-	//var_dump("Full Path: ".UPLOAD_PATH.$directory);
 	if (empty($_FILES[$name])) {
 		return null;
 	}
 
-	$aresult = [];
+	$aResult = [];
 	$aF = &$_FILES[$name];
 	if (!empty($aF['name'])) {
 
@@ -346,27 +348,24 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 			$aF['size'] = [$aF['size']];
 		}
 
-		//var_dump("---- FILE LIST: ", $aF['name']);
+		// Enregistrement Des Uploads
 		foreach ($aF['name'] as $i => $fName) {
 			if (empty($fName)) {
 				continue;
 			}
 
-			//var_dump("===== File: $i => $fName =====");
-
 			/* Création du dossier */
 			if (!is_dir(UPLOAD_PATH.$directory)) {
-				//var_dump("Create Directory");
 				mkdir(UPLOAD_PATH.$directory, 0775, true);
 			}
 			
+			// Generation Du nom Du Fichier
 			$imgPath = $directory.'/'.fCreateFriendlyUrl($aF['name'][$i]);
 			$imgPath = preg_replace('/\.([^.]+)$/', '_'.time().'.$1', $imgPath);
-			//var_dump("Img Path: $imgPath");
-			
+
+			// Définition de la destination
 			$dest = UPLOAD_PATH.$imgPath;
 			$dest = str_replace('/', DIRECTORY_SEPARATOR, $dest);
-			//var_dump("dest Path: $dest");
 
 			/* Si le fichier existe on le remplace */
 			if (file_exists($dest)) {
@@ -374,20 +373,22 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 				unlink($dest);
 			}
 
+			/* Sauvegarde du fichier */
 			$result = move_uploaded_file($aF['tmp_name'][$i], $dest);
-			//var_dump("Move Upload: $result");
 
+			/* Si Sauvegarde a réussi */
 			if ($result) {
+				// Si Un Seul Fichier On Retourne Son Path
 				if (!$bArray) {
-					//var_dump($imgPath);
 					return $imgPath;
 				}
+				// Si Multiple Fichiers Garde Son Path
 				else{
 					$aResult[$i] = $imgPath;
 				}
 			}
+			// Si Non On Définis Le Path à NULL
 			else{
-				//var_dump("Faild");
 				if (!$bArray){
 					return null;
 				}
@@ -397,7 +398,7 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 			}
 		}
 
-		//var_dump($aResult);
+		// On Retourne La Liste Des Path
 		return $aResult;
 	}
 	else{
@@ -407,9 +408,11 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 	return null;
 }
 
+/**
+ * Définitions des JS à Charger
+ */
 global $_JS_FILES;
 $_JS_FILES = [];
-
 function addJs() {
 	$aPaths = func_get_args();
 	foreach ($aPaths as $sPath) {
@@ -432,9 +435,12 @@ function addJs() {
 	}
 }
 
+
+/**
+ * Définitions des CSS à Charger
+ */
 global $_CSS_FILES;
 $_CSS_FILES = [];
-
 function addCss($sPath) {
 	$aPaths = func_get_args();
 	foreach ($aPaths as $sPath) {

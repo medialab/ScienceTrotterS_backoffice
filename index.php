@@ -19,37 +19,37 @@ exit;
 	
 	define( 'UPLOAD_PATH',      	realpath('.').'/media/upload/' );
 
-
+// Récupération de la Configuration
 	require_once('./config/defines.php');
 
-	// Fonction de chargement dynamique des classes
-		function fAutoLoader( $sClassName ){
-			$aDirectoryClass			=	explode( '\\', $sClassName );
-			$aDirectoryClass[0]			=	strtolower( $aDirectoryClass[0] );
-			$sDirectoryClassName		=	implode( $aDirectoryClass, '/' );
+// Fonction de chargement dynamique des classes
+	function fAutoLoader( $sClassName ){
+		$aDirectoryClass			=	explode( '\\', $sClassName );
+		$aDirectoryClass[0]			=	strtolower( $aDirectoryClass[0] );
+		$sDirectoryClassName		=	implode( $aDirectoryClass, '/' );
 
 
-			if ( count( $aDirectoryClass ) == 1 ) {
-				$sDirectoryClassName		.=	'/'. $sClassName;
-			}
+		if ( count( $aDirectoryClass ) == 1 ) {
+			$sDirectoryClassName		.=	'/'. $sClassName;
+		}
 
-			$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.class.php' );
+		$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.class.php' );
 
+		// var_dump($sPathClassName);
+		if ( file_exists( $sPathClassName ) ) {
+			require_once( realpath( $sPathClassName ) );
+
+		} 
+		else {
+
+			$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.php' );
 			// var_dump($sPathClassName);
 			if ( file_exists( $sPathClassName ) ) {
 				require_once( realpath( $sPathClassName ) );
-
-			} 
-			else {
-
-				$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.php' );
-				// var_dump($sPathClassName);
-				if ( file_exists( $sPathClassName ) ) {
-					require_once( realpath( $sPathClassName ) );
-				}
 			}
-		} spl_autoload_register( 'fAutoLoader' );
-	//---nano .gitignore
+		}
+	} spl_autoload_register( 'fAutoLoader' );
+//---
 
-// On appel la bonne page
+// Chargement Du Site
 	require_once('./bootstrap.php');

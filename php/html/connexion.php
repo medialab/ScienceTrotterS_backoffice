@@ -12,7 +12,7 @@ if (fMethodIs('post')) {
 		exit;
 	}
 
-	$aErrors[''] = 'Identifiant / Mot de passe invalides.';
+	$aErrors[''] = ApiMgr::getMessage();
 }
 
 $smarty->assign([

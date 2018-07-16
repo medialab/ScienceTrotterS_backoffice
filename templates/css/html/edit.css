@@ -229,3 +229,16 @@ textarea#audio_script {
     max-width: calc(100% - 52px);
 }
 
+.box p.time {
+	display: inline-block;
+}
+
+.box .spinner {
+	vertical-align: sub;
+	display: inline-block;
+}
+
+.box .spinner-xs {
+	width: 15px;
+	height: 15px;
+}

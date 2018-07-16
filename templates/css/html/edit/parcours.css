@@ -5,3 +5,18 @@
     position: absolute;
     top: 8px;
 }
+
+#box-Interets li.active a {
+	color: #5e80c9;
+}
+
+#box-Interets p.sep,
+#box-Interets p.time,
+#box-Interets p.distance {
+	display: inline-block;
+}
+
+#box-Interets p b {
+	color: #656A71;
+	letter-spacing: 1px;
+}

@@ -1,17 +1,20 @@
 <?php
-
+// Récupération du Nom de la page
 $sPage = empty($_GET['name']) ? 'index' : $_GET['name'];
+
+// Récupération de l'extention de la page
 $sExt = empty($_GET['extension']) ? 'html' : $_GET['extension'];
+
+// Récupération de l'extention des fichiers
 $sExtFile = ( $sExt == 'html' ) ? 'tpl' : $sExt;
-$sContent = '';
+
+//$sContent = '';
 // Functions
       require_once('./lib/functions.php');
 //---
 
 
 // Smarty
-
-
         require_once('./lib/smarty/Smarty.class.php');
         $smarty = new Smarty();
         $smarty->assign('sPage', $sPage);
@@ -36,6 +39,8 @@ $sContent = '';
 //---
 
 session_start();
+
+// Initialisation De L' Api
 ApiMgr::init();
 
 // On vérifie que l'utilisateur aie le droit d'accéder à  cette page
@@ -72,6 +77,7 @@ if (in_array($sExt, ['js', 'css'])) {
         else{
             header('Content-Type: text/'.$sExt);        
         }
+
         echo file_get_contents('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile);
         exit;
     }
@@ -84,15 +90,18 @@ else {
     header('Content-Type: text/html');
 }
 
-$libPath = './php/';
+
 $viewPath = '';
+$libPath = './php/';
+
+// Les Fichiers à Charger
 $files = explode('/', $sExt.'/'.$sPage);
 
-
-$dFileCnt = 0;
 $f = '';
+$dFileCnt = 0;
 $sContent = '';
 $tplFiles = [];
+
 foreach ($files as $file) {
     if (strlen($f)) {
         $f .= '/';
@@ -100,13 +109,12 @@ foreach ($files as $file) {
 
     $f .= $file;
 
+    // Chargement Du PHP
     if (file_exists($libPath.$f.'.php')) {
         require_once($libPath.$f.'.php');
     }
-    else{
-    }
-
     
+    // Chargement Du TPL
     if ($dFileCnt > 0 && file_exists(realpath('.').'/templates/'.$viewPath.$f.'.tpl')) {
         $tplFiles[] = $viewPath.$f.'.tpl';
     }
@@ -121,12 +129,14 @@ $smarty->assign([
     '_JS_FILES' => $_JS_FILES
 ]);
 
+// Execution Des TPLs
 foreach ($tplFiles as $f) {
     $sContent .= $smarty->fetch($f);
 }
 
 $smarty->assign('sPageContent', $sContent);
 
+// Gestion Du Fil D'arianne
 if (!empty($aFilDArianne)) {
     $smarty->assign('aFilDArianne', $aFilDArianne);
 }
@@ -134,10 +144,14 @@ else{
     $smarty->assign('aFilDArianne', []);
 }
 
+// Chargement du TPL
 if ( file_exists('./templates/'.$sExt.'.'.$sExtFile) ) {
     $sContent = $smarty->fetch($sExt.'.'.$sExtFile);
 }
 
-
-echo $sContent;
+// Suppression Des Notifications En Session
 unset($_SESSION['session_msg']);
+
+// Affichage Du Contenu
+echo $sContent;
+

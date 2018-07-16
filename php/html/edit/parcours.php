@@ -3,36 +3,46 @@
 /* Récupération de l'ID de la ville s'il existe */
 $id = !empty($_GET['id']) ? $_GET['id'] : false;
 if ($id && !fIdValidator($id)) {
-	header('location: /cities.html');
+	$_SESSION['session_msg']['error'] = [
+		'Impossible de trouver la ville demandée'
+	];
+
+	header('location: /');
 }
 
-/* Titre du formulaire */
+// Définition Du Titre Du Formulaire
 if ($id) {
+	$bIsCreate = false;
 	$smarty->assign('sCreation', 'Mise à jour d\'un parcours');
 }
 else{
+	$bIsCreate = true;
 	$smarty->assign('sCreation', 'Création d\'un parcours');
 }
 
-//ApiMgr::$debugMode = true;
-$aColors = ApiMgr::list('colors', true, 0, 0, false, ['name', 'DESC']);
+
+// Chargement Des Couleurs
+$aColors = ApiMgr::list('colors', true, 0, 0, false, ['name', 'ASC']);
 $smarty->assign('aColors', $aColors->data);
 
 //ApiMgr::$debugMode = true;
+// Chargement Du Parcours
 $oParc = new \Model\Parcours($id);
 //exit;
 
+// Si Le Parcours Est Introuvable
 if ($id && !$oParc->isLoaded()) {
 	header('location: /');
 }
 
-
-$aInts = [];
+// Chargement Des Villes
 ApiMgr::setLang('fr');
 $aCities = \Model\City::list(0, 0, ['id', 'title'], ['title', 'asc']);
 
+// Chargement Des Points D'interets
+$aInts = [];
 if ($oParc->isLoaded()) {
-	$aInts = ApiMgr::listByParcours($id, false, 0, 0, ['id', 'title', 'state']);
+	$aInts = ApiMgr::listByParcours($id, false, 0, 0, ['id', 'title', 'state'], ['title', 'ASC']);
 	if ($aInts->success) {
 		$aInts = $aInts->data;
 	}
@@ -40,32 +50,31 @@ if ($oParc->isLoaded()) {
 }
 ApiMgr::setLang(false);
 
+/* Validation du formulaire */
 if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
-	$sLang = empty($_POST['lang']) ? false : $_POST['lang'];
-	if (!$sLang) {
-		$aErrors['lang'] = 'Aucune langue n\'a été sélectionnée';
+
+	// Récupération Des Informations Propres Aux Parcours
+	if (!empty($_POST['time'])) {
+		$oParc->time = $_POST['time'];
 	}
 
+	if (!empty($_POST['color'])) {
+		$oParc->color = $_POST['color'];
+	}
 	
-	/* Validation De  la Ville */
-		/*if(!fRequiredValidator('cities_id', $_POST)) {
-			$aErrors['Ville'] = 'Ce champs est obligatoire';
-		}*/
-	
-	$oParc->setLang($sLang);
+	if (!empty($_POST['cities_id'])) {
+		$oParc->cities_id = $_POST['cities_id'];
+	}
 
-	$oParc->time = $_POST['time'];
-	$oParc->color = $_POST['color'];
-	$oParc->cities_id = $_POST['cities_id'];
 	$oParc->description = empty($_POST['description']) ? null : $_POST['description'];
 	$oParc->audio_script = empty($_POST['audio_script']) ? null : $_POST['audio_script'];
 
-	$oParc->state = (bool) $_POST['state'];
+	$oParc->state = (bool)$_POST['state'];
 
 	/* Si On a pad d'erreur on prepare L'object Parcours */
 		if (empty($aErrors)) {
+			// Téléchargement Du Fichier Audio
 			if (!empty($_FILES['audio'])) {
-				//var_dump($_FILES);
 				$oParc->audio = handleUploadedFile('audio', 'parcours/audio');
 			}
 
@@ -73,6 +82,7 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 			$oSaveRes = $oParc->save();
 			//exit;
 
+			// Si La Sauvegarde a Echoué
 			if (!$oSaveRes->success) {
 				if(!empty($oSaveRes->message)) {
 					$aErrors['Erreur'] = $oSaveRes->message;
@@ -81,6 +91,7 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 					$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
 				}
 			}
+			// Si La Sauvegarde a Réussi
 			else {
 				$_SESSION['session_msg'] = [
 					'success' => [
@@ -88,24 +99,26 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 					]
 				];
 
+				// Si Un Message a été Envoyé
 				if (!empty($oSaveRes->message)) {
 					$_SESSION['session_msg']['warning'] = [
 						$oSaveRes->message
 					];
 				}
 
-				if (!$id && empty($aErrors)) {	// On redirige pour se mettre en modification
+				if (!$id && $bIsCreate && empty($aErrors)) {	// On redirige pour se mettre en modification
 					header('location: /edit/parcours/'.$oParc->id.'.html');
 					exit;
 				}
 			}
 		}
 }
+// Si Un Parent Est Pré-Séléctionné
 elseif (!empty($_GET['parent'])) {
 	$oParc->cities_id = \Model\Model::validateID($_GET['parent']);
 }
 
-
+// Chargement Des Js Supplémentaires
 addJs('color-selector');
 
 $smarty->assign('oParc', $oParc);

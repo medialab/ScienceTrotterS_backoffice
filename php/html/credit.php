@@ -1,0 +1,3 @@
+<?php
+
+$aFilDArianne['credit'] = 'Crédits';

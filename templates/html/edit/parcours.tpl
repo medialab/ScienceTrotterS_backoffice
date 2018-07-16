@@ -97,7 +97,7 @@
 						<label class="btnInputFileName" for="audio-{$sIso}">
 							{$audio = '/'|explode: ($oParc->audio|default: '')}
 							{$audio = $audio[count($audio)-1]}
-							{$audio = preg_replace('/_[0-9]+$/', '', $audio)}
+							{$audio = preg_replace('/_[0-9]+\.([^.]+)$/', '', $audio)}
 
 							<div class="audio-name" {if $oParc->audio|default:false}disabled{/if}>
 								{if $audio|default: false}
@@ -130,18 +130,38 @@
 
 			<!-- Interêts -->
 			<div class="box" id="box-Interets">
-				<label >Points d'interêts</label>
+				<label>Points d'interêts</label>
 				{$count = count(($aInts|default: []))}
-				<p>
+
+				<p class="cnt">	
 					{if !$oParc->isLoaded()}
 						Veuillez enregister ce parcours<br>
 						avant de pouvoir lui ajouter un point d'intérêt
 					{elseif $count}
-						{$count} points d'interêt associés à ce parcours
+						<b>{$count}</b> points d'interêt associés à ce parcours
 					{else}
 						Aucun point d'interêt associé à ce parcours
 					{/if}
 				</p>
+
+				{if $count}
+					<p class="distance">
+						Distance: <b><span></span></b>
+					</p>
+					
+					<div class="spinner spinner-xs">
+						<div class="double-bounce1"></div>
+						<div class="double-bounce2"></div>
+					</div>
+					<p class="sep"> / </p>
+					<p class="time">
+						Temps Estimé: <b><span></span></b>
+					</p>
+					<div class="spinner spinner-xs">
+						<div class="double-bounce1"></div>
+						<div class="double-bounce2"></div>
+					</div>
+				{/if}
 				
 				<ul class="interest-list">
 					{foreach $aInts|default: [] as $oInt}
