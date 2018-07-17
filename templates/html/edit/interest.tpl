@@ -225,14 +225,16 @@
 				<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
 			</div>
 
-			<div class="box box-large" style="background-color: transparent; box-shadow: none">
-				<div href="#" title="Preview" class="btn">
-					<a href="">
-						<img src="/media/image/interface/icons/icon_edit_preview.svg">
-						Preview
-					</a>
+			{if $oInt->isSync()}
+				<div class="box box-large" style="background-color: transparent; box-shadow: none">
+					<div href="#" title="Preview" class="btn">
+						<a href="">
+							<img src="/media/image/interface/icons/icon_edit_preview.svg">
+							Preview
+						</a>
+					</div>
 				</div>
-			</div>
+			{/if}
 			
 			<div class="boolean {if $oInt->state|default: false}on{/if}">
 				<input id="publie" type="checkbox" name="state" {if $oInt->state|default: false}checked{/if}/>

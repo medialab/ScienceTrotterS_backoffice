@@ -35,6 +35,10 @@ if ($id && !$oCity->isLoaded()) {
 
 	header('location: /');
 }
+elseif($id) {
+	$oCity->setLang('fr');
+	$aFilDArianne[] = $oCity->title;
+}
 
 /* Validation du formulaire */
 if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {

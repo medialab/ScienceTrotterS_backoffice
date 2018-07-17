@@ -139,19 +139,23 @@ $smarty->assign('aLangs', [
 
 // Mise à Jour Du Fil D'arrianne
 $curPage = $curPage[1];
+$edit = empty($_GET['id']) ? 'Création ' : ' Édition ';
+
 switch ($curPage) {
 	case 'interest':
-		$sFilPart = 'Édition d\'interêt';
+		$sFilPart = $edit.'d\'interêt';
 		break;
 
 	case 'city':
-		$sFilPart = 'Édition de ville';
+		$sFilPart = $edit.'de ville';
 		break;
 
 	case 'parcours':
-		$sFilPart = 'Édition de parcours';
+		$sFilPart = $edit.'de parcours';
 		break;
 }
+
+$curPage = empty($_GET['id']) ? $curPage : $curPage.'/'.$_GET['id'];
 
 $aFilDArianne['edit/'.$curPage] = $sFilPart;
 

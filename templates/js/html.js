@@ -36,6 +36,7 @@ let currentItem = '';
 
 const fCloseMenuBtn = function fCloseMenuBtn (event) {
   document.querySelector('.leftBar').classList.toggle('close');
+  $(this).parents('#content').toggleClass('closed');
 }
 
 /**

@@ -215,12 +215,12 @@ body {
 /**
 * ON MENU CLOSE STATE
 */
-.leftBar.close .itemList .item .itemLabel {
+/* .leftBar.close .itemList .item .itemLabel {
 	display: none !important;
-}
-.leftBar.close .subItemList {
+} */
+/* .leftBar.close .subItemList {
 	display: none !important;
-}
+} */
 
 /**
 * FIL D'ARIANE

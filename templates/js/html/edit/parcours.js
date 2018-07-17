@@ -6,7 +6,7 @@ $(document).ready(function() {
 		oVilleList.not(self).val(self.val());
 	});
 
-	var oIntBox = $("#box-Interets");
+	var oIntBox = $(".box-interets");
 	var oTime = oIntBox.find('.time');
 
 	if (!oTime.length) {

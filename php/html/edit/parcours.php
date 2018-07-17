@@ -34,6 +34,10 @@ $oParc = new \Model\Parcours($id);
 if ($id && !$oParc->isLoaded()) {
 	header('location: /');
 }
+elseif($id) {
+	$oParc->setLang('fr');
+	$aFilDArianne[] = $oParc->title;
+}
 
 // Chargement Des Villes
 ApiMgr::setLang('fr');

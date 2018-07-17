@@ -129,11 +129,11 @@
 			</div>
 
 			<!-- Interêts -->
-			<div class="box" id="box-Interets">
+			<div id="box-interets" class="box box-interets">
 				<label>Points d'interêts</label>
 				{$count = count(($aInts|default: []))}
 
-				<p class="cnt">	
+				<p class="cnt">
 					{if !$oParc->isLoaded()}
 						Veuillez enregister ce parcours<br>
 						avant de pouvoir lui ajouter un point d'intérêt
@@ -173,15 +173,6 @@
 			</div>
 
 			{if $oParc->isSync()}
-				<!-- <div class="box" style="background-color: transparent; box-shadow: none">
-					<div href="#" title="Preview" class="btn">
-						<a href="">
-							<img src="/media/image/interface/icons/icon_edit_preview.svg">
-							Preview
-						</a>
-					</div>
-				</div> -->
-
 				<div class="box" style="background-color: transparent; box-shadow: none; width: 100%">
 					<div title="Preview" class="btn btn-lg">
 						<a href="/edit/interest/@{$oParc->id}.html" target="_blank">

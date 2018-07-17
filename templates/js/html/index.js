@@ -173,7 +173,7 @@ $(document).ready(function() {
 		var bCity = oCont.attr("id") === "cities";
 		var msg = "Êtes vous sûr de vouloir "+sEnable+" "+oCont.attr('target')+': "'+oParent.attr('title')+'" ?';
 		
-		if (bCity) {
+		if (bCity && !bEnable) {
 			msg += "\nAttention, les parcours et points d'intérêt liés à cette ville deviendront inaccessibles";
 		}
 

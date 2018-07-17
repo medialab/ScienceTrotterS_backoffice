@@ -53,7 +53,9 @@
 					{assign var="sPath" value=''}
 				{/if}
 
-				{assign var="sPath" value=$sPath|cat: '/':$sUrl}
+				{if $sUrl !== 0}
+					{assign var="sPath" value=$sPath|cat: '/':$sUrl}
+				{/if}
 
 				<li class="pathName"><a class="faLink" href="{$sPath}.html">{$sText}</a></li>
 				

@@ -51,6 +51,14 @@ ApiMgr::setLang(false);
 // Chargement Du Point
 $oInt = new \Model\Interest($id);
 
+// Si Le Parcours Est Introuvable
+if ($id && !$oInt->isLoaded()) {
+	header('location: /');
+}
+elseif($id) {
+	$oInt->setLang('fr');
+	$aFilDArianne[] = $oInt->title;
+}
 
 $oCity = null;
 $curParc = false;
