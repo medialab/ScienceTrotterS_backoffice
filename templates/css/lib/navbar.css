@@ -67,3 +67,9 @@
 .leftBar.close .header #closeMenuBtn {
     background-image: url('/media/image/interface/leftbar/sts-ico.svg');
 }
+
+@media screen and (max-width: 1150px) {
+	.leftBar .header #closeMenuBtn {
+	    background-image: url('/media/image/interface/leftbar/sts-ico.svg');
+	}
+}
