@@ -1,3 +1,8 @@
+#content > .content {
+  overflow: scroll;
+}
+
+
 /**
 	* ARBO
 	*/
