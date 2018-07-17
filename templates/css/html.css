@@ -222,11 +222,11 @@ body {
 	height: 100vh;
 }
 
-#content > .content {
+/* #content > .content {
   transition: 0.3s;
   overflow: scroll;
   padding-left: 300px;
-}
+} */
 
 #content.closed > .content {
 	padding-left: 90px;
