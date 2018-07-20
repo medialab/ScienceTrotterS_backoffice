@@ -7,7 +7,10 @@
 			<input type="hidden" name="id" value="{$oInt->id}">
 
 			<div class="box">
-				<label for="intitule-{$sIso}">Intitulé du point d'intérêt *</label>
+				<label for="intitule-{$sIso}">
+					Intitulé du point d'intérêt *
+					<i class="flag-ico"></i>
+				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
 				<input name="title" id="intitule-{$sIso}" required type="text" value="{$oInt->title}">
@@ -19,9 +22,10 @@
 					<option value="">Choisir une ville</option>
 					{assign var="sCityID" value=$smarty.post.cities_id|default: $oInt->cities_id:$oCity->id:false}
 
-					{foreach $aCities as $city_id => $sCity}
+					{foreach $aCities as $city_id => $oCity}
+						{$oCity->setLang($sIso)}
 						<option value="{$city_id}" {if ($sCityID) == $city_id}selected{/if}>
-							{$sCity}
+							{$oCity->title}
 						</option>
 					{/foreach}
 					
@@ -30,7 +34,10 @@
 			</div>
 
 			<div class="box">
-				<label for="address-{$sIso}">Accroche du point d'intérêt *</label>
+				<label for="address-{$sIso}">
+					Accroche du point d'intérêt *
+					<i class="flag-ico"></i>
+				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
 				<input name="address" id="address-{$sIso}" type="text" value="{$oInt->address}">
@@ -46,13 +53,8 @@
 
 					{$sLastCity = false}
 					{foreach $aParcours as $par_id => $parc}
+						{$parc->setLang($sIso)}
 						{$bGroup = $sLastCity !== $parc->city->id}
-						
-
-						{if $parc->city instanceOf \Model\Model}
-							{$parc->city->setLang('default')}
-						{/if}
-
 
 						{if $bGroup}
 							{if $sLastCity !== false}
@@ -98,11 +100,24 @@
 					<input type="file" name="img" id="img-{$sIso}" target="img" class="inputFile">
 					<div class="blocInputFileName">
 						<label class="btnInputFileName" for="img-{$sIso}">
+							{$image = '/'|explode: ($oInt->header_image|default: '')}
+							{$image = $image[count($image)-1]}
+							{$image = preg_replace('/_[0-9]+\.([^.]+)$/', '', $image)}
+
+							{$ext = []}
+							{$i = preg_match('/(\.[a-z0-9]{2,5})$/i', $oInt->header_image|default: '', $ext)}
+							{$image = $image|cat: ($ext[0]|default: '')}
+
 							{if $oInt->header_image|strlen}
 								<img src="{$_API_URL_}ressources/upload/{$oInt->header_image}" style="max-width: 100%;">
 							{else}
 								<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" alt="" width="56" height="50">
 							{/if}
+
+							<div class="audio-name" disabled="">
+								<a href="{$_API_URL_}ressources/upload/{$oInt->header_image}" target="_blank">{$image}</a>
+							</div>
+
 							<p></p>
 						</label>
 					</div>
@@ -113,7 +128,10 @@
 			</div>
 
 			<div class="box">
-				<label for="horaires-{$sIso}">Horaires *</label>
+				<label for="horaires-{$sIso}">
+					Horaires *
+					<i class="flag-ico"></i>
+				</label>
 				<p>ex. "mer-sam, 13h-17h"</p>
 
 				<input name="schedule" id="horaires-{$sIso}" type="text" value="{$oInt->schedule}">
@@ -121,7 +139,10 @@
 
 			<!-- AUDIO -->
 			<div class="box">
-				<label for="audio-{$sIso}">Audio *</label>
+				<label for="audio-{$sIso}">
+					Audio *
+					<i class="flag-ico"></i>
+				</label>
 				<p>
 					5min ou 20Mo max. format .mp3 ou .wav
 				</p>
@@ -135,6 +156,11 @@
 							{$audio = $audio[count($audio)-1]}
 							{$audio = preg_replace('/_[0-9]+\.([^.]+)$/', '', $audio)}
 
+
+							{$ext = []}
+							{$i = preg_match('/(\.[a-z0-9]{2,5})$/i', $oInt->audio|default: '', $ext)}
+							{$audio = $audio|cat: ($ext[0]|default: '')}
+
 							<div class="audio-name" {if $oInt->audio|default:false}disabled{/if}>
 								{$audio|default: ''}
 							</div>
@@ -147,35 +173,50 @@
 			</div>
 
 			<div class="box">
-				<label for="difficultes-{$sIso}">Difficulté(s) *</label>
+				<label for="difficultes-{$sIso}">
+					Difficulté(s) *
+					<i class="flag-ico"></i>
+				</label>
 				<p>ex. "payant (5€ tarif étudiant)"</p>
 
 				<input name="price" id="difficultes-{$sIso}"  type="text" value="{$oInt->price}">
 			</div>
 
 			<div class="box">
-				<label for="transport-{$sIso}">Transport à proximité *</label>
+				<label for="transport-{$sIso}">
+					Transport à proximité *
+					<i class="flag-ico"></i>
+				</label>
 				<p>ex. "RER B Luxembourg"</p>
 
 				<input name="transport" id="transport-{$sIso}"  type="text" value="{$oInt->transport}">
 			</div>
 
 			<div class="box">
-				<label for="description-{$sIso}">Description du point d'intérêt *</label>
+				<label for="description-{$sIso}">
+					Description du point d'intérêt *
+					<i class="flag-ico"></i>
+				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
 				<textarea name="description" id="description-{$sIso}" value="">{$oInt->description}</textarea>
 			</div>
 
 			<div class="box">
-				<label for="audio_script-{$sIso}">Script Audio *</label>
+				<label for="audio_script-{$sIso}">
+					Script Audio *
+					<i class="flag-ico"></i>
+				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
 				<textarea name="audio_script" id="audio_script-{$sIso}" value="">{$oInt->audio_script}</textarea>
 			</div>
 
 			<div class="box">
-				<label for="bibliographie">Bibliographie</label>
+				<label for="bibliographie">
+					Bibliographie
+					<i class="flag-ico"></i>
+				</label>
 				<p>5 maximum</p>
 
 				<input name="bibliography[]" id="bibliography1"  type="text" value="{$oInt->bibliography[0]|default: ''}">
@@ -203,7 +244,7 @@
 							<div class="blocInputFileName">
 								<input type="file" name="imgs-interet[{$index}]" id="imgs-interet-{$index}" target="img" class="inputFile {if $sImg}hasFile{/if}">
 
-								<label class="btnInputFileName" >
+								<label class="btnInputFileName" index="{$index}">
 									<img class="iconPreview" src="{$_API_URL_}ressources/upload/{$sImg}" index="{$index}" alt="" width="56" height="50">
 									<p>{preg_replace('/_[0-9]+$/', '', $sName)}</p>
 								</label>
@@ -211,7 +252,7 @@
 						{else}
 							<div class="blocInputFileName">
 								<input type="file" name="imgs-interet[{$index}]" id="imgs-interet-{$index}" target="img" class="inputFile {if $sImg}hasFile{/if}">
-								<label class="btnInputFileName" >
+								<label class="btnInputFileName" index="{$index}">
 									<img class="iconPreview" src="/media/image/interface/icons/icon_photo.svg" index="{$index}" alt="" width="56" height="50">
 									<p></p>
 								</label>

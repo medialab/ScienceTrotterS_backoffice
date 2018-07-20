@@ -6,6 +6,10 @@
     top: 8px;
 }
 
+.box-interets ul {
+	list-style: none;
+}
+
 .box-interets li.active a {
 	color: #5e80c9;
 }

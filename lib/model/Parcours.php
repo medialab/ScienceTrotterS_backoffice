@@ -128,6 +128,9 @@ class Parcours extends Model
 			$this->city = new City($this->cities_id);
 			$this->city->setLang($this->getLang());
 		}
+		elseif(is_object($this->city)) {
+			$this->city = new City(false, $this->city);
+		}
 
 		return $this->city;
 	}

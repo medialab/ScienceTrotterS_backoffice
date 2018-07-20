@@ -121,8 +121,16 @@
 	text-align: center;
 	text-transform: initial;
 }
+
 .box .borderGrey .blocInputFileName label.btnInputFileName img{
-	margin-top: 15px;
+	width: auto;
+	height: auto;
+	max-width: 80%;
+	margin: 20px 0;
+}
+
+.box .borderGrey .blocInputFileName label.btnInputFileName img[src="/media/image/interface/icons/icon_photo.svg"]{
+	height: 50px;
 }
 
 #box-Interets ul.interest-list {
@@ -215,6 +223,7 @@ textarea#audio_script {
     left: -1px;
     right: -1px;
     top: 100%;
+    z-index: 5;
     padding: 0px;
     display: none;
     border: 1px solid;
@@ -261,4 +270,37 @@ textarea#audio_script {
 		margin-top: 40px;
 	}
 
+}
+
+form .flag-ico {
+	width: 14px;
+	height: 14px;
+	margin-left: 5px;
+	display: inline-block;
+	background-repeat: no-repeat;
+}
+
+#tab-fr form .flag-ico {
+	background-image: url(/media/image/interface/icons/icon_french_flag.svg);
+}
+
+#tab-en form .flag-ico {
+	background-image: url(/media/image/interface/icons/icon_english_flag.svg);
+}
+
+.box .inputFile + label.btnInputFileName p {
+	font-size: 						12px;
+	text-transform: 				none;
+	position: 						absolute;
+	bottom: 						25px;
+}
+
+.box .btnInputFileName p {
+	margin: 0;
+	color: black;
+	font-size: 14px;
+}
+
+.box p.audio-cnt {
+	display: inline-block;
 }

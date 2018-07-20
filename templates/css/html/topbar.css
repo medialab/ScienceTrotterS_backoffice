@@ -4,10 +4,11 @@
 
 #search-container {
 	left: 2%;
+	right: 2%;
 	top: 100%;
 	
 	display: none;
-	min-width: 770px;
+	/* min-width: 770px; */
 	padding: 20px 25px;
 	
 	background: white;
@@ -98,4 +99,14 @@
 .searchBar.loading .spinner.spinner-xs {
     display: inline-block;
     vertical-align: middle;
+}
+
+#search-container li br {
+	display: none;
+}
+
+@media screen and (max-width: 850px) {
+	#search-container li br {
+		display: initial;
+	}	
 }

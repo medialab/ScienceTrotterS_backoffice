@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-	var aGalleryBtn = $("#gallery-container .iconPreview");
+	var aGalleryBtn = $("#gallery-container .btnInputFileName");
 	var aGalleryInp = $("#gallery-container input[type='file']");
 
 	aGalleryBtn.click(function(e) {

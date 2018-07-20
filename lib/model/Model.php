@@ -165,6 +165,7 @@ abstract class Model
 	        $var = new \StdClass;
 	    }
 
+
 	    $var->$sLang = $value;
 	    $this->$sVar = $var;
 	}
@@ -176,6 +177,7 @@ abstract class Model
 	 */
 	private function setValueAsJson($sVar, $value) {        
 	    $var = $this->$sVar;
+
 
 	    if (empty($value)) {
 	        $var = new \StdClass;
@@ -227,7 +229,7 @@ abstract class Model
 		if (in_array($sVar, $this->aTranslateVars)) {
 		    
 		    // Si une langue est choisie on met à jour que celle ci
-		    if ($this->sCurLang) {
+		    if ($this->sCurLang && !is_object($var)) {
 		        $this->setValueByLang($sVar, $var);
 		    }
 		    // Si aucune langue est choisie on les met toutes à jour
@@ -353,7 +355,7 @@ abstract class Model
 			if (property_exists($this, $sProp) || in_array($sProp, $this->aTranslateVars)) {
 				if (in_array($sProp, $this->aTranslateVars)) {
 					//var_dump("Translate Prop", $sProp);
-					if ($sCurLang) {
+					if ($sCurLang && !is_object($sData)) {
 						$this->setValueByLang($sProp, $sData);
 					}
 					else{
@@ -452,6 +454,11 @@ abstract class Model
 		// Si la Langue est Différent De défault
 		if ($lang !== 'default') {
 			$this->sCurLang = $lang;
+			/*if (strlen($this->force_lang)) {
+				$this->sCurLang = $this->force_lang;
+			}
+			else{
+			}*/
 		}
 		// Si le Force Lang Est défini
 		elseif(strlen($this->force_lang)){
@@ -523,7 +530,6 @@ abstract class Model
 		//var_dump("Setting Geo: ", $geoloc);
 		// Si LA Géoloc Est Vide
 		if (is_null($geoloc) || empty(get_object_vars($geoloc))) {
-			var_dump("Geo Is Empty", $geoloc);
 			$this->geoN = null;
 			$this->geoE = null;
 			return;
@@ -563,8 +569,8 @@ abstract class Model
 	 */
 	public function setGeoE($geoE) {
 		// Si La Longitude Est Erronée
-		if (!empty($geoE) && !preg_match('/^[0-9]{1,2}(\.[0-9]{1,16})?$/', $geoE)) {
-			throw new Exception('Error: Invalid Longitude Value: '.$geoE, 1);
+		if (!empty($geoE) && !preg_match('/^(-)?[0-9]{1,2}(\.[0-9]{1,16})?$/', $geoE)) {
+			throw new \Exception('Error: Invalid Longitude Value: '.$geoE, 1);
 		}
 
 		$this->geoE = $geoE;

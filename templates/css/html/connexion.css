@@ -29,7 +29,11 @@ font-family: 			'montserratregular', sans-serif !important;
 }
 
 #content > .content {
-padding-left: 			0;
+	padding-left: 			0px !important;
+}
+
+#content #contentView {
+    padding: 0;
 }
 
 #global	{
@@ -43,7 +47,7 @@ display: 				none;
 
 .logo {
 display: 				flex;						
-width: 					40%;
+width: 					50%;
 background: 			white;
 }
 

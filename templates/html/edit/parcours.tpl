@@ -9,7 +9,10 @@
 			
 			<!-- TITRE -->
 			<div class="box">
-				<label for="parcours">Intitulé du Parcours *</label>
+				<label for="parcours">
+					Intitulé du Parcours *
+					<i class="flag-ico"></i>
+				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum.</p>
 				
 				<input name="title" id="parcours" required placeholder="Ex: Le Chemin Vert" type="text" value="{$oParc->title|default: ''}">
@@ -25,9 +28,14 @@
 					<option value="">Choisir une ville</option>
 
 					{foreach $aCities as $oCity}
-						<option value="{$oCity->id}" {if ($sCityID) == $oCity->id}selected{/if}>
-							{$oCity->title}
-						</option>
+						{if $oCity->force_lang|default: false}
+							{$oCity->setLang($oCity->force_lang)}
+						{else}
+							{$oCity->setLang($sIso)}
+						{/if}
+							<option value="{$oCity->id}" {if ($sCityID) == $oCity->id}selected{/if}>
+								{$oCity->title}
+							</option>
 					{/foreach}
 				</select>
 			</div>
@@ -62,22 +70,14 @@
 					
 					<input name="color" id="color" placeholder="Ex: #fff" type="text" value="{$oParc->color|default: ''}">
 				</div>
-				
-				{*
-					<select  name="color" id="sel-color">
-						<option value="">Choisissez une Couleur</option>
-						
-						{foreach $aColors as $oColor}
-							{$selected = $oColor->color == $oParc->color}
-							<option value="{$oColor->color}" {if $selected}selected{/if} style="color: white; background-color: {$oColor->color}">{$oColor->name}</option>
-						{/foreach}
-					</select>
-				*}
 			</div>
 			
 			<!-- DURÉE -->
 			<div class="box box-small">
-				<label for="time">Durée *</label>
+				<label for="time">
+					Durée *
+					<i class="flag-ico"></i>
+				</label>
 				<p>Durée du parcours.</p>
 				
 				<input name="time" id="time" placeholder="Ex: Entre 3h et 5h" type="text" value="{$oParc->time|default: ''}">
@@ -85,7 +85,21 @@
 
 			<!-- AUDIO -->
 			<div class="box">
-				<label for="audio-{$sIso}">Audio *</label>
+				<label for="audio-{$sIso}">
+					Audio *
+					<i class="flag-ico"></i>
+				</label>
+				{if $oParc->isSync()}
+					<p class="audio-cnt">
+						Écouté: 
+						<b>
+						</b> fois
+					</p>
+					<div class="spinner spinner-xs" style="display: inline-block; width: 15px; height: 15px">
+						<div class="double-bounce1"></div>
+						<div class="double-bounce2"></div>
+					</div>
+				{/if}
 				<p>
 					5min ou 20Mo max. format .mp3 ou .wav
 				</p>
@@ -98,6 +112,10 @@
 							{$audio = '/'|explode: ($oParc->audio|default: '')}
 							{$audio = $audio[count($audio)-1]}
 							{$audio = preg_replace('/_[0-9]+\.([^.]+)$/', '', $audio)}
+
+							{$ext = []}
+							{$i = preg_match('/(\.[a-z0-9]{2,5})$/i', $oParc->audio|default: '', $ext)}
+							{$audio = $audio|cat: ($ext[0]|default: '')}
 
 							<div class="audio-name" {if $oParc->audio|default:false}disabled{/if}>
 								{if $audio|default: false}
@@ -114,7 +132,10 @@
 
 			<!-- RÉSUMÉ -->
 			<div class="box" id="box-Description">
-				<label for="description">Résumé *</label>
+				<label for="description">
+					Résumé *
+					<i class="flag-ico"></i>
+				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
 				
 				<textarea id="description" name="description">{$oParc->description|default: ''}</textarea>
@@ -122,7 +143,10 @@
 
 			<!-- Audio Script -->
 			<div class="box" id="box-Description">
-				<label for="audio_script">Audio Script *</label>
+				<label for="audio_script">
+					Audio Script *
+					<i class="flag-ico"></i>
+				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
 				
 				<textarea id="audio_script" name="audio_script">{$oParc->audio_script|default: ''}</textarea>
@@ -165,6 +189,7 @@
 				
 				<ul class="interest-list">
 					{foreach $aInts|default: [] as $oInt}
+						{$oInt->setLang($sIso)}
 						<li {if $oInt->state}class="active"{/if}>
 							<a href="/edit/interest/{$oInt->id}.html" target="_blank">{$oInt->title}</a>
 						</li>
@@ -175,7 +200,7 @@
 			{if $oParc->isSync()}
 				<div class="box" style="background-color: transparent; box-shadow: none; width: 100%">
 					<div title="Preview" class="btn btn-lg">
-						<a href="/edit/interest/@{$oParc->id}.html" target="_blank">
+						<a href="/edit/interest/@{$oParc->id}.html?force={$oParc->force_lang}" target="_blank">
 							<img src="/media/image/interface/icons/icon_poi_blue.svg">
 							Créer un nouveau Point d'Interêt
 						</a>

@@ -28,6 +28,9 @@ $smarty->assign('aColors', $aColors->data);
 //ApiMgr::$debugMode = true;
 // Chargement Du Parcours
 $oParc = new \Model\Parcours($id);
+if (empty($id) && !empty($_GET['force'])) {
+	$oParc->force_lang = $_GET['force'];
+}
 //exit;
 
 // Si Le Parcours Est Introuvable
@@ -40,7 +43,7 @@ elseif($id) {
 }
 
 // Chargement Des Villes
-ApiMgr::setLang('fr');
+//ApiMgr::setLang('fr');
 $aCities = \Model\City::list(0, 0, ['id', 'title'], ['title', 'asc']);
 
 // Chargement Des Points D'interets
@@ -49,10 +52,12 @@ if ($oParc->isLoaded()) {
 	$aInts = ApiMgr::listByParcours($id, false, 0, 0, ['id', 'title', 'state'], ['title', 'ASC']);
 	if ($aInts->success) {
 		$aInts = $aInts->data;
-	}
 
+		foreach ($aInts as &$oInt) {
+			$oInt = new \Model\Interest(false, $oInt);
+		}
+	}
 }
-ApiMgr::setLang(false);
 
 /* Validation du formulaire */
 if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
@@ -78,7 +83,10 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 	/* Si On a pad d'erreur on prepare L'object Parcours */
 		if (empty($aErrors)) {
 			// Téléchargement Du Fichier Audio
+			$bAudioUpdated = false;
 			if (!empty($_FILES['audio'])) {
+				$bAudioUpdated = true;
+				$sPrevAudio = $oParc->audio;
 				$oParc->audio = handleUploadedFile('audio', 'parcours/audio');
 			}
 
@@ -88,6 +96,10 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 
 			// Si La Sauvegarde a Echoué
 			if (!$oSaveRes->success) {
+				if ($bAudioUpdated) {
+					$oParc->audio = $sPrevAudio;
+				}
+				
 				if(!empty($oSaveRes->message)) {
 					$aErrors['Erreur'] = $oSaveRes->message;
 				}

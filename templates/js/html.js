@@ -78,7 +78,6 @@ $( '.inputFile' ).click(function() {
 	.on( 'blur', function(){ oThis.removeClass( 'has-focus' ); });
 })
 .change(function( e ){
-	console.log("Add File");
 	var fileName = '';
 	var oThis	 = $( this );
 
@@ -87,9 +86,7 @@ $( '.inputFile' ).click(function() {
 		console.log("File Name: "+fileName);
 	}
 
-
 	if( fileName ) {
-		console.log("p: ", oThis.parent().find('.blocInputFileName p'));
 		oThis.parent().find('p').text(fileName);
 	}
 	else{

@@ -74,6 +74,8 @@ var ApiMgr = {
 			data['token'] = self.apiToken;
 		}
 
+		console.log("DATA TEST", data);
+
 		var usedToken = data.token;
 		var request = {
 			crossDomain: true,
@@ -160,7 +162,13 @@ var ApiMgr = {
 		};
 
 		request.backup = Object.assign({}, request);
-		request.setLang(self.sCurLang);
+		if (typeof data.lang === 'undefined') {
+			request.setLang(self.sCurLang);
+		}
+		else{
+			request.setLang(data.lang);
+		}
+		
 		this.addRequest(request);
 
 		return request;

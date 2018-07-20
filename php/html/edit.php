@@ -16,14 +16,14 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 			$aErrors['lang'] = 'Aucune langue n\'a été sélectionnée';
 		}
 
-		$oModel->setLang($sLang);
-
 		if (!empty($_POST['force_lang'])) {
 			$oModel->force_lang = $_POST['force_lang'];
 		}
 		else{
 			$oModel->force_lang = null;
 		}
+
+		$oModel->setLang($sLang);
 
 	/* Validation Du Title */
 		if(!fRequiredValidator('title', $_POST)) {
@@ -112,7 +112,7 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 		}
 
 	$oModel->setState($_POST['state']);
-	return empty($aErrors);
+	return true;
 }
 
 //ApiMgr::$debugMode = true;

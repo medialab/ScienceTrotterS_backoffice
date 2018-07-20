@@ -6,8 +6,13 @@ $(document).ready(function() {
 	$('#content form').submit(function(e) {
 		var self = $(this);
 		
+		if (self.hasClass('ready')) {
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		}
+		
 		if (!self.find('input.lang-check').length) {
-			console.log("SETTING LANG !!!");
 			e.preventDefault();
 			e.stopPropagation();
 
@@ -23,9 +28,10 @@ $(document).ready(function() {
 			self.submit();
 			return false;
 		}
-		
-		console.log("Adding Ready !!!");
+
 		self.attr('ready', true);
+		self.addClass('ready')
+
 	});
 
 	page.trigger('custom::pageReady');

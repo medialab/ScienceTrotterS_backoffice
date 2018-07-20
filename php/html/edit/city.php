@@ -22,10 +22,10 @@ else{
 	$smarty->assign('sCreation', 'Création d\'une ville');
 }
 
-//ApiMgr::$debugMode = true;
+/*ApiMgr::$debugMode = true;*/
 // Chargement De la Ville
 $oCity = new \Model\City($id);
-//exit;
+/*exit;*/
 
 // Si La Ville Est Introuvable
 if ($id && !$oCity->isLoaded()) {
@@ -48,16 +48,22 @@ if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
 	if (empty($aErrors)) {
 
 		/* Sauvegarde Temporaire de l'image */
+		$bImgUpdated = false;
 		if (!empty($_FILES['img']) && !$_FILES['img']['error']) {
+			$bImgUpdated = true;
+			$sPrevImg = $oCity->image;
 			$oCity->image = handleUploadedFile('img', 'cities/image');
 		}
 		
-		//ApiMgr::$debugMode = true;
+		/*ApiMgr::$debugMode = true;*/
 		$oSaveRes = $oCity->save();
-		//exit;
+		/*exit;*/
 
 		// Si La Sauvegarde a Echoué
 		if (!$oSaveRes->success) {
+			if ($bImgUpdated) {
+				$oCity->image = $sPrevImg;
+			}
 			if(!empty($oSaveRes->message)) {
 				$aErrors['Erreur'] = $oSaveRes->message;
 			}

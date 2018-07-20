@@ -1,3 +1,7 @@
+#content > .content {
+  overflow: scroll;
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -38,7 +42,7 @@ body {
 	flex-wrap: nowrap;
 }
 
-.leftBar {
+/* .leftBar {
 	width: 300px;
 	min-width: 300px;
 	background-color: #6C7A89;
@@ -76,9 +80,9 @@ body {
 	flex-direction: column;
 	flex-wrap: nowrap;
 	flex-grow: 1;
-}
+} */
 
-.leftBar .itemList {
+/* .leftBar .itemList {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -92,7 +96,7 @@ body {
 	height: auto;
 	top: 56px;
 	bottom: 0;
-}
+} */
 
 /**
 * HIDE ITEM LIST SCROLL BAR
@@ -105,7 +109,7 @@ body {
 .itemList::-webkit-scrollbar-thumb {
 		background: #6C7A89;
 }
-
+/* 
 .leftBar .itemList .item {
 	display: flex;
 	flex-direction: column;
@@ -148,9 +152,8 @@ body {
 	cursor: pointer;
 }
 
-/**
+*
 * OTHERS
-*/
 
 .leftBar .itemList .item .itemLabel.itemLogo {
 	padding: 0 !important;
@@ -168,7 +171,7 @@ body {
 
 .itemByTNG, .itemByTNG:hover {
 	background-color: #180530 !important;
-}
+} */
 
 /**
 * SUB ITEM LIST

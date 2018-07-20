@@ -1,5 +1,5 @@
 body {
-	min-width: 550px;
+	min-width: 500px;
 }
 
 #empty {
@@ -239,7 +239,7 @@ body {
   flex-wrap: nowrap;
 }
 
-.leftBar {
+/* .leftBar {
 	width: 300px;
 	min-width: 300px;
 	background-color: #6C7A89;
@@ -252,9 +252,9 @@ body {
   left: 0;
   height: 100vh;
   position: fixed;
-}
+} */
 
-.leftBar.close {
+/* .leftBar.close {
 	width: 90px !important;
 	min-width: 90px !important;
 }
@@ -275,33 +275,33 @@ body {
 	width: calc(100% - 24px);
 	height: 44px;
 	margin: 6px 12px;
-}
+} */
 
-.leftBar .content {
+/* .leftBar .content {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
 	flex-grow: 1;
-}
+} */
 
-.leftBar .itemList {
+/* .leftBar .itemList {
 	display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-y: auto;
-  transition: 0.3s;
-  position: relative;
-}
-
+	flex-direction: column;
+	flex-wrap: nowrap;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow-y: auto;
+	transition: 0.3s;
+	position: relative;
+} */
+/* 
 .item.itemByTNG {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-}
+} */
 
 /**
 * HIDE ITEM LIST SCROLL BAR
@@ -315,7 +315,7 @@ body {
 		background: #6C7A89;
 }
 
-.leftBar .itemList .item {
+/* .leftBar .itemList .item {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -357,9 +357,8 @@ body {
 	cursor: pointer;
 }
 
-/**
+*
 * OTHERS
-*/
 
 .leftBar .itemList .item .itemLabel.itemLogo {
 	padding: 0;
@@ -367,6 +366,7 @@ body {
 	display: inline-block;
 	text-align: center;
 }
+ */
 
 .itemListAuthors {
 	flex-grow: 1;
@@ -482,7 +482,9 @@ body {
 
 
 
-
+#content #contentView {
+    padding-bottom: 45px;
+}
 
 .contentView > div > h2 {
 text-transform: 				uppercase;
@@ -564,8 +566,8 @@ margin-top: 20px;
 }
 
 .box .inputFile {
-width: 							0.1px;
-height: 						0.1px;
+width: 							0px;
+height: 						0px;
 opacity: 						0;
 overflow: 						hidden;
 position: 						absolute;
@@ -609,12 +611,12 @@ label.btnInputFileName img {
 background-size: 				cover;
 }
 
-.box .inputFile + label.btnInputFileName p {
+/* .box .inputFile + label.btnInputFileName p {
 font-size: 						12px;
 text-transform: 				none;
 position: 						absolute;
 bottom: 						25px;
-}
+} */
 
 .box p {
 font-size:						12px;
@@ -778,7 +780,7 @@ form label {
 	}
 
 	#content #contentView {
-	    padding: 0px 35px;
+	    padding: 0px 45px 35px;
 	}
 }
 

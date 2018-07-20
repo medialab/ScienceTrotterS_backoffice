@@ -17,13 +17,12 @@ else {
 }
 
 
-ApiMgr::setLang('fr');
-
 // Chargement Des Villes
 $aCities = [];
-$oCities = ApiMgr::list('cities', false, 0, 0, ['id', 'title'], ['title', 'asc']);
-foreach ($oCities->data as $oCity) {
-	$aCities[$oCity->id] = $oCity->title;
+//$oCities = ApiMgr::list('cities', false, 0, 0, ['id', 'title'], ['title', 'asc']);
+$oCities = \Model\City::list(0, 0, ['id', 'title'], ['title', 'asc']);
+foreach ($oCities as $oCity) {
+	$aCities[$oCity->id] = $oCity;
 }
 
 
@@ -40,16 +39,26 @@ foreach ($aoParcours as $oPar) {
 	}
 
 	// Si Le Parcours n'a PAS Une Ville Associée
-	$oPar->city = (object) ['id' => 0, 'title' => 'Sans Ville'];
+	$oPar->city = new \Model\City();
+	$oPar->city->setLang('fr');
+	$oPar->city->force_lang = 'fr';
+	$oPar->city->title = 'Sans Ville';
+
+	//$oPar->city = (object) ['id' => 0, 'title' => 'Sans Ville'];
 	$aParcours[$oPar->id] = $oPar;
 }
-$aParcours = array_merge($aParcours, $aParcoursOut);
 
-ApiMgr::setLang(false);
+$aParcours = array_merge($aParcours, $aParcoursOut);
+/*var_dump($aParcours);
+exit;
+*/
 
 /*ApiMgr::$debugMode = true;*/
 // Chargement Du Point
 $oInt = new \Model\Interest($id);
+if (empty($id) && !empty($_GET['force'])) {
+	$oInt->force_lang = $_GET['force'];
+}
 
 // Si Le Parcours Est Introuvable
 if ($id && !$oInt->isLoaded()) {
@@ -123,12 +132,18 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 			$oInt->state = $_POST['state'];
 
 			/* Sauvegarde Temporaire de l'image */
+			$bImgUpdated = false;
 			if (!empty($_FILES['img'])  && !$_FILES['img']['error']) {
+				$bImgUpdated = true;
+				$sPrevImg = $oInt->header_image;
 				$oInt->header_image = handleUploadedFile('img', 'interests');
 			}
 			
 			/* Sauvegarde du Fichier Audio */
+			$bAudioUpdated = false;
 			if (!empty($_FILES['audio'])  && !$_FILES['audio']['error']) {
+				$bAudioUpdated = true;
+				$sPrevAudio = $oInt->audio;
 				$oInt->audio = handleUploadedFile('audio', 'interests/audio');
 			}
 
@@ -137,7 +152,9 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 				/* Vérification D'erreurs */
 				$bDoUpload = in_array(0, $_FILES['imgs-interet']['error']);
 
+				$bGalleryUpdated = false;
 				if ($bDoUpload) {
+					$bGalleryUpdated = true;
 					//var_dump("Fetching files");
 					// Téléchargement des Images
 					$aUploaded = handleUploadedFile('imgs-interet', 'interests/image', true);
@@ -154,6 +171,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 						}
 					}
 
+					$sPrevGallery = $oInt->gallery_image;
 					$oInt->gallery_image = $oTmp;
 				}
 			}
@@ -164,6 +182,16 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 			// Si La Sauvegarde a Echoué
 			if (!$oSaveRes->success) {
+				if ($bAudioUpdated) {
+					$oParc->audio = $sPrevAudio;
+				}
+				if ($bImgUpdated) {
+					$oCity->image = $sPrevImg;
+				}
+				if ($bGalleryUpdated) {
+					$oInt->gallery_image = $sPrevGallery;
+				}
+
 				if(!empty($oSaveRes->message)) {
 					$aErrors['Erreur'] = $oSaveRes->message;
 				}

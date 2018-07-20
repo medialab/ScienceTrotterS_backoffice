@@ -47,7 +47,7 @@ var Notify = {
 
 		// On Ajoute Le Message
 		var notif = $('<li></li>');
-		notif.text(sMsg);
+		notif.html(sMsg);
 
 		if (sKey.length) {
 			notif.prepend($("<b></b>").text(sKey+": "));
