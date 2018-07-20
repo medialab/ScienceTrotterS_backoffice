@@ -23,7 +23,11 @@
 					{assign var="sCityID" value=$smarty.post.cities_id|default: $oInt->cities_id:$oCity->id:false}
 
 					{foreach $aCities as $city_id => $oCity}
-						{$oCity->setLang($sIso)}
+						{if $oCity->force_lang|default: false}
+							{$oCity->setLang($oCity->force_lang)}
+						{else}
+							{$oCity->setLang($sIso)}
+						{/if}
 						<option value="{$city_id}" {if ($sCityID) == $city_id}selected{/if}>
 							{$oCity->title}
 						</option>
@@ -53,7 +57,11 @@
 
 					{$sLastCity = false}
 					{foreach $aParcours as $par_id => $parc}
-						{$parc->setLang($sIso)}
+						{if $parc->force_lang|default: false}
+							{$parc->setLang($parc->force_lang)}
+						{else}
+							{$parc->setLang($sIso)}
+						{/if}
 						{$bGroup = $sLastCity !== $parc->city->id}
 
 						{if $bGroup}

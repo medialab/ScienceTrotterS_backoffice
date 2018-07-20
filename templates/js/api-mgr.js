@@ -33,7 +33,6 @@ var ApiMgr = {
 	 * @param {Object} req La Requete
 	 */
 	addRequest: function(req) {
-		console.log("Adding Request: ", req);
 		this.queue.push(req);
 
 		if (!this.active) {
@@ -74,7 +73,6 @@ var ApiMgr = {
 			data['token'] = self.apiToken;
 		}
 
-		console.log("DATA TEST", data);
 
 		var usedToken = data.token;
 		var request = {
@@ -97,22 +95,18 @@ var ApiMgr = {
 
 				if (typeof result.responseJSON !== 'undefined') {
 					result = result.responseJSON;
-					console.log(usedToken);
 
 					var bIsExpired = result.code === 4;
 
 					// Si le Token Est Expiré
 					if (bIsExpired) {
-						console.log("Veol Expired", this);
 						// Le Token Est Identique, On le regénère
 						if (usedToken === self.apiToken) {
 							var oReq = this;
-							console.log("Updating");
 
 							self.refreshToken(
 								function() {
 									oReq.backup.data.token = self.apiToken;
-									console.log("### RESEND REQUEST: ", oReq);
 									self.addRequest(oReq.backup);
 								},
 								function() {
@@ -178,7 +172,6 @@ var ApiMgr = {
 	 * Regénère un Token
 	 */
 	refreshToken: function(success, error) {
-		console.log("==== Refreshing Token ====");
 		var self = this;
 
 		$.ajax({
@@ -188,10 +181,8 @@ var ApiMgr = {
 			dataType: 'json',
 
 			success: function(aData) {
-				console.log("==== Refresh Result ====", aData);
 
 				if (aData.success) {
-					console.log("success");
 					_API_TOKEN_ = self.apiToken = aData.data;
 				}
 				else{

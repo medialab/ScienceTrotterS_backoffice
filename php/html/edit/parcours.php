@@ -66,13 +66,22 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 	if (!empty($_POST['time'])) {
 		$oParc->time = $_POST['time'];
 	}
+	else{
+		$oParc->time = null;
+	}
 
 	if (!empty($_POST['color'])) {
 		$oParc->color = $_POST['color'];
 	}
+	else{
+		$oParc->color = null;
+	}
 	
 	if (!empty($_POST['cities_id'])) {
 		$oParc->cities_id = $_POST['cities_id'];
+	}
+	else{
+		$oParc->cities_id = null;
 	}
 
 	$oParc->description = empty($_POST['description']) ? null : $_POST['description'];

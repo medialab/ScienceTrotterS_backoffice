@@ -80,25 +80,40 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 		if (!empty($_POST['address'])) {
 			$oInt->address = $_POST['address'];
 		}
+		else{
+			$oInt->address = null;
+		}
 
 	/* Validation De  transports */
 		if (!empty($_POST['transport'])) {
 			$oInt->transport = $_POST['transport'];
+		}
+		else{
+			$oInt->transport = null;
 		}
 
 	/* Validation De  bibliography */
 		if (!empty($_POST['bibliography'])) {
 			$oInt->bibliography = $_POST['bibliography'];
 		}
+		else{
+			$oInt->bibliography = null;
+		}
 
 	/* Validation De  schedule */
 		if (!empty($_POST['schedule'])) {
 			$oInt->schedule = $_POST['schedule'];
 		}
+		else{
+			$oInt->schedule = null;
+		}
 
 	/* Validation De price */
 		if (!empty($_POST['price'])) {
 			$oInt->price = $_POST['price'];
+		}
+		else{
+			$oInt->price = null;
 		}
 
 	/* Validation de  ville */
@@ -109,6 +124,9 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 			else{
 				$aErrors['Ville'] = "La ville sélectionnée n'existe pas.";
 			}
+		}
+		else{
+			$oInt->cities_id = null;
 		}
 
 	/* Validation de  Parcours */
