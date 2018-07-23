@@ -1,10 +1,9 @@
+// GESTION DES RECHERCHES
 $(document).ready(function() {
 	var timer = false;
 	var topBar = $(".navBar .searchBar");
 	var searchBar = $("#inputSearchBar");
 	var tables = ['cities', 'parcours', 'interests'];
-
-	//console.log("Key Input");
 
 	var overlay = false;
 

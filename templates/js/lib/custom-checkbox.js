@@ -1,19 +1,15 @@
+// GESTION DES CHECKBOX
 $(document).ready(function() {
-	//var tabSelector = $(".tab-selector");
-
 	$(".cust-checkbox")
 		// MISE A JOUR DE L'APPARENCE
 		.on('checkbox::update', function(e, check) {
 			var self = $(this);
 			
+			// Si initialisation on prend la valeur de l'input
 			if (check == -1) {
 				var inp = self.find('input[type="checkbox"]');
-				check = self.hasClass('on')// inp.prop('checked');
+				check = self.hasClass('on');
 				inp.prop('checked', check);
-
-				/*if (check) {
-					$('.tab-selector').find()
-				}*/
 			}
 
 			if (check) {
@@ -30,13 +26,12 @@ $(document).ready(function() {
 			
 			var target = self.parents('.lang-only').attr('target');
 
-			// On Focus le tab francais
+			// Récupération du status
 			if (self.find('input[type="checkbox"]').prop('checked')) {
-				//$("#trigger-"+target).click();
 				disabled = true;
 			}
 
-			var container = tabSelector //self.parents('.tab-selector');			
+			var container = tabSelector;
 			container.attr('target', target);
 
 			// On Dé/Ré-Active les tabs

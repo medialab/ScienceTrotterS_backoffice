@@ -3,9 +3,11 @@ $(document).ready(function() {
 	var emptyRow = null;
 	var scrollList = $(".arboItem .columnData");
 
+	// CHARGEMENT DES MODELS ENFANTS
 	scrollList.find("li.item").click(function(e) {
 		ApiMgr.setLang('fr');
 
+		// RECUPERARTION DES INFORMATION DU MODEL
 		var self = $(this);
 		var pId = self.attr('id');
 
@@ -17,11 +19,11 @@ $(document).ready(function() {
 		self.parent().find('li').removeClass("active");
 		self.addClass("active");
 
+		// TYPE DE MODEL
 		var type = container.attr('id');
-		//console.log("Type: "+type);
 
+		// TYPE DE MODEL ENFANT
 		var childType = container.attr('child');
-		//console.log("ChildType: "+childType);
 
 		var sModel = childType;
 		if (sModel === 'cities') {
@@ -31,27 +33,30 @@ $(document).ready(function() {
 			sModel = 'interest';
 		}
 
+
+		// LISTE DES MODELS ENFANTS
 		var childContainer = $("#"+childType+" ul.itemList");
 		var by = container.attr('id') === 'cities' ? 'CityId' : 'ParcoursId';
 		
 		if (type === 'cities') {
-			if (pId !== "no-city") {
+			if (pId !== "no-city") { // Recherche par ville
 				by = 'cityId';
 			}
-			else{
+			else{ // Recherche Hors Ville
 				by = "NoCity";
 			}
 		}
 		else if(type === 'parcours') {
-			if (pId !== "no-prcours") {
+			if (pId !== "no-prcours") { // RECHERCHE PAR PARCOURS
 				by = "parcoursId";
 			}
-			else{
-				by = "NoParcours";
+			else{ // RECHERCHE HORS PARCOURS
+				by = "NoParcours"; 
 				pId = self.attr('parent'); // City Id
 			}
 		}
 
+		// ON VIDE LA LISTE
 		childContainer.empty();
 		self.addClass("loading");
 
@@ -63,18 +68,19 @@ $(document).ready(function() {
 			columns: ['id', 'title', 'state'],
 
 			success: function(aData) {
+				// ON VIDE LA LISTE
+				childContainer.empty();
+
 				self.removeClass("loading");
-				if (childType === "parcours") {
+				if (childType === "parcours") { // ON VIDE LA LISTE DES POINTS D INTEREST
 					$("#interests ul.itemList").empty();
 				}
 
 				if (aData.data.length) {
-					for(var i in aData.data) {
+					for(var i in aData.data) { // POUR CHAQU'UN DES RESULTATS
 						var data = aData.data[i];
 
-						//console.log("Row: ", data);
-						//console.log("ADDING: #"+ data.id +" => "+data.title);
-
+						// Création d'une ligne
 						var row = emptyRow.clone(true, true);
 						row.attr('id', data.id);
 						row.attr('title', data.title);
@@ -104,7 +110,7 @@ $(document).ready(function() {
 						childContainer.append(row);
 					}
 				}
-				else if(sModel === 'interest') {
+				else if(sModel === 'interest') { // SI AUCUNT POINT D'INTERET
 					var row = emptyRow.clone(false);
 					row.attr('id', '');
 					row.attr('parent', '');
@@ -115,7 +121,7 @@ $(document).ready(function() {
 					childContainer.append(row);
 				}
 
-				if (childType === 'parcours') {
+				if (childType === 'parcours') {  // SI AUCUNT PARCOURS
 					var row = emptyRow.clone(true, true);
 					row.attr('id', 'no-prcours');
 					row.addClass('item-notif');
@@ -134,6 +140,7 @@ $(document).ready(function() {
 		});
 	});
 
+	// SUPPRESSION D'UN MODEL
 	scrollList.find("a.delete-btn").click(function(e) {		
 		e.stopPropagation();
 		
@@ -143,6 +150,7 @@ $(document).ready(function() {
 		var sTitle = oParent.attr("title");
 		console.log("Deleting: "+oParent.attr('title'));
 		
+		// MESSAGE DE CONFIRMATION
 		var bCity = oCont.attr("id") === "cities";
 		var msg = 'Êtes vous sûr de vouloir supprimer '+oCont.attr('target')+': "'+oParent.attr('title')+'" ?';
 		
@@ -150,14 +158,14 @@ $(document).ready(function() {
 			msg += "\nAttention, les parcours et points d'intérêt liés à cette ville deviendront inaccessibles";
 		}
 
-		//console.log("Msg: "+msg);
-
 		if (!confirm(msg)) {
+			// Annulation
 			e.preventDefault();
 			return false;
 		}
 	});
 
+	// ACTIVATION MODEL
 	scrollList.find("a.preview-btn").click(function(e) {
 		e.stopPropagation();
 
@@ -171,8 +179,9 @@ $(document).ready(function() {
 		var sEnable = bEnable ? "activer" : "désactiver";
 
 		var bCity = oCont.attr("id") === "cities";
-		var msg = "Êtes vous sûr de vouloir "+sEnable+" "+oCont.attr('target')+': "'+oParent.attr('title')+'" ?';
 		
+		// MESSAGE DE CONFIRMATION
+		var msg = "Êtes vous sûr de vouloir "+sEnable+" "+oCont.attr('target')+': "'+oParent.attr('title')+'" ?';
 		if (bCity && !bEnable) {
 			msg += "\nAttention, les parcours et points d'intérêt liés à cette ville deviendront inaccessibles";
 		}
@@ -182,6 +191,7 @@ $(document).ready(function() {
 			return false;
 		}
 
+		// APPEL DE L'API EN AJAX
 		var sModel = oCont.attr("id");
 		aUpdateData = {
 			id: oParent.attr("id"),
@@ -213,11 +223,10 @@ $(document).ready(function() {
 				Notify.error(aModel.title, result.message);
 			}
 		}, function(error) {
-			//console.error("Modale Update Faild: ", error);
-
 		});
 	});
 
+	// MISE EN MEMOIRE D'UNE LIGNE VIDE
 	emptyRow = scrollList.first().find('li').first().clone(true, true);
 	emptyRow.attr('id', '');
 	emptyRow.attr('title', '');

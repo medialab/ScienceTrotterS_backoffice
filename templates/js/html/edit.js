@@ -6,12 +6,14 @@ $(document).ready(function() {
 	$('#content form').submit(function(e) {
 		var self = $(this);
 		
+		// ON EVITE LE DOUBLE ENVOIS
 		if (self.hasClass('ready')) {
 			e.preventDefault();
 			e.stopPropagation();
 			return false;
 		}
 		
+		// ON AJOUTE LA CHECKBOX FORCE LANG
 		if (!self.find('input.lang-check').length) {
 			e.preventDefault();
 			e.stopPropagation();

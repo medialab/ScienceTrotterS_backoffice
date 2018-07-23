@@ -15,6 +15,9 @@
 
 				{foreach $aCities as $model}
 					{$model->setLang('default')}
+					{if !$model->force_lang && empty($model->title)}
+						{$model->setLang('en')}
+					{/if}
 					<!-- ITEM -->
 					<li id="{$model->id}" class="item {if !$model->state}disabled{/if}" title="{$model->title}">
 						<!-- ACTIONS -->

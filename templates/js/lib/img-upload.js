@@ -1,5 +1,5 @@
+// AFFICHAGE DE L'IMAGE LORS D'UN UPDATE input FILE
 $(document).ready(function(){
-	
 	$("input[target='img']").change(function() {
 		var self = $(this);
 
@@ -14,6 +14,7 @@ $(document).ready(function(){
 
 		oReader.onload = function(e) {
 			oDisplay.attr('src', e.target.result);
+			self.attr('updated', true);
 		}
 
 		oReader.readAsDataURL(this.files[0]);

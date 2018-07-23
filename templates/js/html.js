@@ -81,6 +81,8 @@ $( '.inputFile' ).click(function() {
 	var fileName = '';
 	var oThis	 = $( this );
 
+	oThis.attr('updated', true);
+
 	if( e.target.value ) {
 		fileName = e.target.value.split( '\\' ).pop();
 		console.log("File Name: "+fileName);

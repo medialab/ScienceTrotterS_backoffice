@@ -15,7 +15,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum.</p>
 				
-				<input name="title" id="parcours" required placeholder="Ex: Le Chemin Vert" type="text" value="{$oParc->title|default: ''}">
+				<input name="title" id="parcours" required placeholder="Ex: Le Chemin Vert" type="text" value="{$oParc->title|default: ''}" default="{$oParc->title|default: ''}">
 			</div>
 			
 			<!-- VILLE -->
@@ -24,18 +24,14 @@
 				<p>La ville à la quelle le parcours appartient</p>
 				
 				{assign var="sCityID" value=$oParc->cities_id|default: false}
-				<select name="cities_id" id="cities_id">
+				<select name="cities_id" id="cities_id" default="{$oParc->cities_id}">
 					<option value="">Choisir une ville</option>
 
 					{foreach $aCities as $oCity}
-						{if $oCity->force_lang|default: false}
-							{$oCity->setLang($oCity->force_lang)}
-						{else}
-							{$oCity->setLang($sIso)}
-						{/if}
-							<option value="{$oCity->id}" {if ($sCityID) == $oCity->id}selected{/if}>
-								{$oCity->title}
-							</option>
+						{$oCity->setLang('default')}
+						<option value="{$oCity->id}" {if ($sCityID) == $oCity->id}selected{/if}>
+							{$oCity->title}
+						</option>
 					{/foreach}
 				</select>
 			</div>
@@ -68,7 +64,7 @@
 						{/foreach}
 					</div>
 					
-					<input name="color" id="color" placeholder="Ex: #fff" type="text" value="{$oParc->color|default: ''}">
+					<input name="color" id="color" placeholder="Ex: #fff" type="text" value="{$oParc->color|default: ''}" default="{$oParc->color|default: ''}">
 				</div>
 			</div>
 			
@@ -80,7 +76,7 @@
 				</label>
 				<p>Durée du parcours.</p>
 				
-				<input name="time" id="time" placeholder="Ex: Entre 3h et 5h" type="text" value="{$oParc->time|default: ''}">
+				<input name="time" id="time" placeholder="Ex: Entre 3h et 5h" type="text" value="{$oParc->time|default: ''}" default="{$oParc->time|default: ''}">
 			</div>
 
 			<!-- AUDIO -->
@@ -138,7 +134,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
 				
-				<textarea id="description" name="description">{$oParc->description|default: ''}</textarea>
+				<textarea id="description" name="description" default="{$oParc->description|default: ''}">{$oParc->description|default: ''}</textarea>
 			</div>
 
 			<!-- Audio Script -->
@@ -149,7 +145,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
 				
-				<textarea id="audio_script" name="audio_script">{$oParc->audio_script|default: ''}</textarea>
+				<textarea id="audio_script" name="audio_script" default="{$oParc->audio_script|default: ''}">{$oParc->audio_script|default: ''}</textarea>
 			</div>
 
 			<!-- Interêts -->
@@ -209,7 +205,7 @@
 			{/if}
 
 			<div class="boolean {if $oParc->state|default: false}on{/if}">
-				<input id="publie" type="checkbox" name="state" {if $oParc->state|default: false}checked{/if} />
+				<input id="publie" type="checkbox" name="state" {if $oParc->state|default: false}checked{/if} default="{$oParc->state|default: ''}">
 				<label for="publie" data="on">Public</label>
 
 				<div class="style">

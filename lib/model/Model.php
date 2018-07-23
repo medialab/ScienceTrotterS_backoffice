@@ -261,7 +261,13 @@ abstract class Model
 			}
 
 			if (is_object($v)) {
-				return !empty(get_object_vars($this->attributes[$sVar]));
+				if ($this->sCurLang) {
+					$lang = $this->sCurLang;
+					return !empty($v->$lang);
+				}
+				else{
+					return !empty(get_object_vars($this->$sVar));
+				}
 			}
 			
 			return !empty($this->$sVar);
@@ -466,7 +472,12 @@ abstract class Model
 		}
 		// Par Défaut La Langue Est Français
 		else {
-			$this->sCurLang = 'fr';
+			if (!empty($this->title->fr)) {
+				$this->sCurLang = 'fr';
+			}
+			else{
+				$this->sCurLang = 'en';
+			}
 		}
 	}
 

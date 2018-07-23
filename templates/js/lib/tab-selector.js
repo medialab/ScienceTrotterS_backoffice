@@ -3,6 +3,7 @@ var tabSelector = null;
 
 $(document).ready(function() {
 	page = $("body");
+	var curTab = null;
 	tabSelector = $(".tab-selector");
 	curLang = tabSelector.attr('target');
 
@@ -13,14 +14,71 @@ $(document).ready(function() {
 			return;
 		}
 
+		// VÉRIFICATION DES INPUTS / S'IL Y A UN CHANGEMLENT ON DEMANDE AU USER S'IL VEUT CHANGER DE LANGUE
+		if (curTab) {
+			var bSaved = true;
+			curTab.find('input, select, textarea').each(function(i, e) {
+				e = $(e);
+				var val = e.val();
+				var type = e.attr('type');
+
+				var tag = e.prop('tagName');
+				var def = e.attr('default');
+
+				if (typeof def === 'undefined') {
+					return true;
+				}
+
+				switch (type) {
+					case 'file':
+						if (e.attr('updated')) {
+							bSaved = false;
+						}
+						break;
+
+					case 'checkbox':
+						if (def != e.prop('checked')) {
+							bSaved = false;
+						}
+						break;
+
+					case 'textarea':
+						if (def != e.text()) {
+							bSaved = false;
+						}
+						break;
+
+					default:
+						if (tag === 'SELECT') {
+						}
+
+						if (val !== def) {
+							bSaved = false;
+						}
+						break;
+				}
+
+				return bSaved;
+			});
+
+			if (!bSaved) {
+				if (!confirm("Attention les modifications saisies n'ont pas été enregistrés, êtes-vous sûr de vouloir switcher de langue?")) {
+					return false;
+				}
+			}
+		}
+
 		var container = self.parent();
 		
+		// CHANGEMENT DE TAB
 		container.find('.tab-trigger').removeClass('on');
 		self.addClass('on');
 		
 		var tabID = self.attr('target');
 		$(".tab").removeClass('on');
-		$("#tab-"+tabID).addClass('on');
+		
+		curTab = $("#tab-"+tabID)
+		curTab.addClass('on');
 
 		container.parent().attr('target', tabID);
 	});

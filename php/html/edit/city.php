@@ -88,7 +88,7 @@ if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
 
 			// Si la Ville à été Insérée On Redirige Sur la page de modification
 			if (!$id && $bIsCreate && empty($aErrors)) {
-				header('location: /edit/city/'.$oCity->id.'.html');
+				header('location: /edit/city/'.$oCity->id.'.html?lang='.$oCity->getLang());
 				exit;
 			}
 		}

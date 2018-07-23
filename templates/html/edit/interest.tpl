@@ -13,21 +13,18 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
-				<input name="title" id="intitule-{$sIso}" required type="text" value="{$oInt->title}">
+				<input name="title" id="intitule-{$sIso}" required type="text" value="{$oInt->title}" default="{$oInt->title|default: ''}">
 			</div>
 
 			<div id="box-Ville" class="box">
 				<label for="ville-{$sIso}">Ville *</label>
-				<select name="cities_id" id="ville-{$sIso}">
+				<select name="cities_id" id="ville-{$sIso}" default="{$oInt->cities_id|default: ''}">
 					<option value="">Choisir une ville</option>
 					{assign var="sCityID" value=$smarty.post.cities_id|default: $oInt->cities_id:$oCity->id:false}
 
 					{foreach $aCities as $city_id => $oCity}
-						{if $oCity->force_lang|default: false}
-							{$oCity->setLang($oCity->force_lang)}
-						{else}
-							{$oCity->setLang($sIso)}
-						{/if}
+						{$oCity->setLang('default')}
+						
 						<option value="{$city_id}" {if ($sCityID) == $city_id}selected{/if}>
 							{$oCity->title}
 						</option>
@@ -44,24 +41,21 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
-				<input name="address" id="address-{$sIso}" type="text" value="{$oInt->address}">
+				<input name="address" id="address-{$sIso}" type="text" value="{$oInt->address}" default="{$oInt->address|default: ''}">
 			</div>
 
 			{assign var="sParcID" value=$smarty.post.par_id|default: $oInt->parcours_id:$curParc['id']:false}
 			<div class="box">
 				<label for="parcours-{$sIso}">Parcours</label>
-				<select name="parcours_id" id="parcours-{$sIso}">
+				<select name="parcours_id" id="parcours-{$sIso}" default="{$oInt->parcorus_id|default: '0'}">
 					<option value="0" {if !strlen($oInt->parcours_id)} selected {/if}>
 						Hors Parcours
 					</option>
 
 					{$sLastCity = false}
 					{foreach $aParcours as $par_id => $parc}
-						{if $parc->force_lang|default: false}
-							{$parc->setLang($parc->force_lang)}
-						{else}
-							{$parc->setLang($sIso)}
-						{/if}
+						{$parc->setLang('default')}
+						
 						{$bGroup = $sLastCity !== $parc->city->id}
 
 						{if $bGroup}
@@ -69,6 +63,7 @@
 								</optgroup>
 							{/if}
 
+							{$parc->city->setLang('default')}
 							<optgroup target="{$parc->city->id}" label="{$parc->city->title}">
 							{$sLastCity = $parc->city->id}
 						{/if}
@@ -89,9 +84,9 @@
 				<label for="latitude-{$sIso}">Géolocation *</label>
 				<p>Latitude, longitude du point d'intérêt</p>
 				
-				<input name="geo-n" id="latitude-{$sIso}" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 48.856" value="{$oInt->geoN}">
+				<input name="geo-n" id="latitude-{$sIso}" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 48.856" value="{$oInt->geoN}" default="{$oInt->geoN|default: ''}">
 
-				<input name="geo-e" id="longitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 2.3522" value="{$oInt->geoE}">
+				<input name="geo-e" id="longitude" type="text" class="geo-input" pattern="{$sGeoPat}" placeholder="ex: 2.3522" value="{$oInt->geoE}" default="{$oInt->geoE|default: ''}">
 				
 				<p>Avec <i>Coordonnées GPS</i>, recherchez une adresse pour récupérer les coordonées</p>
 				<a id="localisation" href="https://www.coordonnees-gps.fr/" target="_blank" class="item itemClick">https://www.coordonnees-gps.fr/</a>
@@ -142,7 +137,7 @@
 				</label>
 				<p>ex. "mer-sam, 13h-17h"</p>
 
-				<input name="schedule" id="horaires-{$sIso}" type="text" value="{$oInt->schedule}">
+				<input name="schedule" id="horaires-{$sIso}" type="text" value="{$oInt->schedule}" default="{$oInt->schedule|default: ''}">
 			</div>
 
 			<!-- AUDIO -->
@@ -187,7 +182,7 @@
 				</label>
 				<p>ex. "payant (5€ tarif étudiant)"</p>
 
-				<input name="price" id="difficultes-{$sIso}"  type="text" value="{$oInt->price}">
+				<input name="price" id="difficultes-{$sIso}"  type="text" value="{$oInt->price}" default="{$oInt->price|default: ''}">
 			</div>
 
 			<div class="box">
@@ -197,7 +192,7 @@
 				</label>
 				<p>ex. "RER B Luxembourg"</p>
 
-				<input name="transport" id="transport-{$sIso}"  type="text" value="{$oInt->transport}">
+				<input name="transport" id="transport-{$sIso}"  type="text" value="{$oInt->transport}" default="{$oInt->transport|default: ''}">
 			</div>
 
 			<div class="box">
@@ -207,7 +202,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
-				<textarea name="description" id="description-{$sIso}" value="">{$oInt->description}</textarea>
+				<textarea name="description" id="description-{$sIso}" default="{$oInt->description|default: ''}">{$oInt->description}</textarea>
 			</div>
 
 			<div class="box">
@@ -217,7 +212,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
-				<textarea name="audio_script" id="audio_script-{$sIso}" value="">{$oInt->audio_script}</textarea>
+				<textarea name="audio_script" id="audio_script-{$sIso}" default="{$oInt->audio_script|default: ''}">{$oInt->audio_script}</textarea>
 			</div>
 
 			<div class="box">
@@ -227,11 +222,11 @@
 				</label>
 				<p>5 maximum</p>
 
-				<input name="bibliography[]" id="bibliography1"  type="text" value="{$oInt->bibliography[0]|default: ''}">
-				<input name="bibliography[]" id="bibliography2"  type="text" value="{$oInt->bibliography[1]|default: ''}">
-				<input name="bibliography[]" id="bibliography3"  type="text" value="{$oInt->bibliography[2]|default: ''}">
-				<input name="bibliography[]" id="bibliography4"  type="text" value="{$oInt->bibliography[3]|default: ''}">
-				<input name="bibliography[]" id="bibliography5"  type="text" value="{$oInt->bibliography[4]|default: ''}">
+				<input name="bibliography[]" id="bibliography1"  type="text" value="{$oInt->bibliography[0]|default: ''}" default="{$oInt->bibliography[0]|default: ''}">
+				<input name="bibliography[]" id="bibliography2"  type="text" value="{$oInt->bibliography[1]|default: ''}" default="{$oInt->bibliography[1]|default: ''}">
+				<input name="bibliography[]" id="bibliography3"  type="text" value="{$oInt->bibliography[2]|default: ''}" default="{$oInt->bibliography[2]|default: ''}">
+				<input name="bibliography[]" id="bibliography4"  type="text" value="{$oInt->bibliography[3]|default: ''}" default="{$oInt->bibliography[3]|default: ''}">
+				<input name="bibliography[]" id="bibliography5"  type="text" value="{$oInt->bibliography[4]|default: ''}" default="{$oInt->bibliography[4]|default: ''}">
 			</div>
 
 
@@ -286,7 +281,7 @@
 			{/if}
 			
 			<div class="boolean {if $oInt->state|default: false}on{/if}">
-				<input id="publie" type="checkbox" name="state" {if $oInt->state|default: false}checked{/if}/>
+				<input id="publie" type="checkbox" name="state" {if $oInt->state|default: false}checked{/if} default="{$oInt->state|default: ''}"/>
 				<label for="publie" data="on">Public</label>
 
 				<div class="style">

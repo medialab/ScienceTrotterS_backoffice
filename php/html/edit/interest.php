@@ -34,6 +34,7 @@ $aParcoursOut = [];	// Parcours Sans Ville
 foreach ($aoParcours as $oPar) {
 	// Si Le Parcours a Une Ville Associée
 	if (strlen($oPar->cities_id) && $oPar->city->isLoaded()) {
+		$oPar->city->setLang('default');
 		$aParcoursOut[$oPar->id] = $oPar;
 		continue;
 	}
@@ -138,7 +139,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 				$aErrors['Parcours'] = "Le parcours sélectionné n'existe pas.";
 			}
 		}
-		elseif ($_POST['parcours_id'] === '0') {
+		else {
 			$oInt->parcours_id = null;
 		}
 

@@ -2,7 +2,7 @@
 	<h2>{$sCreation}</h2>
 </div>
 
-{assign var="lang" value=$smarty.post.lang|default: $oModel->force_lang:'fr'}
+{assign var="lang" value=$smarty.post.lang|default: $smarty.get.lang : $oModel->force_lang:'fr'}
 
 <div class="tab-selector" target="{$lang}">
 	<div class="tab-triggers">

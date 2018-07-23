@@ -132,7 +132,7 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 				}
 
 				if (!$id && $bIsCreate && empty($aErrors)) {	// On redirige pour se mettre en modification
-					header('location: /edit/parcours/'.$oParc->id.'.html');
+					header('location: /edit/parcours/'.$oParc->id.'.html?lang='.$oParc->getLang());
 					exit;
 				}
 			}
