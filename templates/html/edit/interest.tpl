@@ -47,7 +47,7 @@
 			{assign var="sParcID" value=$smarty.post.par_id|default: $oInt->parcours_id:$curParc['id']:false}
 			<div class="box">
 				<label for="parcours-{$sIso}">Parcours</label>
-				<select name="parcours_id" id="parcours-{$sIso}" default="{$oInt->parcorus_id|default: '0'}">
+				<select name="parcours_id" id="parcours-{$sIso}" default="{$oInt->parcours_id|default: '0'}">
 					<option value="0" {if !strlen($oInt->parcours_id)} selected {/if}>
 						Hors Parcours
 					</option>
@@ -272,7 +272,7 @@
 			{if $oInt->isSync()}
 				<div class="box box-large" style="background-color: transparent; box-shadow: none">
 					<div href="#" title="Preview" class="btn">
-						<a href="">
+						<a href="" target="_blank">
 							<img src="/media/image/interface/icons/icon_edit_preview.svg">
 							Preview
 						</a>

@@ -38,7 +38,7 @@ if ($id && !$oParc->isLoaded()) {
 	header('location: /');
 }
 elseif($id) {
-	$oParc->setLang('fr');
+	$oParc->setLang('default');
 	$aFilDArianne[] = $oParc->title;
 }
 

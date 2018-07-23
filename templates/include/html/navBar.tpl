@@ -55,7 +55,7 @@
 			*}
 			<li class="item itemByTNG">
 				<a href="http://www.thenetgroup.net/" target="_blank">
-					<label class="itemLabel itemLogo">TNG</label>
+					<label class="itemLabel itemLogo"><img src="/media/image/logo/logo-tng.svg"></label>
 				</a>
 			</li>
 		</ul>

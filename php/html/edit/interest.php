@@ -66,7 +66,7 @@ if ($id && !$oInt->isLoaded()) {
 	header('location: /');
 }
 elseif($id) {
-	$oInt->setLang('fr');
+	$oInt->setLang('default');
 	$aFilDArianne[] = $oInt->title;
 }
 

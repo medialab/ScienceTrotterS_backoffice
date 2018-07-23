@@ -36,7 +36,7 @@ if ($id && !$oCity->isLoaded()) {
 	header('location: /');
 }
 elseif($id) {
-	$oCity->setLang('fr');
+	$oCity->setLang('default');
 	$aFilDArianne[] = $oCity->title;
 }
 
