@@ -37,4 +37,37 @@ $(document).ready(function() {
 	});
 
 	page.trigger('custom::pageReady');
+
+
 });
+
+function countListen(sModelType, id) {
+	var listenCnt = $('form .audio-cnt');
+	
+	console.log(listenCnt.length);
+	if (listenCnt.length) {
+		var i = 0;
+		var langs = ['fr', 'en'];
+
+		function calcListen(res) {
+			l = langs[i];
+			i++;
+			
+			var cont = $('#tab-'+l+' .audio-cnt b');
+			cont.text(''+res);
+			cont.parent().next('.spinner').remove();
+
+			if (typeof langs[i] !== 'undefined') {
+				callListen();
+			}
+		}
+
+		function callListen() {
+			ApiMgr.call('get', sModelType+'/listenCnt/'+id, {lang: langs[i]}, function(aDataSet) {
+				calcListen(aDataSet.data);
+			});
+		}
+
+		callListen();
+	}
+}

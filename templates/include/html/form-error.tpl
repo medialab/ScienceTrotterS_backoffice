@@ -24,7 +24,7 @@
 				<ul>
 					{foreach $aSession.warning as $k => $msg}
 						<li>
-							{if !empty($k)}
+							{if is_string($k) && !empty($k)}
 								<b>{$k}: </b> 
 							{/if}
 							{$msg}

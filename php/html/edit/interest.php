@@ -228,9 +228,15 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 				// Si Un Message a été Envoyé
 				if (!empty($oSaveRes->message)) {
-					$_SESSION['session_msg']['warning'] = [
-						$oSaveRes->message
-					];
+					if (is_string($oSaveRes->message)) {
+						$_SESSION['session_msg']['warning'] = [
+							$oSaveRes->message
+						];
+					}
+					else{
+						$_SESSION['session_msg']['warning'] = $oSaveRes->message;
+
+					}
 				}
 
 				if (!$id && $bIsCreate && empty($aErrors)) {	// On redirige pour se mettre en modification

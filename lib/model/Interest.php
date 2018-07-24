@@ -175,6 +175,10 @@ class Interest extends Model
 	function __set($sVar, $var) {
 		//var_dump("=== SETTING: $sVar", $var);
 		switch ($sVar) {
+			case 'city':
+				$this->setCity($var);
+				break;
+
 			case 'parcours':
 				$this->setParcours($var);
 				break;
@@ -204,6 +208,17 @@ class Interest extends Model
 		elseif ($oParc instanceOf StdClass) {
 			$this->parcours = new Parcours(false, $oParc);
 			$this->parcours_id = $oParc->id;
+		}
+	}
+
+	private function setCity($oCity) {
+		if ($oCity instanceOf Parcours) {
+			$this->city = $oCity;
+			$this->city_id = $oCity->id;
+		}
+		elseif ($oCity instanceOf StdClass) {
+			$this->city = new City(false, $oCity);
+			$this->city_id = $oCity->id;
 		}
 	}
 
@@ -244,15 +259,23 @@ class Interest extends Model
 	 */
 	public function getCity() {
 		if (empty($this->city)) {
+			var_dump("TEST-0");
 			if (empty($this->cities_id)) {
+				var_dump("TEST-1");
 				$this->city = new City();
 				return $this->city;
 			}
 			
+			var_dump("TEST-2");
 			$this->city = City::get($this->cities_id);
 			$this->city->setLang($this->getLang());
 		}
+		elseif(is_object($this->city)) {
+			var_dump("TEST-3");
+			$this->city = new City(false, $this->city);
+		}
 
+		var_dump("TEST-4");
 		return $this->city;
 	}
 

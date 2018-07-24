@@ -85,7 +85,7 @@
 					Audio *
 					<i class="flag-ico"></i>
 				</label>
-				{if $oParc->isSync()}
+				{if $oParc->isSync() && !empty($oParc->audio)}
 					<p class="audio-cnt">
 						Écouté: 
 						<b>

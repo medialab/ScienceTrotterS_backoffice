@@ -105,4 +105,7 @@ $(document).ready(function() {
 		var list = $(e);
 		list.val(list.find('option[selected]').val());
 	})
+
+	var id = $("input[name=id]").first().val();
+	countListen('interests', id);
 });

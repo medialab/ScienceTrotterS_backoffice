@@ -146,6 +146,17 @@
 					Audio *
 					<i class="flag-ico"></i>
 				</label>
+				{if $oInt->isSync() && !empty($oInt->audio)}
+					<p class="audio-cnt">
+						Écouté: 
+						<b>
+						</b> fois
+					</p>
+					<div class="spinner spinner-xs" style="display: inline-block; width: 15px; height: 15px">
+						<div class="double-bounce1"></div>
+						<div class="double-bounce2"></div>
+					</div>
+				{/if}
 				<p>
 					5min ou 20Mo max. format .mp3 ou .wav
 				</p>
@@ -165,7 +176,7 @@
 							{$audio = $audio|cat: ($ext[0]|default: '')}
 
 							<div class="audio-name" {if $oInt->audio|default:false}disabled{/if}>
-								{$audio|default: ''}
+								<a href="{$_API_URL_}ressources/upload/{$oInt->audio}" target="_blank">{$audio}</a>
 							</div>
 							<p></p>
 						</label>
