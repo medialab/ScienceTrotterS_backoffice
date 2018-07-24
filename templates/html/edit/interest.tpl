@@ -18,10 +18,10 @@
 
 			<div id="box-Ville" class="box">
 				<label for="ville-{$sIso}">Ville *</label>
-				<select name="cities_id" id="ville-{$sIso}" default="{$oInt->cities_id|default: ''}">
-					<option value="">Choisir une ville</option>
-					{assign var="sCityID" value=$smarty.post.cities_id|default: $oInt->cities_id:$oCity->id:false}
+				{assign var="sCityID" value=$smarty.post.cities_id|default: $oInt->cities_id:$oCity->id:false}
 
+				<select name="cities_id" id="ville-{$sIso}" default="{$sCityID|default: ''}">
+					<option value="">Choisir une ville</option>
 					{foreach $aCities as $city_id => $oCity}
 						{$oCity->setLang('default')}
 						

@@ -29,27 +29,27 @@ $(document).ready(function() {
 					return true;
 				}
 
-				console.log(def, ' ||| ', val)
+				//console.log(def, ' ||| ', val)
 
 				switch (type) {
 					case 'file':
 						if (e.attr('updated')) {
 							bSaved = false;
-							console.log(e.attr('name'))
+							//console.log(e.attr('name'))
 						}
 						break;
 
 					case 'checkbox':
 						if (def != e.prop('checked')) {
 							bSaved = false;
-							console.log(e.attr('name'))
+							//console.log(e.attr('name'))
 						}
 						break;
 
 					case 'textarea':
 						if (def != e.text()) {
 							bSaved = false;
-							console.log(e.attr('name'))
+							//console.log(e.attr('name'))
 						}
 						break;
 
@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 						if (val !== def) {
 							bSaved = false;
-							console.log(e.attr('name'))
+							//console.log(e.attr('name'))
 						}
 						break;
 				}

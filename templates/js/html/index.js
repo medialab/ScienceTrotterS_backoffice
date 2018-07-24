@@ -83,11 +83,25 @@ $(document).ready(function() {
 						// Création d'une ligne
 						var row = emptyRow.clone(true, true);
 						row.attr('id', data.id);
-						row.attr('title', data.title);
+
+						var l = data.force_lang;
+						var title;
+						if (l) {
+							title = data.title[l];
+						}
+						else{
+							if (typeof data.title.fr !== 'undefined') {
+								title = data.title.fr;
+							}
+							else{
+								title = data.title.en;
+							}
+						}
+						row.attr('title', title);
 
 						row.attr('parent', pId);
 						
-						row.find('label.itemLabel').text(data.title);
+						row.find('label.itemLabel').text(title);
 						
 						if (!data.state) {
 							row.addClass('disabled');

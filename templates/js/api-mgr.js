@@ -160,7 +160,12 @@ var ApiMgr = {
 			request.setLang(self.sCurLang);
 		}
 		else{
-			request.setLang(data.lang);
+			if (data.lang == false) {
+				delete data.lang;
+			}
+			else{
+				request.setLang(data.lang);
+			}
 		}
 		
 		this.addRequest(request);
@@ -358,6 +363,7 @@ var ApiMgr = {
 		// Preparation DesOptions
 		options = Object.assign(ApiMgr.defaultOpts, options);
 
+		var lang = options.lang || false;
 		var order = options.order || false;
 		var parents = options.parents || false;
 		var columns = options.columns || false;
@@ -387,7 +393,8 @@ var ApiMgr = {
 			skip: options.page * options.limit,
 			columns: columns,
 			parents: parents,
-			order: order
+			order: order,
+			lang: lang
 		};
 
 		// Mise à Jour de L'url

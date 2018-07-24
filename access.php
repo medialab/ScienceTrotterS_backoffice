@@ -11,7 +11,9 @@ $aRestrictExtension	= [
 // Les pages autorisées
 	// aux VISITEURS 
 		$aAccess["VISITOR"]	=	[
-			'mail.php',
+			'mail.html',
+			'mail/login.html',
+			'mail/verify.html',
 			'logout.html',
 			'upload.html',
 			'upload/cities.html',

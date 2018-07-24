@@ -163,6 +163,56 @@ function fMethodIs($type='get') {
 		return in_array($mtype, $aAuthorizedMimes);
 	}
 
+	function fImageSize($name, $width, $height, $sComp='lessEq') {
+		return true;
+		if (!extension_loaded('imagick')) {
+			trigger_error('Le Module PHP Imagick n\'est pas activé. Impossible de vérifier la taille en px des images.');
+			return true;
+		}
+
+		$aF = &$_FILES[$name];
+		if (empty($aF['name'])) {
+			return true;
+		}
+
+		if (is_string($aF['name'])) {
+			$aF['name'] = [$aF['name']];
+			$aF['type'] = [$aF['type']];
+			$aF['tmp_name'] = [$aF['tmp_name']];
+			$aF['error'] = [$aF['error']];
+			$aF['size'] = [$aF['size']];
+		}
+
+		foreach ($aF['name'] as $i => $fName) {			
+			if (empty($fName)) {
+				continue;
+			}
+
+			$image = new Imagick($aF['tmp_name'][$i]);
+			switch ($sComp) {
+				case 'less':
+					return $image->getImageWidth() < $width &&  $image->getImageHeight() < $height;
+					break;
+
+				case 'lessEq':
+					return $image->getImageWidth() <= $width && $image->getImageHeight() <= $height;
+					break;
+
+				case 'equal':
+					return $image->getImageWidth() == $width && $image->getImageHeight() == $height;
+					break;
+
+				case 'great':
+					return $image->getImageWidth() > $width &&  $image->getImageHeight() > $height;
+					break;
+
+				case 'greatEq':
+					return $image->getImageWidth() >= $width && $image->getImageHeight() >= $height;
+					break;
+			}
+		}
+
+	}
 
 	/**
 	 * Retourne la liste des MimeTypes autorisée par le filtre FILE-EXT

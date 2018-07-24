@@ -30,7 +30,12 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 			$aErrors['Nom'] = 'Ce champs est obligatoire';
 		}
 		elseif($sLang){
-			$oModel->title = $_POST['title'];
+			if (strlen($_POST['title']) > 90) {
+				$aErrors['title'] = 'Le titre ne peut dépasser 90 caractères';
+			}
+			else {
+				$oModel->title = $_POST['title'];
+			}
 		}
 
 	/* Validation De la Géolocalisation */

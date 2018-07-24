@@ -84,8 +84,32 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 		$oParc->cities_id = null;
 	}
 
-	$oParc->description = empty($_POST['description']) ? null : $_POST['description'];
-	$oParc->audio_script = empty($_POST['audio_script']) ? null : $_POST['audio_script'];
+
+
+	if (!empty($_POST['description'])) {
+		if (strlen($_POST['description']) > 90) {
+			$aErrors['Description'] = 'La description ne peut dépasser 90 caractères';
+		}
+		else {
+			$oParc->description = $_POST['description'];
+		}
+	}
+	else {
+		$oParc->description = null;
+	}
+
+
+	if (!empty($_POST['audio_script'])) {
+		if (strlen($_POST['audio_script']) > 90) {
+			$aErrors['Script Audio'] = 'Le script audio ne peut dépasser 90 caractères';
+		}
+		else {
+			$oParc->audio_script = $_POST['audio_script'];
+		}
+	}
+	else {
+		$oParc->audio_script = null;
+	}
 
 	$oParc->state = (bool)$_POST['state'];
 

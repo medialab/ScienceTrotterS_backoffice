@@ -143,8 +143,35 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 			$oInt->parcours_id = null;
 		}
 
-		$oInt->description = empty($_POST['description']) ? null : $_POST['description'];
-		$oInt->audio_script = empty($_POST['audio_script']) ? null : $_POST['audio_script'];
+
+		if (!empty($_POST['description'])) {
+			if (strlen($_POST['description']) > 90) {
+				$aErrors['Description'] = 'La description ne peut dépasser 90 caractères';
+			}
+			else {
+				$oInt->description = $_POST['description'];
+			}
+		}
+		else {
+			$oInt->description = null;
+		}
+
+
+		if (!empty($_POST['audio_script'])) {
+			if (strlen($_POST['audio_script']) > 90) {
+				$aErrors['Script Audio'] = 'Le script audio ne peut dépasser 90 caractères';
+			}
+			else {
+				$oInt->audio_script = $_POST['audio_script'];
+			}
+		}
+		else {
+			$oInt->audio_script = null;
+		}
+
+		if (!empty($oInt->audio_script)) {
+			$oInt->audio_script = empty($_POST['audio_script']) ? null : $_POST['audio_script'];
+		}
 
 	/* Si On a pas d'erreur on prepare L'object ville */
 		if (empty($aErrors)) {
@@ -152,10 +179,18 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 			/* Sauvegarde Temporaire de l'image */
 			$bImgUpdated = false;
-			if (!empty($_FILES['img'])  && !$_FILES['img']['error']) {
-				$bImgUpdated = true;
-				$sPrevImg = $oInt->header_image;
-				$oInt->header_image = handleUploadedFile('img', 'interests');
+			if (!empty($_FILES['img']) && !$_FILES['img']['error']) {
+
+				//$bSize = fImageSize('img', 600, 600);
+				$bSize = true;
+				if (!$bSize) {
+					$aErrors['Image'] = 'L\'image ne peut dépasser les 600px de large et 600px de haut.';
+				}
+				else{
+					$bImgUpdated = true;
+					$sPrevImg = $oInt->header_image;
+					$oInt->header_image = handleUploadedFile('img', 'interests');
+				}
 			}
 			
 			/* Sauvegarde du Fichier Audio */
