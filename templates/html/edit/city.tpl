@@ -13,7 +13,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application</p>
 				
-				<input name="title" id="ville-{$sIso}" required placeholder="Ex: Paris" type="text" value="{$oCity->title|default: ''}" default="{$oCity->title|default: ''}">
+				<input name="title" id="ville-{$sIso}" maxlength="90" required placeholder="Ex: Paris" type="text" value="{$oCity->title|default: ''}" default="{$oCity->title|default: ''}">
 			</div>
 			
 			<div class="box" id="box-Localisation">

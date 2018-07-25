@@ -41,7 +41,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
-				<input name="address" id="address-{$sIso}" type="text" value="{$oInt->address}" default="{$oInt->address|default: ''}">
+				<input name="address" id="address-{$sIso}" type="text" maxlength="90" value="{$oInt->address}" default="{$oInt->address|default: ''}">
 			</div>
 
 			{assign var="sParcID" value=$smarty.post.par_id|default: $oInt->parcours_id:$curParc['id']:false}
@@ -211,9 +211,9 @@
 					Description du point d'intérêt *
 					<i class="flag-ico"></i>
 				</label>
-				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
+				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum</p>
 
-				<textarea name="description" id="description-{$sIso}" default="{$oInt->description|default: ''}">{$oInt->description}</textarea>
+				<textarea name="description" id="description-{$sIso}" maxlength="600" default="{$oInt->description|default: ''}">{$oInt->description}</textarea>
 			</div>
 
 			<div class="box">
@@ -221,9 +221,9 @@
 					Script Audio *
 					<i class="flag-ico"></i>
 				</label>
-				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
+				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum</p>
 
-				<textarea name="audio_script" id="audio_script-{$sIso}" default="{$oInt->audio_script|default: ''}">{$oInt->audio_script}</textarea>
+				<textarea name="audio_script" id="audio_script-{$sIso}" maxlength="600" default="{$oInt->audio_script|default: ''}">{$oInt->audio_script}</textarea>
 			</div>
 
 			<div class="box">
@@ -283,7 +283,7 @@
 			{if $oInt->isSync()}
 				<div class="box box-large" style="background-color: transparent; box-shadow: none">
 					<div href="#" title="Preview" class="btn">
-						<a href="" target="_blank">
+						<a href="https://science-trotters.actu.com/#/direct_access/page_name=point-of-interest&landmark_id={$oInt->id}&lang={$sIso}" target="_blank">
 							<img src="/media/image/interface/icons/icon_edit_preview.svg">
 							Preview
 						</a>

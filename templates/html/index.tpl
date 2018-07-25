@@ -22,7 +22,7 @@
 					<li id="{$model->id}" class="item {if !$model->state}disabled{/if}" title="{$model->title}">
 						<!-- ACTIONS -->
 						<div class="itemAction">
-							<a class="delete-btn" href="/delete/city/{$model->id}.html">
+							<a class="delete-btn" target="{$model->id}" href="/delete/city/{$model->id}.html">
 								<i class="icon-pre icon-list-remove"></i>
 							</a>
 							<a class="edit-btn" href="/edit/city/{$model->id}.html">

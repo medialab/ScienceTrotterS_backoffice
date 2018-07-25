@@ -3,6 +3,52 @@ $(document).ready(function() {
 	var emptyRow = null;
 	var scrollList = $(".arboItem .columnData");
 
+	function createRow(sModel, data, pId) {
+		// Création d'une ligne
+		var row = emptyRow.clone(true, true);
+		row.attr('id', data.id);
+
+		var l = data.force_lang;
+		var title;
+		if (l) {
+			title = data.title[l];
+		}
+		else{
+			if (typeof data.title.fr !== 'undefined') {
+				title = data.title.fr;
+			}
+			else{
+				title = data.title.en;
+			}
+		}
+		row.attr('title', title);
+
+		row.attr('parent', pId);
+		
+		row.find('label.itemLabel').text(title);
+		
+		if (!data.state) {
+			row.addClass('disabled');
+		}
+
+		var flags = row.find('.flag-cont');
+		flags.removeClass('en');
+		flags.removeClass('fr');
+		if (data.force_lang) {
+			flags.addClass(data.force_lang);
+		}
+		
+		row.find("a.edit-btn").attr('href', "/edit/"+sModel+"/"+data.id+".html");
+		//row.find("a.delete-btn").attr('href', "/delete/"+sModel+"/"+data.id+".html");
+		row.find("a.delete-btn").attr('target', data.id);
+
+		if (data.force_lang) {
+			row.find('flag-cont').addClass(data.force_lang);
+		}
+
+		return row;
+	}
+
 	// CHARGEMENT DES MODELS ENFANTS
 	scrollList.find("li.item").click(function(e) {
 		ApiMgr.setLang('fr');
@@ -10,6 +56,7 @@ $(document).ready(function() {
 		// RECUPERARTION DES INFORMATION DU MODEL
 		var self = $(this);
 		var pId = self.attr('id');
+
 
 		var container = self.parents('.columnData');
 		if (container.attr('id') === 'interests') {
@@ -76,56 +123,15 @@ $(document).ready(function() {
 					$("#interests ul.itemList").empty();
 				}
 
+				var row = null;
 				if (aData.data.length) {
 					for(var i in aData.data) { // POUR CHAQU'UN DES RESULTATS
-						var data = aData.data[i];
-
-						// Création d'une ligne
-						var row = emptyRow.clone(true, true);
-						row.attr('id', data.id);
-
-						var l = data.force_lang;
-						var title;
-						if (l) {
-							title = data.title[l];
-						}
-						else{
-							if (typeof data.title.fr !== 'undefined') {
-								title = data.title.fr;
-							}
-							else{
-								title = data.title.en;
-							}
-						}
-						row.attr('title', title);
-
-						row.attr('parent', pId);
-						
-						row.find('label.itemLabel').text(title);
-						
-						if (!data.state) {
-							row.addClass('disabled');
-						}
-
-						var flags = row.find('.flag-cont');
-						flags.removeClass('en');
-						flags.removeClass('fr');
-						if (data.force_lang) {
-							flags.addClass(data.force_lang);
-						}
-						
-						row.find("a.edit-btn").attr('href', "/edit/"+sModel+"/"+data.id+".html");
-						row.find("a.delete-btn").attr('href', "/delete/"+sModel+"/"+data.id+".html");
-
-						if (data.force_lang) {
-							row.find('flag-cont').addClass(data.force_lang);
-						}
-
+						row = createRow(sModel, aData.data[i], pId);
 						childContainer.append(row);
 					}
 				}
 				else if(sModel === 'interest') { // SI AUCUNT POINT D'INTERET
-					var row = emptyRow.clone(false);
+					row = emptyRow.clone(false);
 					row.attr('id', '');
 					row.attr('parent', '');
 
@@ -136,7 +142,7 @@ $(document).ready(function() {
 				}
 
 				if (childType === 'parcours') {  // SI AUCUNT PARCOURS
-					var row = emptyRow.clone(true, true);
+					row = emptyRow.clone(true, true);
 					row.attr('id', 'no-prcours');
 					row.addClass('item-notif');
 					row.attr('parent', pId);
@@ -156,27 +162,45 @@ $(document).ready(function() {
 
 	// SUPPRESSION D'UN MODEL
 	scrollList.find("a.delete-btn").click(function(e) {		
+		e.preventDefault();
 		e.stopPropagation();
 		
 		var self = $(this);
 		var oParent = self.parents(".item");
 		var oCont = oParent.parents(".columnData");
 		var sTitle = oParent.attr("title");
-		console.log("Deleting: "+oParent.attr('title'));
-		
+		var sType = oCont.attr('target');
+
 		// MESSAGE DE CONFIRMATION
 		var bCity = oCont.attr("id") === "cities";
-		var msg = 'Êtes vous sûr de vouloir supprimer '+oCont.attr('target')+': "'+oParent.attr('title')+'" ?';
+		var msg = 'Êtes vous sûr de vouloir supprimer '+sType+': "'+oParent.attr('title')+'" ?';
 		
 		if (bCity) {
 			msg += "\nAttention, les parcours et points d'intérêt liés à cette ville deviendront inaccessibles";
 		}
 
 		if (!confirm(msg)) {
-			// Annulation
-			e.preventDefault();
 			return false;
 		}
+
+		console.log('Deleteing: ',self.attr('target'));
+		ApiMgr.delete(oCont.attr('id'), self.attr('target'), function(data) {
+			msg = ' a été supprimé'+ ((bCity) ? 'e' : '');
+			msg += ' avec succès.';
+
+			Notify.success(sTitle, msg);
+			oParent.remove();
+		}, function(data, error) {
+			if (error.status === 404) {
+				msg = 'est introuvable.'
+			}
+			else{
+				msg = 'Une erreur s\'est produite lors de la suppresion.';
+			}
+
+			Notify.error(sTitle, msg)
+			//Notify.error(sType.ucfirst(), msg);
+		});
 	});
 
 	// ACTIVATION MODEL

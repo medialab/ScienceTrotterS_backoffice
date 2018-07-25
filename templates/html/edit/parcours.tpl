@@ -15,7 +15,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum.</p>
 				
-				<input name="title" id="parcours" required placeholder="Ex: Le Chemin Vert" type="text" value="{$oParc->title|default: ''}" default="{$oParc->title|default: ''}">
+				<input name="title" id="parcours" required placeholder="Ex: Le Chemin Vert" type="text" value="{$oParc->title|default: ''}" default="{$oParc->title|default: ''}" maxlength="90">
 			</div>
 			
 			<!-- VILLE -->
@@ -134,7 +134,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
 				
-				<textarea id="description" name="description" default="{$oParc->description|default: ''}">{$oParc->description|default: ''}</textarea>
+				<textarea id="description" maxlength="600" name="description" default="{$oParc->description|default: ''}">{$oParc->description|default: ''}</textarea>
 			</div>
 
 			<!-- Audio Script -->
@@ -145,7 +145,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
 				
-				<textarea id="audio_script" name="audio_script" default="{$oParc->audio_script|default: ''}">{$oParc->audio_script|default: ''}</textarea>
+				<textarea id="audio_script" maxlength="600" name="audio_script" default="{$oParc->audio_script|default: ''}">{$oParc->audio_script|default: ''}</textarea>
 			</div>
 
 			<!-- Interêts -->

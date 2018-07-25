@@ -92,7 +92,7 @@ var ApiMgr = {
 
 			error: function(result) {
 				console.error("Request Error", result);
-
+				var err = result;
 				if (typeof result.responseJSON !== 'undefined') {
 					result = result.responseJSON;
 
@@ -110,7 +110,7 @@ var ApiMgr = {
 									self.addRequest(oReq.backup);
 								},
 								function() {
-									error(result);
+									error(result, err);
 								}
 							);
 						}
@@ -121,7 +121,7 @@ var ApiMgr = {
 				}
 
 				if (error && !bIsExpired) {
-					error(result);
+					error(result, err);
 				}
 			},
 
@@ -413,5 +413,15 @@ var ApiMgr = {
 			options.success,
 			options.error
 		);
+	},
+
+	delete: function(table, id, success, error) {
+		return this.call(
+			'post', 
+			table+'/delete', 
+			{id: id}, 
+			success, 
+			error
+		)
 	}
 }
