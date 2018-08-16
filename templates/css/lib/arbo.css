@@ -1,179 +1,297 @@
 /**
-  * ARBO
-  */
+	* ARBO
+	*/
+/* 
+.arbo {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+} */
 
 .arbo {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
+	text-align: center;
 }
+
+/* .arbo > .arboItem {
+	width: 33%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	margin: 20px 0;
+} */
 
 .arbo > .arboItem {
-  width: 33%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  margin: 20px 0;
+	width: 33%;
+	display: inline-block;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	margin: 20px 0;
+	text-align: center;
+	padding: 0 20px;
 }
 
+
 .arbo > .arboItem > .columnName {
-  text-align: center;
-  padding: 10px 0;
+	text-align: center;
+	padding: 10px 0;
 }
 
 .arbo > .arboItem > .columnName > label {
-  text-transform: uppercase;
-  font-size: 24px;
-  color: #6C7A89;
+	text-transform: uppercase;
+	font-size: 24px;
+	color: #6C7A89;
 }
 
+/* .arbo > .arboItem > .columnData {
+	overflow-y: scroll;
+	background-color: white;
+	box-shadow: 0 3px 6px rgba(105,105,105, 0.16);
+	margin: 20px;
+	height: 250px;
+} */
+
 .arbo > .arboItem > .columnData {
-  overflow-y: scroll;
-  background-color: white;
-  box-shadow: 0 3px 6px rgba(105,105,105, 0.16);
-  margin: 20px;
-  height: 250px;
+	overflow-y: scroll;
+	background-color: white;
+	box-shadow: 0 3px 6px rgba(105,105,105, 0.16);
+	margin: 20px 0;
+	height: 250px;
+	display: inline-block;
+	float: unset;
+	left: initial;
+	right: inherit;
+	/* min-width: 320px; */
+	width: 100%;
 }
 
 .arbo > .arboItem > .columnBtnLink {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .arbo > .arboItem > .columnBtnLink > a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 14px;
-  transition: 0.7s;
-  border: 2px solid #3156A6;
-  color: #3156A6;
-  border-radius: 4px;
-  padding: 7px 21px;
-  box-shadow: 0 3px 6px rgba(105,105,105, 0.16);
-  margin: 0 20px;
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 14px;
+	transition: 0.7s;
+	border: 2px solid #3156A6;
+	color: #3156A6;
+	border-radius: 4px;
+	padding: 7px 21px;
+	box-shadow: 0 3px 6px rgba(105,105,105, 0.16);
+	margin: 0 20px;
 }
 
 .arbo > .arboItem > .columnBtnLink > a:hover {
-  color: white;
-  background-color: #3156A6;
+	color: white;
+	background-color: #3156A6;
 }
 
 .arbo > .arboItem > .columnBtnLink > a > .icon {
-  display: inline-block;
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 30px;
-  height: 30px;
-  margin: 0 7px 0 0;
+	display: inline-block;
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 30px;
+	height: 30px;
+	margin: 0 7px 0 0;
 }
+
+/* 
+.columnData > .itemList {
+	padding: 0;
+	margin: 0;
+	padding: 0px 0;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+} */
 
 .columnData > .itemList {
-  padding: 0;
-  margin: 0;
-  padding: 7px 0;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+	margin: 0;
+	padding: 0px 0;
+	list-style-type: none;
 }
 
+/* .columnData > .itemList > .item {
+	cursor: pointer;
+	padding: 12px 0;
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px solid #D7DDE4;
+} */
+
 .columnData > .itemList > .item {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  border-bottom: 1px solid #D7DDE4;
-  padding: 12px 0;
+	cursor: pointer;
+	padding: 12px 0;
+	position: relative;
+	border-bottom: 1px solid #D7DDE4;
+	text-align: left;
+}
+
+.columnData > .itemList > .item label {
+	cursor: pointer;
+}
+
+.columnData > .itemList > .item .spinner{
+	top: 34%;
+	right: 50px;
+	display: none;
+	position: absolute;
+}
+
+.columnData > .itemList > .item.loading .spinner{
+	display: inline-block;
+}
+
+.columnData > .itemList > .item.active {
+	background-color: lightcyan;
 }
 
 .columnData > .itemList > .item.selected {
-  background-color: #3156A6 !important;
+	background-color: #3156A6 !important;
 }
 
 .columnData > .itemList > .item:hover {
-  background-color: #F0F0F7;
+	background-color: #F0F0F7;
 }
 
 .columnData > .itemList > .item.selected .itemLabel {
-  color: white;
+	color: white;
 }
 
 .columnData > .itemList > .item:hover .itemLabel {
-  color: #BCBCCB;
+	color: #BCBCCB;
 }
 
 .columnData > .itemList > .item > .itemAction {
-  display: inline-flex;
-  padding: 0 10px;
+	padding: 0 10px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .columnData > .itemList > .item > .itemAction a {
-  display: flex;
-  padding: 0 7px;
+	padding: 0 4px;
+	display: inline-block;
 }
 
 .columnData > .itemList > .item > .itemAction .icon-pre {
-  display: block;
-  width: 18px;
-  height: 18px;
+	width: 18px;
+	display: inline-block;
 }
 
 .columnData > .itemList > .item.selected .icon-list-remove {
-  background-image: url('/media/image/interface/icons/icon_list_remove_active.svg');
+	background-image: url('/media/image/interface/icons/icon_list_remove_active.svg');
 }
 
 .columnData > .itemList > .item.selected .icon-list-edit {
-  background-image: url('/media/image/interface/icons/icon_list_edit_active.svg');
+	background-image: url('/media/image/interface/icons/icon_list_edit_active.svg');
 }
 
 .columnData > .itemList > .item.selected .icon-list-preview {
-  background-image: url('/media/image/interface/icons/icon_list_preview_active.svg');
+	background-image: url('/media/image/interface/icons/icon_list_preview_active.svg');
 }
 
 .columnData > .itemList > .item  > .itemLabel {
-  font-size: 18px;
-  text-transform: uppercase;
-  color: #243342;
-  display: inline-block;
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin: 0 7px 0 0;
-  flex-grow: 1;
+	font-size: 18px;
+	text-transform: uppercase;
+	color: #243342;
+	display: inline-block;
+	align-items: center;
+	position: relative;
+	max-width: calc(100% - 134px);
+	width: 100%;
+	vertical-align: middle;
+	margin: 0;
 }
 
 .columnData > .itemList > .item.selected  > .itemLabel {
-  padding: 0 24px 0 0;
+	padding: 0 24px 0 0;
 }
 
 .columnData > .itemList .item.selected .itemLabel:after {
-  background-image: url('/media/image/interface/icons/icon_list_arrow_right.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  content: "";
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  right: 0;
+	background-image: url('/media/image/interface/icons/icon_list_arrow_right.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	content: "";
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	right: 0;
+}
+
+
+.columnData > .itemList > .item  > .flag-cont {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.columnData > .itemList > .item  > .flag-cont.fr .icon-flag-en {
+	display: none;
+}
+
+.columnData > .itemList > .item  > .flag-cont.en .icon-flag-fr {
+	display: none;
+}
+
+@media screen and (max-width: 1600px) {
+	#content > .content .arboItem {
+		width: 49.5%;
+	}
+
+	#content > .content .arboItem:last-of-type {
+		width: 100%;
+	}
 }
 
 @media screen and (max-width: 1300px) {
-  .arbo {
-    flex-wrap: wrap;
-  }
-  .arbo .arboItem {
-    width: 50%;
-  }
+	.arbo {
+		flex-wrap: wrap;
+	}
+	.arbo .arboItem {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 1150px) {
+	.leftBar {
+		max-width: 90px !important;
+		min-width: 90px !important;
+	}
+
+	#content > .content {
+		padding-left: 90px !important;
+	}
 }
 
 @media screen and (max-width: 900px) {
-  .arbo {
-    display: column;
-    flex-wrap: wrap;
-  }
-  .arbo .arboItem {
-    width: 100%;
-  }
+	.arbo {
+		display: column;
+		flex-wrap: wrap;
+	}
+
+	/* #content > .content .arboItem {
+		width: 90%;
+	} */
+}
+
+@media screen and (max-width: 830px) {
+	#content > .content .arboItem,
+	#content > .content .arboItem:last-of-type {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 630px) {
+	#content > .content .arboItem,
+	#content > .content .arboItem:last-of-type {
+		width: 100%;
+	}
+
+	#content #contentView {
+	    padding: 0px 25px 45px 25px;
+	}
 }

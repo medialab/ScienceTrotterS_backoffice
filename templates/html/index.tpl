@@ -1,3 +1,4 @@
+{include file="include/html/form-error.tpl" aErrors=$aErrors|default:false}
 
 <div class="arbo">
 
@@ -9,35 +10,62 @@
 		</div>
 
 		<!-- DATA -->
-		<div id="cities" class="columnData">
-
+		<div id="cities" class="columnData" limit="{$aCities|count}" child="parcours" target="la ville">
 			<ul class="itemList">
-				{foreach $aCities as $city}
+
+				{foreach $aCities as $model}
+					{$model->setLang('default')}
+					{if !$model->force_lang && empty($model->title)}
+						{$model->setLang('en')}
+					{/if}
 					<!-- ITEM -->
-					<li class="item">
+					<li id="{$model->id}" class="item {if !$model->state}disabled{/if}" title="{$model->title}">
+						<!-- ACTIONS -->
 						<div class="itemAction">
-							<a class="delete-btn" href="/delete/city/{$city->id}.html">
+							<a class="delete-btn" target="{$model->id}" href="/delete/city/{$model->id}.html">
 								<i class="icon-pre icon-list-remove"></i>
 							</a>
-							<a class="edit-btn" href="/edit/city/{$city->id}.html">
+							<a class="edit-btn" href="/edit/city/{$model->id}.html">
 								<i class="icon-pre icon-list-edit"></i>
 							</a>
-							<a class="preview-btn" href="https://science-trotters.actu.com/#/cities">
-								<i class="icon-pre icon-list-preview"></i>
+							<a class="preview-btn">
+								<i class="icon-pre icon-list-check"></i>
 							</a>
 						</div>
-						<label class="itemLabel">{$city->label}</label>
+						<!-- / ACTION -->
+
+						<!-- TITLE -->
+						<label class="itemLabel">{$model->title}</label>
+						<!-- /TITLE -->
+
+						<!-- LANG FLAGS -->
+						<div class="flag-cont {$model->force_lang|default: ''}">
+							<i class="icon-pre icon-flag-fr"></i>
+							<i class="icon-pre icon-flag-en"></i>
+						</div>
+						<!-- /LANG FLAGS -->
+
+						<!-- LOAD SPINNER -->
+						<div class="spinner spinner-xs">
+							<div class="double-bounce1"></div>
+							<div class="double-bounce2"></div>
+						</div>
+						<!-- /LOAD SPINNER -->
 					</li>
-					<!-- .\ ITEM -->
+					<!-- /ITEM -->
 				{/foreach}
 
-				<!-- LOAD ITEM -->
-				<li class="item">
+				<!-- SANS VILLES -->
+				<li id="no-city" class="item item-notif">
 					<div class="itemAction">
 					</div>
-					<label class="itemLabel">{include file="include/spinner.tpl" size='xs'}</label>
+					<label class="itemLabel">Sans Ville</label>
+					<div class="spinner spinner-xs">
+						<div class="double-bounce1"></div>
+						<div class="double-bounce2"></div>
+					</div>
 				</li>
-				<!-- .\ LOAD ITEM -->
+				<!-- / SANS VILLES -->
 			</ul>
 
 		</div>
@@ -51,7 +79,7 @@
 		</div>
 
 	</div>
-	<!-- .\ ROW -->
+	<!-- /ROW -->
 
 	<!-- ROW -->
 	<div class="arboItem">
@@ -61,37 +89,24 @@
 		</div>
 
 		<!-- DATA -->
-		<div class="columnData">
+		<div id="parcours"  class="columnData" limit="" child="interests" target="le parcours">
 			<ul class="itemList">
-				{foreach $aParcours as $parcours}
-					<li class="item">
-						<div class="itemAction">
-							<a href="#">
-								<i class="icon-pre icon-list-remove"></i>
-							</a>
-							<a href="#">
-								<i class="icon-pre icon-list-edit"></i>
-							</a>
-							<a href="#">
-								<i class="icon-pre icon-list-preview"></i>
-							</a>
-						</div>
-						<label class="itemLabel">{$parcours->title}</label>
-					</li>
-				{/foreach}
+				<li id="" class="item item-notif">
+					<label class="itemLabel">Cliquez sur une ville<br>pour voir les parcours associés.</label>
+				</li>
 			</ul>
 		</div>
 
 		<!-- BTN LINK -->
 		<div class="columnBtnLink">
-			<a href="#">
+			<a href="/edit/parcours.html">
 				<i class="icon icon-create-roadMap"></i>
 				Créer un parcours
 			</a>
 		</div>
 
 	</div>
-	<!-- .\ ROW -->
+	<!-- /ROW -->
 
 	<!-- ROW -->
 	<div class="arboItem">
@@ -101,38 +116,20 @@
 		</div>
 
 		<!-- DATA -->
-		<div class="columnData">
+		<div id="interests"  class="columnData" limit="" target="le point d'interêt">
 			<ul class="itemList">
-				{foreach $aInterrests as $interrest}
-					<li class="item">
-						<div class="itemAction">
-							<a href="#">
-								<i class="icon-pre icon-list-remove"></i>
-							</a>
-							<a href="#">
-								<i class="icon-pre icon-list-edit"></i>
-							</a>
-							<a href="#">
-								<i class="icon-pre icon-list-preview"></i>
-							</a>
-						</div>
-						<label class="itemLabel">{$interrest->title}</label>
-					</li>
-				{/foreach}
+
 			</ul>
 		</div>
 
 		<!-- BTN LINK -->
 		<div class="columnBtnLink">
-			<a href="#">
-				<i class="icon icon-create-road"></i>
+			<a href="/edit/interest.html">
+				<i class="icon icon-poi"></i>
 				Créer un point d'intérêt
 			</a>
 		</div>
 
 	</div>
-	<!-- .\ ROW -->
-
-
-
+	<!-- /ROW -->
 </div>

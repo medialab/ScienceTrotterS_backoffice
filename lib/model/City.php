@@ -6,16 +6,54 @@ namespace Model;
  */
 class City extends Model
 {
+	/**
+	 * Class Du Model
+	 */
 	protected $sClass = 'City';
-	public static $ssClass = 'City';
-	
-	protected $aTranslateVars = ['label', 'state']; // les Variables à traduire
 
+	/**
+	 * Class Du Model En Static
+	 */
+	public static $ssClass = 'City';
+
+	/**
+	 * Nom du Model pour un utilisateur
+	 */
+	protected $sUserStr = 'la ville';
+	
+	/**
+	 * Variables à Traduire
+	 */
+	protected $aTranslateVars = ['title']; // les Variables à traduire
+
+	/**
+	 * Latitude
+	 */
 	protected $geoN;
+	
+	/**
+	 * Longitude
+	 */
 	protected $geoE;
+
+	/**
+	 * Géolocalisation
+	 */
 	protected $geoloc;
-	protected $label;
+
+	/**
+	 * Titre
+	 */
+	protected $title;
+
+	/**
+	 * Status
+	 */
 	protected $state;
+
+	/**
+	 * Image De Couverture
+	 */
 	protected $image;
 
 
@@ -25,62 +63,23 @@ class City extends Model
 		Parent::__construct($id, $aData);
 	}
 
+	/**
+	 * Chargement Des Données
+	 * @param  Array $oData Les Données
+	 * @return Bool        Success
+	 */
 	public function load($aData) {
 		Parent::load($aData);
+
+		// Mise à Jour De la Géoloc
 		$this->setGeoloc($this->geoloc);
 	}
 
-	
-	public function setGeoloc(&$geoloc) {
-		if ($geoloc === ';') {
-			$geoloc = null;
-		}
-		if (empty($geoloc)) {
-			$this->geoN = $geoloc;
-			$this->geoE = $geoloc;
-			return;
-		}
-
-		$aMatches = [];
-		
-		if (!preg_match_all('/^(-?[0-9]{1,2}\.?[0-9]{0,4});(-?[0-9]{1,3}\.?[0-9]{0,4})$/', $geoloc, $aMatches)) {
-			trigger_error("Faild to Set City::geoloc propoerty. Value is Invalid");
-			return;
-		}
-
-		/*$this->geoloc = $geoloc;*/
-		$this->geoN = $aMatches[1][0];
-		$this->geoE = $aMatches[2][0];
-	}
-
-	public function setGeoN($geoN) {
-		var_dump("Setting GeoN", $geoN);
-		if (!empty($geoN) && !preg_match('/^[0-9]{1,2}\.?[0-9]{0,4}$/', $geoN)) {
-			throw new Exception('Error: Invalid Lattitude Value: '.$geoN, 1);
-		}
-
-		if (empty($geoN) && empty($this->$geoE)) {
-			$this->geoloc = null;
-		}
-		else {
-			$this->geoloc = $geoN.';'.$this->geoE;
-		}
-	}
-
-	public function setGeoE($geoE) {
-		var_dump("Setting GeoE", $geoE);
-		if (!empty($geoE) && !preg_match('/^[0-9]{1,3}\.?[0-9]{0,4}$/', $geoE)) {
-			throw new Exception('Error: Invalid Longitude Value: '.$geoE, 1);
-		}
-
-		if (empty($geoE) && empty($this->$geoN)) {
-			$this->geoloc = null;
-		}
-		else {
-			$this->geoloc = $this->geoN.';'.$geoE;
-		}
-	}
-
+	/**
+	 * Réécritue Ecriture de variable
+	 * @param String $sVar  Nom de la variable
+	 * @param Mixed $value Valeur de la variable 
+	 */
 	function __set($sVar, $var) {
 		switch ($sVar) {
 			case 'geoloc':
@@ -102,7 +101,28 @@ class City extends Model
 		Parent::__set($sVar, $var);
 	}
 
-	public static function list($limit=0, $page=0, $sClass=false) {
-		return Parent::list($limit, $page, self::$ssClass);
+
+	/**
+	 * [list description]
+	 * @param  integer $limit    Limite
+	 * @param  integer $page     Page
+	 * @param  boolean $columns  Les Colones
+	 * @param  boolean $aOptions Options
+	 * @param  boolean $sClass   La Classe Du Modèle
+	 * @return Array            Array Des Modèles
+	 */
+	public static function list($limit=0, $page=0, $columns=false, $aOptions=false, $sClass=false) {
+		return Parent::list($limit, $page, $columns, $aOptions, self::$ssClass);
+	}
+
+	/**
+	 * Recherche Par Id
+	 * @param  integer $id     Id
+	 * @param  array   $aData  Donée Par Défault
+	 * @param  boolean $sClass Class Du Model
+	 * @return Model          Le Model
+	 */
+	public static function get($id=0, $aData=[], $sClass=false) {
+		return Parent::get($id, $aData, self::$ssClass);
 	}
 }

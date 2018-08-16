@@ -1,221 +1,229 @@
+#content > .content {
+  overflow: scroll;
+}
+
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 @font-face {
-  font-family: 'montserratregular';
-  src: url('/media/font/montserrat/montserrat-regular.eot');
-  src: url('/media/font/montserrat/montserrat-regular.eot?#iefix') format('embedded-opentype'),
-  url('/media/font/montserrat/montserrat-regular.woff2') format('woff2'),
-  url('/media/font/montserrat/montserrat-regular.woff') format('woff'),
-  url('/media/font/montserrat/montserrat-regular.ttf') format('truetype'),
-  url('/media/font/montserrat/montserrat-regular.svg#montserratregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'montserratregular';
+	src: url('/media/font/montserrat/montserrat-regular.eot');
+	src: url('/media/font/montserrat/montserrat-regular.eot?#iefix') format('embedded-opentype'),
+	url('/media/font/montserrat/montserrat-regular.woff2') format('woff2'),
+	url('/media/font/montserrat/montserrat-regular.woff') format('woff'),
+	url('/media/font/montserrat/montserrat-regular.ttf') format('truetype'),
+	url('/media/font/montserrat/montserrat-regular.svg#montserratregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 body {
-  margin: 0;
-  border: 0;
-  padding: 0;
-  background-color: #F0F0F7;
-  font-family: 'montserratregular', sans-serif !important;
+	margin: 0;
+	border: 0;
+	padding: 0;
+	background-color: #F0F0F7;
+	font-family: 'montserratregular', sans-serif !important;
 }
 
 .app {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  width: 100%;
-  height: 100vh;
-  overflow-y: hidden;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	width: 100%;
+	height: 100vh;
+	overflow-y: hidden;
 }
 
 .content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
 }
 
-.leftBar {
-  width: 300px;
-  min-width: 300px;
-  background-color: #6C7A89;
-  transition: 0.3s;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+/* .leftBar {
+	width: 300px;
+	min-width: 300px;
+	background-color: #6C7A89;
+	transition: 0.3s;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
 }
 
 .leftBar.close {
-  width: 90px !important;
-  min-width: 90px !important;
+	width: 90px !important;
+	min-width: 90px !important;
 }
 
 .leftBar .header {
-  background-color: #3156A6;
-  width: 100%;
-  height: 56px;
-  min-height: 56px;
+	background-color: #3156A6;
+	width: 100%;
+	height: 56px;
+	min-height: 56px;
 }
 
 .leftBar .header #closeMenuBtn {
-  background-color: transparent;
-  background-image: url('/media/image/interface/leftbar/sts-full.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  border: 0;
-  width: calc(100% - 24px);
-  height: 44px;
-  margin: 6px 12px;
+	background-color: transparent;
+	background-image: url('/media/image/interface/leftbar/sts-full.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 0;
+	width: calc(100% - 24px);
+	height: 44px;
+	margin: 6px 12px;
 }
 
 .leftBar .content {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  flex-grow: 1;
-}
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	flex-grow: 1;
+} */
 
-.leftBar .itemList {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  overflow-y: auto;
-  transition: 0.3s;
-}
+/* .leftBar .itemList {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	margin: 0;
+	padding: 0;
+	overflow-y: auto;
+	transition: 0.3s;
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: auto;
+	top: 56px;
+	bottom: 0;
+} */
 
 /**
 * HIDE ITEM LIST SCROLL BAR
 * WORK ONLY FOR CHROME.
 */
 .itemList::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
+		width: 0px;
+		background: transparent;
 }
 .itemList::-webkit-scrollbar-thumb {
-    background: #6C7A89;
+		background: #6C7A89;
 }
-
+/* 
 .leftBar .itemList .item {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  padding: 18px 20px;
-  border-bottom: 1px solid #A1ABB7;
-  transition: 0.3s;
-  min-height: 87px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	padding: 18px 20px;
+	border-bottom: 1px solid #A1ABB7;
+	transition: 0.3s;
+	min-height: 87px;
 }
 
 .leftBar .itemList .item .itemClick {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  text-decoration: none;
-  cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .leftBar .itemList .item:hover, .item.selected {
-  background-color: #243342;
+	background-color: #243342;
 }
 
 .leftBar .itemList .item .itemIcon {
-  width: 30px;
-  min-width: 30px;
-  height: 30px;
-  min-height: 30px;
-  margin: 10px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+	width: 30px;
+	min-width: 30px;
+	height: 30px;
+	min-height: 30px;
+	margin: 10px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
 }
 
 .leftBar .itemList .item .itemLabel {
-  flex-grow: 1;
-  color: white;
-  padding: 0 0 0 20px;
-  font-size: 14px;
-  cursor: pointer;
+	flex-grow: 1;
+	color: white;
+	padding: 0 0 0 20px;
+	font-size: 14px;
+	cursor: pointer;
 }
 
-/**
+*
 * OTHERS
-*/
 
 .leftBar .itemList .item .itemLabel.itemLogo {
-  padding: 0 !important;
-  text-align: center;
+	padding: 0 !important;
+	text-align: center;
 }
 
 .itemListAuthors {
-  flex-grow: 1;
+	flex-grow: 1;
 }
 
 .itemBySTS, .itemBySTS:hover {
-  background-color: #6C7A89 !important;
-  flex-grow: 1;
+	background-color: #6C7A89 !important;
+	flex-grow: 1;
 }
 
 .itemByTNG, .itemByTNG:hover {
-  background-color: #180530 !important;
-}
+	background-color: #180530 !important;
+} */
 
 /**
 * SUB ITEM LIST
 */
 
 .subItemList {
-  flex-direction: column;
-  flex-wrap: nowrap;
-  list-style: none;
-  display: none;
-  transition: 0.3s;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	list-style: none;
+	display: none;
+	transition: 0.3s;
 }
 .item.selected .subItemList {
-  display: flex;
+	display: flex;
 }
 
 .subItem {
-  padding: 7px 0 7px 30px;
+	padding: 7px 0 7px 30px;
 }
 
 .subItem .subItemClick {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  color: white;
-  text-decoration: none;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	color: white;
+	text-decoration: none;
 }
 
 .subItem .subItemIcon {
-  width: 30px;
-  min-width: 30px;
-  height: 30px;
-  min-height: 30px;
-  border: 2px solid white;
+	width: 30px;
+	min-width: 30px;
+	height: 30px;
+	min-height: 30px;
+	border: 2px solid white;
 }
 
 .subItem .subItemLabel {
-  font-size: 14px;
-  padding: 0 0 0 7px;
+	font-size: 14px;
+	padding: 0 0 0 7px;
 }
 
 
 /**
 * ON MENU CLOSE STATE
 */
-.leftBar.close .itemList .item .itemLabel {
-  display: none !important;
-}
-.leftBar.close .subItemList {
-  display: none !important;
-}
+/* .leftBar.close .itemList .item .itemLabel {
+	display: none !important;
+} */
+/* .leftBar.close .subItemList {
+	display: none !important;
+} */
 
 /**
 * FIL D'ARIANE
@@ -226,28 +234,48 @@ body {
 }
 
 .filDAriane > .pathList {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
 }
 
 .filDAriane > .pathList > .pathName {
-  color: #BCBCCB;
-  display: inline-block;
-  font-size: 15px;
+	color: #BCBCCB;
+	display: inline-block;
+	font-size: 15px;
 }
 
 .filDAriane > .pathList > .pathName:after  {
-  content: "/";
-  padding: 0 5px;
+	content: "/";
+	padding: 0 5px;
 }
 
 .filDAriane > .pathList > .pathName:last-child:after {
-  content: '';
+	content: '';
 }
 
 .filDAriane > .pathList > .pathName > .faLink, .faLink:visited {
-  color: #BCBCCB;
-  text-decoration: none;
+	color: #BCBCCB;
+	text-decoration: none;
+}
+
+
+.columnData > .itemList > .item.disabled label.itemLabel{
+	color: #a8a8a8 !important;
+}
+
+.columnData li.item a {
+	cursor: pointer;
+}
+
+.columnData li.item.item-notif .itemLabel {
+	width: 100%;
+	max-width: 100%;
+	text-align: center;
+}
+
+.columnData li.item.item-notif .itemAction,
+.columnData li.item.item-notif .flag-cont {
+	display: none;
 }

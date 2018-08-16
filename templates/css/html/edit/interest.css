@@ -15,3 +15,50 @@ background: 					#F0F0F7;
 position: 						relative;
 top: 							-20px;
 }
+
+#box-imgs-interest .blocInputFileName {
+	margin: 0;
+}
+
+#box-imgs-interest .blocInputFileName label.btnInputFileName {
+max-width:           calc( 200px - 20px );
+min-width:          150px;
+}
+
+.box .inputFile + label.btnInputFileName p {
+	bottom: 0;
+}
+
+
+
+#gallery-container {
+	width: 100%;
+	margin: 15px 0;
+	padding: 15px 0;
+	text-align: center;
+	background: #F0F0F7;
+	display: inline-block;
+}
+
+#box-imgs-interest .blocInputFileName {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#box-imgs-interest .blocInputFileName label.btnInputFileName {
+    margin: 0;
+    padding: 0;
+    /* padding: 15px 0px; */
+    display: inline-block;
+    /* vertical-align: middle; */
+}
+
+#box-imgs-interest .blocInputFileName label.btnInputFileName img {
+	margin: 0;
+}
+
+#box-imgs-interest .inputFile + label.btnInputFileName p {
+	width: 100%;
+	position: relative;
+}

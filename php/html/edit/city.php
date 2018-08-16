@@ -2,140 +2,105 @@
 
 /* Récupération de l'ID de la ville s'il existe */
 $id = !empty($_GET['id']) ? $_GET['id'] : false;
+
+// Si l'Id de la Ville n'est pas Valide
 if ($id && !fIdValidator($id)) {
-	header('location: /cities.html');
+	$_SESSION['session_msg']['error'] = [
+		'Impossible de trouver la ville demandée'
+	];
+
+	header('location: /');
 }
 
+// Définition Du Titre Du Formulaire
 if ($id) {
-	/* Titre du formulaire */
+	$bIsCreate = false;
 	$smarty->assign('sCreation', 'Mise à jour d\'une ville');
 }
 else{
+	$bIsCreate = true;
 	$smarty->assign('sCreation', 'Création d\'une ville');
 }
 
+/*ApiMgr::$debugMode = true;*/
+// Chargement De la Ville
 $oCity = new \Model\City($id);
+/*exit;*/
+
+// Si La Ville Est Introuvable
+if ($id && !$oCity->isLoaded()) {
+	$_SESSION['session_msg']['error'] = [
+		'Impossible de trouver la ville demandée'
+	];
+
+	header('location: /');
+}
+elseif($id) {
+	$oCity->setLang('default');
+	$aFilDArianne[] = $oCity->title;
+}
 
 /* Validation du formulaire */
-if (fMethodIs('post')) {
-	//var_dump("===== VALIDATING =====");
+if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
+	// var_dump("===== VALIDATING =====", $_POST);
 
-	$sLang = empty($_POST['lang']) ? false : $_POST['lang'];
-	if (!$sLang) {
-		$aErrors['lang'] = 'Aucune langue n\'a été sélectionnée';
-	}
-
-	$oCity->setLang($sLang);
-
-	/* Validation Du Label */
-		if(!fRequiredValidator('label', $_POST)) {
-			$aErrors['Nom'] = 'Ce champs est obligatoire';
-		}
-		else{
-			$oCity->label = $_POST['label'];
-		}
-
-	/* Validation Du Status */
-		$_POST['state'] = (bool) (empty($_POST['state']) ? 0 : $_POST['state']);
-		$oCity->state = $_POST['state'];
-
-	/* Validation De la Géolocalisation */
-		/* Validation De la Latitude */
-		if (!empty($_POST['geo-n'])) {
-			$geoN = &$_POST['geo-n'];
-
-			if (empty($geoN)) {
-				$aErrors['Longitude'] = 'Ce champs est obligatoire';
-			}
-			else{
-				if (!is_numeric($geoN) || $geoN < -90 || $geoN > 90) {
-					$aErrors['Latitude'] = 'Ce Champs doit être compris entre -90° et 90°';
-				}
-			}
-		}
-
-		/* Validation De la Longitude */
-		if (!empty($_POST['geo-e'])) {
-			$geoE = &$_POST['geo-e'];
-
-			if (empty($_POST['geo-n'])) {
-				$aErrors['Latitude'] = 'Ce champs est obligatoire';
-			}
-			else{
-				if (!is_numeric($geoE) || $geoE < -180 || $geoE > 180) {
-					$aErrors['Latitude'] = 'Ce Champs doit être compris entre -180° et 180°';
-				}
-			}
-		}
-
-		if (empty($aErrors['Latitude']) && empty($aErrors['Latitude'])) {		
-			$oCity->geoloc = $_POST['geo-n'].';'.$_POST['geo-e'];
-		}
-
-	/* Validation de L'image */
-		$aFileTypes = ['png', 'jpg', 'jpeg'];
-		if (!fFileExtensionValidator('img', $aFileTypes)) {
-			$mimes = fGetAuthorizedMimes($aFileTypes);
-			
-			if (count($mimes) > 1) {
-				$aErrors['Image'] = 'L\'image doit faire parti des types suivants: .'.join(', .', $aFileTypes);
-			}
-			else{
-				$aErrors['Image'] = 'L\'image doit être du type suivant: .'.join('', $aFileTypes);
-			}
-		}
-
-		$maxSize = '500Mo';
-		if (!fFileZieValidator('img', $maxSize)) {
-			$aErrors['Image'] = 'L\'image ne peut dépasser 500 Mo';
-		}
-
-	/* Si On a pad d'erreur on prepare L'object ville */
+	/* Si On a pas d'erreur on prepare L'object ville */
 	if (empty($aErrors)) {
 
 		/* Sauvegarde Temporaire de l'image */
-		if (!empty($_FILES['img']) && !empty($_FILES['img']['name'])) {
-			/* Création du dossier */
-			if (!is_dir(UPLOAD_PATH.'cities')) {
-				mkdir(UPLOAD_PATH.'cities', 0775, true);
-			}
-
-			$imgPath = 'cities/'.fCreateFriendlyUrl($_FILES['img']['name']);
-			$dest = UPLOAD_PATH.$imgPath;
-
-			/* Si le fichier existe on le remplace */
-			if (file_exists($dest)) {
-				unlink($dest);
-			}
-
-			move_uploaded_file($_FILES['img']['tmp_name'], $dest);
-
-			/* On Sauvegarde le nouveau path de l'image*/
-			$oCity->image = $imgPath;
+		$bImgUpdated = false;
+		if (!empty($_FILES['img']) && !$_FILES['img']['error']) {
+			$bImgUpdated = true;
+			$sPrevImg = $oCity->image;
+			$oCity->image = handleUploadedFile('img', 'cities/image');
 		}
-
-		/* La ville ne peut être active que si tout les champs sont remplis */
-		if (!strlen($oCity->geoloc) || !strlen($oCity->image)) {
-			$oCity->state = false;
-			
-			if ($_POST['state']) {
-				$aErrors['state'] = 'Attention: la ville ne peut être publiée qu\'une fois tous les champs remplis.';
-			}
-		}
-
+		
+		/*ApiMgr::$debugMode = true;*/
 		$oSaveRes = $oCity->save();
+		/*exit;*/
+
+		// Si La Sauvegarde a Echoué
 		if (!$oSaveRes->success) {
-			$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+			if ($bImgUpdated) {
+				$oCity->image = $sPrevImg;
+			}
+			if(!empty($oSaveRes->message)) {
+				$aErrors['Erreur'] = $oSaveRes->message;
+			}
+			else{
+				$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+			}
 		}
-		elseif(!empty($oSaveRes->message)) {
-			$aErrors['Erreur'] = $oSaveRes->message;
-		}
-		elseif (!$id && empty($aErrors)) {	// On redirige pour se mettre en modification
-			header('location: /edit/city/'.$oCity->id.'.html');
-			exit;
+		// Si La Sauvegarde a Réussi
+		else {
+			$_SESSION['session_msg'] = [
+				'success' => [
+					'La ville a bien été sauvegardée'
+				]
+			];
+
+			// Si Un Message a été Envoyé
+			if (!empty($oSaveRes->message)) {
+				$_SESSION['session_msg']['warning'] = [
+					$oSaveRes->message
+				];
+			}
+
+			// Si la Ville à été Insérée On Redirige Sur la page de modification
+			if (!$id && $bIsCreate && empty($aErrors)) {
+				header('location: /edit/city/'.$oCity->id.'.html?lang='.$oCity->getLang());
+				exit;
+			}
 		}
 	}
 }
 
+// Chargement Des Js Supplémentaires
+addJs(
+	'geo-input',
+	'img-upload'
+);
+
 $smarty->assign('oCity', $oCity);
+$smarty->assign('oModel', $oCity);
 $smarty->assign("aErrors", $aErrors);

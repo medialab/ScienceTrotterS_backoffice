@@ -3,6 +3,10 @@
   */
 
 .icon-pre {
+  display: block;
+  width: 18px;
+  height: 18px;
+  
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -20,19 +24,28 @@
 .lb-icon-roadMap {
   background-image: url('/media/image/interface/leftbar/icons/icon_roadMap.svg');
 }
+.lb-icon-iconInfo {
+  background-image: url('/media/image/interface/leftbar/icons/icon-info.svg');
+}
 .lb-icon-logout {
   background-image: url('/media/image/interface/leftbar/icons/icon_logout.svg');
 }
 .icon-create-city {
-  background-image: url('/media/image/interface/icons/icon_create_city.svg');
+  background-image: url('/media/image/interface/icons/icon_create_city_blue.svg');
+}
+a:hover .icon-create-city {
+  background-image: url('/media/image/interface/icons/icon_create_city_white.svg');
 }
 .icon-create-road {
   background-image: url('/media/image/interface/icons/icon_create_road.svg');
 }
 .icon-create-roadMap {
-  background-image: url('/media/image/interface/icons/icon_create_roadMap.svg');
+  background-image: url('/media/image/interface/icons/icon_create_road.svg');
 }
-.icon-list-remove {
+a:hover .icon-create-roadMap {
+  background-image: url('/media/image/interface/icons/icon_create_road_white.svg');
+}
+.icon-list-remove { 
   background-image: url('/media/image/interface/icons/icon_list_remove.svg');
 }
 .icon-list-edit {
@@ -52,4 +65,27 @@
 }
 .icon-list-arrow-right {
   background-image: url('/media/image/interface/icons/icon_list_arrow_right.svg');
+}
+.icon-flag-fr {
+  background-image: url('/media/image/interface/icons/icon_french_flag.svg');
+}
+.icon-flag-en {
+  background-image: url('/media/image/interface/icons/icon_english_flag.svg');
+}
+
+.icon-list-check {
+  background-size: 170%;
+  background-image: url('/media/image/interface/icons/check-on.svg');
+}
+
+.disabled .icon-list-check {
+  background-image: url('/media/image/interface/icons/check-off.svg');
+}
+
+
+.icon-poi {
+  background-image: url('/media/image/interface/icons/icon_poi_blue.svg');
+}
+a:hover .icon-poi{
+  background-image: url('/media/image/interface/icons/icon_poi_white.svg');
 }

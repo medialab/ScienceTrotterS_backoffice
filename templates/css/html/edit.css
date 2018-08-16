@@ -1,3 +1,7 @@
+#content .tab form {
+	padding: 0px 15px; 
+}
+
 .tab-selector {
 	width: 1040px;
 	max-width: 70%;
@@ -41,15 +45,28 @@
     border-color: #d5d5d5;
 }
 
-.tab-selector .french-only{
+.tab-selector .lang-only{
 	right: 0;
 	bottom: 0;
 	position: absolute;
 	display: inline-block;
 }
 
+.tab-selector .lang-only {
+	display: none;
+}
+
+.tab-selector[target='fr'] .lang-only[target='fr'] {
+	display: inline-block;
+}
+
+.tab-selector[target='en'] .lang-only[target='en'] {
+	display: inline-block;
+}
+
 .cust-checkbox {
 	cursor: pointer;
+	text-transform: capitalize;
 }
 
 .cust-checkbox .check {
@@ -94,4 +111,196 @@
 
 .tab {
 	display: none;
+}
+
+.audio-name {
+	
+}
+
+.box .borderGrey .blocInputFileName label.btnInputFileName {
+	text-align: center;
+	text-transform: initial;
+}
+
+.box .borderGrey .blocInputFileName label.btnInputFileName img{
+	width: auto;
+	height: auto;
+	max-width: 80%;
+	margin: 20px 0;
+}
+
+.box .borderGrey .blocInputFileName label.btnInputFileName img[src="/media/image/interface/icons/icon_photo.svg"]{
+	height: 50px;
+}
+
+#box-Interets ul.interest-list {
+	color: gray;
+	list-style: none;
+	overflow-y: auto;
+	max-height: 400px;
+	padding-left: 15px;
+	text-transform: uppercase;
+}
+
+#box-Interets ul.interest-list li {
+	width: 100%;
+}
+
+ul.interest-list a {
+    padding: 5px 0;
+    display: inline-block;
+    font-size: 16px;
+    text-decoration: none;
+    color: gray;
+    width: 100%;
+}
+ul.interest-list a:hover {
+	text-decoration: underline;
+}
+
+textarea#description,
+textarea#audio_script {
+	min-height: 250px;
+}
+
+
+#box-Ville.box {
+	margin-top: 0;
+}
+
+.color-selector{
+	display: none;
+}
+
+.cust-color-selector {
+	width: 100%;
+	height: 46px;
+	cursor: pointer;
+	max-width: 350px;
+	border: 1px solid;
+	position: relative;
+	padding: 5px 0;
+	line-height: 1;
+}
+
+.cust-color-selector input{
+	left: -1500%;
+	position: absolute;
+}
+
+.cust-color-selector div.option-container{
+	/* display: none; */
+}
+
+.cust-color-selector div.opt-color {
+    border: 1px solid;
+    margin-right: 5px;
+    padding: 10px 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 4px;
+}
+
+.cust-color-selector div.sel-opt {
+    width: 100%;
+    padding: 5px 10px;
+}
+
+.cust-color-selector div.sel-opt:hover,
+.cust-color-selector div.sel-opt.selected {
+	background-color: lightgray;
+}
+
+.cust-color-selector .sel-opt.opt-selected:hover {
+	background-color: white;
+}
+
+.cust-color-selector .sel-opt.opt-selected div.opt-color {
+    margin-top: 0;
+}
+
+.cust-color-selector div.option-container {
+    left: -1px;
+    right: -1px;
+    top: 100%;
+    z-index: 5;
+    padding: 0px;
+    display: none;
+    border: 1px solid;
+    position: absolute;
+    background-color: white;
+}
+
+.cust-color-selector.on div.option-container {
+    display: inline-block;
+}
+
+.cust-color-selector div.opt-text {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: calc(100% - 52px);
+}
+
+.box p.time {
+	display: inline-block;
+}
+
+.box .spinner {
+	vertical-align: sub;
+	display: inline-block;
+}
+
+.box .spinner-xs {
+	width: 15px;
+	height: 15px;
+}
+
+@media screen and (max-width: 1350px) {
+	.tab-selector {
+		width: 100%;
+		max-width: initial;
+	}
+
+	.box {
+		width: 100%;
+	}
+
+	#box-Ville.box {
+		margin-top: 40px;
+	}
+
+}
+
+form .flag-ico {
+	width: 14px;
+	height: 14px;
+	margin-left: 5px;
+	display: inline-block;
+	background-repeat: no-repeat;
+}
+
+#tab-fr form .flag-ico {
+	background-image: url(/media/image/interface/icons/icon_french_flag.svg);
+}
+
+#tab-en form .flag-ico {
+	background-image: url(/media/image/interface/icons/icon_english_flag.svg);
+}
+
+.box .inputFile + label.btnInputFileName p {
+	font-size: 						12px;
+	text-transform: 				none;
+	position: 						absolute;
+	bottom: 						25px;
+}
+
+.box .btnInputFileName p {
+	margin: 0;
+	color: black;
+	font-size: 14px;
+}
+
+.box p.audio-cnt {
+	display: inline-block;
 }

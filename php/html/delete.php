@@ -16,9 +16,36 @@ if ($id && !fIdValidator($id)) {
 $sClass = $aPage[1];
 $oMdl = Model\Model::get($id, null, ucfirst($sClass));
 
+
+//ApiMgr::$debugMode = true;
 if ($oMdl->isLoaded()) {
-	$b = $oMdl->delete();
+	$oMdl->setLang('fr');
+
+	if ($oMdl->delete()) {
+		$_SESSION['session_msg'] = [
+			'success' => [
+				'Suppression de '.$oMdl->title.' réussie.'
+			]
+		];
+	}
+	else{
+		$_SESSION['session_msg'] = [
+			'error' => [
+				'Impossible de supprimer '.$oMdl->sUserStr.' "'.$oMdl->title.'"',
+				ApiMgr::getMessage()
+			]
+		];
+	}
 }
+else{
+	$_SESSION['session_msg'] = [
+		'error' => [
+			'Impossible de trouver '.$oMdl->sUserStr
+		]
+	];
+}
+
+
 
 header('location: /');
 exit;

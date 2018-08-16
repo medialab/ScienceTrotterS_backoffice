@@ -1,104 +1,205 @@
-.mainContent {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-}
-
 /**
 * NAV BAR
 */
-
 .navBar {
-  width: 100%;
-  height: 56px;
-  min-height: 56px;
-  background-color: white;
-}
-
-.itemsNavBar {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
-  height: 56px;
-}
-
-.itemsNavBar .item {
-
-}
-
-.itemsNavBar .item.searchBar {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-}
-
-.itemsNavBar .item.itemClick {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: center;
-  padding: 0 40px; 
-}
-
-.itemsNavBar .item.itemClick .itemIcon {
-  width: 25px;
-  height: 25px;
+	width: 100%;
+	z-index: 100;
+	height: 56px;
+	min-height: 56px;
+	background-color: white;
 }
 
 .itemsNavBar .item.itemClick .itemIcon.iconMessage {
-  background-image: url('/media/image/interface/navbar/icon-message.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  position: relative;
+	background-image: url('/media/image/interface/navbar/icon-message.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	position: relative;
 }
 
 .itemsNavBar .item.itemClick .itemIcon.iconMessage .notif {
-  background-color: #E6534E;
-  color: white;
-  display: block;
-  text-align: center;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  font-size: 12px;
-  left: 60%;
+	background-color: #E6534E;
+	color: white;
+	display: block;
+	text-align: center;
+	border-radius: 50%;
+	width: 24px;
+	height: 24px;
+	line-height: 24px;
+	font-size: 12px;
+	left: 60%;
 }
 
 .itemsNavBar .item.itemClick .itemIcon.iconInfo {
-  background-image: url('/media/image/interface/navbar/icon-info.svg');
-  background-repeat: no-repeat;
-  background-position: center;
+	background-image: url('/media/image/interface/navbar/icon-info.svg');
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .itemsNavBar .item.itemClick .itemLabel {
-  font-size: 10px;
-  color: #BCBCCB;
+	font-size: 10px;
+	color: #BCBCCB;
 }
 
 /**
-  * Input Search Bar
-  */
+	* Input Search Bar
+	*/
 #inputSearchBar {
-  width: 100%;
-  height: 56px;
-  color: #BCBCCB;
-  font-size: 15px;
-  padding: 0 7px;
-  border: 0px;
+	color: #4B4B57;
+	
+	border: 0px;
+	height: 56px;
+	padding: 0 7px;
+	font-size: 15px;
+	width: calc(100% - 65px);
 }
 
-.labelSearchBar {
-  background-image: url('/media/image/interface/navbar/icon-search.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 16px;
-  height: 16px;
-  margin: 0 15px 0 35px;
+
+.leftBar {
+	width: 300px;
+	min-width: 300px;
+	transition: 0.3s;
+	background-color: #6C7A89;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	display: block;
+	position: fixed;
 }
 
+.leftBar .content {
+	display: block;
+	height: calc(100% - 56px);
+	position: relative;
+}
+
+.leftBar.close {
+	width: 90px !important;
+	min-width: 90px !important;
+}
+
+.leftBar .header {
+	width: 100%;
+	height: 56px;
+	cursor: pointer;
+	min-height: 56px;
+	background-color: #3156A6;
+
+}
+
+.leftBar .header button {
+	cursor: pointer;
+}
+
+.leftBar .header #closeMenuBtn {
+	background-color: transparent;
+	background-image: url('/media/image/interface/leftbar/sts-full.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 0;
+	width: calc(100% - 24px);
+	height: 44px;
+	margin: 6px 12px;
+}
+
+.leftBar .itemList {
+	margin: 0;
+	padding: 0;
+	height: calc(100% - 115px);
+	display: inline-block;
+	overflow-y: auto;
+	transition: 0.3s;
+	width: 100%;
+	overflow-x: hidden;
+}
+
+.leftBar .itemList .item {
+	display: block;
+	transition: 0.3s;
+	min-height: 87px;
+	padding: 12px 20px;
+	border-bottom: 1px solid #A1ABB7;
+	width: 100%;
+}
+
+.leftBar .itemList .item .itemClick {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.leftBar .itemList .item:hover, .item.selected {
+	background-color: #243342;
+}
+
+.leftBar .itemList .item .itemIcon {
+	width: 30px;
+	min-width: 30px;
+	height: 30px;
+	min-height: 30px;
+	margin: 10px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+.leftBar .itemList .item .itemLabel {
+	flex-grow: 1;
+	color: white;
+	padding: 0 0 0 20px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+/**
+* OTHERS
+*/
+
+.leftBar .itemList .item .itemLabel.itemLogo {
+	padding: 0;
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+.item.itemByTNG {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.leftBar .itemByTNG a{
+	width: 100%;
+	padding: 0px;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.leftBar .itemByTNG a img {
+	max-height: 100px;
+}
+
+.leftBar.close .itemByTNG a {
+    padding: 30px 0px;
+}
+
+.leftBar.close .header #closeMenuBtn {
+    background-image: url('/media/image/interface/leftbar/sts-ico.svg');
+}
+
+@media screen and (max-width: 1150px) {
+	.leftBar .header #closeMenuBtn {
+	    background-image: url('/media/image/interface/leftbar/sts-ico.svg');
+	}
+
+	.leftBar .itemByTNG a {
+	    padding: 16px 5px;
+	}
+
+	.leftBar .itemList .itemByTNG {
+		padding: 12px 0;
+	}
+}

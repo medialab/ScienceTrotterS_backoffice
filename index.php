@@ -1,10 +1,8 @@
 <?php
 /*
-if ($_SERVER['REMOTE_ADDR'] === '194.150.15.75') {
-	var_dump($_SERVER['REQUEST_URI']);
-	var_dump($_GET);
-	exit;
-}*/
+var_dump($_GET);
+exit;
+*/
 
 // Gestion des erreurs 
 	ini_set( 'display_errors', true );
@@ -13,43 +11,45 @@ if ($_SERVER['REMOTE_ADDR'] === '194.150.15.75') {
 	ini_set('xdebug.var_display_max_depth', -1);
 	ini_set('xdebug.var_display_max_children', -1);
 
-	define( 'LIBRARY_PATH',        './lib/' );
-	define( 'TEMPLATE_PATH',        './templates/' );
+	define( 'LIBRARY_PATH', './lib/' );
+	define( 'TEMPLATE_PATH', '/templates/' );
+	
+	define( 'JS_PATH', TEMPLATE_PATH.'js/lib/');
+	define( 'CSS_PATH', TEMPLATE_PATH.'css/lib/');
+	
 	define( 'UPLOAD_PATH',      	realpath('.').'/media/upload/' );
 
-
+// Récupération de la Configuration
 	require_once('./config/defines.php');
 
-	// Fonction de chargement dynamique des classes
-		function fAutoLoader( $sClassName ){
-			$aDirectoryClass			=	explode( '\\', $sClassName );
-			$aDirectoryClass[0]			=	strtolower( $aDirectoryClass[0] );
-			$sDirectoryClassName		=	implode( $aDirectoryClass, '/' );
+// Fonction de chargement dynamique des classes
+	function fAutoLoader( $sClassName ){
+		$aDirectoryClass			=	explode( '\\', $sClassName );
+		$aDirectoryClass[0]			=	strtolower( $aDirectoryClass[0] );
+		$sDirectoryClassName		=	implode( $aDirectoryClass, '/' );
 
 
-			if ( count( $aDirectoryClass ) == 1 ) {
-				$sDirectoryClassName		.=	'/'. $sClassName;
-			}
+		if ( count( $aDirectoryClass ) == 1 ) {
+			$sDirectoryClassName		.=	'/'. $sClassName;
+		}
 
-			$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.class.php' );
+		$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.class.php' );
 
+		// var_dump($sPathClassName);
+		if ( file_exists( $sPathClassName ) ) {
+			require_once( realpath( $sPathClassName ) );
+
+		} 
+		else {
+
+			$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.php' );
 			// var_dump($sPathClassName);
 			if ( file_exists( $sPathClassName ) ) {
 				require_once( realpath( $sPathClassName ) );
-
-			} 
-			else {
-
-				$sPathClassName			=	( LIBRARY_PATH . $sDirectoryClassName .'.php' );
-				// var_dump($sPathClassName);
-				if ( file_exists( $sPathClassName ) ) {
-					require_once( realpath( $sPathClassName ) );
-				}
 			}
-		} spl_autoload_register( 'fAutoLoader' );
-	//---nano .gitignore
+		}
+	} spl_autoload_register( 'fAutoLoader' );
+//---
 
-// On appel la bonne page
+// Chargement Du Site
 	require_once('./bootstrap.php');
-
-

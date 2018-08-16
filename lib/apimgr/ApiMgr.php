@@ -4,6 +4,8 @@
  * 
  */
 class ApiMgr {
+	const REFRESH_FAIL = 1;
+
 	private static $mail;				// API E-MAIL
 	private static $pass;				// API PASSWORD
 	private static $token = false;		// Api Token
@@ -14,13 +16,15 @@ class ApiMgr {
 	
 	private static $curPage = 0;		// Current Page
 	private static $sqlLimit = 25;		// Request Return Limit
-	private static $sqlMaxLimit = 200;	// Max Reuest Return Limit
+	private static $sqlMaxLimit = 5000;	// Max Reuest Return Limit
 	
 	private static $tmpData = [];		// Temporary Request
 
-	public static $debugMode = false;
+	public static $debugMode = false;	// Activation De Traçage de Requetes
 
-	private static $sCurLang = false;
+	private static $sCurLang = false;	// Langue Actuelle
+
+	private static $lastMessage = null; // Message Répondu Par L'Api
 
 	public static function init() {
 		if (Self::$bInit) {
@@ -29,9 +33,11 @@ class ApiMgr {
 
 		Self::setUrl();
 
+		// INIT Curl
 		Self::$curl = new CurlMgr();
 		Self::$curl->setTimeout(3);
 
+		// Mise En Place Du Token
 		if (!empty($_SESSION['user']['token'])) {
 			Self::setToken($_SESSION['user']['token']);
 			Self::$pass = $_SESSION['user']['pass'];
@@ -48,34 +54,35 @@ class ApiMgr {
 		global $smarty;
 
 		Self::$url = API_URL.'/';
-		$smarty->assign("_API_URL_", Self::$url);
+		$smarty->assign("_API_URL_", API_URL);
 	}
 
-	/**
-	 * Execute Une REquete
-	 * @param  string  $method       (get, postn put...)
-	 * @param  boolean $applyHeaders Ajoute ou non le header Authorization 
-	 * @return Array                Résultats
-	 */
-	private static function exec($method='get', $applyHeaders=true, $bRelogin=true) {
-		// Application Du Header De Connexion
-		if (Self::$token && $applyHeaders) {
-			Self::$curl->setHeader('Authorization: '.Self::$token);
+	public static function refreshToken() {
+		// On garde la requete de coté
+		$tmp = Self::$tmpData;
+		$url = Self::$curl->getInfos(CURLINFO_EFFECTIVE_URL);
+
+		// On se Reconnecte
+		$bLoginRes = Self::login(Self::$mail, Self::$pass);
+		Self::reset();
+
+		if(!$bLoginRes) {	// Connexion échouée, On abandonne
+			return false;
 		}
 
-		// Mise en place des variables communes
-		Self::$tmpData['limit'] = Self::$sqlLimit;
-		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
 
-		Self::$tmpData['lang'] = Self::$sCurLang;
-	
-		//var_dump("Request DATA", Self::$tmpData);
+		// On ré-éxécute la requete et on retourne le résultat
+		Self::$curl->setUrl($url);
+		Self::setData($tmp);
 
-		// Création de la requete Curl
-		Self::$curl->setData(Self::$tmpData)->setMethod($method);
+		return true;
+	}
+
+	private static function getResponse() {
 		$r = Self::$curl->exec();
 		$oResult =  json_decode($r);
 		
+		// Traçage De La Requête
 		if (Self::$debugMode) {
 			var_dump("======= DEBUG REQUEST =======");
 			var_dump(Self::$tmpData);
@@ -93,30 +100,76 @@ class ApiMgr {
 			}
 		}
 
+		return $oResult;
+	}
+
+	/**
+	 * Execute Une REquete
+	 * @param  string  $method       (get, postn put...)
+	 * @param  boolean $applyHeaders Ajoute ou non le header Authorization 
+	 * @return Array                Résultats
+	 */
+	private static function exec($method='get', $applyHeaders=true, $bRelogin=true) {
+		// Application Du Header De Connexion
+		if (Self::$token && $applyHeaders) {
+			Self::$curl->setHeader('Authorization: '.Self::$token);
+		}
+
+		// Mise en place des variables communes
+		Self::$tmpData['limit'] = Self::$sqlLimit;
+		Self::$tmpData['skip'] = Self::$sqlLimit * Self::$curPage;
+
+		Self::$tmpData['lang'] = Self::$sCurLang;
+	
+		// Création de la requete Curl
+		Self::$curl->setData(Self::$tmpData)->setMethod($method);
+		
+		$oResult =  Self::getResponse();
+		
 		// Si Le token est expiré ou invalide
 		if ($bRelogin && in_array(Self::$curl->getHttpCode(), [401, 440])) {
-			// On garde la requete de coté
-			$tmp = Self::$tmpData;
-			$url = Self::$curl->getInfos(CURLINFO_EFFECTIVE_URL);
+			/*
+				// On garde la requete de coté
+				$tmp = Self::$tmpData;
+				$url = Self::$curl->getInfos(CURLINFO_EFFECTIVE_URL);
 
-			// On se Reconnecte
-			$bLoginRes = Self::login(Self::$mail, Self::$pass);
+				// On se Reconnecte
+				$bLoginRes = Self::login(Self::$mail, Self::$pass);
 
-			if(!$bLoginRes) {	// Connexion échouée, On abandonne
-				return $oResult;
+				if(!$bLoginRes) {	// Connexion échouée, On abandonne
+					return $oResult;
+				}
+
+				// On ré-éxécute la requete et on retourne le résultat
+				Self::reset();
+				Self::$curl->setUrl($url);
+				Self::setData($tmp);
+			*/
+		
+			// On essaie De le Rafraichir
+			$b = Self::refreshToken();
+
+			// Si Cela echoue On retourne une Erreur D'expiration
+			if (!$b) {
+				return (object) [
+					'success' => false,
+					'code' => Self::REFRESH_FAIL,
+					'message' => 'La Session a expiré.'
+				];
+
+				//return $oResult;
 			}
 
-			// On ré-éxécute la requete et on retourne le résultat
-			Self::reset();
-			Self::$curl->setUrl($url);
-			Self::setData($tmp);
 			$oResult = Self::exec($method, $applyHeaders, false);
 		}
 
+		// Si Le Json Est Erroné
 		if (is_null($oResult)) {
+			Self::$lastMessage = 'Malformed Response JSON';
 			return (object) ['success' => false, 'message' => 'Malformed Response JSON'];
 		}
 
+		Self::$lastMessage = @$oResult->message;
 		return $oResult;
 	}
 
@@ -141,10 +194,12 @@ class ApiMgr {
 	 * @return bool       Succès
 	 */
 	public static function login($mail, $pass) {
+		// Vérification Du Mail
 		if (!preg_match('/[a-z0-9.-_]+@[a-z0-9-_]+\.[a-z]{2,6}/i', $mail) || strlen($pass) < 2) {
 			return false;
 		}
 
+		// Init Curl
 		$c = Self::reset();
 		$c->setUrl(Self::$url.'login')
 			->isPost()
@@ -158,10 +213,12 @@ class ApiMgr {
 
 		$res = Self::exec('post', true, false);
 
-		if (empty($res) || !$res->status || empty($res->token)) {
+		// Si La Connexion à échoué
+		if (empty($res->success) || !$res->success || empty($res->token)) {
 			return false;
 		}
 
+		// Sauvegarde De la Session
 		Self::setToken($res->token);
 
 		Self::$pass = $pass;
@@ -175,6 +232,14 @@ class ApiMgr {
 		];
 
 		return true;
+	}
+
+	/**
+	 * Retourne Le Token Actuel
+	 * @return String Le Token
+	 */
+	public static function getToken() {
+		return Self::$token;
 	}
 
 	/**
@@ -195,7 +260,7 @@ class ApiMgr {
 	 * @param  integer $page   Page
 	 * @return Array          List d'elements
 	 */
-	public static function list($model, $public=true, $limit=0, $page=0) {
+	public static function list($model, $public=true, $limit=0, $page=0, $columns=false, $aOrder=false) {
 		$c = Self::reset();
 
 		Self::setLimit($limit);
@@ -206,6 +271,18 @@ class ApiMgr {
 		$url = Self::$url.$base.$model.'/list';
 
 		$c->setUrl($url);
+		$aData = [];
+		if ($columns) {
+			$aData['columns'] = $columns;
+		}
+
+		if ($aOrder) {
+			$aData['order'] = $aOrder;
+		}
+
+		//var_dump($aData);
+		Self::setData($aData);
+
 		$res = Self::exec();
 		return $res;
 	}
@@ -228,7 +305,7 @@ class ApiMgr {
 
 		Self::setData([
 			'limit' => Self::$sqlLimit,
-			'offset' => Self::$sqlLimit * Self::$curPage,
+			'skip' => Self::$sqlLimit * Self::$curPage,
 		]);
 
 		$res = Self::exec();
@@ -264,12 +341,9 @@ class ApiMgr {
 		Self::$curPage++;
 		
 		Self::$tmpData['limit'] = Self::$sqlLimit;
-		Self::$tmpData['offset'] = Self::$sqlLimit * Self::$curPage;
+		Self::$tmpData['skip'] = Self::$sqlLimit * Self::$curPage;
 
 		$r = Self::exec('get', false);
-
-		//var_dump(Self::$curl->getInfos());
-		//var_dump(Self::$curl->getError());
 
 		return $r;
 	}
@@ -281,10 +355,7 @@ class ApiMgr {
 	public static function setLimit($limit) {
 		$limit = (int)$limit;
 		
-		if ($limit <= 0) {
-			$limit = 1;
-		}
-		elseif ($limit > Self::$sqlMaxLimit) {
+		if ($limit <= 0 || $limit > Self::$sqlMaxLimit) {
 			$limit = Self::$sqlMaxLimit;
 		}
 
@@ -374,5 +445,42 @@ class ApiMgr {
 
 	public static function getLang() {
 		return Self::$sCurLang;
+	}
+
+	
+	/**
+	 * Récupère Un Array d'Interests Par Id de parcours
+	 * @param  integer $limit  Limit
+	 * @param  integer $page   Page
+	 * @return Array          List d'elements
+	 */
+	public static function listByParcours($id, $public=true, $limit=0, $page=0, $columns=false, $aOrder=false) {
+		$c = Self::reset();
+
+		Self::setLimit($limit);
+		Self::setPage($page);
+
+		$base = $public ? 'public/' : 'private/';
+		
+		$url = Self::$url.$base.'interests/byParcoursId/'.$id;
+
+		$c->setUrl($url);
+		$aData = [];
+		if ($columns) {
+			$aData['columns'] = $columns;
+		}
+
+		if ($aOrder) {
+			$aData['order'] = $aOrder;
+		}
+
+		Self::setData($aData);
+
+		$res = Self::exec();
+		return $res;
+	}
+
+	public static function getMessage() {
+		return Self::$lastMessage;
 	}
 }

@@ -3,16 +3,41 @@
 	<div class="navBar">
 		<div class="itemsNavBar">
 
-			<div class="item searchBar">
-				<label for="inputSearchBar" class="labelSearchBar"></label>
-				<input type="text" id="inputSearchBar" placeholder="Ville, parcours, point d'intérêt..." />
+			<div>
+				<div class="item searchBar">
+					<div class="spinner spinner-xs">
+						<div class="double-bounce1"></div>
+						<div class="double-bounce2"></div>
+					</div>
+					<label for="inputSearchBar" class="labelSearchBar"></label>
+					
+					<input type="text" id="inputSearchBar" placeholder="Ville, parcours, point d'intérêt..." />
+				</div>
+				<a href="#" class="item itemClick">
+					<div class="itemIcon iconMessage"></div>
+				</a>
+				<a href="/credit.html" class="item itemClick">
+					<div class="itemIcon iconInfo"></div>
+				</a>
 			</div>
-			<a href="#" class="item itemClick">
-				<div class="itemIcon iconMessage"></div>
-			</a>
-			<a href="#" class="item itemClick">
-				<div class="itemIcon iconInfo"></div>
-			</a>
+
+			<div style="" id="search-container">
+				<ul>
+					<li class="">
+						<a href="">
+							<span class="title"></span>
+							<br>
+							[
+								<span class="tree-el tree-cities"></span>
+								<sep> &gt; </sep>
+								<span class="tree-el tree-parcours"></span>
+								<sep> &gt; </sep>
+								<span class="tree-el tree-interests"></span>
+							]
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<!-- .\ NAV BAR -->
@@ -29,7 +54,9 @@
 					{assign var="sPath" value=''}
 				{/if}
 
-				{assign var="sPath" value=$sPath|cat: '/':$sUrl}
+				{if $sUrl !== 0}
+					{assign var="sPath" value=$sPath|cat: '/':$sUrl}
+				{/if}
 
 				<li class="pathName"><a class="faLink" href="{$sPath}.html">{$sText}</a></li>
 				

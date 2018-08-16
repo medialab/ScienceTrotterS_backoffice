@@ -1,76 +1,73 @@
 $(document).ready(function() {
-	
-	$(".cust-checkbox")
-		// MISE A JOUR DE L'APPARENCE
-		.on('checkbox::update', function(e, check) {
-			var self = $(this);
-			
-			if (check == -1) {
-				var inp = self.find('input[type="checkbox"]');
-				check = inp.prop('checked');
-			}
+	/*var tabSelector = $(".tab-selector");
+	var curLang = tabSelector.attr('target');*/
 
-			if (check) {
-				self.addClass('on');
-			}
-			else{
-				self.removeClass('on');
-			}
-		})
-		// MISE A JOUR DES TABS
-		.on('checkbox::update', function() {
-			var self = $(this);
-			var disabled = false;
-			
-			// On Focus le tab francais
-			if (self.find('input[type="checkbox"]').prop('checked')) {
-				$("#trigger-fr").click();
-				disabled = true;
-			}
-
-			// On Dé/Ré-Active les tabs
-			var otherTabs = self.parents('.tab-selector').find('.tab-trigger').not('#trigger-fr');
-			if (disabled) {
-				otherTabs.attr('disabled', disabled);
-			}
-			else{
-				otherTabs.removeAttr('disabled');
-			}
-		})
-		// MISE A JOUR DE L'INPUT
-		.click(function(e) {
+	// à l'envois du formulaire on ajoute la valeur du dorce lang
+	$('#content form').submit(function(e) {
+		var self = $(this);
+		
+		// ON EVITE LE DOUBLE ENVOIS
+		if (self.hasClass('ready')) {
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		}
+		
+		// ON AJOUTE LA CHECKBOX FORCE LANG
+		if (!self.find('input.lang-check').length) {
 			e.preventDefault();
 			e.stopPropagation();
 
-			var self = $(this);
-			var inp = self.find('input[type="checkbox"]');
+			var langTaget = tabSelector.attr('target');
 
-			var check = !inp.prop('checked');
-			inp.prop('checked', check);
+			var inp = tabSelector.find('.lang-only[target="'+langTaget+'"] input');
+			if (!inp.prop('checked')) {
+				inp.val('');
+			}
 
-			self.trigger('checkbox::update', check);
-		})
-	
-		// On Appel la mise à jour initialle
-		.trigger("checkbox::update");
-	;
+			inp.hide().appendTo(self);
 
-	$(".tab-trigger").click(function(e) {
-		var self = $(this);
-		if (self.attr('disabled')) {
-			return;
+			self.submit();
+			return false;
 		}
 
-		var container = self.parent();
-		
-		container.find('.tab-trigger').removeClass('on');
-		self.addClass('on');
-		
-		var tabID = self.attr('target');
-		$(".tab").removeClass('on');
-		$("#"+tabID).addClass('on');
+		self.attr('ready', true);
+		self.addClass('ready')
+
 	});
 
+	page.trigger('custom::pageReady');
 
-	$("#trigger-fr").click();
+
 });
+
+function countListen(sModelType, id) {
+	var listenCnt = $('form .audio-cnt');
+	
+	console.log(listenCnt.length);
+	if (listenCnt.length) {
+		var i = 0;
+		var langs = ['fr', 'en'];
+
+		function calcListen(res) {
+			l = langs[i];
+			i++;
+			
+			var cont = $('#tab-'+l+' .audio-cnt b');
+			cont.text(''+res);
+			cont.parent().next('.spinner').remove();
+
+			if (typeof langs[i] !== 'undefined') {
+				callListen();
+			}
+		}
+
+		function callListen() {
+			ApiMgr.call('get', sModelType+'/listenCnt/'+id, {lang: langs[i]}, function(aDataSet) {
+				calcListen(aDataSet.data);
+			});
+		}
+
+		callListen();
+	}
+}

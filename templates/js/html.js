@@ -1,30 +1,29 @@
+var page = $("#contentView");
+
 /* DEFINITION DE LA LANGUE PAR DEFAUT */
 ApiMgr.setLang('fr');
 
-
+/**
+ * Est ce qu'un Element Scrollable Est Visible
+ * @param  {JqueryObj} el L'element
+ * @return {Bool}    Visible
+ */
 $.scrollElementVisible = function (el) {
 	var list = el.parent();
-	var listFound = false;
 
-	while(true) {
-		if (!list.attr('id') === 'content') {
-			return false;
-		}
-		else if (list.hasClass('columnData')) {
-			break;
-		}
-
-		list = list.parent();
+	// On Cherche Le Conteneur
+	list = el.parents('.columnData');
+	if (!list.length) {
+		list = el.parents('.content');
 	}
 
+	// On Vérifie Que La liste Est Visible
 	var docViewTop = list.offset().top;
     var docViewBottom = docViewTop + list.height();
 
+	// On Vérifie Que L'élément Est Visible
     var elemTop = el.offset().top;
     var elemBottom = elemTop + el.height();
-
-    console.log((elemTop +">="+ docViewTop), (elemTop >= docViewTop));
-    console.log((elemBottom +"<="+ docViewBottom), (elemBottom <= docViewBottom));
 
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
@@ -37,6 +36,7 @@ let currentItem = '';
 
 const fCloseMenuBtn = function fCloseMenuBtn (event) {
   document.querySelector('.leftBar').classList.toggle('close');
+  $(this).parents('#content').toggleClass('closed');
 }
 
 /**
@@ -68,96 +68,81 @@ itemClick.forEach(handlerItemClick);
 
 /* Stylisation du bouton d'importation d'une image */
 
-$( '.inputFile' ).each( function() {
+$( '.inputFile' ).click(function() {
 
-
-	var $this	 = $( this ),
-		$label	 = $this.next( 'label' ),
-		labelVal = $label.html();
-
-	$this.on( 'change', function( e )
-	{
-		var fileName = '';
-
-		if( this.files && this.files.length > 1 )
-			fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-		else if( e.target.value )
-			fileName = e.target.value.split( '\\' ).pop();
-
-		if( fileName ) {
-			$('#btnInputFileName p').html(fileName);
-		}
-
-	});
-
+	var oThis	 = $( this );
 
 	// Firefox bug fix
-	$this
-	.on( 'focus', function(){ $this.addClass( 'has-focus' ); })
-	.on( 'blur', function(){ $this.removeClass( 'has-focus' ); });
-});
+	oThis
+	.on( 'focus', function(){ oThis.addClass( 'has-focus' ); })
+	.on( 'blur', function(){ oThis.removeClass( 'has-focus' ); });
+})
+.change(function( e ){
+	var fileName = '';
+	var oThis	 = $( this );
 
-/***/
+	oThis.attr('updated', true);
 
-function updateSwitch(el) {
-	if (el.find('input').prop('checked')) {
-		el.addClass('on');
+	if( e.target.value ) {
+		fileName = e.target.value.split( '\\' ).pop();
+		console.log("File Name: "+fileName);
+	}
+
+	if( fileName ) {
+		oThis.parent().find('p').text(fileName);
 	}
 	else{
-		el.removeClass('on');
+		console.log("No File Name");
 	}
-}
 
-function toggleSwitch(el) {
-	var inp = el.find('input');
-	inp.prop('checked', !inp.prop('checked'));
-	
-	updateSwitch(el);
-}
+});
 
-$(document).ready(function() {
-	var switches = $(".boolean");
 
-	switches.on('click', 'label', function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-
-		var label = $(e.currentTarget);
-		var cont = $(this).parents('.boolean');
-
-		if (label.attr('data') === 'on') {
-			cont.find('input').prop("checked", true);
+/**
+ * Gestion Des Switch D'activation De Model
+ * @param  {JqueryObj} el L'element
+ */
+	function updateSwitch(el) {
+		if (el.find('input').prop('checked')) {
+			el.addClass('on');
 		}
 		else{
-			cont.find('input').prop("checked", false);
+			el.removeClass('on');
 		}
-		
-
-		updateSwitch(cont);
-	});
-
-
-	switches.on('click', '.style', function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-
-
-		toggleSwitch($(this).parents('.boolean'));
-	});
-});
-
-
-/* Switch */
-/*$(document).on( 'click', '.boolean label', function(){
-	var bOn				=	$('input#' + $(this).attr('for') ).val();
-	if( bOn == 1 ){
-		$(this).parents('.boolean').addClass( 'on' );
-	} else {
-		$(this).parents('.boolean').removeClass( 'on' );
 	}
-});
 
-$(document).on( 'style', '.boolean label', function(){
-	$(this).parents('.boolean').find('input:not-check').click();
-});
-*/
+	function toggleSwitch(el) {
+		var inp = el.find('input');
+		inp.prop('checked', !inp.prop('checked'));
+		
+		updateSwitch(el);
+	}
+
+	$(document).ready(function() {
+		var switches = $(".boolean");
+
+		switches.on('click', 'label', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var label = $(e.currentTarget);
+			var cont = $(this).parents('.boolean');
+
+			if (label.attr('data') === 'on') {
+				cont.find('input').prop("checked", true);
+			}
+			else{
+				cont.find('input').prop("checked", false);
+			}
+
+			updateSwitch(cont);
+		});
+
+
+		switches.on('click', '.style', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			toggleSwitch($(this).parents('.boolean'));
+		});
+	});

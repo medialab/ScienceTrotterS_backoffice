@@ -1,0 +1,26 @@
+.btn-lg img {
+    left: 6%;
+    width: 6%;
+    height: auto;
+    position: absolute;
+    top: 8px;
+}
+
+.box-interets ul {
+	list-style: none;
+}
+
+.box-interets li.active a {
+	color: #5e80c9;
+}
+
+.box-interets p.sep,
+.box-interets p.time,
+.box-interets p.distance {
+	display: inline-block;
+}
+
+.box-interets p b {
+	color: #656A71;
+	letter-spacing: 1px;
+}

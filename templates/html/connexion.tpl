@@ -6,16 +6,17 @@
 		<img src="/media/image/interface/leftbar/sts-full.svg" width="250px" height="14px" alt="Logo Science Trotters format Mobile" id="imgMobile">
 	</div>
 
-	{include file="include/html/form-error.tpl"}
-
 	<div class="all">
 		<div class="form">	
 			<form method="post">
-	        	<input type="password" id="password" name="user_password" placeholder="Mot de Passe">
+				{include file="include/html/form-error.tpl"}
 
+	        	<input type="password" id="password" name="user_password" placeholder="Mot de Passe">
+<!-- 
 				<p class="forget">
 					<a href="#">Mot de passe oublié</a>
-				</p>	
+				</p> 
+				-->
 				
 				<p class="login">
 					<button type="submit">Connexion</button>	
@@ -27,7 +28,7 @@
 		<div class="site">
 			<p class="link">
 				Allez sur le site
-				<a href="#"> FORCCAST</a>
+				<a href="https://medialab.sciencespo.fr/fr/projets/forccast/" target="_blank"> FORCCAST</a>
 			</p>
 		</div>
 

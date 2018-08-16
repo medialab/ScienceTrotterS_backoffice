@@ -1,19 +1,24 @@
 <?php
-
+// Récupération du Nom de la page
 $sPage = empty($_GET['name']) ? 'index' : $_GET['name'];
+
+// Récupération de l'extention de la page
 $sExt = empty($_GET['extension']) ? 'html' : $_GET['extension'];
+
+// Récupération de l'extention des fichiers
 $sExtFile = ( $sExt == 'html' ) ? 'tpl' : $sExt;
-$sContent = '';
+
+//$sContent = '';
 // Functions
       require_once('./lib/functions.php');
 //---
 
 
 // Smarty
-
-
         require_once('./lib/smarty/Smarty.class.php');
         $smarty = new Smarty();
+        $smarty->assign('sPage', $sPage);
+        $smarty->assign('sExt', $sExt);
 # exit();
 
         // $smarty->force_compile = true;
@@ -34,6 +39,8 @@ $sContent = '';
 //---
 
 session_start();
+
+// Initialisation De L' Api
 ApiMgr::init();
 
 // On vérifie que l'utilisateur aie le droit d'accéder à  cette page
@@ -52,10 +59,6 @@ ApiMgr::init();
                     $redir = '/';
                 }
 
-                /*var_dump($sExt);
-                var_dump($aAccess, $aAccessUtilisateur);
-                var_dump("Redirection: ".$redir);
-                exit;*/
 
                 if ('/'.$sPage.'.'.$sExt !== $redir) {
                     header( 'location: '.$redir );
@@ -68,7 +71,13 @@ ApiMgr::init();
 
 if (in_array($sExt, ['js', 'css'])) {
     if (file_exists('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile)) {
-        header('Content-Type: text/'.$sExt);
+        if ($sExt === 'js') {
+            header('Content-Type: application/javascript');        
+        }
+        else{
+            header('Content-Type: text/'.$sExt);        
+        }
+
         echo file_get_contents('./templates/'.$sExt.'/'.$sPage.'.'.$sExtFile);
         exit;
     }
@@ -81,14 +90,18 @@ else {
     header('Content-Type: text/html');
 }
 
-$libPath = './php/';
+
 $viewPath = '';
+$libPath = './php/';
+
+// Les Fichiers à Charger
 $files = explode('/', $sExt.'/'.$sPage);
 
-$i = 0;
 $f = '';
+$dFileCnt = 0;
 $sContent = '';
 $tplFiles = [];
+
 foreach ($files as $file) {
     if (strlen($f)) {
         $f .= '/';
@@ -96,26 +109,34 @@ foreach ($files as $file) {
 
     $f .= $file;
 
-        /*var_dump($libPath.$f.'.php');*/
+    // Chargement Du PHP
     if (file_exists($libPath.$f.'.php')) {
-        /*var_dump($libPath.$f.'.php');*/
         require_once($libPath.$f.'.php');
     }
-
     
-    if ($i > 0 && file_exists('./templates/'.$viewPath.$f.'.tpl')) {
+    // Chargement Du TPL
+    if ($dFileCnt > 0 && file_exists(realpath('.').'/templates/'.$viewPath.$f.'.tpl')) {
         $tplFiles[] = $viewPath.$f.'.tpl';
     }
+    else{
+    }
 
-    $i++;
+    $dFileCnt++;
 }
 
+$smarty->assign([
+    '_CSS_FILES' => $_CSS_FILES, 
+    '_JS_FILES' => $_JS_FILES
+]);
+
+// Execution Des TPLs
 foreach ($tplFiles as $f) {
     $sContent .= $smarty->fetch($f);
 }
 
 $smarty->assign('sPageContent', $sContent);
 
+// Gestion Du Fil D'arianne
 if (!empty($aFilDArianne)) {
     $smarty->assign('aFilDArianne', $aFilDArianne);
 }
@@ -123,10 +144,14 @@ else{
     $smarty->assign('aFilDArianne', []);
 }
 
+// Chargement du TPL
 if ( file_exists('./templates/'.$sExt.'.'.$sExtFile) ) {
     $sContent = $smarty->fetch($sExt.'.'.$sExtFile);
 }
 
+// Suppression Des Notifications En Session
+unset($_SESSION['session_msg']);
 
+// Affichage Du Contenu
 echo $sContent;
-#exit();
+

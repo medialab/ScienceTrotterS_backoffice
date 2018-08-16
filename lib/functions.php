@@ -24,7 +24,8 @@
 
 // Création d'une chaine de caractère URL Friendly ( sans accents, ni caractère spécial, en minuscule )
 	function fCreateFriendlyUrl( $sString ) {
-		return preg_replace('/([^a-z0-9.-]+)/', '-', $sString);
+		return preg_replace(['/([^a-z0-9.-]+)/', '/(\-)+/', '/^\-/', '/\-([^a-z0-9])/'], ['-', '-', '', '$1'], strtolower($sString));
+		return str_replace('-.', '.', $sString);
 	}
 //---
 
@@ -134,9 +135,11 @@ function fMethodIs($type='get') {
 	}
 
 	function fFileExtensionValidator($sName, $aFileTypes) {
-
+		//var_dump($_FILES);
+		//var_dump("VALIDATE $sName");
 		/* Si aucun Fichier */
 		if (empty($_FILES) || empty($_FILES[$sName]) || empty($_FILES[$sName]['tmp_name'])) {
+			//var_dump("File Empty");
 			return true;
 		}
 
@@ -146,6 +149,7 @@ function fMethodIs($type='get') {
 		$finfo = finfo_open( FILEINFO_MIME_TYPE );
 		$mtype = finfo_file( $finfo,  $sTmpPath);
 		finfo_close( $finfo );
+		//var_dump("mType: $mtype");;
 		
 		/* On récupère les Mimes Authorisés */
 		if (is_string($aFileTypes)) {
@@ -153,10 +157,62 @@ function fMethodIs($type='get') {
 		}
 
 		$aAuthorizedMimes = fGetAuthorizedMimes($aFileTypes);
+		//var_dump("Autorized: ", $aAuthorizedMimes);;
+		//var_dump("Result: ", in_array($mtype, $aAuthorizedMimes));;
 
 		return in_array($mtype, $aAuthorizedMimes);
 	}
 
+	function fImageSize($name, $width, $height, $sComp='lessEq') {
+		return true;
+		if (!extension_loaded('imagick')) {
+			trigger_error('Le Module PHP Imagick n\'est pas activé. Impossible de vérifier la taille en px des images.');
+			return true;
+		}
+
+		$aF = &$_FILES[$name];
+		if (empty($aF['name'])) {
+			return true;
+		}
+
+		if (is_string($aF['name'])) {
+			$aF['name'] = [$aF['name']];
+			$aF['type'] = [$aF['type']];
+			$aF['tmp_name'] = [$aF['tmp_name']];
+			$aF['error'] = [$aF['error']];
+			$aF['size'] = [$aF['size']];
+		}
+
+		foreach ($aF['name'] as $i => $fName) {			
+			if (empty($fName)) {
+				continue;
+			}
+
+			$image = new Imagick($aF['tmp_name'][$i]);
+			switch ($sComp) {
+				case 'less':
+					return $image->getImageWidth() < $width &&  $image->getImageHeight() < $height;
+					break;
+
+				case 'lessEq':
+					return $image->getImageWidth() <= $width && $image->getImageHeight() <= $height;
+					break;
+
+				case 'equal':
+					return $image->getImageWidth() == $width && $image->getImageHeight() == $height;
+					break;
+
+				case 'great':
+					return $image->getImageWidth() > $width &&  $image->getImageHeight() > $height;
+					break;
+
+				case 'greatEq':
+					return $image->getImageWidth() >= $width && $image->getImageHeight() >= $height;
+					break;
+			}
+		}
+
+	}
 
 	/**
 	 * Retourne la liste des MimeTypes autorisée par le filtre FILE-EXT
@@ -232,7 +288,7 @@ function fMethodIs($type='get') {
 	function fGetMimeMap() {
 		static $aMimeMap = [
 			'mimes' => [
-				'audio' => ['mpeg', 'x-wav', 'flac'],
+				'audio' => ['mpeg', 'x-wav', 'flac', 'wav'],
 				'video' => ['mpeg', 'mp4', 'quicktime', 'x-flv'],
 				'text' => ['css', 'csv', 'html', 'javascript', 'plain', 'xml'],
 				'image' => ['gif', 'jpg', 'jpeg', 'png', 'x-icon', 'svg', 'tiff'],
@@ -277,9 +333,11 @@ function fMethodIs($type='get') {
 				'flac' => 'audio/flac',
 				'mp1' => 'audio/mpeg',
 				'mp2' => 'audio/mpeg',
+				'mp3' => 'audio/mpeg',
 				'm2a' => 'audio/mpeg',
 				'mpa' => 'audio/mpeg',
 				'mpg' => 'audio/mpeg',
+				'wav' => 'audio/wav',
 
 
 				/* VIDEO */
@@ -314,3 +372,144 @@ function fMethodIs($type='get') {
 
 		return $aMimeMap;
 	}
+
+/**
+ * Gestion Des Uploads
+ * @param  Sname  $name      Nom Input Du Fichier
+ * @param  String  $directory Dossier D'enregistrement
+ * @param  boolean $bArray    Est Un Tableau de Fichiers
+ * @return String             Le Path relatif Du Fichier
+ */
+function handleUploadedFile($name, $directory, $bArray = false) {
+	/* Sauvegarde Temporaire de l'image */
+	if (empty($_FILES[$name])) {
+		return null;
+	}
+
+	$aResult = [];
+	$aF = &$_FILES[$name];
+	if (!empty($aF['name'])) {
+
+		if (is_string($aF['name'])) {
+			$aF['name'] = [$aF['name']];
+			$aF['type'] = [$aF['type']];
+			$aF['tmp_name'] = [$aF['tmp_name']];
+			$aF['error'] = [$aF['error']];
+			$aF['size'] = [$aF['size']];
+		}
+
+		// Enregistrement Des Uploads
+		foreach ($aF['name'] as $i => $fName) {
+			if (empty($fName)) {
+				continue;
+			}
+
+			/* Création du dossier */
+			if (!is_dir(UPLOAD_PATH.$directory)) {
+				mkdir(UPLOAD_PATH.$directory, 0775, true);
+			}
+			
+			// Generation Du nom Du Fichier
+			$imgPath = $directory.'/'.fCreateFriendlyUrl($aF['name'][$i]);
+			$imgPath = preg_replace('/\.([^.]+)$/', '_'.time().'.$1', $imgPath);
+
+			// Définition de la destination
+			$dest = UPLOAD_PATH.$imgPath;
+			$dest = str_replace('/', DIRECTORY_SEPARATOR, $dest);
+
+			/* Si le fichier existe on le remplace */
+			if (file_exists($dest)) {
+				//var_dump("Deleting Old");
+				unlink($dest);
+			}
+
+			/* Sauvegarde du fichier */
+			$result = move_uploaded_file($aF['tmp_name'][$i], $dest);
+
+			/* Si Sauvegarde a réussi */
+			if ($result) {
+				// Si Un Seul Fichier On Retourne Son Path
+				if (!$bArray) {
+					return $imgPath;
+				}
+				// Si Multiple Fichiers Garde Son Path
+				else{
+					$aResult[$i] = $imgPath;
+				}
+			}
+			// Si Non On Définis Le Path à NULL
+			else{
+				if (!$bArray){
+					return null;
+				}
+				else{
+					$aResult[$i] = null;
+				}
+			}
+		}
+
+		// On Retourne La Liste Des Path
+		return $aResult;
+	}
+	else{
+		//var_dump("No File Uploaded");
+	}
+
+	return null;
+}
+
+/**
+ * Définitions des JS à Charger
+ */
+global $_JS_FILES;
+$_JS_FILES = [];
+function addJs() {
+	$aPaths = func_get_args();
+	foreach ($aPaths as $sPath) {
+		$sPath .= '.js';
+		global $_JS_FILES;
+		
+		$sHtmlPath = '/lib/'.$sPath;
+		$sRealPath = realpath('.').JS_PATH.$sPath;
+
+
+		if (!file_exists($sRealPath)) {
+			trigger_error('Can\'t add JS file: "'.$sRealPath.'". File Not found.');
+			continue;
+		}
+
+		if (!in_array($sHtmlPath, $_JS_FILES)) {
+			$_JS_FILES[] = $sHtmlPath;
+		}
+
+	}
+}
+
+
+/**
+ * Définitions des CSS à Charger
+ */
+global $_CSS_FILES;
+$_CSS_FILES = [];
+function addCss($sPath) {
+	$aPaths = func_get_args();
+	foreach ($aPaths as $sPath) {
+		$sPath .= '.css';
+		global $_CSS_FILES;
+		
+		$sHtmlPath = '/lib/'.$sPath;
+		$sRealPath = realpath('.').CSS_PATH.$sPath;
+
+
+		if (!file_exists($sRealPath)) {
+			trigger_error('Can\'t add CSS file: "'.$sRealPath.'". File Not found.');
+			continue;
+		}
+
+		if (!in_array($sHtmlPath, $_CSS_FILES)) {
+			$_CSS_FILES[] = $sHtmlPath;
+		}
+
+	}
+	return true;
+}
