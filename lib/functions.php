@@ -412,6 +412,18 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 			// Generation Du nom Du Fichier
 			$imgPath = $directory.'/'.fCreateFriendlyUrl($aF['name'][$i]);
 			$imgPath = preg_replace('/\.([^.]+)$/', '_'.time().'.$1', $imgPath);
+			// 060820108flo
+				$sOriginName = preg_replace( '`(.+)\.([a-z]+)`', '${1}', fCreateFriendlyUrl($aF['name'][$i]) );
+				$sNewName = $sOriginName;
+				$sExtensionName = preg_replace( '`(.+)\.([a-z]+)`', '${2}', fCreateFriendlyUrl($aF['name'][$i]) );
+				$dNameSake=0;
+				while( !empty( $aFileName[$sNewName] ) || file_exists( API_URL.'ressources/upload/'.$sNewName.'.'.$sExtensionName ) ){
+					$dNameSake ++;
+					$sNewName = $directory.'/'.fCreateFriendlyUrl($sOriginName).'-'.$dNameSake;
+				}
+				$aFileName[$sNewName]=1;
+				$imgPath=$sNewName.'.'.$sExtensionName;
+			// ---
 
 			// Définition de la destination
 			$dest = UPLOAD_PATH.$imgPath;
