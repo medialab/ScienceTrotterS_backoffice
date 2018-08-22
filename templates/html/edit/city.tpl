@@ -9,7 +9,6 @@
 			<div class="box box-large">
 				<label for="ville-{$sIso}">
 					Nom de la ville *
-					<i class="flag-ico"></i>
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application</p>
 				
