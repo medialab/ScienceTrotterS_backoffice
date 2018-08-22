@@ -117,12 +117,13 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 		if (empty($aErrors)) {
 			// Téléchargement Du Fichier Audio
 			$bAudioUpdated = false;
-			if (!empty($_FILES['audio'])) {
+			if (!empty($_FILES['audio']) && !empty($_FILES['audio']['name'])) {
 				$bAudioUpdated = true;
 				$sPrevAudio = $oParc->audio;
 				$oParc->audio = handleUploadedFile('audio', 'parcours/audio');
 			}
 
+			
 			//ApiMgr::$debugMode = true;
 			$oSaveRes = $oParc->save();
 			//exit;

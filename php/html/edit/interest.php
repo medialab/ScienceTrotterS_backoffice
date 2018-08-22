@@ -223,7 +223,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 			/* Sauvegarde Temporaire de l'image */
 			$bImgUpdated = false;
-			if (!empty($_FILES['img']) && !$_FILES['img']['error']) {
+			if (!empty($_FILES['img']) && !$_FILES['img']['error'] && !empty($_FILES['img']['name'])) {
 
 				//$bSize = fImageSize('img', 300, 300);
 				$bSize = true;
@@ -239,7 +239,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 			
 			/* Sauvegarde du Fichier Audio */
 			$bAudioUpdated = false;
-			if (!empty($_FILES['audio'])  && !$_FILES['audio']['error']) {
+			if (!empty($_FILES['audio'])  && !$_FILES['audio']['error'] && !empty($_FILES['audio']['name'])) {
 				$bAudioUpdated = true;
 				$sPrevAudio = $oInt->audio;
 				$oInt->audio = handleUploadedFile('audio', 'interests/audio');

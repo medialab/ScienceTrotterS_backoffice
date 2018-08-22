@@ -49,7 +49,7 @@ if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
 
 		/* Sauvegarde Temporaire de l'image */
 		$bImgUpdated = false;
-		if (!empty($_FILES['img']) && !$_FILES['img']['error']) {
+		if (!empty($_FILES['img']) && !$_FILES['img']['error'] && !empty($_FILES['img']['name'])) {
 			$bImgUpdated = true;
 			$sPrevImg = $oCity->image;
 			$oCity->image = handleUploadedFile('img', 'cities/image');
