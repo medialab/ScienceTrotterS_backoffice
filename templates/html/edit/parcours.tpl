@@ -58,7 +58,12 @@
 									
 								</div>
 								<div class="opt-text">
-									{$oColor->name}
+									<span class="name">
+										{$oColor->name}
+									</span>
+									<span class="taken" style="color: red;">
+										Déjà Prise
+									</span>
 								</div>
 							</div>
 						{/foreach}
@@ -115,7 +120,11 @@
 
 							<div class="audio-name" {if $oParc->audio|default:false}disabled{/if}>
 								{if $audio|default: false}
-									<a href="{$_API_URL_}ressources/upload/{$oParc->audio}" target="_blank">{$audio}</a>
+									<a href="{$_API_URL_}ressources/upload/{$oParc->audio}" target="_blank" class="link">{$audio}</a>
+
+									<a class="delete" table="parcours" id="{$oParc->id}" model="Parcours" lang="{$sIso}"  type="audio" file="{$oParc->audio}" title="Supprimer le fichier">
+										<i class="delete-file" ></i>
+									</a>
 								{/if}
 							</div>
 							<p></p>
@@ -132,9 +141,9 @@
 					Résumé *
 					<i class="flag-ico"></i>
 				</label>
-				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
+				<p>Tel qu'il apparaîtra sur l'application, 12 000 caractères maximum.</p>
 				
-				<textarea id="description" maxlength="600" name="description" default="{$oParc->description|default: ''}">{$oParc->description|default: ''}</textarea>
+				<textarea id="description" maxlength="12000" name="description" default="{$oParc->description|default: ''}">{$oParc->description|default: ''}</textarea>
 			</div>
 
 			<!-- Audio Script -->
@@ -143,9 +152,9 @@
 					Audio Script *
 					<i class="flag-ico"></i>
 				</label>
-				<p>Tel qu'il apparaîtra sur l'application, 600 caractères maximum.</p>
+				<p>Tel qu'il apparaîtra sur l'application, 300 caractères maximum.</p>
 				
-				<textarea id="audio_script" maxlength="600" name="audio_script" default="{$oParc->audio_script|default: ''}">{$oParc->audio_script|default: ''}</textarea>
+				<textarea id="audio_script" maxlength="300" name="audio_script" default="{$oParc->audio_script|default: ''}">{$oParc->audio_script|default: ''}</textarea>
 			</div>
 
 			<!-- Interêts -->

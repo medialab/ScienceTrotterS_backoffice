@@ -93,7 +93,7 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 			}
 		}
 
-		$maxSize = '500Mo';
+		$maxSize = '50Mo';
 		if (!fFileZieValidator('img', $maxSize)) {
 			$aErrors['Image'] = 'L\'image ne peut dépasser 500 Mo';
 		}
@@ -111,7 +111,7 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 			}
 		}
 
-		$maxSize = '20Mo';
+		$maxSize = '10Mo';
 		if (!fFileZieValidator('audio', $maxSize)) {
 			$aErrors['Audio'] = 'L\'Audio ne peut dépasser 20 Mo';
 		}

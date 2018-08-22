@@ -124,10 +124,45 @@ $(document).ready(function() {
 				}
 
 				var row = null;
+				var rows = [];
 				if (aData.data.length) {
+					var indexes = [];
 					for(var i in aData.data) { // POUR CHAQU'UN DES RESULTATS
 						row = createRow(sModel, aData.data[i], pId);
-						childContainer.append(row);
+						indexes.push(i);
+
+						if (childType === 'parcours') {  // SI ON LISTE PARCOURS
+							rows.push(row);
+							ApiMgr.by({
+								by: 'parcours',
+								id: aData.data[i].id,
+								table: 'interests',
+								columns: ['id', 'title', 'state'],
+								order: ['interests.title'],
+
+								success: function(aResult) {
+									var r = rows.shift();
+									var i = indexes.shift();
+									if (!aResult.success || !aResult.data.length) {
+										r.find('.itemLabel').append('<i class="ico-warning" title="Attention ce Parcours n\'est pas affichée dans l\'application car il ne possède aucun point d\'intérêt"></i>');
+									}
+
+									childContainer.append(r);
+								},
+								error: function(){
+									var r = rows.shift();
+									var i = indexes.shift();
+
+									r.find('.itemLabel').append('<i class="ico-warning" title="Attention ce Parcours n\'est pas affichée dans l\'application car il ne possède aucun point d\'intérêt"></i>');
+
+									childContainer.append(r);
+								}
+							});
+						}
+						else{
+							childContainer.append(row);
+						}
+
 					}
 				}
 				else if(sModel === 'interest') { // SI AUCUNT POINT D'INTERET
@@ -195,7 +230,7 @@ $(document).ready(function() {
 				msg = 'est introuvable.'
 			}
 			else{
-				msg = 'Une erreur s\'est produite lors de la suppresion.';
+				msg = 'Une Erreur s\'est produite lors de la suppresion.';
 			}
 
 			Notify.error(sTitle, msg)
@@ -270,6 +305,7 @@ $(document).ready(function() {
 	emptyRow.attr('title', '');
 	emptyRow.attr('parent', '');
 	emptyRow.removeClass('disabled');
+	emptyRow.removeClass('warning');
 
 	var flagCont = emptyRow.find("flag-cont");
 	flagCont.removeClass('fr');

@@ -68,7 +68,7 @@ if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
 				$aErrors['Erreur'] = $oSaveRes->message;
 			}
 			else{
-				$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+				$aErrors['Erreur'] = 'Une Erreur s\'est produite lors de l\'enregistrement';
 			}
 		}
 		// Si La Sauvegarde a Réussi

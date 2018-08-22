@@ -216,4 +216,15 @@ class Parcours extends Model
 	public function setGeoE($geoE) {
 		return;
 	}
+
+	public static function byCity($cityId) {
+		$aModels = [];
+		$aData = \ApiMgr::listParcoursByCity($cityId, false);
+
+		foreach ($aData->data as $aModel) {
+			$aModels[] = new Parcours(false, $aModel);
+		}
+
+		return $aModels;
+	}
 }

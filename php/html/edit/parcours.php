@@ -87,8 +87,8 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 
 
 	if (!empty($_POST['description'])) {
-		if (strlen($_POST['description']) > 600) {
-			$aErrors['Description'] = 'La description ne peut dépasser 600 caractères';
+		if (strlen($_POST['description']) > 300) {
+			$aErrors['Description'] = 'La description ne peut dépasser 300 caractères';
 		}
 		else {
 			$oParc->description = $_POST['description'];
@@ -100,8 +100,8 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 
 
 	if (!empty($_POST['audio_script'])) {
-		if (strlen($_POST['audio_script']) > 600) {
-			$aErrors['Script Audio'] = 'Le script audio ne peut dépasser 600 caractères';
+		if (strlen($_POST['audio_script']) > 12000) {
+			$aErrors['Script Audio'] = 'Le script audio ne peut dépasser 12000 caractères';
 		}
 		else {
 			$oParc->audio_script = $_POST['audio_script'];
@@ -123,9 +123,9 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 				$oParc->audio = handleUploadedFile('audio', 'parcours/audio');
 			}
 
-			//ApiMgr::$debugMode = true;
+			ApiMgr::$debugMode = true;
 			$oSaveRes = $oParc->save();
-			//exit;
+			exit;
 
 			// Si La Sauvegarde a Echoué
 			if (!$oSaveRes->success) {
@@ -137,7 +137,7 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 					$aErrors['Erreur'] = $oSaveRes->message;
 				}
 				else{
-					$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+					$aErrors['Erreur'] = 'Une Erreur s\'est produite lors de l\'enregistrement';
 				}
 			}
 			// Si La Sauvegarde a Réussi

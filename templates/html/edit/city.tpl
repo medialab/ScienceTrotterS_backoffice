@@ -30,7 +30,7 @@
 				<label for="img-{$sIso}">Image *</label>
 				<p>
 					Choisir une image illustrant au mieux la ville.
-					<br />Format 600x600px, png ou jpg, poids maximum 60k
+					<br />Format 600x600px, png ou jpg, poids maximum 60k.
 				</p>
 				
 				<div class="borderGrey">
@@ -55,6 +55,12 @@
 
 							<div class="audio-name" disabled="">
 								<a href="{$_API_URL_}ressources/upload/{$oCity->image}" target="_blank">{$image}</a>
+
+								{if $oCity->image|strlen}
+									<a class="delete" table="cities" id="{$oCity->id}" model="City" lang="{$sIso}"  type="image" file="{$oCity->image}" title="Supprimer le fichier">
+										<i class="delete-file" ></i>
+									</a>
+								{/if}
 							</div>
 
 							<p></p>
@@ -62,7 +68,10 @@
 					</div>
 				</div>
 
-				<p>Avec Jpeg.io, optimisez le poid de vos images</p>
+				<p>
+					Avec Jpeg.io, optimisez le poid de vos images
+					<br />Attention: les photos doivent être libres de droits.
+				</p>
 				<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
 			</div>
 

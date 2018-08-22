@@ -58,7 +58,7 @@ body {
 
 .itemsNavBar .item.searchBar {
 	display: inline-block;
-	width: calc(100% - 105px);
+	width: calc(100% - 155px);
 }
 
 .itemsNavBar .item.itemClick {
@@ -70,6 +70,13 @@ body {
 	display: inline-block;
 	vertical-align: middle;
 	background-position: center;
+}
+
+.itemsNavBar .item.itemClick.clickOff {
+	background-color: #bcbccb;
+	border-radius: 50px;
+	padding: 3px;
+	height: auto;
 }
 
 .itemsNavBar .item.itemClick .itemIcon {
@@ -102,6 +109,13 @@ body {
 	background-image: url('/media/image/interface/navbar/icon-info.svg');
 	background-repeat: no-repeat;
 	background-position: center;
+}
+
+.itemsNavBar .item.itemClick .itemIcon.iconOff {
+	background-image: url('/media/image/interface/leftbar/icons/icon_logout.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	vertical-align: middle;
 }
 
 .itemsNavBar .item.itemClick .itemLabel {

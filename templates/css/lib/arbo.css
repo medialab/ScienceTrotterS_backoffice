@@ -162,10 +162,6 @@
 	color: white;
 }
 
-.columnData > .itemList > .item:hover .itemLabel {
-	color: #BCBCCB;
-}
-
 .columnData > .itemList > .item > .itemAction {
 	padding: 0 10px;
 	display: inline-block;
@@ -235,6 +231,20 @@
 
 .columnData > .itemList > .item  > .flag-cont.en .icon-flag-fr {
 	display: none;
+}
+
+.columnData > .itemList > .item > .itemLabel .ico-warning {
+	background-image: url(/media/image/interface/icons/warning.svg); 
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	height: 25px;
+	width: 25px;
+	display: inline-block;
+	vertical-align: bottom;
+	float: right;
+	margin-right: 5%;
 }
 
 @media screen and (max-width: 1600px) {

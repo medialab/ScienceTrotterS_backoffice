@@ -13,11 +13,14 @@
 					
 					<input type="text" id="inputSearchBar" placeholder="Ville, parcours, point d'intérêt..." />
 				</div>
-				<a href="#" class="item itemClick">
+				<a href="https://mail.google.com" class="item itemClick">
 					<div class="itemIcon iconMessage"></div>
 				</a>
 				<a href="/credit.html" class="item itemClick">
 					<div class="itemIcon iconInfo"></div>
+				</a>
+				<a href="/logout.html" class="item itemClick clickOff">
+					<div class="itemIcon iconOff"></div>
 				</a>
 			</div>
 

@@ -35,7 +35,12 @@
 						<!-- / ACTION -->
 
 						<!-- TITLE -->
-						<label class="itemLabel">{$model->title}</label>
+						<label class="itemLabel">
+							{$model->title}
+							{if empty($model->parcours) && empty($model->interests)}
+								<i class="ico-warning" title="Attention cette ville n'est pas affichée dans l'application car elle ne possède aucun parcours ni aucun point d'intérêt"></i>
+							{/if}
+						</label>
 						<!-- /TITLE -->
 
 						<!-- LANG FLAGS -->

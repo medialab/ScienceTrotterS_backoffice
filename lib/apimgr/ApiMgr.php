@@ -447,7 +447,58 @@ class ApiMgr {
 		return Self::$sCurLang;
 	}
 
-	
+	public static function listParcoursByCity($id, $public=true, $limit=0, $page=0, $columns=false, $aOrder=false) {
+		$c = Self::reset();
+
+		Self::setLimit($limit);
+		Self::setPage($page);
+
+		$base = $public ? 'public/' : 'private/';
+		
+		$url = Self::$url.$base.'parcours/byCityId/'.$id;
+
+		$c->setUrl($url);
+		$aData = [];
+		if ($columns) {
+			$aData['columns'] = $columns;
+		}
+
+		if ($aOrder) {
+			$aData['order'] = $aOrder;
+		}
+
+		Self::setData($aData);
+
+		$res = Self::exec();
+		return $res;
+	}
+
+	public static function listInterestsByCity($id, $public=true, $limit=0, $page=0, $columns=false, $aOrder=false) {
+		$c = Self::reset();
+
+		Self::setLimit($limit);
+		Self::setPage($page);
+
+		$base = $public ? 'public/' : 'private/';
+		
+		$url = Self::$url.$base.'interests/byCityId/'.$id;
+
+		$c->setUrl($url);
+		$aData = [];
+		if ($columns) {
+			$aData['columns'] = $columns;
+		}
+
+		if ($aOrder) {
+			$aData['order'] = $aOrder;
+		}
+
+		Self::setData($aData);
+
+		$res = Self::exec();
+		return $res;
+	}
+
 	/**
 	 * Récupère Un Array d'Interests Par Id de parcours
 	 * @param  integer $limit  Limit

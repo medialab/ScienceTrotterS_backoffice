@@ -37,6 +37,9 @@
 
 	{/if}
 
+	{if !empty($aSession.error)}
+		{$aErrors = array_merge($aErrors, $aSession.error)}
+	{/if}
 
 	{if !empty($aErrors)}
 		<div class="msg-cont error-container">

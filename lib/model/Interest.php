@@ -327,4 +327,15 @@ class Interest extends Model
 			return false;
 		}
 	}
+
+	public static function byCity($cityId) {
+		$aModels = [];
+		$aData = \ApiMgr::listInterestsByCity($cityId, false);
+
+		foreach ($aData->data as $aModel) {
+			$aModels[] = new Interest(false, $aModel);
+		}
+
+		return $aModels;
+	}
 }

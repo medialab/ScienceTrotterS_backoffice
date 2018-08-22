@@ -34,6 +34,7 @@
 					<label class="itemLabel">Créer points d'intérêts</label>
 				</a>
 			</li>
+			{*
 			<li class="item {if $sPage === 'credit'}selected{/if}" title="Crédits">
 				<a href="/credit.html" class="itemClick">
 					<div class="itemIcon lb-icon-iconInfo"></div>
@@ -47,7 +48,7 @@
 						Déconnexion
 					</label>
 				</a>
-			</li>
+			</li>*}
 			{*
 			<li class="item itemBySTS">
 				<label class="itemLabel itemLogo">SCIENCE TROTTERS</label>

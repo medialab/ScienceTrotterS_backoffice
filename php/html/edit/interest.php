@@ -79,19 +79,24 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 	/* Validation De  accroche */
 		if (!empty($_POST['address'])) {
-			$oInt->address = $_POST['address'];
+			if (strlen($_POST['address']) > 70) {
+				$aErrors['lieu'] = 'Le lieu ne peut dépasser 70 caractères';
+			}
+			else {
+				$oInt->address = $_POST['address'];
+			}
 		}
 		else{
 			$oInt->address = null;
 		}
 
 	/* Validation De  transports */
-		if (!empty($_POST['transport'])) {
+		/*if (!empty($_POST['transport'])) {
 			$oInt->transport = $_POST['transport'];
 		}
 		else{
 			$oInt->transport = null;
-		}
+		}*/
 
 	/* Validation De  bibliography */
 		if (!empty($_POST['bibliography'])) {
@@ -111,7 +116,12 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 	/* Validation De price */
 		if (!empty($_POST['price'])) {
-			$oInt->price = $_POST['price'];
+			if (strlen($_POST['price']) > 50) {
+				$aErrors['Difficultés'] = 'Les difficultés ne peuvent dépasser 50 caractères';
+			}
+			else {
+				$oInt->price = $_POST['price'];
+			}
 		}
 		else{
 			$oInt->price = null;
@@ -144,9 +154,9 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 		}
 
 
-		if (!empty($_POST['description'])) {
-			if (strlen($_POST['description']) > 600) {
-				$aErrors['Description'] = 'La description ne peut dépasser 600 caractères';
+		/*if (!empty($_POST['description'])) {
+			if (strlen($_POST['description']) > 300) {
+				$aErrors['Description'] = 'La description ne peut dépasser 300 caractères';
 			}
 			else {
 				$oInt->description = $_POST['description'];
@@ -154,12 +164,12 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 		}
 		else {
 			$oInt->description = null;
-		}
+		}*/
 
 
 		if (!empty($_POST['audio_script'])) {
-			if (strlen($_POST['audio_script']) > 600) {
-				$aErrors['Script Audio'] = 'Le script audio ne peut dépasser 600 caractères';
+			if (strlen($_POST['audio_script']) > 12000) {
+				$aErrors['Script Audio'] = 'Le script audio ne peut dépasser 12 000 caractères';
 			}
 			else {
 				$oInt->audio_script = $_POST['audio_script'];
@@ -173,6 +183,40 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 			$oInt->audio_script = empty($_POST['audio_script']) ? null : $_POST['audio_script'];
 		}
 
+		/* Sauvegarde de la Gallerie D'Image */
+		if (!empty($_FILES['imgs-interet'])) {
+			/* Vérification D'erreurs */
+			$bDoUpload = in_array(0, $_FILES['imgs-interet']['error']);
+
+			$bGalleryUpdated = false;
+			if ($bDoUpload) {
+				$bGalleryUpdated = true;
+				//var_dump("Fetching files");
+				// Téléchargement des Images
+				$aUploaded = handleUploadedFile('imgs-interet', 'interests/image', true, ['png', 'jpg', 'jpeg']);
+				if (!$aUploaded) {
+					$aErrors["Gallerie"] = "Attention La gallerie ne peut contenir que des images.";
+				}
+				else{
+					// Mise à jour de la Gallerie
+					$oTmp = new Stdclass;
+					foreach ($aUploaded as $dIndex => $sFile) {
+						if (!empty($sFile)) {
+							$oTmp->$dIndex = $sFile;
+							$oInt->gallery_image->$dIndex = $sFile;
+						}
+						else{
+							$oTmp->$dIndex = $oInt->gallery_image->$dIndex;
+						}
+					}
+				
+					$sPrevGallery = $oInt->gallery_image;
+					$oInt->gallery_image = $oTmp;
+					
+				}
+			}
+		}
+
 	/* Si On a pas d'erreur on prepare L'object ville */
 		if (empty($aErrors)) {
 			$oInt->state = $_POST['state'];
@@ -181,7 +225,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 			$bImgUpdated = false;
 			if (!empty($_FILES['img']) && !$_FILES['img']['error']) {
 
-				//$bSize = fImageSize('img', 600, 600);
+				//$bSize = fImageSize('img', 300, 300);
 				$bSize = true;
 				if (!$bSize) {
 					$aErrors['Image'] = 'L\'image ne peut dépasser les 600px de large et 600px de haut.';
@@ -201,34 +245,6 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 				$oInt->audio = handleUploadedFile('audio', 'interests/audio');
 			}
 
-			/* Sauvegarde de la Gallerie D'Image */
-			if (!empty($_FILES['imgs-interet'])) {
-				/* Vérification D'erreurs */
-				$bDoUpload = in_array(0, $_FILES['imgs-interet']['error']);
-
-				$bGalleryUpdated = false;
-				if ($bDoUpload) {
-					$bGalleryUpdated = true;
-					//var_dump("Fetching files");
-					// Téléchargement des Images
-					$aUploaded = handleUploadedFile('imgs-interet', 'interests/image', true);
-
-					// Mise à jour de la Gallerie
-					$oTmp = new Stdclass;
-					foreach ($aUploaded as $dIndex => $sFile) {
-						if (!empty($sFile)) {
-							$oTmp->$dIndex = $sFile;
-							$oInt->gallery_image->$dIndex = $sFile;
-						}
-						else{
-							$oTmp->$dIndex = $oInt->gallery_image->$dIndex;
-						}
-					}
-
-					$sPrevGallery = $oInt->gallery_image;
-					$oInt->gallery_image = $oTmp;
-				}
-			}
 
 			//ApiMgr::$debugMode = true;
 			$oSaveRes = $oInt->save();
@@ -250,7 +266,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 					$aErrors['Erreur'] = $oSaveRes->message;
 				}
 				else{
-					$aErrors['Erreur'] = 'Une Erreur s\'est produit lors de l\'enregistrement';
+					$aErrors['Erreur'] = 'Une Erreur s\'est produite lors de l\'enregistrement';
 				}
 			}
 			// Si La Sauvegarde a Réussi

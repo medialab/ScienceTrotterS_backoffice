@@ -134,22 +134,25 @@ function fMethodIs($type='get') {
 		return $dSize >= $_FILES[$sName]['size'];
 	}
 
+	function fGetFileMime($path) {
+		$finfo = finfo_open( FILEINFO_MIME_TYPE );
+		$mtype = finfo_file( $finfo,  $path);
+		finfo_close( $finfo );
+		return $mtype;
+	}
+
 	function fFileExtensionValidator($sName, $aFileTypes) {
 		//var_dump($_FILES);
 		//var_dump("VALIDATE $sName");
 		/* Si aucun Fichier */
 		if (empty($_FILES) || empty($_FILES[$sName]) || empty($_FILES[$sName]['tmp_name'])) {
-			//var_dump("File Empty");
 			return true;
 		}
 
 		/* On récupère le fichier et son Mime */
 		$sTmpPath = $_FILES[$sName]['tmp_name'];
 		
-		$finfo = finfo_open( FILEINFO_MIME_TYPE );
-		$mtype = finfo_file( $finfo,  $sTmpPath);
-		finfo_close( $finfo );
-		//var_dump("mType: $mtype");;
+		$mtype = fGetFileMime($sTmpPath);
 		
 		/* On récupère les Mimes Authorisés */
 		if (is_string($aFileTypes)) {
@@ -157,8 +160,6 @@ function fMethodIs($type='get') {
 		}
 
 		$aAuthorizedMimes = fGetAuthorizedMimes($aFileTypes);
-		//var_dump("Autorized: ", $aAuthorizedMimes);;
-		//var_dump("Result: ", in_array($mtype, $aAuthorizedMimes));;
 
 		return in_array($mtype, $aAuthorizedMimes);
 	}
@@ -380,7 +381,7 @@ function fMethodIs($type='get') {
  * @param  boolean $bArray    Est Un Tableau de Fichiers
  * @return String             Le Path relatif Du Fichier
  */
-function handleUploadedFile($name, $directory, $bArray = false) {
+function handleUploadedFile($name, $directory, $bArray = false, $mimes = false) {
 	/* Sauvegarde Temporaire de l'image */
 	if (empty($_FILES[$name])) {
 		return null;
@@ -398,6 +399,25 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 			$aF['size'] = [$aF['size']];
 		}
 
+		if ($mimes) {
+			$aFileTypes = fGetAuthorizedMimes($mimes);
+		}
+
+		foreach ($aF['tmp_name'] as $i => $fName) {
+			if (empty($fName)) {
+				continue;
+			}
+			
+			if ($mimes) {
+				$test = in_array(fGetFileMime($fName), $aFileTypes);
+
+				if (!$test) {
+					return false;
+				}
+			}
+
+		}
+
 		// Enregistrement Des Uploads
 		foreach ($aF['name'] as $i => $fName) {
 			if (empty($fName)) {
@@ -411,28 +431,15 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 			
 			// Generation Du nom Du Fichier
 			$imgPath = $directory.'/'.fCreateFriendlyUrl($aF['name'][$i]);
-			$imgPath = preg_replace('/\.([^.]+)$/', '_'.microtime().'.$1', $imgPath);
 
-			// 060820108flo
-				$sOriginName = preg_replace( '`(.+)\.([a-z]+)`', '${1}', fCreateFriendlyUrl($aF['name'][$i]) );
-				$sNewName = $sOriginName;
-				$sExtensionName = preg_replace( '`(.+)\.([a-z]+)`', '${2}', fCreateFriendlyUrl($aF['name'][$i]) );
-				$dNameSake=0;
-				while( !empty( $aFileName[$sNewName] ) || file_exists( API_URL.'ressources/upload/'.$sNewName.'.'.$sExtensionName ) ){
-					$dNameSake ++;
-					$sNewName = $directory.'/'.fCreateFriendlyUrl($sOriginName).'-'.$dNameSake;
-				}
-				$aFileName[$sNewName]=1;
-				$imgPath=$sNewName.'.'.$sExtensionName;
-			// ---
-
+			$sReplace = '_'.str_replace([' ', '.'], ['', ''], microtime()).'.$1';
+			$imgPath = preg_replace('/\.([^.]+)$/', $sReplace, $imgPath);
 			// Définition de la destination
 			$dest = UPLOAD_PATH.$imgPath;
 			$dest = str_replace('/', DIRECTORY_SEPARATOR, $dest);
 
 			/* Si le fichier existe on le remplace */
 			if (file_exists($dest)) {
-				//var_dump("Deleting Old");
 				unlink($dest);
 			}
 
@@ -465,7 +472,6 @@ function handleUploadedFile($name, $directory, $bArray = false) {
 		return $aResult;
 	}
 	else{
-		//var_dump("No File Uploaded");
 	}
 
 	return null;

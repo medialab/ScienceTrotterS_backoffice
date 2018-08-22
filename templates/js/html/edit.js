@@ -38,7 +38,27 @@ $(document).ready(function() {
 
 	page.trigger('custom::pageReady');
 
+	$(".btnInputFileName a.delete").click(function(e) {
+		e.stopPropagation();
+		e.preventDefault();
 
+		var t;
+		var self = $(this);
+
+		if (self.attr('type') === 'image') {
+			t = 'cette image';
+		}
+		else{
+			t = 'ce fichier audio';
+
+		}
+
+		if(confirm("Attention: Vous êtes sur le point de supprimer."+t+"\nLe point d'intérêt sera dé-activé !")) {
+			var loc = '/delete-file.html?table='+self.attr('table')+"&id="+self.attr('id')+"&type="+self.attr('type')+"&model="+self.attr('model')+"&lang="+self.attr('lang')
+			console.log(loc);
+			window.location = loc;
+		}
+	})
 });
 
 function countListen(sModelType, id) {

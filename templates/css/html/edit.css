@@ -206,6 +206,15 @@ textarea#audio_script {
     padding: 5px 10px;
 }
 
+.cust-color-selector div.sel-opt span.taken,
+.cust-color-selector div.sel-opt.taken span.name{
+	display: none;
+}
+
+.cust-color-selector div.sel-opt.taken span.taken{
+	display: inline-block;
+}
+
 .cust-color-selector div.sel-opt:hover,
 .cust-color-selector div.sel-opt.selected {
 	background-color: lightgray;
@@ -254,6 +263,26 @@ textarea#audio_script {
 .box .spinner-xs {
 	width: 15px;
 	height: 15px;
+}
+
+.btnInputFileName a.link {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+.btnInputFileName a.delete {
+	margin-left: 15px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.btnInputFileName a.delete i {
+	width: 15px;
+	height: 15px;
+	background-size: 100%;
+	display: inline-block;
+	background-image: url(/media/image/interface/icons/cross.svg);
+	background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 1350px) {

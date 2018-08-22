@@ -56,10 +56,19 @@ class City extends Model
 	 */
 	protected $image;
 
+	/**
+	 * Tableau des Parcours
+	 */
+	protected $parcours = false;
+
+	/**
+	 * Tableau des Points D'interets
+	 */
+	protected $interests = false;
 
 	function __construct($id=false, $aData=[]) {
 		$this->sTable = 'cities';
-		$this->sqlIgnore = ['geoE','geoN'];
+		$this->sqlIgnore = ['geoE','geoN', 'parcours', 'interests'];
 		Parent::__construct($id, $aData);
 	}
 
@@ -101,6 +110,37 @@ class City extends Model
 		Parent::__set($sVar, $var);
 	}
 
+	function __get($sVar) {
+		switch ($sVar) {
+			case 'parcours':
+				return $this->getParcours();
+				break;
+
+			case 'interests':
+				return $this->getInterests();
+				break;
+			
+			default:
+				return Parent::__get($sVar);
+				break;
+		}
+	}
+
+	protected function getParcours() {
+		if ($this->parcours === false) {
+			$this->parcours = Parcours::byCity($this->id);
+		}
+
+		return $this->parcours;
+	}
+
+	protected function getInterests() {
+		if ($this->interests === false) {
+			$this->interests = Interest::byCity($this->id);
+		}
+
+		return $this->interests;
+	}
 
 	/**
 	 * [list description]

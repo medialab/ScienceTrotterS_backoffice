@@ -252,7 +252,7 @@ abstract class Model
 	 */
 	public function __isset($sVar) {
 		if (property_exists($this, $sVar)) {
-			$v = $this->$sVar;
+			$v = $this->__get($sVar);
 
 			if (in_array($v, $this->aTranslateVars)) {
 				if (is_string($v)) {

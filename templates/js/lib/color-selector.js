@@ -39,7 +39,7 @@ $(document).ready(function() {
 		var selector = option.parents('.cust-color-selector');
 		var input = selector.find('input');
 		
-		var name = option.text().trim();
+		var name = option.find('.name').text().trim();
 		var color = option.attr('value');
 
 		var currentOption = selector.find('.opt-selected');
