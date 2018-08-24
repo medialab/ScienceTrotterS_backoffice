@@ -345,5 +345,7 @@
 
 			<button class="btn submit" type="submit">Envoyer</button>
 		</form>
+
+		<input id="curState" type="hidden" value="{if $oInt->state|default: false}1{else}0{/if}">
 	</div>
 {/foreach}

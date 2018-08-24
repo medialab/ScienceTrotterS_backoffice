@@ -81,7 +81,7 @@ $(document).ready(function() {
 				break;
 
 			case "parcours": 
-				name = "le aprcours";
+				name = "le parcours";
 				break;
 
 			case "interests": 
