@@ -295,7 +295,7 @@
 									<p>
 										<a href="{$oInt->gallery_image->$index}">{$sName}</a>
 										{if sName|strlen}
-											<a class="delete" table="interests" model="Interest" id="{$oInt->id}" type="gallery@{$index}" file="{$sImg}" title="Supprimer le fichier" lang="{$sIso}"  style="margin-left: 4px">
+											<a class="delete" table="interests" model="Interest" id="{$oInt->id}" type="image@{$index}" file="{$sImg}" title="Supprimer le fichier" lang="{$sIso}" style="margin-left: 4px">
 												<i class="delete-file" ></i>
 											</a>
 										{/if}

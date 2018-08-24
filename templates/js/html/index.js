@@ -298,6 +298,8 @@ $(document).ready(function() {
 				else{
 					oParent.addClass("disable");
 				}
+
+				oParent.click();
 			}
 			else{
 				Notify.error(aModel.title, result.message);

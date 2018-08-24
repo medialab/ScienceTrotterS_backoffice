@@ -66,7 +66,7 @@ $(document).ready(function() {
 		var self = $(this);
 		var table = self.attr('table');
 
-		if (self.attr('type') === 'image') {
+		if (self.attr('type').indexOf('image') >= 0) {
 			t = 'cette image';
 		}
 		else{
