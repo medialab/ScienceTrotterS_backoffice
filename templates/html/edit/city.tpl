@@ -29,7 +29,7 @@
 				<label for="img-{$sIso}">Image *</label>
 				<p>
 					Choisir une image illustrant au mieux la ville.
-					<br />Format 600x600px, png ou jpg, poids maximum 60k.
+					<br />Format 600x600px, png ou jpg, poids maximum 500 Ko.
 				</p>
 				
 				<div class="borderGrey">

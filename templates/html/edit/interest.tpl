@@ -97,7 +97,7 @@
 				<label for="img-{$sIso}">Image *</label>
 				<p>
 					Choisir une image illustrant le point d'intérêt.
-					<br />Format 600x600px, png ou jpg, poids maximum 60ko
+					<br />Format 600x600px, png ou jpg, poids maximum 500 Ko.
 					<br />Attention: les photos doivent être libres de droits.
 				</p>
 				
