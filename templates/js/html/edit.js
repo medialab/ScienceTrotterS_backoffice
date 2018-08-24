@@ -2,21 +2,17 @@ $(document).ready(function() {
 	$('input[maxlength], textarea[maxlength]').keyup(function(e) {
 		var self = $(this);
 		var len = parseInt(self.attr('maxlength'));
-		
-		console.log("MAXLEN: "+len);
-		
-		var curLen = self.val().length + (self.val().match(/\n/g) ||[]).length
-		console.log("CURLEN: "+ curLen);
+				
+		var curLen = self.val().split("\n").length - 1;
+		curLen += self.val().length;
 		
 		if(curLen > len) {
 			var substring = self.val().substring(0, len-1);
-			var cnt =  (self.val().match(/\n/g) ||[]).length;
+			var cnt =  (substring.match(/\n/g) ||[]).length;
+			substring = substring.substring(0, (curLen - cnt) - (curLen - len));
 
-			substring = self.val().substring(0, (len-cnt)-1);
 			self.val(substring);
-
-			var newLen = self.val().length + (self.val().match(/\n/g) ||[]).length
-			console.log("NEWLEN: "+newLen);
+			
 		}
 	});
 	/*var tabSelector = $(".tab-selector");
