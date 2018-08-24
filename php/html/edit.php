@@ -144,6 +144,7 @@ $smarty->assign('aLangs', [
 
 // Mise à Jour Du Fil D'arrianne
 $curPage = $curPage[1];
+$smarty->assign('curModel', $curPage);
 $edit = empty($_GET['id']) ? 'Création ' : ' Édition ';
 
 switch ($curPage) {
