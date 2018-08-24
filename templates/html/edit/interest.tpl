@@ -37,9 +37,9 @@
 			<div class="box">
 				<label for="address-{$sIso}">
 					Lieu du point d'intérêt *
-					<p>70 Charactères maximum.</p>
 					<i class="flag-ico"></i>
 				</label>
+				<p>70 Charactères maximum.</p>
 				<p>Tel qu'il apparaîtra sur l'application, 70 caractères maximum</p>
 
 				<input name="address" id="address-{$sIso}" type="text" maxlength="70" value="{$oInt->address}" default="{$oInt->address|default: ''}">
@@ -184,8 +184,13 @@
 							{$audio = $audio|cat: ($ext[0]|default: '')}
 
 							<div class="audio-name" {if $oInt->audio|default:false}disabled{/if}>
-								<a href="{$_API_URL_}ressources/upload/{$oInt->audio}" target="_blank" class="link">{$audio}</a>
+								{$audio}
+								
 								{if $oInt->audio|strlen}
+									<a href="{$_API_URL_}ressources/upload/{$oInt->audio}" target="blank" class="listen-file">
+										<i title="modifier"></i>
+									</a>
+
 									<a class="delete" table="interests"  model="Interest"  id="{$oInt->id}" type="audio" lang="{$sIso}"  file="{$oInt->audio}" title="Supprimer le fichier">
 										<i class="delete-file" ></i>
 									</a>
@@ -251,9 +256,10 @@
 			<div class="box">
 				<label for="difficultes-{$sIso}">
 					Difficulté(s) *
-					<p>50 Charactères maximum.</p>
 					<i class="flag-ico"></i>
 				</label>
+				
+				<p>50 Charactères maximum.</p>
 				<p>ex. "payant (5€ tarif étudiant)"</p>
 
 				<input name="price" id="difficultes-{$sIso}" maxlength="50"  type="text" value="{$oInt->price}" default="{$oInt->price|default: ''}">

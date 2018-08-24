@@ -113,7 +113,7 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 
 		$maxSize = '10Mo';
 		if (!fFileZieValidator('audio', $maxSize)) {
-			$aErrors['Audio'] = 'L\'Audio ne peut dépasser 20 Mo';
+			$aErrors['Audio'] = 'L\'Audio ne peut dépasser 10 Mo';
 		}
 
 	$oModel->setState($_POST['state']);

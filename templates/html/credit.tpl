@@ -117,21 +117,21 @@
 
 
 <div class="box box-large">
-	<h3>6. DONNÉES PERSONNELLES</h3>
+	<h3>5. DONNÉES PERSONNELLES</h3>
 	<p>
 		L’Application ne nécessite pas la gestion et/ou le stockage de données à caractères personnelles au sens du Règlement général à la protection des données 2016/679 et la loi n°78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés modifiée en 2004.
 	</p>
 </div>
 
 <div class="box box-large">
-	<h3>7. STOCKAGE DES DONNÉES</h3>
+	<h3>6. STOCKAGE DES DONNÉES</h3>
 	<p>
 		Pour le bon fonctionnement de l’Application, l’Utilisateur est averti que des données d’utilisations (tels que le choix de la langue, la taille des caractères, des fichiers audios et photos des points d’intérêts) seront stockés au sein de la mémoire téléphone de l’Utilisateur. Ce stockage permettra notamment à l’Utilisateur d’accéder à ces données hors connexion.
 	</p>
 </div>
 
 <div class="box box-large">
-	<h3>8. LIENS HYPERTEXTES</h3>
+	<h3>7. LIENS HYPERTEXTES</h3>
 	<p>
 		L’Application peut contenir des liens hypertextes vers d’autres sites web ou application.
 		La responsabilité de l’Editeur ne saurait cependant être engagée au titre d’un site tiers auquel l’Utilisateur a eu accès via l’Application et qui présenterait des contenus illicites ou inexacts.
@@ -143,7 +143,7 @@
 
 
 <div class="box box-large">
-	<h3>9. LOI APPLICABLE ET JURIDICTION COMPETENTE</h3>
+	<h3>8. LOI APPLICABLE ET JURIDICTION COMPETENTE</h3>
 	<p>
 		Les CGU sont soumises au droit français.<br>
 		Tout litige relatif aux CGU relèvera de la compétence des juridictions françaises.

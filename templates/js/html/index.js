@@ -291,6 +291,13 @@ $(document).ready(function() {
 				else{
 					Notify.warning(aModel.title, result.message);
 				}
+
+				if (bEnable) {
+					oParent.removeClass("disable");
+				}
+				else{
+					oParent.addClass("disable");
+				}
 			}
 			else{
 				Notify.error(aModel.title, result.message);

@@ -1,4 +1,24 @@
 $(document).ready(function() {
+	$('input[maxlength], textarea[maxlength]').keyup(function(e) {
+		var self = $(this);
+		var len = parseInt(self.attr('maxlength'));
+		
+		console.log("MAXLEN: "+len);
+		
+		var curLen = self.val().length + (self.val().match(/\n/g) ||[]).length
+		console.log("CURLEN: "+ curLen);
+		
+		if(curLen > len) {
+			var substring = self.val().substring(0, len-1);
+			var cnt =  (self.val().match(/\n/g) ||[]).length;
+
+			substring = self.val().substring(0, (len-cnt)-1);
+			self.val(substring);
+
+			var newLen = self.val().length + (self.val().match(/\n/g) ||[]).length
+			console.log("NEWLEN: "+newLen);
+		}
+	});
 	/*var tabSelector = $(".tab-selector");
 	var curLang = tabSelector.attr('target');*/
 
@@ -44,6 +64,7 @@ $(document).ready(function() {
 
 		var t;
 		var self = $(this);
+		var table = self.attr('table');
 
 		if (self.attr('type') === 'image') {
 			t = 'cette image';
@@ -53,8 +74,26 @@ $(document).ready(function() {
 
 		}
 
-		if(confirm("Attention: Vous êtes sur le point de supprimer."+t+"\nLe point d'intérêt sera dé-activé !")) {
-			var loc = '/delete-file.html?table='+self.attr('table')+"&id="+self.attr('id')+"&type="+self.attr('type')+"&model="+self.attr('model')+"&lang="+self.attr('lang')
+		var name;
+		switch(table) {
+			case "cities": 
+				name = "la ville";
+				break;
+
+			case "parcours": 
+				name = "le aprcours";
+				break;
+
+			case "interests": 
+				name = "le point d'intérêt";
+				break;
+		}
+
+		if ($("#curState").val() === '1') {
+			alert("Attention: Vous ne pouvez supprimer "+t+" sans désactiver "+name+".");
+		}
+		else if(confirm("Attention: Vous êtes sur le point de supprimer "+t+"")) {
+			var loc = '/delete-file.html?table='+table+"&id="+self.attr('id')+"&type="+self.attr('type')+"&model="+self.attr('model')+"&lang="+self.attr('lang')
 			console.log(loc);
 			window.location = loc;
 		}

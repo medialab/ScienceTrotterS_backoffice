@@ -87,7 +87,7 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 
 
 	if (!empty($_POST['description'])) {
-		if (strlen($_POST['description']) > 300) {
+		if (mb_strlen($_POST['description']) > 300) {
 			$aErrors['Description'] = 'La description ne peut dépasser 300 caractères';
 		}
 		else {
@@ -100,7 +100,7 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 
 
 	if (!empty($_POST['audio_script'])) {
-		if (strlen($_POST['audio_script']) > 12000) {
+		if (mb_strlen($_POST['audio_script']) > 12000) {
 			$aErrors['Script Audio'] = 'Le script audio ne peut dépasser 12000 caractères';
 		}
 		else {

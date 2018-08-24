@@ -9,11 +9,11 @@ if ($id && !fIdValidator($id)) {
 // Titre du formulaire 
 if ($id) {
 	$bIsCreate = false;
-	$smarty->assign('sCreation', 'Création d\'un point d\'intérêt');
+	$smarty->assign('sCreation', 'Mise à jour d\'un point d\'intérêt');
 } 
 else {
 	$bIsCreate = true;
-	$smarty->assign('sCreation', 'Mise à jour d\'un point d\'intérêt');
+	$smarty->assign('sCreation', 'Création d\'un point d\'intérêt');
 }
 
 
@@ -79,7 +79,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 	/* Validation De  accroche */
 		if (!empty($_POST['address'])) {
-			if (strlen($_POST['address']) > 70) {
+			if (mb_strlen($_POST['address']) > 70) {
 				$aErrors['lieu'] = 'Le lieu ne peut dépasser 70 caractères';
 			}
 			else {
@@ -116,7 +116,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 	/* Validation De price */
 		if (!empty($_POST['price'])) {
-			if (strlen($_POST['price']) > 50) {
+			if (mb_strlen($_POST['price']) > 50) {
 				$aErrors['Difficultés'] = 'Les difficultés ne peuvent dépasser 50 caractères';
 			}
 			else {
@@ -168,7 +168,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 
 		if (!empty($_POST['audio_script'])) {
-			if (strlen($_POST['audio_script']) > 12000) {
+			if (mb_strlen($_POST['audio_script']) > 12000) {
 				$aErrors['Script Audio'] = 'Le script audio ne peut dépasser 12 000 caractères';
 			}
 			else {

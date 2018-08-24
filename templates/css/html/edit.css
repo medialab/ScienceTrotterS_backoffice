@@ -271,7 +271,7 @@ textarea#audio_script {
 }
 
 .btnInputFileName a.delete {
-	margin-left: 15px;
+	margin-left: 10px;
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -282,6 +282,21 @@ textarea#audio_script {
 	background-size: 100%;
 	display: inline-block;
 	background-image: url(/media/image/interface/icons/cross.svg);
+	background-repeat: no-repeat;
+}
+
+.btnInputFileName a.listen-file {
+	display: inline-block;
+	margin-left: 15px;
+	vertical-align: sub;
+}
+
+.btnInputFileName a.listen-file i{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	background-size: 100%;
+	background-image: url(/media/image/interface/icons/audio.svg);
 	background-repeat: no-repeat;
 }
 

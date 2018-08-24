@@ -102,7 +102,7 @@
 					</div>
 				{/if}
 				<p>
-					5min ou 20Mo max. format .mp3 ou .wav
+					5min ou 10Mo max. format .mp3 ou .wav
 				</p>
 				
 				<div class="borderGrey">
@@ -120,7 +120,11 @@
 
 							<div class="audio-name" {if $oParc->audio|default:false}disabled{/if}>
 								{if $audio|default: false}
-									<a href="{$_API_URL_}ressources/upload/{$oParc->audio}" target="_blank" class="link">{$audio}</a>
+									{$audio}
+									
+									<a href="{$_API_URL_}ressources/upload/{$oParc->audio}" target="blank" class="listen-file">
+										<i title="modifier"></i>
+									</a>
 
 									<a class="delete" table="parcours" id="{$oParc->id}" model="Parcours" lang="{$sIso}"  type="audio" file="{$oParc->audio}" title="Supprimer le fichier">
 										<i class="delete-file" ></i>
@@ -141,9 +145,9 @@
 					Résumé *
 					<i class="flag-ico"></i>
 				</label>
-				<p>Tel qu'il apparaîtra sur l'application, 12 000 caractères maximum.</p>
+				<p>Tel qu'il apparaîtra sur l'application, 300 caractères maximum.</p>
 				
-				<textarea id="description" maxlength="12000" name="description" default="{$oParc->description|default: ''}">{$oParc->description|default: ''}</textarea>
+				<textarea id="description" maxlength="300" name="description" default="{$oParc->description|default: ''}">{$oParc->description|default: ''}</textarea>
 			</div>
 
 			<!-- Audio Script -->
@@ -152,9 +156,9 @@
 					Audio Script *
 					<i class="flag-ico"></i>
 				</label>
-				<p>Tel qu'il apparaîtra sur l'application, 300 caractères maximum.</p>
+				<p>Tel qu'il apparaîtra sur l'application, 12 000 caractères maximum.</p>
 				
-				<textarea id="audio_script" maxlength="300" name="audio_script" default="{$oParc->audio_script|default: ''}">{$oParc->audio_script|default: ''}</textarea>
+				<textarea id="audio_script" maxlength="12000" name="audio_script" default="{$oParc->audio_script|default: ''}">{$oParc->audio_script|default: ''}</textarea>
 			</div>
 
 			<!-- Interêts -->
