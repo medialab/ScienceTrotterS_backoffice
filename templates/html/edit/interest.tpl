@@ -240,7 +240,7 @@
 
 			<div class="box">
 				<label for="bibliographie">
-					Bibliographie
+					Bibliographie *
 					<i class="flag-ico"></i>
 				</label>
 				<p>5 maximum</p>
