@@ -147,7 +147,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 300 caractères maximum.</p>
 				
-				<textarea id="description" maxlength="300" name="description" default="{$oParc->description|default: ''}">{$oParc->description|default: ''}</textarea>
+				<textarea id="description" maxlength="300" name="description" default="{$oParc->description|default: ''}">{br2nl($oParc->description|default: '')}</textarea>
 			</div>
 
 			<!-- Audio Script -->
@@ -158,7 +158,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 12 000 caractères maximum.</p>
 				
-				<textarea id="audio_script" maxlength="12000" name="audio_script" default="{$oParc->audio_script|default: ''}">{$oParc->audio_script|default: ''}</textarea>
+				<textarea id="audio_script" maxlength="12000" name="audio_script" default="{$oParc->audio_script|default: ''}">{br2nl($oParc->audio_script|default: '')}</textarea>
 			</div>
 
 			<!-- Interêts -->

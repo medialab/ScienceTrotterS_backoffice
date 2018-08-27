@@ -100,6 +100,12 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 	/* Validation De  bibliography */
 		if (!empty($_POST['bibliography'])) {
+			foreach ($_POST['bibliography'] as $i => $sData) {
+				if (mb_strlen($sData) > 200) {
+					$aErrors['Bibliographie'] = 'Les lignes du champs Bibliographie ne peuvent dépasser 200 caractères chaqu\'unes.';
+				}
+			}
+
 			$oInt->bibliography = $_POST['bibliography'];
 		}
 		else{
@@ -108,6 +114,9 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 	/* Validation De  schedule */
 		if (!empty($_POST['schedule'])) {
+			if (mb_strlen($_POST['schedule']) > 10) {
+				$aErrors['Horaire'] = 'Le champs horaire ne peut dépasser 10 caractères.';
+			}
 			$oInt->schedule = $_POST['schedule'];
 		}
 		else{
@@ -117,11 +126,10 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 	/* Validation De price */
 		if (!empty($_POST['price'])) {
 			if (mb_strlen($_POST['price']) > 50) {
-				$aErrors['Difficultés'] = 'Les difficultés ne peuvent dépasser 50 caractères';
+				$aErrors['Difficultés'] = 'Les difficultés ne peuvent dépasser 50 caractères.';
 			}
-			else {
-				$oInt->price = $_POST['price'];
-			}
+			
+			$oInt->price = $_POST['price'];
 		}
 		else{
 			$oInt->price = null;
@@ -172,15 +180,11 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 				$aErrors['Script Audio'] = 'Le script audio ne peut dépasser 12 000 caractères';
 			}
 			else {
-				$oInt->audio_script = $_POST['audio_script'];
+				$oInt->audio_script = preg_replace('/[\n\r]{1,2}/i', '<br />', $_POST['audio_script']);
 			}
 		}
 		else {
 			$oInt->audio_script = null;
-		}
-
-		if (!empty($oInt->audio_script)) {
-			$oInt->audio_script = empty($_POST['audio_script']) ? null : $_POST['audio_script'];
 		}
 
 		/* Sauvegarde de la Gallerie D'Image */
@@ -244,7 +248,6 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 				$sPrevAudio = $oInt->audio;
 				$oInt->audio = handleUploadedFile('audio', 'interests/audio');
 			}
-
 
 			//ApiMgr::$debugMode = true;
 			$oSaveRes = $oInt->save();

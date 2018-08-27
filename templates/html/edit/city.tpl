@@ -68,7 +68,7 @@
 				</div>
 
 				<p>
-					Avec Jpeg.io, optimisez le poid de vos images
+					Avec Jpeg.io, optimisez le poids de vos images
 					<br />Attention: les photos doivent être libres de droits.
 				</p>
 				<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>

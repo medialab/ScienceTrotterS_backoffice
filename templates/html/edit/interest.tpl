@@ -39,7 +39,7 @@
 					Lieu du point d'intérêt *
 					<i class="flag-ico"></i>
 				</label>
-				<p>70 Charactères maximum.</p>
+				<p>70 Caractères maximum.</p>
 				<p>Tel qu'il apparaîtra sur l'application, 70 caractères maximum</p>
 
 				<input name="address" id="address-{$sIso}" type="text" maxlength="70" value="{$oInt->address}" default="{$oInt->address|default: ''}">
@@ -134,7 +134,7 @@
 					</div>
 				</div>
 
-				<p>Avec Jpeg.io, optimisez le poid de vos images</p>
+				<p>Avec Jpeg.io, optimisez le poids de vos images</p>
 				<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>
 			</div>
 
@@ -143,9 +143,10 @@
 					Horaires *
 					<i class="flag-ico"></i>
 				</label>
+				<p>10 caractères maximum</p>
 				<p>ex. "mer-sam, 13h-17h"</p>
 
-				<input name="schedule" id="horaires-{$sIso}" type="text" value="{$oInt->schedule}" default="{$oInt->schedule|default: ''}">
+				<input name="schedule" id="horaires-{$sIso}" type="text" value="{$oInt->schedule}" default="{$oInt->schedule|default: ''}" maxlength="10">
 			</div>
 
 			<!-- AUDIO -->
@@ -235,7 +236,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 12 000 caractères maximum</p>
 
-				<textarea name="audio_script" id="audio_script-{$sIso}" maxlength="12000" default="{$oInt->audio_script|default: ''}">{$oInt->audio_script}</textarea>
+				<textarea name="audio_script" id="audio_script-{$sIso}" maxlength="12000" default="{$oInt->audio_script|default: ''}">{br2nl(($oInt->audio_script|default: ''))}</textarea>
 			</div>
 
 			<div class="box">
@@ -243,13 +244,14 @@
 					Bibliographie *
 					<i class="flag-ico"></i>
 				</label>
+				<p>200 Caractères maximum par ligne.</p>
 				<p>5 maximum</p>
 
-				<input name="bibliography[]" id="bibliography1"  type="text" value="{$oInt->bibliography[0]|default: ''}" default="{$oInt->bibliography[0]|default: ''}">
-				<input name="bibliography[]" id="bibliography2"  type="text" value="{$oInt->bibliography[1]|default: ''}" default="{$oInt->bibliography[1]|default: ''}">
-				<input name="bibliography[]" id="bibliography3"  type="text" value="{$oInt->bibliography[2]|default: ''}" default="{$oInt->bibliography[2]|default: ''}">
-				<input name="bibliography[]" id="bibliography4"  type="text" value="{$oInt->bibliography[3]|default: ''}" default="{$oInt->bibliography[3]|default: ''}">
-				<input name="bibliography[]" id="bibliography5"  type="text" value="{$oInt->bibliography[4]|default: ''}" default="{$oInt->bibliography[4]|default: ''}">
+				<input name="bibliography[]" id="bibliography1"  type="text" value="{$oInt->bibliography[0]|default: ''}" default="{$oInt->bibliography[0]|default: ''}" maxlength="200">
+				<input name="bibliography[]" id="bibliography2"  type="text" value="{$oInt->bibliography[1]|default: ''}" default="{$oInt->bibliography[1]|default: ''}" maxlength="200">
+				<input name="bibliography[]" id="bibliography3"  type="text" value="{$oInt->bibliography[2]|default: ''}" default="{$oInt->bibliography[2]|default: ''}" maxlength="200">
+				<input name="bibliography[]" id="bibliography4"  type="text" value="{$oInt->bibliography[3]|default: ''}" default="{$oInt->bibliography[3]|default: ''}" maxlength="200">
+				<input name="bibliography[]" id="bibliography5"  type="text" value="{$oInt->bibliography[4]|default: ''}" default="{$oInt->bibliography[4]|default: ''}" maxlength="200">
 			</div>
 
 
@@ -259,7 +261,7 @@
 					<i class="flag-ico"></i>
 				</label>
 				
-				<p>50 Charactères maximum.</p>
+				<p>50 Caractères maximum.</p>
 				<p>ex. "payant (5€ tarif étudiant)"</p>
 
 				<input name="price" id="difficultes-{$sIso}" maxlength="50"  type="text" value="{$oInt->price}" default="{$oInt->price|default: ''}">
@@ -315,7 +317,7 @@
 
 				</div>
 				<p>
-					Avec Jpeg.io, optimisez le poid de vos images
+					Avec Jpeg.io, optimisez le poids de vos images
 					<br />Attention: les photos doivent être libres de droits.
 				</p>
 				<a href="https://www.jpeg.io/" target="_blank" title="Optimiser vos images" class="item itemClick">https://www.jpeg.io/</a>

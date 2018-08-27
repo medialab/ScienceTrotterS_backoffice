@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="formulaire.css">
+*<link rel="stylesheet" href="formulaire.css">
 
 <div id="global">
 	<div class="logo">
@@ -28,7 +28,7 @@
 		<div class="site">
 			<p class="link">
 				Allez sur le site
-				<a href="https://controverses.org/" target="_blank"> FORCCAST</a>
+				<a href="http://controverses.org/" target="_blank"> FORCCAST</a>
 			</p>
 		</div>
 

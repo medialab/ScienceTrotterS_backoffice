@@ -1,4 +1,10 @@
 <?php
+function br2nl($string){
+	$string = preg_replace('#<br\s*/?>#i', "\n", html_entity_decode($string));
+
+	return $string;
+}
+
 // Remplacement des caractères spéciaux
 	function fRemoveSpecialChar( $sString, $sChar="-" ) {
 		$fRemoveSpecialChar					=	$sString;
