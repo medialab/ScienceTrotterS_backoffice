@@ -168,6 +168,11 @@ class ApiMgr {
 			Self::$lastMessage = 'Malformed Response JSON';
 			return (object) ['success' => false, 'message' => 'Malformed Response JSON'];
 		}
+		else{
+			if (!empty($oResult->token)) {
+				$_SESSION['user']['token'] = $oResult->token;
+			}
+		}
 
 		Self::$lastMessage = @$oResult->message;
 		return $oResult;
