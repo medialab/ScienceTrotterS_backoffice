@@ -85,6 +85,12 @@ var ApiMgr = {
 			sCurLang: false,
 
 			success: function(result) {
+				if (typeof result.token != 'undefined') {
+					console.log("Updating Token");
+					self.apiToken = result.token;
+					_API_TOKEN_ = result.token;
+				}
+
 				if (success) {
 					success(result);
 				}
