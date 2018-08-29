@@ -98,6 +98,12 @@ var ApiMgr = {
 
 			error: function(result) {
 				console.error("Request Error", result);
+				if (typeof result.token != 'undefined') {
+					console.log("Updating Token");
+					self.apiToken = result.token;
+					_API_TOKEN_ = result.token;
+				}
+
 				var err = result;
 				if (typeof result.responseJSON !== 'undefined') {
 					result = result.responseJSON;
