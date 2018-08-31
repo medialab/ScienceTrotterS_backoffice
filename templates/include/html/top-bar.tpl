@@ -13,7 +13,7 @@
 					
 					<input type="text" id="inputSearchBar" placeholder="Ville, parcours, point d'intérêt..." />
 				</div>
-				<a href="https://accounts.google.com/signin/v2/sl/pwd?service=mail" target="_blank" class="item itemClick">
+				<a href="https://accounts.google.com/AccountChooser?continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F%3Fauthuser%3Dforccast.controverses%40gmail.com&service=mail&Email=forccast.controverses@gmail.com" target="_blank" class="item itemClick">
 					<div class="itemIcon iconMessage"></div>
 				</a>
 				<a href="/credit.html" class="item itemClick">
