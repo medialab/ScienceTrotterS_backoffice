@@ -167,6 +167,7 @@ abstract class Model
 
 
 	    $var->$sLang = $value;
+	    //$this->__set($sVar, $var);
 	    $this->$sVar = $var;
 	}
 
@@ -196,6 +197,7 @@ abstract class Model
 	        throw new \Exception("Error: Can't Set Parcours::$sVar Due to Invalid Data Type. Accepted StdClass, Array, String (json) OR null", 1);
 	    }
 
+	    //$this->__set($sVar, $value);
 	    $this->$sVar = $value;
 	}
 
@@ -369,9 +371,6 @@ abstract class Model
 					}
 				}
 				else{
-					//var_dump("Prop", $sProp);
-					//var_dump($sData);
-
 					if ($this->canAccessVar($sProp, false) !== -1) {
 						$this->__set($sProp, $sData);
 					}

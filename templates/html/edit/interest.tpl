@@ -13,7 +13,7 @@
 				</label>
 				<p>Tel qu'il apparaîtra sur l'application, 90 caractères maximum</p>
 
-				<input name="title" id="intitule-{$sIso}" required type="text" value="{$oInt->title}" default="{$oInt->title|default: ''}">
+				<input name="title" id="intitule-{$sIso}" required type="text" value="{$oInt->title}" default="{$oInt->title|default: ''}"maxlength="90">
 			</div>
 
 			<div id="box-Ville" class="box">
@@ -247,11 +247,12 @@
 				<p>200 Caractères maximum par ligne.</p>
 				<p>5 maximum</p>
 
-				<input name="bibliography[]" id="bibliography1"  type="text" value="{$oInt->bibliography[0]|default: ''}" default="{$oInt->bibliography[0]|default: ''}" maxlength="200">
-				<input name="bibliography[]" id="bibliography2"  type="text" value="{$oInt->bibliography[1]|default: ''}" default="{$oInt->bibliography[1]|default: ''}" maxlength="200">
-				<input name="bibliography[]" id="bibliography3"  type="text" value="{$oInt->bibliography[2]|default: ''}" default="{$oInt->bibliography[2]|default: ''}" maxlength="200">
-				<input name="bibliography[]" id="bibliography4"  type="text" value="{$oInt->bibliography[3]|default: ''}" default="{$oInt->bibliography[3]|default: ''}" maxlength="200">
-				<input name="bibliography[]" id="bibliography5"  type="text" value="{$oInt->bibliography[4]|default: ''}" default="{$oInt->bibliography[4]|default: ''}" maxlength="200">
+				{assign var="biblio" value=($oInt->bibliography)}
+				{assign var="biblio" value=($biblio->$sIso)}
+
+				{for $i=0 to 4}
+					<input name="bibliography[]" id="bibliography1"  type="text" value="{$biblio[$i]|default: ''}" default="{$biblio[$i]|default: ''}" maxlength="200">
+				{/for}
 			</div>
 
 

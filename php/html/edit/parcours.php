@@ -65,6 +65,9 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 	// Récupération Des Informations Propres Aux Parcours
 	if (!empty($_POST['time'])) {
 		$oParc->time = $_POST['time'];
+		if (mb_strlen($_POST['time']) > 5) {
+			$aErrors['Durée'] = 'La durée ne peut dépasser 5 caractères';
+		}
 	}
 	else{
 		$oParc->time = null;

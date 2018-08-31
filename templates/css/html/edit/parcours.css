@@ -10,6 +10,15 @@
 	list-style: none;
 }
 
+.box-interets li a{
+	width: auto;
+	max-width: 100%;
+	overflow: hidden;
+    white-space: nowrap;
+	display: inline-block;
+    text-overflow: ellipsis;
+}
+
 .box-interets li.active a {
 	color: #5e80c9;
 }

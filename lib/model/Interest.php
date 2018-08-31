@@ -161,7 +161,11 @@ class Interest extends Model
 
 			case 'city':
 				return $this->getCity();
-				break;			
+				break;
+
+			case 'bibliography':
+				return $this->getBibliography();
+				break;
 		}
 
 		return Parent::__get($sVar);
@@ -193,11 +197,39 @@ class Interest extends Model
 			case 'geoE':
 				$this->setGeoE($var);
 				break;
+
+			/*case 'bibliography':
+				var_dump("=== Update Bibliio ===", $this->bibliography, "=== TO=== ", $var);
+				Parent::__set($sVar, $var);
+				$this->updateBibliography();
+				var_dump("=== Result ===", $this->bibliography);
+				exit;
+				break;*/
 			
 			default:
 				Parent::__set($sVar, $var);
 				break;
 		}
+	}
+
+
+
+	private function getBibliography() {
+		if (empty($this->bibliography)) {
+			return null;
+		}
+
+		foreach ($this->bibliography as $sLang => &$aValue) {
+			if (is_object($aValue)) {
+				$aValue = (array) $aValue;
+			}
+		}
+
+		if (is_array($this->bibliography)) {
+			$this->bibliography = (object) $this->bibliography;
+		}
+
+		return $this->bibliography;
 	}
 
 	private function setParcours($oParc) {

@@ -163,7 +163,7 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 
 		/*if (!empty($_POST['description'])) {
-			if (strlen($_POST['description']) > 300) {
+			if (mb_strlen($_POST['description']) > 300) {
 				$aErrors['Description'] = 'La description ne peut dépasser 300 caractères';
 			}
 			else {

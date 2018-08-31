@@ -39,6 +39,18 @@ var ApiMgr = {
 			this.execute();
 		}
 	},
+	
+	/**
+	 * Ajoute Une Requete à La Fille D'attente
+	 * @param {Object} req La Requete
+	 */
+	addFirstRequest: function(req) {
+		this.queue.unshift(req);
+
+		if (!this.active) {
+			this.execute();
+		}
+	},
 
 	/**
 	 * Execute la File D'Attente
@@ -49,7 +61,45 @@ var ApiMgr = {
 
 		this.curRequest = this.queue.shift();
 
+		var url = this.curRequest.url;
+		
+		// Ajout Du Token
+		if (this.curRequest.method === 'get') {
+			url += url.indexOf('?') > -1 ? '&' : '?';
+			url += 'token='+this.apiToken;
+
+			this.curRequest.url = url;
+		}
+		else{
+			this.curRequest.data['token'] = this.apiToken;
+		}
+
 		$.ajax(this.curRequest);
+	},
+
+	updateToken: function (token) {
+		//console.log("Updating Token", token);
+		this.apiToken = token;
+		_API_TOKEN_ = token;
+	},
+
+	tokenExpired: function(usedToken, oReq) {
+		var self = this;
+		// Le Token Est Identique, On le regénère
+		if (usedToken === self.apiToken) {
+			self.refreshToken(
+				function() {
+					oReq.backup.data.token = self.apiToken;
+					self.addFirstRequest(oReq.backup);
+				},
+				function() {
+					error(result, err);
+				}
+			);
+		}
+		else{
+			console.error('Token Expired !');
+		}
 	},
 
 	/**
@@ -64,15 +114,6 @@ var ApiMgr = {
 	call: function(method, url, data, success, error) {
 		var self = this;
 
-		// Ajout Du Token
-		if (method === 'get') {
-			url += url.indexOf('?') > -1 ? '&' : '?';
-			url += 'token='+self.apiToken;
-		}
-		else{
-			data['token'] = self.apiToken;
-		}
-
 
 		var usedToken = data.token;
 		var request = {
@@ -86,9 +127,7 @@ var ApiMgr = {
 
 			success: function(result) {
 				if (typeof result.token != 'undefined') {
-					console.log("Updating Token");
-					self.apiToken = result.token;
-					_API_TOKEN_ = result.token;
+					self.updateToken(result.token);
 				}
 
 				if (success) {
@@ -99,36 +138,18 @@ var ApiMgr = {
 			error: function(result) {
 				console.error("Request Error", result);
 				if (typeof result.token != 'undefined') {
-					console.log("Updating Token");
-					self.apiToken = result.token;
-					_API_TOKEN_ = result.token;
+					self.updateToken(result.token)
 				}
 
 				var err = result;
 				if (typeof result.responseJSON !== 'undefined') {
 					result = result.responseJSON;
 
-					var bIsExpired = result.code === 4;
+					var bIsExpired = [2,4].indexOf(result.code) >= 0;
 
 					// Si le Token Est Expiré
 					if (bIsExpired) {
-						// Le Token Est Identique, On le regénère
-						if (usedToken === self.apiToken) {
-							var oReq = this;
-
-							self.refreshToken(
-								function() {
-									oReq.backup.data.token = self.apiToken;
-									self.addRequest(oReq.backup);
-								},
-								function() {
-									error(result, err);
-								}
-							);
-						}
-						else{
-							console.error('Token Expired !');
-						}
+						self.tokenExpired(usedToken, this);
 					}
 				}
 

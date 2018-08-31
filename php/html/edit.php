@@ -30,7 +30,7 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 			$aErrors['Nom'] = 'Ce champs est obligatoire';
 		}
 		elseif($sLang){
-			if (strlen($_POST['title']) > 90) {
+			if (mb_strlen($_POST['title']) > 90) {
 				$aErrors['title'] = 'Le titre ne peut dépasser 90 caractères';
 			}
 			else {

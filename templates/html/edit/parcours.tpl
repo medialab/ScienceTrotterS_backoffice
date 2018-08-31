@@ -79,7 +79,7 @@
 					Durée *
 					<i class="flag-ico"></i>
 				</label>
-				<p>Durée du parcours.</p>
+				<p>Durée du parcours. Limité à 5 caractères. Exemple : 2h30"</p>
 				
 				<input name="time" id="time" placeholder="Ex: Entre 3h et 5h" type="text" value="{$oParc->time|default: ''}" default="{$oParc->time|default: ''}">
 			</div>
@@ -162,7 +162,7 @@
 			</div>
 
 			<!-- Interêts -->
-			<div id="box-interets" class="box box-interets">
+			<div id="box-interets" class="box box-interets box-large">
 				<label>Points d'interêts</label>
 				{$count = count(($aInts|default: []))}
 
@@ -200,7 +200,7 @@
 					{foreach $aInts|default: [] as $oInt}
 						{$oInt->setLang($sIso)}
 						<li {if $oInt->state}class="active"{/if}>
-							<a href="/edit/interest/{$oInt->id}.html" target="_blank">{$oInt->title}</a>
+							<a href="/edit/interest/{$oInt->id}.html" target="_blank" title="{$oInt->title}">{$oInt->title}</a>
 						</li>
 					{/foreach}
 				</ul>
