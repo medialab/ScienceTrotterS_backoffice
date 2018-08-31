@@ -81,7 +81,7 @@
 				</label>
 				<p>Durée du parcours. Limité à 5 caractères. Exemple : 2h30"</p>
 				
-				<input name="time" id="time" placeholder="Ex: Entre 3h et 5h" type="text" value="{$oParc->time|default: ''}" default="{$oParc->time|default: ''}">
+				<input name="time" id="time" placeholder="Ex: Entre 3h et 5h" type="text" value="{$oParc->time|default: ''}" default="{$oParc->time|default: ''}" maxlength="5">
 			</div>
 
 			<!-- AUDIO -->

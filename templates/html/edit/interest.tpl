@@ -248,7 +248,7 @@
 				<p>5 maximum</p>
 
 				{assign var="biblio" value=($oInt->bibliography)}
-				{assign var="biblio" value=($biblio->$sIso)}
+				{assign var="biblio" value=($biblio->$sIso)|default: []}
 
 				{for $i=0 to 4}
 					<input name="bibliography[]" id="bibliography1"  type="text" value="{$biblio[$i]|default: ''}" default="{$biblio[$i]|default: ''}" maxlength="200">

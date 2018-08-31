@@ -199,6 +199,7 @@
 	position: relative;
 	max-width: calc(100% - 134px);
 	width: 100%;
+	word-break: break-all;
 	vertical-align: middle;
 	margin: 0;
 }

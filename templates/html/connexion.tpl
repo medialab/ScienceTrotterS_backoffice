@@ -1,4 +1,4 @@
-*<link rel="stylesheet" href="formulaire.css">
+<link rel="stylesheet" href="formulaire.css">
 
 <div id="global">
 	<div class="logo">
