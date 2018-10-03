@@ -54,7 +54,7 @@ class ApiMgr {
 		global $smarty;
 
 		Self::$url = API_URL.'/';
-		$smarty->assign("_API_URL_", API_URL);
+		$smarty->assign("_API_URL_", API_URL_FRONT.'/');
 	}
 
 	public static function refreshToken() {
@@ -81,7 +81,7 @@ class ApiMgr {
 	private static function getResponse() {
 		$r = Self::$curl->exec();
 		$oResult =  json_decode($r);
-		
+
 		// Traçage De La Requête
 		if (Self::$debugMode) {
 			var_dump("======= DEBUG REQUEST =======");
@@ -123,7 +123,6 @@ class ApiMgr {
 	
 		// Création de la requete Curl
 		Self::$curl->setData(Self::$tmpData)->setMethod($method);
-		
 		$oResult =  Self::getResponse();
 		
 		// Si Le token est expiré ou invalide
