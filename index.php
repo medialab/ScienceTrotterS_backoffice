@@ -17,7 +17,7 @@ exit;
 	define( 'JS_PATH', TEMPLATE_PATH.'js/lib/');
 	define( 'CSS_PATH', TEMPLATE_PATH.'css/lib/');
 	
-	define( 'UPLOAD_PATH',      	realpath('.').'/media/upload/' );
+	define( 'UPLOAD_PATH', getenv('UPLOAD_PATH') );
 
 // Récupération de la Configuration
 	require_once('./config/defines.php');
