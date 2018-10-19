@@ -20,7 +20,7 @@ class ApiMgr {
 	
 	private static $tmpData = [];		// Temporary Request
 
-	public static $debugMode = false;	// Activation De Traçage de Requetes
+	public static $debugMode = API_DEBUG_MODE;	// Activation De Traçage de Requetes
 
 	private static $sCurLang = false;	// Langue Actuelle
 
