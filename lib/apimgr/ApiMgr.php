@@ -104,6 +104,42 @@ class ApiMgr {
 	}
 
 	/**
+	 * Écrit Dans les Logs du Web Server actif (Apache/ngix)
+	 * @param  String $sMethod Methode Utilisée par la requête
+	 */
+	private static function logError($sMethod) {
+		$sDate = date('Y-m-d H:i:d');
+		unset(Self::$tmpData['password']);
+
+		$aInfos = Self::$curl->getInfos();
+		$aErrors = Self::$curl->getError();
+		$sParams = var_export(Self::$tmpData, true);
+
+
+		$sMsg = "
+			============== ADMIN: {$sDate} ==============
+				Type: Fail To Execute A Request From Admin To Api
+
+				++++ Admin Error:
+					-- method: {$_SERVER['REQUEST_METHOD']}
+					-- Url: {$_SERVER['REQUEST_URI']}
+
+				++++ Curl Error:
+					-- Code: {$aErrors['code']}
+					-- Message: {$aErrors['err']}
+
+				++++ Api-Request:
+					-- Method: {$sMethod}
+					-- Url: {$aInfos['url']}
+					-- Http-Code: {$aInfos['http_code']}
+					-- Params: {$sParams}
+		";
+
+		$sMsg = preg_replace("/\t{3}/", "", $sMsg);
+		error_log($sMsg);
+	}
+
+	/**
 	 * Execute Une REquete
 	 * @param  string  $method       (get, postn put...)
 	 * @param  boolean $applyHeaders Ajoute ou non le header Authorization 
@@ -165,13 +201,16 @@ class ApiMgr {
 
 		// Si Le Json Est Erroné
 		if (is_null($oResult)) {
+			Self::logError($method);
 			Self::$lastMessage = 'Malformed Response JSON';
+			
 			return (object) ['success' => false, 'message' => 'Malformed Response JSON'];
 		}
 		else{
 			if (!empty($oResult->token)) {
 				$_SESSION['user']['token'] = $oResult->token;
 			}
+
 		}
 
 		Self::$lastMessage = @$oResult->message;
@@ -418,10 +457,10 @@ class ApiMgr {
 
 		
 		$res = Self::exec('post');
-
+		/*
 		if (empty($res->success) || !$res->success) {
 			return false;
-		}
+		}*/
 
 		// Self::$debugMode = false;
 		return $res;

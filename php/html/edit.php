@@ -118,6 +118,35 @@ function fValidateModel(Model\Model $oModel, &$aErrors) {
 	return true;
 }
 
+function logFormError($bInsert, $sModel, $sTitle, $aErrors) {
+	$sDate = date('Y-m-d H:i:d');
+
+	$sType = $bInsert ? 'Fail To Create New ' : 'Fail To Update ';
+	$sType .= $sModel.' "'.$sTitle.'"';
+
+	$sParams = var_export($_POST, true);
+	$sFiles = var_export($_FILES, true);
+	$sErrors = var_export($aErrors, true);
+
+	$sMsg = "
+			============== ADMIN: {$sDate} ==============
+				Type: {$sType}
+
+				++++ Admin Error:
+					-- method: {$_SERVER['REQUEST_METHOD']}
+					-- Url: {$_SERVER['REQUEST_URI']}
+
+				++++ Form Request:
+					-- Method: post
+					-- Errors: {$sErrors}
+					-- Params: {$sParams}
+					-- Files: {$sFiles}
+	";
+
+	$sMsg = preg_replace("/\t{3}/", "", $sMsg);
+	error_log($sMsg);
+}
+
 //ApiMgr::$debugMode = true;
 
 // Si L'Url n'es Pas Bonne On Revient Sur L'index
