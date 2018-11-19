@@ -8,6 +8,7 @@ if ($id && !fIdValidator($id)) {
 	];
 
 	header('location: /');
+	exit;
 }
 
 // Définition Du Titre Du Formulaire
@@ -35,7 +36,12 @@ if (empty($id) && !empty($_GET['force'])) {
 
 // Si Le Parcours Est Introuvable
 if ($id && !$oParc->isLoaded()) {
+	$_SESSION['session_msg']['error'] = [
+		'Impossible de trouver le parcours demandée'
+	];
+
 	header('location: /');
+	exit;
 }
 elseif($id) {
 	$oParc->setLang('default');
@@ -164,6 +170,9 @@ if (fMethodIs('post') && fValidateModel($oParc, $aErrors)) {
 					exit;
 				}
 			}
+		}
+		else {
+			logFormError(empty($id), 'Parcours', $oParc->title, $aErrors);
 		}
 }
 // Si Un Parent Est Pré-Séléctionné

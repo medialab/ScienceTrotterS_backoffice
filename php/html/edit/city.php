@@ -9,7 +9,9 @@ if ($id && !fIdValidator($id)) {
 		'Impossible de trouver la ville demandée'
 	];
 
+	fLogError('Bad Id For City: '.$id);
 	header('location: /');
+	exit;
 }
 
 // Définition Du Titre Du Formulaire
@@ -33,7 +35,10 @@ if ($id && !$oCity->isLoaded()) {
 		'Impossible de trouver la ville demandée'
 	];
 
+
+	fLogError('Fail To Find City: '.$id);
 	header('location: /');
+	exit;
 }
 elseif($id) {
 	$oCity->setLang('default');
@@ -92,6 +97,9 @@ if (fMethodIs('post') && fValidateModel($oCity, $aErrors)) {
 				exit;
 			}
 		}
+	}
+	else {
+		logFormError(empty($id), 'City', $oCity->title, $aErrors);
 	}
 }
 

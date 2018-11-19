@@ -309,7 +309,9 @@ $(document).ready(function() {
 	});
 
 	// MISE EN MEMOIRE D'UNE LIGNE VIDE
-	emptyRow = scrollList.first().find('li').first().clone(true, true);
+	var tmp = scrollList.first().find('li#empty-row').first();
+	emptyRow = tmp.clone(true, true);
+	tmp.remove();
 	emptyRow.attr('id', '');
 	emptyRow.attr('title', '');
 	emptyRow.attr('parent', '');

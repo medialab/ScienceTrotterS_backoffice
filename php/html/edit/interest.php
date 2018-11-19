@@ -4,6 +4,7 @@
 $id = !empty($_GET['id']) ? $_GET['id'] : false;
 if ($id && !fIdValidator($id)) {
 	header('location: /cities.html');
+	exit;
 }
 
 // Titre du formulaire 
@@ -63,7 +64,12 @@ if (empty($id) && !empty($_GET['force'])) {
 
 // Si Le Parcours Est Introuvable
 if ($id && !$oInt->isLoaded()) {
+	$_SESSION['session_msg']['error'] = [
+		'Impossible de trouver le point d\'intérêt demandée'
+	];
+
 	header('location: /');
+	exit;
 }
 elseif($id) {
 	$oInt->setLang('default');
@@ -298,6 +304,9 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 					exit;
 				}
 			}
+		}
+		else {
+			logFormError(empty($id), 'Interest', $oInt->title, $aErrors);
 		}
 }
 // Si Un Parent Est Pré-Séléctionné

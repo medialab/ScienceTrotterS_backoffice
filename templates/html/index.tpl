@@ -12,6 +12,41 @@
 		<!-- DATA -->
 		<div id="cities" class="columnData" limit="{$aCities|count}" child="parcours" target="la ville">
 			<ul class="itemList">
+				<li id="empty-row" class="item" title="">
+					<!-- ACTIONS -->
+					<div class="itemAction">
+						<a class="delete-btn" target="" href="">
+							<i class="icon-pre icon-list-remove"></i>
+						</a>
+						<a class="edit-btn" href="">
+							<i class="icon-pre icon-list-edit"></i>
+						</a>
+						<a class="preview-btn">
+							<i class="icon-pre icon-list-check"></i>
+						</a>
+					</div>
+					<!-- / ACTION -->
+
+					<!-- TITLE -->
+					<label class="itemLabel">
+						
+					</label>
+					<!-- /TITLE -->
+
+					<!-- LANG FLAGS -->
+					<div class="flag-cont {$model->force_lang|default: ''}">
+						<i class="icon-pre icon-flag-fr"></i>
+						<i class="icon-pre icon-flag-en"></i>
+					</div>
+					<!-- /LANG FLAGS -->
+
+					<!-- LOAD SPINNER -->
+					<div class="spinner spinner-xs">
+						<div class="double-bounce1"></div>
+						<div class="double-bounce2"></div>
+					</div>
+					<!-- /LOAD SPINNER -->
+				</li>
 
 				{foreach $aCities as $model}
 					{$model->setLang('default')}

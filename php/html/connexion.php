@@ -1,5 +1,4 @@
 <?php 
-
 $aErrors = [];
 if (fMethodIs('post')) {
 	//ApiMgr::$debugMode = true;

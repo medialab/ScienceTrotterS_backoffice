@@ -538,3 +538,30 @@ function addCss($sPath) {
 	}
 	return true;
 }
+
+
+
+/**
+ * Écrit Dans les Logs du Web Server actif (Apache/ngix)
+ * @param  String $sMsg Message D'erreur
+ */
+function fLogError($sMsg) {
+	$sDate = date('Y-m-d H:i:d');
+
+	$sGet = var_export($_GET, true);
+	$sPost = var_export($_POST, true);
+
+	$sMsg = "
+		============== ADMIN: {$sDate} ==============
+			Type: {$sMsg}
+
+			++++ Admin Error:
+				-- method: {$_SERVER['REQUEST_METHOD']}
+				-- Url: {$_SERVER['REQUEST_URI']}
+				-- GET: {$sGet}
+				-- POST: {$sPost}
+	";
+
+	$sMsg = preg_replace("/\t{3}/", "", $sMsg);
+	error_log($sMsg);
+}

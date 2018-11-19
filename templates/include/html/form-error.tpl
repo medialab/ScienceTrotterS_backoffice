@@ -1,44 +1,45 @@
 <div id="notify-container">
-	{if !empty($smarty.session.session_msg)}
-		{assign var="aSession" value=$smarty.session.session_msg}
+	{assign var="aSession" value=$smarty.session.session_msg|default: []}
 		
-		{if !empty($aSession.success)}
-			
-			<div class="msg-cont success-container">
-				<ul>
-					{foreach $aSession.success as $k => $msg}
-						<li>
-							{if !empty($k)}
-								<b>{$k}: </b> 
-							{/if}
-							{$msg}
-						</li>
-					{/foreach}
-				</ul>
-			</div>
-		{/if}
-
-
-		{if !empty($aSession.warning)}
-			<div class="msg-cont warning-container">
-				<ul>
-					{foreach $aSession.warning as $k => $msg}
-						<li>
-							{if is_string($k) && !empty($k)}
-								<b>{$k}: </b> 
-							{/if}
-							{$msg}
-						</li>
-					{/foreach}
-				</ul>
-			</div>
-			
-		{/if}
-
+	{if !empty($aSession.success)}
+		
+		<div class="msg-cont success-container">
+			<ul>
+				{foreach $aSession.success as $k => $msg}
+					<li>
+						{if !empty($k)}
+							<b>{$k}: </b> 
+						{/if}
+						{$msg}
+					</li>
+				{/foreach}
+			</ul>
+		</div>
 	{/if}
 
+
+	{if !empty($aSession.warning)}
+		<div class="msg-cont warning-container">
+			<ul>
+				{foreach $aSession.warning as $k => $msg}
+					<li>
+						{if is_string($k) && !empty($k)}
+							<b>{$k}: </b> 
+						{/if}
+						{$msg}
+					</li>
+				{/foreach}
+			</ul>
+		</div>
+	{/if}
+
+
 	{if !empty($aSession.error)}
-		{$aErrors = array_merge($aErrors, $aSession.error)}
+		{if !empty($aErrors)}
+			{$aErrors = array_merge($aErrors|default: [], $aSession.error)}
+		{else}
+			{$aErrors = $aSession.error}
+		{/if}
 	{/if}
 
 	{if !empty($aErrors)}
