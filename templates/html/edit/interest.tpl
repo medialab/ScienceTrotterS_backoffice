@@ -146,7 +146,7 @@
 				<p>10 caractères maximum</p>
 				<p>ex. "mer-sam, 13h-17h"</p>
 
-				<input name="schedule" id="horaires-{$sIso}" type="text" value="{$oInt->schedule}" default="{$oInt->schedule|default: ''}" maxlength="10">
+				<input name="schedule" id="horaires-{$sIso}" type="text" value="{$oInt->schedule}" default="{$oInt->schedule|default: ''}" maxlength="20">
 			</div>
 
 			<!-- AUDIO -->

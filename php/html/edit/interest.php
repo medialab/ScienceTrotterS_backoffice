@@ -120,8 +120,8 @@ if (fMethodIs('post')  && fValidateModel($oInt, $aErrors)) {
 
 	/* Validation De  schedule */
 		if (!empty($_POST['schedule'])) {
-			if (mb_strlen($_POST['schedule']) > 10) {
-				$aErrors['Horaire'] = 'Le champs horaire ne peut dépasser 10 caractères.';
+			if (mb_strlen($_POST['schedule']) > 20) {
+				$aErrors['Horaire'] = 'Le champs horaire ne peut dépasser 20 caractères.';
 			}
 			$oInt->schedule = $_POST['schedule'];
 		}
