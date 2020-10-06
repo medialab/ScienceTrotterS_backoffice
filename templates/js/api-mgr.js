@@ -1,7 +1,7 @@
 var ApiMgr = {
 	// La Requete En Train D'etre Executer
 	curRequest: null,
-	
+
 	// Langue Séléctionnée
 	sCurLang: false,
 
@@ -15,7 +15,7 @@ var ApiMgr = {
 	queue: [],
 	// Execution En Cours
 	active: false,
-	
+
 	// Order Par Defaut de la Recherche
 	searchOrder: ['score', 'desc'],
 
@@ -27,7 +27,7 @@ var ApiMgr = {
 		success: null,
 		error: null,
 	},
-	
+
 	/**
 	 * Ajoute Une Requete à La Fille D'attente
 	 * @param {Object} req La Requete
@@ -39,7 +39,7 @@ var ApiMgr = {
 			this.execute();
 		}
 	},
-	
+
 	/**
 	 * Ajoute Une Requete à La Fille D'attente
 	 * @param {Object} req La Requete
@@ -62,13 +62,16 @@ var ApiMgr = {
 		this.curRequest = this.queue.shift();
 
 		var url = this.curRequest.url;
-		
 		// Ajout Du Token
 		if (this.curRequest.method === 'get') {
 			url += url.indexOf('?') > -1 ? '&' : '?';
 			url += 'token='+this.apiToken;
 
 			this.curRequest.url = url;
+			// make sure data.token is updated
+			if (this.curRequest.data['token'] !== this.apiToken) {
+				this.curRequest.data['token'] = this.apiToken;
+			}
 		}
 		else{
 			this.curRequest.data['token'] = this.apiToken;
@@ -138,7 +141,7 @@ var ApiMgr = {
 			error: function(result) {
 				console.error("Request Error", result);
 				if (typeof result.token != 'undefined') {
-					self.updateToken(result.token)
+					self.updateToken(result.token);
 				}
 
 				var err = result;
@@ -152,8 +155,12 @@ var ApiMgr = {
 						self.tokenExpired(usedToken, this);
 					}
 				}
+				// catch 401 if xhr status is 0
+				if (result.status === 0) {
+					self.tokenExpired(usedToken, this);
+				}
 
-				if (error && !bIsExpired) {
+				if (error) {
 					error(result, err);
 				}
 			},
@@ -170,7 +177,7 @@ var ApiMgr = {
 
 			nextPage: function(success, error) {
 				this.data.skip += this.data.limit;
-				
+
 				if (success) {
 					this.success = success;
 				}
@@ -200,7 +207,7 @@ var ApiMgr = {
 				request.setLang(data.lang);
 			}
 		}
-		
+
 		this.addRequest(request);
 
 		return request;
@@ -258,8 +265,8 @@ var ApiMgr = {
 			'get',
 			table+'/list',
 			{
-				token: _API_TOKEN_, 
-				limit: limit, 
+				token: _API_TOKEN_,
+				limit: limit,
 				skip: page*limit
 			},
 			success,
@@ -303,7 +310,7 @@ var ApiMgr = {
 	 * @param  {CallBack} success Fonction En Cas De Succes
 	 * @param  {CallBack} error Fonction En Cas D'Erreur
 	 * @param  {Array} columns Colones à récupérer
-	 * 
+	 *
 	 * @param  {Bool} parents Chargement Des Parents
 	 * @return {Object}         La Requete
 	 */
@@ -360,7 +367,7 @@ var ApiMgr = {
 	 *     'success': (Function),
 	 *     'error': (Function),
 	 * } [Request Data]
-	 * 
+	 *
 	 */
 	by: function(options) {
 		if (typeof options !== "object") {
@@ -378,7 +385,7 @@ var ApiMgr = {
 		for (var i in reqParams) {
 			var p = reqParams[i];
 			var t = typeof options[p];
-			
+
 			if (t === "undefined") {
 				missing.push(p);
 			}
@@ -450,10 +457,10 @@ var ApiMgr = {
 
 	delete: function(table, id, success, error) {
 		return this.call(
-			'post', 
-			table+'/delete', 
-			{id: id}, 
-			success, 
+			'post',
+			table+'/delete',
+			{id: id},
+			success,
 			error
 		)
 	}
